@@ -25,5 +25,11 @@ export default class Prop {
     getMaxYPos() {
         return this.yPos + this.img.height;
     }
+    getWidth() {
+        return this.img.width;
+    }
+    getHeight() {
+        return this.img.height;
+    }
 }
 //# sourceMappingURL=Prop.js.map

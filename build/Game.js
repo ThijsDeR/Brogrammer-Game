@@ -1,6 +1,5 @@
 import GameSceneHandler from './GameSceneHandler.js';
 export default class Game {
-    static PLAYER_Y_SPEED = 12;
     sceneHandler;
     canvas;
     constructor(canvas) {

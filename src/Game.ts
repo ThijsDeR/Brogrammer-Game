@@ -1,8 +1,6 @@
 import GameSceneHandler from './GameSceneHandler.js';
 
 export default class Game {
-  public static readonly PLAYER_Y_SPEED: number = 12;
-
 
   private sceneHandler: GameSceneHandler;
 

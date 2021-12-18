@@ -75,4 +75,12 @@ export default class Prop {
   public getMaxYPos(): number {
     return this.yPos + this.img.height;
   }
+
+  public getWidth(): number {
+    return this.img.width;
+  }
+
+  public getHeight(): number { 
+    return this.img.height;
+  }
 }

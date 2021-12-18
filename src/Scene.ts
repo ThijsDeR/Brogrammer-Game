@@ -23,9 +23,8 @@ export default class Scene {
     this.ctx = this.canvas.getContext('2d');
 
     this.props = [
-      new Prop(500, 0, './assets/img/kees.jpg', 100, 400),
-      new Prop(200, 300, './assets/img/kees.jpg', 400, 100),
-      
+      new Prop(500, 200, './assets/img/kees.jpg', 10, 400),
+      new Prop(1000, 300, './assets/img/kees.jpg', 400, 400),
     ];
 
     this.player = new Player(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
@@ -57,10 +56,18 @@ export default class Scene {
     let contact = CollideHandler.NO_CONTACT
     this.props.forEach((prop) => {
       if (CollideHandler.collides(this.player, prop)) {
-        const coords = CollideHandler.getElasticData(this.player, prop);
-        contact = coords.contact
-        this.player.setXPos(coords.x);
-        this.player.setYPos(coords.y);
+        contact = CollideHandler.getContactData(this.player, prop);
+
+        if (contact === CollideHandler.LEFT_CONTACT) {
+          this.player.setXPos(prop.getMinXPos() - this.player.getWidth())
+        } else if (contact === CollideHandler.RIGHT_CONTACT) {
+          this.player.setXPos(prop.getMaxXPos())
+        } else if (contact === CollideHandler.TOP_CONTACT) {
+          console.log('very on top')
+          this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
+        } else if (contact === CollideHandler.BOTTOM_CONTACT) {
+          this.player.setYPos(prop.getMaxYPos())
+        }
       }
     });
     this.player.move(this.canvas, contact);
