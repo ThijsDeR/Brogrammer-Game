@@ -1,25 +1,5 @@
-class Animal {
-    name;
-    legs;
-    sound;
-    constructor(name, legs, sound) {
-        this.name = name;
-        this.legs = legs;
-        this.sound = sound;
-    }
-    getName() {
-        return this.name;
-    }
-    getLegs() {
-        return this.legs;
-    }
-    getSound() {
-        return this.sound;
-    }
-}
-const animals = [
-    new Animal('dog', 4, 'woof'),
-    new Animal('cat', 4, 'meow'),
-];
-animals.forEach((animal) => console.log('A %s has %s legs and goes %s!', animal.getName(), animal.getLegs(), animal.getSound()));
+import Game from './Game.js';
+console.log(document.querySelector('canvas#canvas'));
+const game = new Game(document.querySelector('canvas#canvas'));
+game.start();
 //# sourceMappingURL=app.js.map
