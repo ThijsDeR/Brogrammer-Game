@@ -11,7 +11,7 @@ export default class Player extends Prop {
 
   private keyboardListener: KeyboardListener;
 
-  private airBorne: boolean;
+  private airborne: boolean;
 
   /**
    * Initializing the player
@@ -30,7 +30,7 @@ export default class Player extends Prop {
 
     this.xVel = 0;
     this.yVel = 0;
-    this.airBorne = false
+    this.airborne = false
   }
 
   /**
@@ -38,7 +38,7 @@ export default class Player extends Prop {
    */
   public processInput(): void {
     this.xVel = 0;
-    if(!this.airBorne){
+    if(!this.airborne){
       if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) this.yVel = -(GameInfo.PLAYER_Y_SPEED);
     }
 
@@ -53,24 +53,24 @@ export default class Player extends Prop {
    */
   public move(canvas: HTMLCanvasElement, contacts: number[]): void {
     if (!(this.xPos + this.xVel < 0 || this.xPos + this.xVel + this.img.width > canvas.width)) {
-      if (this.airBorne) this.xPos += this.xVel / GameInfo.PLAYER_AIRBORNE_X_SPEED_PENTALTY
+      if (this.airborne) this.xPos += this.xVel / GameInfo.PLAYER_AIRBORNE_X_SPEED_PENTALTY
        else this.xPos += this.xVel;
     } else {
       this.xVel = 0;
     } 
      const flying = () => {
-      this.airBorne = true;
+      this.airborne = true;
       this.yPos += this.yVel;
       this.yVel += GameInfo.GRAVITY_CONSTANT;
     }
     
     if (contacts.includes(CollideHandler.BOTTOM_CONTACT)  || this.yPos + this.yVel < 0) {
-      this.airBorne = true;
+      this.airborne = true;
       this.yVel = Math.abs(this.yVel / 4);
     } else {
       flying()
     } if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
-      this.airBorne = false;
+      this.airborne = false;
       this.yVel = 0;
     } else {
       flying()
