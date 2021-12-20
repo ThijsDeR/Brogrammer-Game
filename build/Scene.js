@@ -12,8 +12,14 @@ export default class Scene {
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext('2d');
         this.props = [
-            new Prop(500, 200, './assets/img/kees.jpg', 10, 400),
-            new Prop(1000, 300, './assets/img/kees.jpg', 400, 400),
+            new Prop(0, 300, './assets/img/kees.jpg', 535, 65),
+            new Prop(0, 705, './assets/img/kees.jpg', 535, 65),
+            new Prop(1385, 300, './assets/img/kees.jpg', 535, 65),
+            new Prop(1385, 705, './assets/img/kees.jpg', 535, 65),
+            new Prop(40, 90, './assets/img/Portal.png', 200, 200),
+            new Prop(40, 500, './assets/img/Portal.png', 200, 200),
+            new Prop(1685, 90, './assets/img/Portal.png', 200, 200),
+            new Prop(1685, 500, './assets/img/Portal.png', 200, 200),
         ];
         this.player = new Player(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
     }
