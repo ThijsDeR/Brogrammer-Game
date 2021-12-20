@@ -24,16 +24,16 @@ export default class Scene {
 
     this.props = [
       // Portal platforms
-      new Prop((canvas.width / 5) * 0, (canvas.height / 4) + 50, './assets/img/kees.jpg', canvas.width / 5, 65),
-      new Prop((canvas.width / 5) * 0, (canvas.height / 4) * 3, './assets/img/kees.jpg', canvas.width / 5, 65),
-      new Prop((canvas.width / 5) * 4, (canvas.height / 4) + 50, './assets/img/kees.jpg', canvas.width / 5, 65),
-      new Prop((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/kees.jpg', canvas.width / 5, 65),
+      new Prop(0, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
+      new Prop(0, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
+      new Prop((canvas.width / 5) * 4, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
+      new Prop((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
 
       // Portals
-      new Prop(canvas.width / 20 * 0, (canvas.height / 4) - 150, './assets/img/Portal.png', 200, 200),
-      new Prop(canvas.width / 20 * 0, ((canvas.height / 4) * 2) + 45, './assets/img/Portal.png', 200, 200),
-      new Prop((canvas.width / 20) * 18, (canvas.height / 4) - 150, './assets/img/Portal.png', 200, 200),
-      new Prop((canvas.width / 20) * 18, ((canvas.height / 4) * 2) + 45, './assets/img/Portal.png', 200, 200),
+      new Prop(0, (canvas.height / 4) - 150, './assets/img/Portal.png', canvas.width / 10, 200),
+      new Prop(0, ((canvas.height / 4) * 2), './assets/img/Portal.png', canvas.width / 10, 200),
+      new Prop((canvas.width / 20) * 18, (canvas.height / 4) - 150, './assets/img/Portal.png', canvas.width / 10, 200),
+      new Prop((canvas.width / 20) * 18, ((canvas.height / 4) * 2), './assets/img/Portal.png', canvas.width / 10, 200),
     ];
 
     this.player = new Player(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
@@ -67,12 +67,8 @@ export default class Scene {
       if (CollideHandler.collides(this.player, prop)) {
         const contact = CollideHandler.getContactData(this.player, prop);
         contacts.push(contact)
-        if (contact === CollideHandler.LEFT_CONTACT) {
-          this.player.setXPos(prop.getMinXPos() - this.player.getWidth())
-        } else if (contact === CollideHandler.RIGHT_CONTACT) {
-          this.player.setXPos(prop.getMaxXPos())
-        } else if (contact === CollideHandler.TOP_CONTACT) {
-          console.log('very on top')
+
+        if (contact === CollideHandler.TOP_CONTACT) {
           this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
         } else if (contact === CollideHandler.BOTTOM_CONTACT) {
           this.player.setYPos(prop.getMaxYPos())
