@@ -76,24 +76,4 @@ export default class Player extends Prop {
       flying()
     }
   }
-
-
-
-  /**
-   * Sets the xPos
-   *
-   * @param xPos xPos
-   */
-  public setXPos(xPos: number): void {
-    this.xPos = xPos;
-  }
-
-  /**
-   * Sets the yPos
-   *
-   * @param yPos yPos
-   */
-  public setYPos(yPos: number): void {
-    this.yPos = yPos;
-  }
 }

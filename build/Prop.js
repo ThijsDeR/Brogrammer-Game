@@ -3,8 +3,6 @@ export default class Prop {
     xPos;
     yPos;
     img;
-    imgWidth;
-    imgHeight;
     constructor(xPos, yPos, imgSrc, width = undefined, height = undefined) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -30,6 +28,12 @@ export default class Prop {
     }
     getHeight() {
         return this.img.height;
+    }
+    setXPos(xPos) {
+        this.xPos = xPos;
+    }
+    setYPos(yPos) {
+        this.yPos = yPos;
     }
 }
 //# sourceMappingURL=Prop.js.map

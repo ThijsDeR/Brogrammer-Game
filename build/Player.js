@@ -55,11 +55,5 @@ export default class Player extends Prop {
             flying();
         }
     }
-    setXPos(xPos) {
-        this.xPos = xPos;
-    }
-    setYPos(yPos) {
-        this.yPos = yPos;
-    }
 }
 //# sourceMappingURL=Player.js.map

@@ -7,10 +7,6 @@ export default class Prop {
 
   protected img: HTMLImageElement;
 
-  protected imgWidth: number;
-
-  protected imgHeight: number
-
   /**
    * Initializing the prop
    *
@@ -82,5 +78,23 @@ export default class Prop {
 
   public getHeight(): number { 
     return this.img.height;
+  }
+
+  /**
+   * Sets the xPos
+   *
+   * @param xPos xPos
+   */
+   public setXPos(xPos: number): void {
+    this.xPos = xPos;
+  }
+
+  /**
+   * Sets the yPos
+   *
+   * @param yPos yPos
+   */
+  public setYPos(yPos: number): void {
+    this.yPos = yPos;
   }
 }
