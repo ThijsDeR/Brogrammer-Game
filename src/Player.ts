@@ -51,25 +51,29 @@ export default class Player extends Prop {
    *
    * @param canvas the game canvas
    */
-  public move(canvas: HTMLCanvasElement, contact: number): void {
+  public move(canvas: HTMLCanvasElement, contacts: number[]): void {
     if (!(this.xPos + this.xVel < 0 || this.xPos + this.xVel + this.img.width > canvas.width)) {
       if (this.airBorne) this.xPos += this.xVel / GameInfo.PLAYER_AIRBORNE_X_SPEED_PENTALTY
        else this.xPos += this.xVel;
     } else {
       this.xVel = 0;
     } 
-
-    
-    if (contact === CollideHandler.BOTTOM_CONTACT || this.yPos + this.yVel < 0) {
-      this.airBorne = true;
-      this.yVel = Math.abs(this.yVel / 4);
-    } else if (contact === CollideHandler.TOP_CONTACT || this.yPos + this.yVel + this.img.height > canvas.height) {
-      this.airBorne = false;
-      this.yVel = 0;
-    } else {
+     const flying = () => {
       this.airBorne = true;
       this.yPos += this.yVel;
       this.yVel += GameInfo.GRAVITY_CONSTANT;
+    }
+    
+    if (contacts.includes(CollideHandler.BOTTOM_CONTACT)  || this.yPos + this.yVel < 0) {
+      this.airBorne = true;
+      this.yVel = Math.abs(this.yVel / 4);
+    } else {
+      flying()
+    } if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
+      this.airBorne = false;
+      this.yVel = 0;
+    } else {
+      flying()
     }
   }
 

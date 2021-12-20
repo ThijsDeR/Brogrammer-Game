@@ -34,10 +34,11 @@ export default class Scene {
         this.player.processInput();
     }
     update() {
-        let contact = CollideHandler.NO_CONTACT;
+        let contacts = [];
         this.props.forEach((prop) => {
             if (CollideHandler.collides(this.player, prop)) {
-                contact = CollideHandler.getContactData(this.player, prop);
+                const contact = CollideHandler.getContactData(this.player, prop);
+                contacts.push(contact);
                 if (contact === CollideHandler.LEFT_CONTACT) {
                     this.player.setXPos(prop.getMinXPos() - this.player.getWidth());
                 }
@@ -53,7 +54,7 @@ export default class Scene {
                 }
             }
         });
-        this.player.move(this.canvas, contact);
+        this.player.move(this.canvas, contacts);
     }
 }
 //# sourceMappingURL=Scene.js.map

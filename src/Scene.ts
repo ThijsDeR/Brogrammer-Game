@@ -62,11 +62,11 @@ export default class Scene {
    *
    */
   public update(): void {
-    let contact = CollideHandler.NO_CONTACT
+    let contacts: number[] = []
     this.props.forEach((prop) => {
       if (CollideHandler.collides(this.player, prop)) {
-        contact = CollideHandler.getContactData(this.player, prop);
-
+        const contact = CollideHandler.getContactData(this.player, prop);
+        contacts.push(contact)
         if (contact === CollideHandler.LEFT_CONTACT) {
           this.player.setXPos(prop.getMinXPos() - this.player.getWidth())
         } else if (contact === CollideHandler.RIGHT_CONTACT) {
@@ -79,6 +79,6 @@ export default class Scene {
         }
       }
     });
-    this.player.move(this.canvas, contact);
+    this.player.move(this.canvas, contacts);
   }
 }
