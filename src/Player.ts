@@ -9,7 +9,7 @@ export default class Player extends Prop {
 
   protected yVel: number;
 
-  private keyboardListener: KeyboardListener;
+  protected keyboardListener: KeyboardListener;
 
   protected airborne: boolean;
 

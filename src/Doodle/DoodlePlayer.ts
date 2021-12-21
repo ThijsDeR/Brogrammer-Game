@@ -1,7 +1,9 @@
 import CollideHandler from '../CollideHandler.js';
 import GameInfo from '../GameInfo.js';
+import KeyboardListener from '../KeyboardListener.js';
 import Player from '../Player.js';
 import Prop from '../Prop.js';
+import DoodleLevelInfo from './DoodleLevelInfo.js';
 
 export default class DoodlePlayer extends Player {
 
@@ -15,6 +17,17 @@ export default class DoodlePlayer extends Player {
   ) {
     super(xPos, yPos, width, height)
   }
+
+  /**
+   * processing the input of the player
+   */
+   public processInput(): void {
+    this.xVel = 0;
+
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel += -(DoodleLevelInfo.PLAYER_X_SPEED);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel += DoodleLevelInfo.PLAYER_X_SPEED;
+  }
+
    /**
    * move the player
    *
@@ -43,7 +56,7 @@ export default class DoodlePlayer extends Player {
         const flying = () => {
           this.airborne = true;
           this.yPos += this.yVel * 2 * (elapsed / 10);
-          this.yVel += GameInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10);
+          this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10);
         }
     
         // if (contacts.includes(CollideHandler.BOTTOM_CONTACT)   this.yPos + this.yVel < 0) {
@@ -51,7 +64,7 @@ export default class DoodlePlayer extends Player {
         //   this.yVel = Math.abs(this.yVel / 2);
         // } else {
           flying()
-         if (contacts.includes(CollideHandler.TOP_CONTACT) && this.yPos + this.yVel + this.img.height > canvas.height) {
+         if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
           this.airborne = false;
           this.yVel = -3;
         } else {

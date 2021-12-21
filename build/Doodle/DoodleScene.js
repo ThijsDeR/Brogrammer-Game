@@ -2,7 +2,7 @@ import CollideHandler from '../CollideHandler.js';
 import GameLevel from '../GameLevel.js';
 import Prop from '../Prop.js';
 import DoodlePlayer from './DoodlePlayer.js';
-export default class HubScene extends GameLevel {
+export default class DoodleScene extends GameLevel {
     player;
     props;
     constructor(canvas, userData) {
@@ -17,7 +17,8 @@ export default class HubScene extends GameLevel {
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
     }
     draw() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = 'LightSkyBlue';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.player.draw(this.ctx);
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
@@ -36,9 +37,6 @@ export default class HubScene extends GameLevel {
                 contacts.push(contact);
                 if (contact === CollideHandler.TOP_CONTACT) {
                     this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
-                }
-                else if (contact === CollideHandler.BOTTOM_CONTACT) {
-                    this.player.setYPos(prop.getMaxYPos());
                 }
             }
         });

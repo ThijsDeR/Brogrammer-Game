@@ -1,3 +1,4 @@
+import DoodleScene from './Doodle/DoodleScene.js';
 import Game from './Game.js';
 import GameEngine from './GameEngine.js';
 import HubScene from './Hub/HubScene.js';
@@ -18,7 +19,7 @@ export default class GameSceneHandler {
   public constructor(game: Game) {
     this.game = game;
     this.engine = new GameEngine(this);
-    this.scene = new HubScene(this.game.getCanvas(), this.game.getUserData());
+    this.scene = new DoodleScene(this.game.getCanvas(), this.game.getUserData());
   }
 
   /**
