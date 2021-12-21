@@ -8,7 +8,7 @@ export default class GameSceneHandler {
     constructor(game) {
         this.game = game;
         this.engine = new GameEngine(this);
-        this.scenes = [new Scene(this.game.getCanvas())];
+        this.scenes = [new Scene(this.game.getCanvas(), this.game.getUserData())];
         this.currentScene = 0;
     }
     start() {

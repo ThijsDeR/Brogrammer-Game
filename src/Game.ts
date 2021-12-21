@@ -1,10 +1,13 @@
 import GameSceneHandler from './GameSceneHandler.js';
+import UserData from './UserData.js';
 
 export default class Game {
 
   private sceneHandler: GameSceneHandler;
 
   private canvas: HTMLCanvasElement;
+
+  private userData: UserData;
 
   /**
    * l
@@ -13,11 +16,21 @@ export default class Game {
    */
   public constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
+    this.userData = new UserData();
     this.sceneHandler = new GameSceneHandler(this);
   }
 
   /**
-   * l
+   * Getter for the UserData
+   *
+   * @returns UserData
+   */
+  public getUserData(): UserData {
+    return this.userData;
+  }
+
+  /**
+   * Method that starts the game.
    */
   public start(): void {
     this.sceneHandler.start();
@@ -26,7 +39,7 @@ export default class Game {
   /**
    * l
    *
-   * @returns l
+   * @returns The canvas
    */
   public getCanvas(): HTMLCanvasElement {
     return this.canvas;

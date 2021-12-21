@@ -12,36 +12,36 @@ export default class GameSceneHandler {
   private currentScene: number;
 
   /**
-   * l
+   * Initialise the game
    *
-   * @param game l
+   * @param game Game
    */
   public constructor(game: Game) {
     this.game = game;
     this.engine = new GameEngine(this);
-    this.scenes = [new Scene(this.game.getCanvas())];
+    this.scenes = [new Scene(this.game.getCanvas(), this.game.getUserData())];
     this.currentScene = 0;
   }
 
   /**
-   * l
+   * Method that starts the game engine
    */
   public start(): void {
     this.engine.start();
   }
 
   /**
-   * l
+   * Method that processes the user input
    */
   public processInput(): void {
     this.scenes[this.currentScene].processInput();
   }
 
   /**
-   * l
+   * Method that updates the game
    *
-   * @param elapsed l
-   * @returns l
+   * @param elapsed Time passed in ms
+   * @returns 'True' or 'False'
    */
   public update(elapsed: number): boolean {
     this.scenes[this.currentScene].update();
@@ -49,7 +49,7 @@ export default class GameSceneHandler {
   }
 
   /**
-   * l
+   * Method that renders the game on canvas
    */
   public render(): void {
     this.scenes[this.currentScene].draw();

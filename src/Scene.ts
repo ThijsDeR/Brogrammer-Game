@@ -1,6 +1,7 @@
 import CollideHandler from './CollideHandler.js';
 import Player from './Player.js';
 import Prop from './Prop.js';
+import UserData from './UserData.js';
 
 export default class Scene {
   private canvas: HTMLCanvasElement;
@@ -10,17 +11,20 @@ export default class Scene {
   private player: Player;
 
   private props: Prop[];
-
+  
+  private userData: UserData
   /**
    * l
    *
    * @param canvas l
    */
-  public constructor(canvas: HTMLCanvasElement) {
+  public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     this.canvas = canvas;
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
     this.ctx = this.canvas.getContext('2d');
+
+    this.userData = userData
 
     this.props = [
       // Portal platforms
@@ -48,6 +52,17 @@ export default class Scene {
     this.props.forEach((prop) => {
       prop.draw(this.ctx);
     });
+
+    // Draw text on canvas.
+    console.log(this.userData.getCoins())
+    this.writeTextToCanvas(
+      `Coins: ${this.userData.getCoins()}`,
+      this.canvas.width / 2,
+      40,
+      20,
+      'center',
+      'black'
+    )
   }
 
   /**
@@ -76,5 +91,19 @@ export default class Scene {
       }
     });
     this.player.move(this.canvas, contacts);
+  }
+
+  public writeTextToCanvas(
+    text: string, 
+    xPos: number, 
+    yPos: number, 
+    fontSize: number = 20, 
+    textAlign: CanvasTextAlign = 'center', 
+    color: string = 'black'
+  ) {
+    this.ctx.font = `${fontSize}px Arial`
+    this.ctx.fillStyle = color;
+    this.ctx.textAlign = textAlign;
+    this.ctx.fillText(text, xPos, yPos)
   }
 }

@@ -6,11 +6,13 @@ export default class Scene {
     ctx;
     player;
     props;
-    constructor(canvas) {
+    userData;
+    constructor(canvas, userData) {
         this.canvas = canvas;
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
         this.ctx = this.canvas.getContext('2d');
+        this.userData = userData;
         this.props = [
             new Prop(0, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
             new Prop(0, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
@@ -29,6 +31,8 @@ export default class Scene {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
+        console.log(this.userData.getCoins());
+        this.writeTextToCanvas(`Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'center', 'black');
     }
     processInput() {
         this.player.processInput();
@@ -48,6 +52,12 @@ export default class Scene {
             }
         });
         this.player.move(this.canvas, contacts);
+    }
+    writeTextToCanvas(text, xPos, yPos, fontSize = 20, textAlign = 'center', color = 'black') {
+        this.ctx.font = `${fontSize}px Arial`;
+        this.ctx.fillStyle = color;
+        this.ctx.textAlign = textAlign;
+        this.ctx.fillText(text, xPos, yPos);
     }
 }
 //# sourceMappingURL=Scene.js.map
