@@ -1,28 +1,26 @@
 import GameEngine from './GameEngine.js';
-import Scene from './Scene.js';
+import HubScene from './Hub/HubScene.js';
 export default class GameSceneHandler {
     game;
     engine;
-    scenes;
-    currentScene;
+    scene;
     constructor(game) {
         this.game = game;
         this.engine = new GameEngine(this);
-        this.scenes = [new Scene(this.game.getCanvas(), this.game.getUserData())];
-        this.currentScene = 0;
+        this.scene = new HubScene(this.game.getCanvas(), this.game.getUserData());
     }
     start() {
         this.engine.start();
     }
     processInput() {
-        this.scenes[this.currentScene].processInput();
+        this.scene.processInput();
     }
     update(elapsed) {
-        this.scenes[this.currentScene].update();
+        this.scene = this.scene.update(elapsed);
         return false;
     }
     render() {
-        this.scenes[this.currentScene].draw();
+        this.scene.draw();
     }
 }
 //# sourceMappingURL=GameSceneHandler.js.map

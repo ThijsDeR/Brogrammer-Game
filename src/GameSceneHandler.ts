@@ -1,5 +1,6 @@
 import Game from './Game.js';
 import GameEngine from './GameEngine.js';
+import HubScene from './Hub/HubScene.js';
 import Scene from './Scene.js';
 
 export default class GameSceneHandler {
@@ -7,9 +8,7 @@ export default class GameSceneHandler {
 
   private engine: GameEngine;
 
-  private scenes: Scene[];
-
-  private currentScene: number;
+  private scene: Scene;
 
   /**
    * Initialise the game
@@ -19,8 +18,7 @@ export default class GameSceneHandler {
   public constructor(game: Game) {
     this.game = game;
     this.engine = new GameEngine(this);
-    this.scenes = [new Scene(this.game.getCanvas(), this.game.getUserData())];
-    this.currentScene = 0;
+    this.scene = new HubScene(this.game.getCanvas(), this.game.getUserData());
   }
 
   /**
@@ -34,7 +32,7 @@ export default class GameSceneHandler {
    * Method that processes the user input
    */
   public processInput(): void {
-    this.scenes[this.currentScene].processInput();
+    this.scene.processInput();
   }
 
   /**
@@ -44,7 +42,7 @@ export default class GameSceneHandler {
    * @returns 'True' or 'False'
    */
   public update(elapsed: number): boolean {
-    this.scenes[this.currentScene].update();
+    this.scene = this.scene.update(elapsed);
     return false;
   }
 
@@ -52,6 +50,6 @@ export default class GameSceneHandler {
    * Method that renders the game on canvas
    */
   public render(): void {
-    this.scenes[this.currentScene].draw();
+    this.scene.draw();
   }
 }
