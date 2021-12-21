@@ -6,7 +6,7 @@ import DoodleLevelInfo from './DoodleLevelInfo.js';
 export default class DoodlePlayer extends Player {
     props;
     constructor(xPos, yPos, width = undefined, height = undefined) {
-        super(xPos, yPos, width, height);
+        super(xPos, yPos, './assets/img/Dood.jpg', width, height);
     }
     processInput() {
         this.xVel = 0;

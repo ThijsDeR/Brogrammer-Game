@@ -7,8 +7,8 @@ export default class Player extends Prop {
     yVel;
     keyboardListener;
     airborne;
-    constructor(xPos, yPos, width = undefined, height = undefined) {
-        super(xPos, yPos, './assets/img/Dood.jpg', width, height);
+    constructor(xPos, yPos, imageSrc, width = undefined, height = undefined) {
+        super(xPos, yPos, imageSrc, width, height);
         this.keyboardListener = new KeyboardListener();
         this.xVel = 0;
         this.yVel = 0;

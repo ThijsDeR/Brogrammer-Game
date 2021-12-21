@@ -22,10 +22,11 @@ export default class Player extends Prop {
   public constructor(
     xPos: number, 
     yPos: number,
+    imageSrc: string,
     width: number | undefined = undefined, 
     height: number | undefined = undefined,
   ) {
-    super(xPos, yPos, './assets/img/Dood.jpg', width, height);
+    super(xPos, yPos, imageSrc, width, height);
     this.keyboardListener = new KeyboardListener();
 
     this.xVel = 0;

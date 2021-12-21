@@ -15,7 +15,7 @@ export default class DoodlePlayer extends Player {
     width: number | undefined = undefined, 
     height: number | undefined = undefined
   ) {
-    super(xPos, yPos, width, height)
+    super(xPos, yPos, './assets/img/Dood.jpg', width, height)
   }
 
   /**
