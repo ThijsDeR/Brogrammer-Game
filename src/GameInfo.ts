@@ -6,4 +6,5 @@ export default abstract class GameInfo {
   public static readonly GRAVITY_CONSTANT = 0.098;
 
   public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY = 2
+
 }

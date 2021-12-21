@@ -61,6 +61,8 @@ export default class Player extends Prop {
         else if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
             this.airborne = false;
             this.yVel = 0;
+            if (this.yPos + this.yVel + this.img.height > canvas.height)
+                this.yPos = canvas.height - this.img.height;
         }
         else {
             flying();

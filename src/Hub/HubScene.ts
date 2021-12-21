@@ -1,8 +1,8 @@
 import CollideHandler from '../CollideHandler.js';
-import DoodleScene from '../Doodle/DoodleScene.js';
 import GameLevel from '../GameLevel.js';
 import Prop from '../Prop.js';
 import Scene from '../Scene.js';
+import SceneSelector from '../SceneSelector.js';
 import Teleporter from '../Teleporter.js';
 import UserData from '../UserData.js';
 import HubPlayer from './HubPlayer.js';
@@ -23,10 +23,10 @@ export default class HubScene extends GameLevel {
       new Prop((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
 
       // Portals
-      new Teleporter(0, (canvas.height / 4) - 150, canvas.width / 10, 200, new DoodleScene(this.canvas, this.userData)),
-      new Teleporter(0, ((canvas.height / 4) * 2), canvas.width / 10, 200, new DoodleScene(this.canvas, this.userData)),
-      new Teleporter((canvas.width / 20) * 18, (canvas.height / 4) - 150, canvas.width / 10, 200, new DoodleScene(this.canvas, this.userData)),
-      new Teleporter((canvas.width / 20) * 18, ((canvas.height / 4) * 2), canvas.width / 10, 200, new DoodleScene(this.canvas, this.userData)),
+      new Teleporter(0, (canvas.height / 4) - 150, canvas.width / 10, 200, 'hub'),
+      new Teleporter(0, ((canvas.height / 4) * 2), canvas.width / 10, 200, 'doodle'),
+      new Teleporter((canvas.width / 20) * 18, (canvas.height / 4) - 150, canvas.width / 10, 200, 'doodle'),
+      new Teleporter((canvas.width / 20) * 18, ((canvas.height / 4) * 2), canvas.width / 10, 200, 'doodle'),
     ];
 
     this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100)
@@ -81,7 +81,7 @@ export default class HubScene extends GameLevel {
         }
 
         if (prop instanceof Teleporter) {
-          nextScene = prop.getDestinationScene()
+          nextScene = SceneSelector.getClassFromString(prop.getDestinationScene(), this.canvas, this.userData)
         }
       }
     });
