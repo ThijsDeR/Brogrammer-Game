@@ -36,7 +36,6 @@ export default class DoodleScene extends GameLevel {
     });
 
     // Draw text on canvas.
-    console.log(this.userData.getCoins())
     this.writeTextToCanvas(
       `Coins: ${this.userData.getCoins()}`,
       this.canvas.width / 2,
@@ -61,13 +60,22 @@ export default class DoodleScene extends GameLevel {
    */
   public update = (elapsed: number): Scene => {
     let contacts: number[] = []
-    this.props.forEach((prop) => {
+    this.props.forEach((prop, propIndex) => {
       if (CollideHandler.collides(this.player, prop)) {
         const contact = CollideHandler.getContactData(this.player, prop);
         contacts.push(contact)
 
         if (contact === CollideHandler.TOP_CONTACT) {
           this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
+        }
+
+        if (prop instanceof Cloud) {
+          prop.disappear()
+        }
+      }
+      if (prop instanceof Cloud) {
+        if (prop.hasDisappeared()) {
+          this.props.splice(propIndex, 1)
         }
       }
     });

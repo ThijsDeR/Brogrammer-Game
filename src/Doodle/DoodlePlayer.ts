@@ -59,10 +59,6 @@ export default class DoodlePlayer extends Player {
           this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10);
         }
     
-        // if (contacts.includes(CollideHandler.BOTTOM_CONTACT)   this.yPos + this.yVel < 0) {
-        //   this.airborne = true;
-        //   this.yVel = Math.abs(this.yVel / 2);
-        // } else {
           flying()
          if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0 )|| this.yPos + this.yVel + this.img.height > canvas.height) {
           this.airborne = false;

@@ -22,7 +22,6 @@ export default class DoodleScene extends GameLevel {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        console.log(this.userData.getCoins());
         this.writeTextToCanvas(`Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'center', 'black');
     }
     processInput() {
@@ -30,12 +29,20 @@ export default class DoodleScene extends GameLevel {
     }
     update = (elapsed) => {
         let contacts = [];
-        this.props.forEach((prop) => {
+        this.props.forEach((prop, propIndex) => {
             if (CollideHandler.collides(this.player, prop)) {
                 const contact = CollideHandler.getContactData(this.player, prop);
                 contacts.push(contact);
                 if (contact === CollideHandler.TOP_CONTACT) {
                     this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+                }
+                if (prop instanceof Cloud) {
+                    prop.disappear();
+                }
+            }
+            if (prop instanceof Cloud) {
+                if (prop.hasDisappeared()) {
+                    this.props.splice(propIndex, 1);
                 }
             }
         });
