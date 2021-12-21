@@ -5,5 +5,5 @@ export default abstract class DoodleLevelInfo {
   
     public static readonly GRAVITY_CONSTANT = 0.0098;
   
-    public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY = 0
+    public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY = 2
   }
