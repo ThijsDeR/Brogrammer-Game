@@ -19,7 +19,7 @@ export default class GameSceneHandler {
   public constructor(game: Game) {
     this.game = game;
     this.engine = new GameEngine(this);
-    this.scene = new DoodleScene(this.game.getCanvas(), this.game.getUserData());
+    this.scene = new HubScene(this.game.getCanvas(), this.game.getUserData());
   }
 
   /**
