@@ -1,6 +1,6 @@
 import CollideHandler from '../CollideHandler.js';
 import GameLevel from '../GameLevel.js';
-import Prop from '../Prop.js';
+import Cloud from './Cloud.js';
 import DoodlePlayer from './DoodlePlayer.js';
 export default class DoodleScene extends GameLevel {
     player;
@@ -8,11 +8,10 @@ export default class DoodleScene extends GameLevel {
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
-            new Prop((Math.random() * canvas.width) / 1.2, (canvas.height / 1.5), './assets/img/cloud.png', canvas.width / 5, 65),
-            new Prop((Math.random() * canvas.width) / 1.2, (canvas.height / 3), './assets/img/cloud.png', canvas.width / 5, 65),
-            new Prop((Math.random() * canvas.width) / 1.2, (canvas.height / 6), './assets/img/cloud.png', canvas.width / 5, 65),
-            new Prop(0, 900, './assets/img/cloud.png', canvas.width, 150),
-            new Prop(0, 900, './assets/img/cloud.png', canvas.width, 150),
+            new Cloud((Math.random() * canvas.width) / 1.2, (canvas.height / 1.5), canvas.width / 5, 65),
+            new Cloud((Math.random() * canvas.width) / 1.2, (canvas.height / 3), canvas.width / 5, 65),
+            new Cloud((Math.random() * canvas.width) / 1.2, (canvas.height / 6), canvas.width / 5, 65),
+            new Cloud(0, 900, canvas.width, 150),
         ];
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
     }
