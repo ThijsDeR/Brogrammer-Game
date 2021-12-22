@@ -79,17 +79,21 @@ export default class Player extends Prop {
       this.yPos += this.yVel * 2 * (elapsed / 10);
       this.yVel += GameInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10);
     }
-    
+    let shouldBeFlying = true;
     if (contacts.includes(CollideHandler.BOTTOM_CONTACT) || this.yPos + this.yVel < 0) {
       this.airborne = true;
       this.yVel = Math.abs(this.yVel / 4);
+      shouldBeFlying = false
       if (this.yPos + this.yVel < 0) this.yPos = 0
-    } else if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
+    }
+    
+    if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
       this.airborne = false;
       this.yVel = 0;
+      shouldBeFlying = false
       if (this.yPos + this.yVel + this.img.height > canvas.height) this.yPos = canvas.height - this.img.height
-    } else {
-      flying()
     }
+
+    if(shouldBeFlying) flying()
   }
 }
