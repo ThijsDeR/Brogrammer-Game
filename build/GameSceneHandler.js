@@ -6,7 +6,7 @@ export default class GameSceneHandler {
     scene;
     constructor(game) {
         this.game = game;
-        this.engine = new GameEngine(this);
+        this.engine = new GameEngine(this, GameEngine.PLAY_CATCH_UP);
         this.scene = new MenuScene(this.game.getCanvas(), this.game.getUserData());
     }
     start() {
