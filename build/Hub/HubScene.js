@@ -27,7 +27,6 @@ export default class HubScene extends GameLevel {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        console.log(this.userData.getCoins());
         this.writeTextToCanvas(`Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'center', 'black');
     }
     processInput() {

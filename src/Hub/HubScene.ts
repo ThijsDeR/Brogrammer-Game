@@ -43,7 +43,6 @@ export default class HubScene extends GameLevel {
     });
 
     // Draw text on canvas.
-    console.log(this.userData.getCoins())
     this.writeTextToCanvas(
       `Coins: ${this.userData.getCoins()}`,
       this.canvas.width / 2,
