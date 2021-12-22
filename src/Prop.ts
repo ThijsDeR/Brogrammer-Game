@@ -1,11 +1,13 @@
 import Game from './Game.js';
 
-export default class Prop {
+export default abstract class Prop {
   protected xPos: number;
 
   protected yPos: number;
 
-  protected img: HTMLImageElement;
+  protected width: number;
+
+  protected height: number;
 
   /**
    * Initializing the prop
@@ -17,13 +19,13 @@ export default class Prop {
   public constructor(
     xPos: number, 
     yPos: number, 
-    imgSrc: string, 
-    width: number | undefined = undefined, 
-    height: number | undefined = undefined
+    width: number,
+    height: number,
   ) {
     this.xPos = xPos;
     this.yPos = yPos;
-    this.img = Game.loadNewImage(imgSrc, width, height);
+    this.width = width;
+    this.height = height;
   }
 
   /**
@@ -49,8 +51,17 @@ export default class Prop {
    *
    * @returns xPos
    */
-  public getMaxXPos(): number {
-    return this.xPos + this.img.width;
+   public getMaxXPos(): number {
+    return this.xPos + this.width;
+  }
+
+  /**
+   * Get the max yPos of prop
+   *
+   * @returns yPos
+   */
+  public getMaxYPos(): number {
+    return this.yPos + this.height;
   }
 
   /**
@@ -62,21 +73,12 @@ export default class Prop {
     return this.yPos;
   }
 
-  /**
-   * Get the max yPos of prop
-   *
-   * @returns yPos
-   */
-  public getMaxYPos(): number {
-    return this.yPos + this.img.height;
-  }
-
   public getWidth(): number {
-    return this.img.width;
+    return this.width;
   }
 
   public getHeight(): number { 
-    return this.img.height;
+    return this.height;
   }
 
   /**

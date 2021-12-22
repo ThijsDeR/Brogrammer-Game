@@ -42,18 +42,4 @@ export default abstract class Scene {
    *
    */
   public abstract update(elapsed: number): Scene;
-
-  public writeTextToCanvas(
-    text: string, 
-    xPos: number, 
-    yPos: number, 
-    fontSize: number = 20, 
-    textAlign: CanvasTextAlign = 'center', 
-    color: string = 'black'
-  ) {
-    this.ctx.font = `${fontSize}px Arial`
-    this.ctx.fillStyle = color;
-    this.ctx.textAlign = textAlign;
-    this.ctx.fillText(text, xPos, yPos)
-  }
 }

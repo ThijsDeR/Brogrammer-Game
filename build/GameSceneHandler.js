@@ -1,5 +1,5 @@
 import GameEngine from './GameEngine.js';
-import HubScene from './Hub/HubScene.js';
+import MenuScene from './Main-Menu/MenuScene.js';
 export default class GameSceneHandler {
     game;
     engine;
@@ -7,7 +7,7 @@ export default class GameSceneHandler {
     constructor(game) {
         this.game = game;
         this.engine = new GameEngine(this);
-        this.scene = new HubScene(this.game.getCanvas(), this.game.getUserData());
+        this.scene = new MenuScene(this.game.getCanvas(), this.game.getUserData());
     }
     start() {
         this.engine.start();

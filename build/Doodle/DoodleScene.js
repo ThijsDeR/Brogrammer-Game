@@ -6,6 +6,7 @@ import DoodlePlayer from "./DoodlePlayer.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
+    texts;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [

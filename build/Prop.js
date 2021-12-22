@@ -1,33 +1,31 @@
-import Game from './Game.js';
 export default class Prop {
     xPos;
     yPos;
-    img;
-    constructor(xPos, yPos, imgSrc, width = undefined, height = undefined) {
+    width;
+    height;
+    constructor(xPos, yPos, width, height) {
         this.xPos = xPos;
         this.yPos = yPos;
-        this.img = Game.loadNewImage(imgSrc, width, height);
-    }
-    draw(ctx) {
-        ctx.drawImage(this.img, this.xPos, this.yPos, this.img.width, this.img.height);
+        this.width = width;
+        this.height = height;
     }
     getMinXPos() {
         return this.xPos;
     }
     getMaxXPos() {
-        return this.xPos + this.img.width;
+        return this.xPos + this.width;
+    }
+    getMaxYPos() {
+        return this.yPos + this.height;
     }
     getMinYPos() {
         return this.yPos;
     }
-    getMaxYPos() {
-        return this.yPos + this.img.height;
-    }
     getWidth() {
-        return this.img.width;
+        return this.width;
     }
     getHeight() {
-        return this.img.height;
+        return this.height;
     }
     setXPos(xPos) {
         this.xPos = xPos;
