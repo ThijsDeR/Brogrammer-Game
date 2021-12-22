@@ -1,7 +1,6 @@
-import Prop from './Prop.js';
-import Scene from './Scene.js';
+import ImageProp from './ImageProp.js';
 
-export default class Teleporter extends Prop {
+export default class Teleporter extends ImageProp {
   private destinationScene: string;
 
   public constructor(

@@ -2,6 +2,7 @@ import DoodleScene from './Doodle/DoodleScene.js';
 import Game from './Game.js';
 import GameEngine from './GameEngine.js';
 import HubScene from './Hub/HubScene.js';
+import MenuScene from './Main-Menu/MenuScene.js';
 import Scene from './Scene.js';
 
 export default class GameSceneHandler {
@@ -19,7 +20,7 @@ export default class GameSceneHandler {
   public constructor(game: Game) {
     this.game = game;
     this.engine = new GameEngine(this);
-    this.scene = new HubScene(this.game.getCanvas(), this.game.getUserData());
+    this.scene = new MenuScene(this.game.getCanvas(), this.game.getUserData());
   }
 
   /**

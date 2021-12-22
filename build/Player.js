@@ -1,8 +1,8 @@
 import CollideHandler from './CollideHandler.js';
 import GameInfo from './GameInfo.js';
+import ImageProp from './ImageProp.js';
 import KeyboardListener from './KeyboardListener.js';
-import Prop from './Prop.js';
-export default class Player extends Prop {
+export default class Player extends ImageProp {
     xVel;
     yVel;
     keyboardListener;

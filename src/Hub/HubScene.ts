@@ -1,5 +1,6 @@
 import CollideHandler from '../CollideHandler.js';
 import GameLevel from '../GameLevel.js';
+import ImageProp from '../ImageProp.js';
 import Prop from '../Prop.js';
 import Scene from '../Scene.js';
 import SceneSelector from '../SceneSelector.js';
@@ -17,10 +18,10 @@ export default class HubScene extends GameLevel {
 
     this.props = [
       // Portal platforms
-      new Prop(0, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
-      new Prop(0, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
-      new Prop((canvas.width / 5) * 4, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
-      new Prop((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
+      new ImageProp(0, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
+      new ImageProp(0, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
+      new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
+      new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
 
       // Portals
       new Teleporter(0, (canvas.height / 4) - 150, canvas.width / 10, 200, 'hub'),
