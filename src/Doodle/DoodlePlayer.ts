@@ -40,13 +40,13 @@ export default class DoodlePlayer extends Player {
         else xVel = this.xVel;
     
         if (xVel < 0) {
-          if (!(this.xPos + xVel < 0 && contacts.includes(CollideHandler.RIGHT_CONTACT))) {
+          if (!(this.xPos + xVel < 0 || contacts.includes(CollideHandler.RIGHT_CONTACT))) {
             this.xPos += xVel * (elapsed / 10)
           } else {
             this.xVel = 0
           }
         } else {
-          if (!(this.xPos + xVel + this.img.width > canvas.width && contacts.includes(CollideHandler.LEFT_CONTACT))) {
+          if (!(this.xPos + xVel + this.img.width > canvas.width || contacts.includes(CollideHandler.LEFT_CONTACT))) {
             this.xPos += xVel * (elapsed / 10)
           } else {
             this.xVel = 0
@@ -59,10 +59,6 @@ export default class DoodlePlayer extends Player {
           this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10);
         }
     
-        // if (contacts.includes(CollideHandler.BOTTOM_CONTACT)   this.yPos + this.yVel < 0) {
-        //   this.airborne = true;
-        //   this.yVel = Math.abs(this.yVel / 2);
-        // } else {
           flying()
          if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0 )|| this.yPos + this.yVel + this.img.height > canvas.height) {
           this.airborne = false;

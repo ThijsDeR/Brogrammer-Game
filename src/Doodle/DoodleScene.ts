@@ -3,6 +3,7 @@ import GameLevel from '../GameLevel.js';
 import Prop from '../Prop.js';
 import Scene from '../Scene.js';
 import UserData from '../UserData.js';
+import Cloud from './Cloud.js';
 import DoodlePlayer from './DoodlePlayer.js';
 
 export default class DoodleScene extends GameLevel {
@@ -14,11 +15,10 @@ export default class DoodleScene extends GameLevel {
     super(canvas, userData)
 
     this.props = [
-        new Prop((Math.random() * canvas.width) / 1.2, (canvas.height / 1.5), './assets/img/cloud.png', canvas.width / 5, 65),
-        new Prop((Math.random() * canvas.width) / 1.2, (canvas.height / 3), './assets/img/cloud.png', canvas.width / 5, 65),
-        new Prop((Math.random() * canvas.width) / 1.2, (canvas.height / 6), './assets/img/cloud.png', canvas.width / 5, 65),
-        new Prop(0, 900, './assets/img/cloud.png', canvas.width, 150 ),
-        new Prop(0, 900, './assets/img/cloud.png', canvas.width, 150 ),
+        new Cloud((Math.random() * canvas.width) / 1.2, (canvas.height / 1.5), canvas.width / 5, 65),
+        new Cloud((Math.random() * canvas.width) / 1.2, (canvas.height / 3), canvas.width / 5, 65),
+        new Cloud((Math.random() * canvas.width) / 1.2, (canvas.height / 6), canvas.width / 5, 65),
+        new Cloud(0, 900, canvas.width, 150 ),
     ];
 
     this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100)
@@ -36,7 +36,6 @@ export default class DoodleScene extends GameLevel {
     });
 
     // Draw text on canvas.
-    console.log(this.userData.getCoins())
     this.writeTextToCanvas(
       `Coins: ${this.userData.getCoins()}`,
       this.canvas.width / 2,
@@ -61,13 +60,22 @@ export default class DoodleScene extends GameLevel {
    */
   public update = (elapsed: number): Scene => {
     let contacts: number[] = []
-    this.props.forEach((prop) => {
+    this.props.forEach((prop, propIndex) => {
       if (CollideHandler.collides(this.player, prop)) {
         const contact = CollideHandler.getContactData(this.player, prop);
         contacts.push(contact)
 
         if (contact === CollideHandler.TOP_CONTACT) {
           this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
+        }
+
+        if (prop instanceof Cloud) {
+          prop.disappear()
+        }
+      }
+      if (prop instanceof Cloud) {
+        if (prop.hasDisappeared()) {
+          this.props.splice(propIndex, 1)
         }
       }
     });

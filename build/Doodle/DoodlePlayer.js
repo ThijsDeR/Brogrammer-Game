@@ -22,7 +22,7 @@ export default class DoodlePlayer extends Player {
         else
             xVel = this.xVel;
         if (xVel < 0) {
-            if (!(this.xPos + xVel < 0 && contacts.includes(CollideHandler.RIGHT_CONTACT))) {
+            if (!(this.xPos + xVel < 0 || contacts.includes(CollideHandler.RIGHT_CONTACT))) {
                 this.xPos += xVel * (elapsed / 10);
             }
             else {
@@ -30,7 +30,7 @@ export default class DoodlePlayer extends Player {
             }
         }
         else {
-            if (!(this.xPos + xVel + this.img.width > canvas.width && contacts.includes(CollideHandler.LEFT_CONTACT))) {
+            if (!(this.xPos + xVel + this.img.width > canvas.width || contacts.includes(CollideHandler.LEFT_CONTACT))) {
                 this.xPos += xVel * (elapsed / 10);
             }
             else {
