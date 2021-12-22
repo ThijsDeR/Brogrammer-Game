@@ -1,6 +1,6 @@
-import Prop from './Prop.js';
+import ImageProp from './ImageProp.js';
 
-export default class Coin extends Prop {
+export default class Coin extends ImageProp {
     private points: number;
 
     // TODO: Change prop to ImgProp when implemented.

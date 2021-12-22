@@ -1,4 +1,4 @@
-import Game from './Game.js';
+import Game from '../Game.js';
 
 export default abstract class Prop {
   protected xPos: number;
@@ -33,9 +33,7 @@ export default abstract class Prop {
    *
    * @param ctx the context of the game canvas
    */
-  public draw(ctx: CanvasRenderingContext2D): void {
-    ctx.drawImage(this.img, this.xPos, this.yPos, this.img.width, this.img.height);
-  }
+  public abstract draw(ctx: CanvasRenderingContext2D): void;
 
   /**
    * Get the min xPos of prop

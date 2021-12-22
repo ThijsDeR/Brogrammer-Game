@@ -1,8 +1,8 @@
-import CollideHandler from '../CollideHandler.js';
-import GameInfo from '../GameInfo.js';
-import KeyboardListener from '../KeyboardListener.js';
-import Player from '../Player.js';
-import Prop from '../Prop.js';
+import CollideHandler from '../../CollideHandler.js';
+import GameInfo from '../../GameInfo.js';
+import KeyboardListener from '../../KeyboardListener.js';
+import Player from '../../Player.js';
+import Prop from '../../Props/Prop.js';
 import DoodleLevelInfo from './DoodleLevelInfo.js';
 
 export default class DoodlePlayer extends Player {

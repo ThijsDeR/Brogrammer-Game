@@ -1,6 +1,6 @@
 import CollideHandler from './CollideHandler.js';
 import Player from './Player.js';
-import Prop from './Prop.js';
+import Prop from './Props/Prop.js';
 import UserData from './UserData.js';
 
 export default abstract class Scene {

@@ -1,5 +1,5 @@
 import GameEngine from './GameEngine.js';
-import MenuScene from './Main-Menu/MenuScene.js';
+import MenuScene from './Scenes/Main-Menu/MenuScene.js';
 export default class GameSceneHandler {
     game;
     engine;

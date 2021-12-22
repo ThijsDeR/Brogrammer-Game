@@ -1,5 +1,5 @@
-import Player from '../Player.js';
-import Prop from '../Prop.js';
+import Player from '../../Player.js';
+import Prop from '../../Props/Prop.js';
 
 export default class HubPlayer extends Player {
 

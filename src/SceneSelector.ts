@@ -1,6 +1,6 @@
-import DoodleScene from './Doodle/DoodleScene.js'
-import HubScene from './Hub/HubScene.js'
-import MenuScene from './Main-Menu/MenuScene.js'
+import DoodleScene from './Scenes/Doodle/DoodleScene.js'
+import HubScene from './Scenes/Hub/HubScene.js'
+import MenuScene from './Scenes/Main-Menu/MenuScene.js'
 import Scene from './Scene.js'
 import UserData from './UserData.js'
 

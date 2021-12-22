@@ -1,9 +1,10 @@
-import Coin from "../Coin.js";
-import CollideHandler from "../CollideHandler.js";
-import GameLevel from "../GameLevel.js";
-import Prop from "../Prop.js";
-import Scene from "../Scene.js";
-import UserData from "../UserData.js";
+import Coin from "../../Props/Coin.js";
+import CollideHandler from "../../CollideHandler.js";
+import GameLevel from "../../GameLevel.js";
+import Prop from "../../Props/Prop.js";
+import Scene from "../../Scene.js";
+import TextProp from "../../Props/TextProp.js";
+import UserData from "../../UserData.js";
 import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
 
@@ -12,6 +13,7 @@ export default class DoodleScene extends GameLevel {
 
   private props: Prop[];
 
+  private texts: TextProp[];
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData);
 
@@ -38,6 +40,15 @@ export default class DoodleScene extends GameLevel {
       ),
       new Coin((Math.random() * canvas.width) / 1.2, canvas.height / 6, 32, 32),
     ];
+
+    this.texts = [
+      new TextProp(
+        `Coins: ${this.userData.getCoins()}`,
+        this.canvas.width / 2,
+        40,
+        20,
+      )
+    ]
 
     this.createCoins(canvas);
 
@@ -74,14 +85,9 @@ export default class DoodleScene extends GameLevel {
     });
 
     // Draw text on canvas.
-    this.writeTextToCanvas(
-      `Coins: ${this.userData.getCoins()}`,
-      this.canvas.width / 2,
-      40,
-      20,
-      "center",
-      "black"
-    );
+    this.texts.forEach((text) => {
+      text.draw(this.ctx)
+    })
   }
 
   /**

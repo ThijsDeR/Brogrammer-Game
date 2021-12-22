@@ -1,4 +1,4 @@
-import Game from './Game.js';
+import Game from '../Game.js';
 import Prop from './Prop.js';
 
 export default class ImageProp extends Prop {

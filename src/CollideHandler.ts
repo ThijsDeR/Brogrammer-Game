@@ -1,5 +1,5 @@
 import Game from './Game.js';
-import Prop from './Prop.js';
+import Prop from './Props/Prop.js';
 
 export default class CollideHandler {
   public static readonly NO_CONTACT: number = 0;

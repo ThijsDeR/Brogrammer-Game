@@ -1,6 +1,6 @@
-import Prop from '../Prop.js';
+import ImageProp from '../../Props/ImageProp.js';
 
-export default class Cloud extends Prop {
+export default class Cloud extends ImageProp {
   private opacity: number;
 
   private isDisappearing: boolean;

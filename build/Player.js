@@ -1,6 +1,6 @@
 import CollideHandler from './CollideHandler.js';
 import GameInfo from './GameInfo.js';
-import ImageProp from './ImageProp.js';
+import ImageProp from './Props/ImageProp.js';
 import KeyboardListener from './KeyboardListener.js';
 export default class Player extends ImageProp {
     xVel;

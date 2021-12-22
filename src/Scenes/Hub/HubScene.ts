@@ -1,12 +1,12 @@
-import CollideHandler from '../CollideHandler.js';
-import GameLevel from '../GameLevel.js';
-import ImageProp from '../ImageProp.js';
-import Prop from '../Prop.js';
-import Scene from '../Scene.js';
-import SceneSelector from '../SceneSelector.js';
-import Teleporter from '../Teleporter.js';
-import TextProp from '../TextProp.js';
-import UserData from '../UserData.js';
+import CollideHandler from '../../CollideHandler.js';
+import GameLevel from '../../GameLevel.js';
+import ImageProp from '../../Props/ImageProp.js';
+import Prop from '../../Props/Prop.js';
+import Scene from '../../Scene.js';
+import SceneSelector from '../../SceneSelector.js';
+import Teleporter from '../../Props/Teleporter.js';
+import TextProp from '../../Props/TextProp.js';
+import UserData from '../../UserData.js';
 import HubPlayer from './HubPlayer.js';
 
 export default class HubScene extends GameLevel {
@@ -56,14 +56,9 @@ export default class HubScene extends GameLevel {
     });
 
     // Draw text on canvas.
-    this.writeTextToCanvas(
-      `Coins: ${this.userData.getCoins()}`,
-      this.canvas.width / 2,
-      40,
-      20,
-      'center',
-      'black'
-    )
+    this.texts.forEach((text) => {
+      text.draw(this.ctx)
+    })
   }
 
   /**

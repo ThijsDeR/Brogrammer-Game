@@ -1,4 +1,4 @@
-export default abstract class GameInfo {
+export default abstract class HubLevelInfo {
   public static readonly PLAYER_Y_SPEED: number = 9;
 
   public static readonly PLAYER_X_SPEED: number = 6;

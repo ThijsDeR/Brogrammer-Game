@@ -1,4 +1,4 @@
-import ImageProp from './ImageProp.js';
+import ImageProp from './Props/ImageProp.js';
 export default class Teleporter extends ImageProp {
     destinationScene;
     constructor(xPos, yPos, width = undefined, height = undefined, scene) {

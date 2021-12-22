@@ -1,11 +1,11 @@
-import Button from '../Button.js';
-import CollideHandler from '../CollideHandler.js';
-import CutScene from '../CutScene.js';
+import Button from '../../Props/Button.js';
+import CollideHandler from '../../CollideHandler.js';
+import CutScene from '../../CutScene.js';
 import HubScene from '../Hub/HubScene.js';
-import Prop from '../Prop.js';
-import Scene from '../Scene.js';
-import TextProp from '../TextProp.js';
-import UserData from '../UserData.js';
+import Prop from '../../Props/Prop.js';
+import Scene from '../../Scene.js';
+import TextProp from '../../Props/TextProp.js';
+import UserData from '../../UserData.js';
 
 export default class MenuScene extends CutScene {
   private shouldStart: boolean;
