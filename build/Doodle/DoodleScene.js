@@ -1,10 +1,12 @@
 import CollideHandler from '../CollideHandler.js';
 import GameLevel from '../GameLevel.js';
 import ImageProp from '../ImageProp.js';
+import TextProp from '../TextProp.js';
 import DoodlePlayer from './DoodlePlayer.js';
 export default class DoodleScene extends GameLevel {
     player;
     props;
+    texts;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
@@ -13,6 +15,9 @@ export default class DoodleScene extends GameLevel {
             new ImageProp((Math.random() * canvas.width) / 1.2, (canvas.height / 6), './assets/img/cloud.png', canvas.width / 5, 65),
             new ImageProp(0, 900, './assets/img/cloud.png', canvas.width, 150),
             new ImageProp(0, 900, './assets/img/cloud.png', canvas.width, 150),
+        ];
+        this.texts = [
+            new TextProp(`Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20)
         ];
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
     }
@@ -24,7 +29,9 @@ export default class DoodleScene extends GameLevel {
             prop.draw(this.ctx);
         });
         console.log(this.userData.getCoins());
-        this.writeTextToCanvas(`Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'center', 'black');
+        this.texts.forEach((text) => {
+            text.draw(this.ctx);
+        });
     }
     processInput() {
         this.player.processInput();

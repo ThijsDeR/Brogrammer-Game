@@ -3,13 +3,16 @@ import GameLevel from '../GameLevel.js';
 import ImageProp from '../ImageProp.js';
 import Prop from '../Prop.js';
 import Scene from '../Scene.js';
+import TextProp from '../TextProp.js';
 import UserData from '../UserData.js';
 import DoodlePlayer from './DoodlePlayer.js';
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
 
-  private props: Prop[];
+  private props: Prop[];  
+
+  private texts: TextProp[];
   
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
@@ -21,6 +24,15 @@ export default class DoodleScene extends GameLevel {
         new ImageProp(0, 900, './assets/img/cloud.png', canvas.width, 150 ),
         new ImageProp(0, 900, './assets/img/cloud.png', canvas.width, 150 ),
     ];
+
+    this.texts = [
+      new TextProp(
+        `Coins: ${this.userData.getCoins()}`,
+        this.canvas.width / 2,
+        40,
+        20,
+      )
+    ]
 
     this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100)
   }
@@ -38,14 +50,9 @@ export default class DoodleScene extends GameLevel {
 
     // Draw text on canvas.
     console.log(this.userData.getCoins())
-    this.writeTextToCanvas(
-      `Coins: ${this.userData.getCoins()}`,
-      this.canvas.width / 2,
-      40,
-      20,
-      'center',
-      'black'
-    )
+    this.texts.forEach((text) => {
+      text.draw(this.ctx)
+    })
   }
 
   /**

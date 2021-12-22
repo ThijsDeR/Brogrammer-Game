@@ -1,11 +1,10 @@
-import Game from './Game.js';
 import RectProp from './RectProp.js';
+import TextProp from './TextProp.js';
 
 export default class Button extends RectProp{
-  private text: string;
+  private text: TextProp;
 
-  private fontSize: number;
-
+  private id: string;
   public constructor(
     xPos: number, 
     yPos: number, 
@@ -13,38 +12,32 @@ export default class Button extends RectProp{
     height: number,
     color: string,
     text: string,
-    fontSize: number
+    fontSize: number,
+    id: string,
   ) {
     super(xPos, yPos, width, height, color)
 
-    this.text = text;
-    this.fontSize = fontSize;
+    this.text = new TextProp(text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), fontSize);
+    this.id = id
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
     super.draw(ctx)
-    ctx.fillStyle = 'black'
-    ctx.font = `${this.fontSize}px Arial`
-    ctx.textAlign = 'center'
-    ctx.textBaseline = 'middle'
-    const metrics = ctx.measureText(this.text)
-    let xPos = this.xPos + (this.width / 2)
-    let yPos = this.yPos + (this.height / 2)
-    // const words = this.text.split(' ')
-
-    // let line = ''
-    // for(let i = 0; i < words.length; i++) {
-    //   console.log(line)
-    //   const testLine = line + words[i] + ' '
-    //   const metrics = ctx.measureText(testLine)
-    //   if (metrics.width > this.width && i > 0) {
-    //     ctx.fillText(line, xPos, yPos)
-    //     line = words[i] + ' '
-    //     yPos += this.fontSize * 1.5
-    //   } else {
-    //     line = testLine
-    //   }
-    // }
-    ctx.fillText(this.text, xPos, yPos)
+    this.text.draw(ctx)
   }
+
+  public isPressed(mouseCoords: {x: number, y: number}): boolean {
+    if (
+      mouseCoords.x > this.getMinXPos()
+      && mouseCoords.x < this.getMaxXPos()
+      && mouseCoords.y > this.getMinYPos()
+      && mouseCoords.y < this.getMaxYPos()
+    ) return true
+    return false
+  }
+
+  public getId(): string {
+    return this.id
+  }
+
 }

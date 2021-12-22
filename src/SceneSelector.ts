@@ -1,5 +1,6 @@
 import DoodleScene from './Doodle/DoodleScene.js'
 import HubScene from './Hub/HubScene.js'
+import MenuScene from './Main-Menu/MenuScene.js'
 import Scene from './Scene.js'
 import UserData from './UserData.js'
 
@@ -12,6 +13,10 @@ export default class SceneSelector {
 
       case 'doodle': {
         return new DoodleScene(canvas, userData)
+      }
+
+      case 'menu': {
+        return new MenuScene(canvas, userData)
       }
 
       default: {

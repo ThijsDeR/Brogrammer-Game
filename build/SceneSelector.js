@@ -1,5 +1,6 @@
 import DoodleScene from './Doodle/DoodleScene.js';
 import HubScene from './Hub/HubScene.js';
+import MenuScene from './Main-Menu/MenuScene.js';
 export default class SceneSelector {
     static getClassFromString(classString, canvas, userData) {
         switch (classString) {
@@ -8,6 +9,9 @@ export default class SceneSelector {
             }
             case 'doodle': {
                 return new DoodleScene(canvas, userData);
+            }
+            case 'menu': {
+                return new MenuScene(canvas, userData);
             }
             default: {
                 return null;
