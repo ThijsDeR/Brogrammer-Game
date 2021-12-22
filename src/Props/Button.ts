@@ -1,8 +1,10 @@
+import Scene from '../Scene.js';
 import RectProp from './RectProp.js';
-import TextProp from './TextProp.js';
 
 export default class Button extends RectProp{
-  private text: TextProp;
+  private text: string;
+
+  private fontSize: number;
 
   private id: string;
   public constructor(
@@ -17,13 +19,20 @@ export default class Button extends RectProp{
   ) {
     super(xPos, yPos, width, height, color)
 
-    this.text = new TextProp(text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), fontSize);
+    this.text = text
+    this.fontSize = fontSize
     this.id = id
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
     super.draw(ctx)
-    this.text.draw(ctx)
+    Scene.writeTextToCanvas(
+      ctx,
+      this.text, 
+      this.xPos + (this.width / 2), 
+      this.yPos + (this.height / 2), 
+      this.fontSize
+    )
   }
 
   public isPressed(mouseCoords: {x: number, y: number}): boolean {

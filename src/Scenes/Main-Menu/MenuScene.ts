@@ -4,15 +4,10 @@ import CutScene from '../../CutScene.js';
 import HubScene from '../Hub/HubScene.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
-import TextProp from '../../Props/TextProp.js';
 import UserData from '../../UserData.js';
 
 export default class MenuScene extends CutScene {
-  private shouldStart: boolean;
-
   private props: Prop[];
-
-  private texts: TextProp[]
 
   private nextScene: Scene;
 
@@ -21,10 +16,6 @@ export default class MenuScene extends CutScene {
 
     this.props = [
       new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'blue', 'Start!', 100, 'startBtn')
-    ]
-
-    this.texts = [
-      new TextProp('BroGrammers Game', this.canvas.width / 2, 100, 50)
     ]
 
     this.nextScene = this
@@ -38,8 +29,6 @@ export default class MenuScene extends CutScene {
         }
       })
     })
-    
-    this.shouldStart = false
   }
 
   public draw(): void {
@@ -47,9 +36,13 @@ export default class MenuScene extends CutScene {
       prop.draw(this.ctx)
     })
 
-    this.texts.forEach((text) => {
-      text.draw(this.ctx)
-    })
+    Scene.writeTextToCanvas(
+      this.ctx,
+      'BroGrammers Game', 
+      this.canvas.width / 2, 
+      100, 
+      50,
+    )
   }
 
   public processInput(): void {

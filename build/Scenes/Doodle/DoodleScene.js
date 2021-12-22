@@ -1,13 +1,12 @@
 import Coin from "../../Props/Coin.js";
 import CollideHandler from "../../CollideHandler.js";
 import GameLevel from "../../GameLevel.js";
-import TextProp from "../../TextProp.js";
+import Scene from "../../Scene.js";
 import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
-    texts;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
@@ -16,9 +15,6 @@ export default class DoodleScene extends GameLevel {
             new Cloud((Math.random() * canvas.width) / 1.2, canvas.height / 3, canvas.width / 5, 65),
             new Cloud((Math.random() * canvas.width) / 1.2, canvas.height / 6, canvas.width / 5, 65),
             new Coin((Math.random() * canvas.width) / 1.2, canvas.height / 6, 32, 32),
-        ];
-        this.texts = [
-            new TextProp(`Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20)
         ];
         this.createCoins(canvas);
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
@@ -35,9 +31,7 @@ export default class DoodleScene extends GameLevel {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        this.texts.forEach((text) => {
-            text.draw(this.ctx);
-        });
+        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20);
     }
     processInput() {
         this.player.processInput();
@@ -55,7 +49,7 @@ export default class DoodleScene extends GameLevel {
                     prop.disappear();
                 }
                 if (prop instanceof Coin) {
-                    this.userData.increaseCoins(prop.getScore());
+                    this.userData.increaseCoins(prop.getPoints());
                     this.props.splice(propIndex, 1);
                 }
             }

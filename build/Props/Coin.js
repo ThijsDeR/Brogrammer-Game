@@ -5,7 +5,7 @@ export default class Coin extends ImageProp {
         super(xPos, yPos, './assets/img/coin.png', width, height);
         this.points = 1;
     }
-    getScore() {
+    getPoints() {
         return this.points;
     }
 }

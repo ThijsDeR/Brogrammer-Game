@@ -1,16 +1,18 @@
+import Scene from '../Scene.js';
 import RectProp from './RectProp.js';
-import TextProp from '../TextProp.js';
 export default class Button extends RectProp {
     text;
+    fontSize;
     id;
     constructor(xPos, yPos, width, height, color, text, fontSize, id) {
         super(xPos, yPos, width, height, color);
-        this.text = new TextProp(text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), fontSize);
+        this.text = text;
+        this.fontSize = fontSize;
         this.id = id;
     }
     draw(ctx) {
         super.draw(ctx);
-        this.text.draw(ctx);
+        Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.fontSize);
     }
     isPressed(mouseCoords) {
         if (mouseCoords.x > this.getMinXPos()

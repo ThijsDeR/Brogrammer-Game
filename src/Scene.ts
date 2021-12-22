@@ -1,6 +1,3 @@
-import CollideHandler from './CollideHandler.js';
-import Player from './Player.js';
-import Prop from './Props/Prop.js';
 import UserData from './UserData.js';
 
 export default abstract class Scene {
@@ -42,4 +39,22 @@ export default abstract class Scene {
    *
    */
   public abstract update(elapsed: number): Scene;
+
+  public static writeTextToCanvas(
+    ctx: CanvasRenderingContext2D,
+    text: string, 
+    xPos: number, 
+    yPos: number, 
+    fontSize: number = 20, 
+    textAlign: CanvasTextAlign = 'center', 
+    textBaseline: CanvasTextBaseline = 'middle',
+    color: string = 'black',
+
+  ) {
+    ctx.font = `${fontSize}px Arial`
+    ctx.fillStyle = color;
+    ctx.textAlign = textAlign;
+    ctx.textBaseline = textBaseline
+    ctx.fillText(text, xPos, yPos)
+  }
 }

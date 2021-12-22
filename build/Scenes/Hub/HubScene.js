@@ -1,14 +1,13 @@
 import CollideHandler from '../../CollideHandler.js';
 import GameLevel from '../../GameLevel.js';
 import ImageProp from '../../Props/ImageProp.js';
+import Scene from '../../Scene.js';
 import SceneSelector from '../../SceneSelector.js';
-import Teleporter from '../../Teleporter.js';
-import TextProp from '../../TextProp.js';
+import Teleporter from '../../Props/Teleporter.js';
 import HubPlayer from './HubPlayer.js';
 export default class HubScene extends GameLevel {
     player;
     props;
-    texts;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
@@ -21,9 +20,6 @@ export default class HubScene extends GameLevel {
             new Teleporter((canvas.width / 20) * 18, (canvas.height / 4) - 150, canvas.width / 10, 200, 'doodle'),
             new Teleporter((canvas.width / 20) * 18, ((canvas.height / 4) * 2), canvas.width / 10, 200, 'doodle'),
         ];
-        this.texts = [
-            new TextProp(`Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20)
-        ];
         this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
     }
     draw() {
@@ -32,9 +28,7 @@ export default class HubScene extends GameLevel {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        this.texts.forEach((text) => {
-            text.draw(this.ctx);
-        });
+        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20);
     }
     processInput() {
         this.player.processInput();
