@@ -4,9 +4,10 @@ import KeyboardListener from '../../KeyboardListener.js';
 import Player from '../../Player.js';
 import DoodleLevelInfo from './DoodleLevelInfo.js';
 export default class DoodlePlayer extends Player {
-    props;
+    dead;
     constructor(xPos, yPos, width = undefined, height = undefined) {
         super(xPos, yPos, './assets/img/Sam_Suong/robot-idle.gif', width, height);
+        this.dead = false;
     }
     processInput() {
         this.xVel = 0;
@@ -43,13 +44,19 @@ export default class DoodlePlayer extends Player {
             this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10);
         };
         flying();
-        if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0) || this.yPos + this.yVel + this.img.height > canvas.height) {
+        if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
             this.airborne = false;
             this.yVel = -3;
         }
         else {
             flying();
         }
+        if (this.yPos + this.yVel + this.img.height > canvas.height) {
+            this.dead = true;
+        }
+    }
+    isDead() {
+        return this.dead;
     }
 }
 //# sourceMappingURL=DoodlePlayer.js.map

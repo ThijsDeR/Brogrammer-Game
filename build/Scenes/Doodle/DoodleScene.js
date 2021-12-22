@@ -4,24 +4,35 @@ import GameLevel from "../../GameLevel.js";
 import Scene from "../../Scene.js";
 import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
+import Game from "../../Game.js";
+import HubScene from "../Hub/HubScene.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
+    nextScene;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
-            new Cloud(0, 900, canvas.width, 150),
-            new Cloud((Math.random() * canvas.width) / 1.2, canvas.height / 1.5, canvas.width / 5, 65),
-            new Cloud((Math.random() * canvas.width) / 1.2, canvas.height / 3, canvas.width / 5, 65),
-            new Cloud((Math.random() * canvas.width) / 1.2, canvas.height / 6, canvas.width / 5, 65),
-            new Coin((Math.random() * canvas.width) / 1.2, canvas.height / 6, 32, 32),
+            new Cloud(200, 900, canvas.width - 400, 150),
         ];
-        this.createCoins(canvas);
+        this.createProps();
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
+        this.nextScene = this;
     }
-    createCoins(canvas) {
+    createProps() {
+        let previousHeight = 300;
         for (let i = 0; i < 5; i++) {
-            this.props.push(new Coin((Math.random() * canvas.width) / 1.2, Math.random() * canvas.height, 32, 32));
+            let xPos = Game.randomNumber(300, this.canvas.width - 300);
+            let yPos = Game.randomNumber(previousHeight * 1.2, previousHeight * 1.4);
+            let cloudWidth = this.canvas.width / 5;
+            let cloudHeight = 65;
+            let coinWidth = 32;
+            let coinHeight = 32;
+            previousHeight = yPos;
+            this.props.push(new Cloud(xPos, this.canvas.height - yPos, cloudWidth, cloudHeight));
+            if (Game.randomNumber(0, 1) === 1) {
+                this.props.push(new Coin(xPos + (cloudWidth / 2) - (coinHeight / 2), yPos - (coinHeight * 2), coinWidth, coinHeight));
+            }
         }
     }
     draw() {
@@ -60,7 +71,10 @@ export default class DoodleScene extends GameLevel {
             }
         });
         this.player.move(this.canvas, contacts, elapsed);
-        return this;
+        if (this.player.isDead()) {
+            this.nextScene = new HubScene(this.canvas, this.userData);
+        }
+        return this.nextScene;
     };
 }
 //# sourceMappingURL=DoodleScene.js.map

@@ -27,5 +27,8 @@ export default class Game {
             img.height = height;
         return img;
     }
+    static randomNumber(min, max) {
+        return Math.round(Math.random() * (max - min) + min);
+    }
 }
 //# sourceMappingURL=Game.js.map

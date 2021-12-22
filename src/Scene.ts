@@ -18,10 +18,6 @@ export default abstract class Scene {
     this.ctx = this.canvas.getContext('2d');
 
     this.userData = userData
-
-   
-
-    
   }
 
   /**

@@ -1,9 +1,7 @@
 import CollideHandler from './CollideHandler.js';
-import Game from './Game.js';
 import GameInfo from './GameInfo.js';
 import ImageProp from './Props/ImageProp.js';
 import KeyboardListener from './KeyboardListener.js';
-import Prop from './Props/Prop.js';
 
 export default class Player extends ImageProp {
   protected xVel: number;

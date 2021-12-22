@@ -62,4 +62,18 @@ export default class Game {
     if (height) img.height = height
     return img;
   }
-}
+
+    /**
+   * Generates a random integer number between min and max
+   *
+   * NOTE: this is a 'static' method. This means that this method must be called like
+   * `Game.randomInteger()` instead of `this.randomInteger()`.
+   *
+   * @param min - minimal time
+   * @param max - maximal time
+   * @returns a random integer number between min and max
+   */
+    public static randomNumber(min: number, max: number): number {
+      return Math.round(Math.random() * (max - min) + min);
+    }
+  }

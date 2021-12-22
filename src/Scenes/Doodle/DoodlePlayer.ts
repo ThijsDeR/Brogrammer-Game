@@ -2,12 +2,11 @@ import CollideHandler from '../../CollideHandler.js';
 import GameInfo from '../../GameInfo.js';
 import KeyboardListener from '../../KeyboardListener.js';
 import Player from '../../Player.js';
-import Prop from '../../Props/Prop.js';
 import DoodleLevelInfo from './DoodleLevelInfo.js';
 
 export default class DoodlePlayer extends Player {
 
-  private props: Prop[];
+  private dead: boolean;
 
   public constructor(
     xPos: number,
@@ -16,6 +15,8 @@ export default class DoodlePlayer extends Player {
     height: number | undefined = undefined
   ) {
     super(xPos, yPos, './assets/img/Sam_Suong/robot-idle.gif', width, height)
+
+    this.dead = false;
   }
 
   /**
@@ -60,11 +61,19 @@ export default class DoodlePlayer extends Player {
     }
 
     flying()
-    if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0) || this.yPos + this.yVel + this.img.height > canvas.height) {
+    if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
       this.airborne = false;
       this.yVel = -3;
     } else {
       flying()
     }
+
+    if (this.yPos + this.yVel + this.img.height > canvas.height) {
+      this.dead = true
+    }
+  }
+
+  public isDead(): boolean {
+    return this.dead;
   }
 }
