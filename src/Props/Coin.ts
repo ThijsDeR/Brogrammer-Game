@@ -3,7 +3,6 @@ import ImageProp from './ImageProp.js';
 export default class Coin extends ImageProp {
     private points: number;
 
-    // TODO: Change prop to ImgProp when implemented.
     public constructor(
         xPos: number, 
         yPos: number, 
@@ -14,7 +13,7 @@ export default class Coin extends ImageProp {
         this.points = 1;
       }
 
-      public getScore(): number {
+      public getPoints(): number {
           return this.points;
       }
 }

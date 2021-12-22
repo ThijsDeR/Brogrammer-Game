@@ -107,7 +107,7 @@ export default class DoodleScene extends GameLevel {
     this.props.forEach((prop, propIndex) => {
       if (CollideHandler.collides(this.player, prop)) {
         const contact = CollideHandler.getContactData(this.player, prop);
-        
+
         if (prop instanceof Cloud) {
           contacts.push(contact);
           if (contact === CollideHandler.TOP_CONTACT) {
@@ -115,9 +115,9 @@ export default class DoodleScene extends GameLevel {
           }
           prop.disappear();
         }
-        
-      if (prop instanceof Coin) {
-          this.userData.increaseCoins(prop.getScore());
+
+        if (prop instanceof Coin) {
+          this.userData.increaseCoins(prop.getPoints());
           this.props.splice(propIndex, 1);
         }
       }
