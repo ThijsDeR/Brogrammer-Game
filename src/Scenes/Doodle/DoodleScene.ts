@@ -11,6 +11,7 @@ import HubScene from "../Hub/HubScene.js";
 import ImageProp from "../../Props/ImageProp.js";
 import DoodleEnemy from "./DoodleEnemy.js";
 import DoodleLevelInfo from "./DoodleLevelInfo.js";
+import RectProp from "../../Props/RectProp.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -24,12 +25,13 @@ export default class DoodleScene extends GameLevel {
     super(canvas, userData);
 
     this.props = [
-      new ImageProp(0, this.canvas.height - 100, './assets/img/platform.png', this.canvas.width, 100),
+      // fall line
+      new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'red', 'fill'),
       // Starting Cloud
       new Cloud(200 , this.canvas.height - 150, canvas.width - 400, 150),
 
-      // finishing Cloud
-      new ImageProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, './assets/img/platform.png', this.canvas.width, 100)
+      // finishing line
+      new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'red', 'fill')
 
     ];
 
@@ -39,8 +41,8 @@ export default class DoodleScene extends GameLevel {
     this.player = new DoodlePlayer(
       this.canvas.width / 2,
       this.canvas.height / 2,
-      100,
-      150
+      this.canvas.width / 25, 
+      this.canvas.height / 8
     );
 
     this.nextScene = this

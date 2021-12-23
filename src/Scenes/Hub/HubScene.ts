@@ -31,7 +31,7 @@ export default class HubScene extends GameLevel {
       new Teleporter((canvas.width / 20) * 18, ((canvas.height / 4) * 2), canvas.width / 10, 200, 'doodle'),
     ];
   
-    this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 150)
+    this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8)
   }
 
   /**

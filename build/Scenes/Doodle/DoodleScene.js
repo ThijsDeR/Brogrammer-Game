@@ -6,9 +6,9 @@ import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
 import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
-import ImageProp from "../../Props/ImageProp.js";
 import DoodleEnemy from "./DoodleEnemy.js";
 import DoodleLevelInfo from "./DoodleLevelInfo.js";
+import RectProp from "../../Props/RectProp.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
@@ -17,12 +17,12 @@ export default class DoodleScene extends GameLevel {
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
-            new ImageProp(0, this.canvas.height - 100, './assets/img/platform.png', this.canvas.width, 100),
+            new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'red', 'fill'),
             new Cloud(200, this.canvas.height - 150, canvas.width - 400, 150),
-            new ImageProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, './assets/img/platform.png', this.canvas.width, 100)
+            new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'red', 'fill')
         ];
         this.createProps();
-        this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 150);
+        this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
         this.nextScene = this;
         this.backgroundMusic = new Audio('./assets/img/Sound/SkyBackgroundMusic.wav');
         this.backgroundMusic.loop = true;

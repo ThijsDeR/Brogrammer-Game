@@ -17,7 +17,7 @@ export default class Button extends RectProp{
     fontSize: number,
     id: string,
   ) {
-    super(xPos, yPos, width, height, color)
+    super(xPos, yPos, width, height, color, 'stroke')
 
     this.text = text
     this.fontSize = fontSize

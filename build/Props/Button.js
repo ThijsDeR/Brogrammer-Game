@@ -5,7 +5,7 @@ export default class Button extends RectProp {
     fontSize;
     id;
     constructor(xPos, yPos, width, height, color, text, fontSize, id) {
-        super(xPos, yPos, width, height, color);
+        super(xPos, yPos, width, height, color, 'stroke');
         this.text = text;
         this.fontSize = fontSize;
         this.id = id;
