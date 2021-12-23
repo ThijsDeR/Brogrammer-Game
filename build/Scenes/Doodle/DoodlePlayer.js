@@ -5,7 +5,7 @@ import DoodleLevelInfo from './DoodleLevelInfo.js';
 export default class DoodlePlayer extends Player {
     dead;
     constructor(xPos, yPos, width = undefined, height = undefined) {
-        super(xPos, yPos, './assets/img/Sam_Suong/robot-idle.gif', width, height);
+        super(xPos, yPos, './assets/img/Sam_Suong/robot-preview.png', width, height);
         this.dead = false;
     }
     processInput() {

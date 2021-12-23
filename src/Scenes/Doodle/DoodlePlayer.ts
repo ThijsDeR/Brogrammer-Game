@@ -14,7 +14,7 @@ export default class DoodlePlayer extends Player {
     width: number | undefined = undefined,
     height: number | undefined = undefined
   ) {
-    super(xPos, yPos, './assets/img/Sam_Suong/robot-idle.gif', width, height)
+    super(xPos, yPos, './assets/img/Sam_Suong/robot-preview.png', width, height)
 
     this.dead = false;
   }
