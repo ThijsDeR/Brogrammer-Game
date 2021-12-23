@@ -6,11 +6,8 @@ import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
 import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
-<<<<<<< Updated upstream
 import ImageProp from "../../Props/ImageProp.js";
-=======
 import DoodleEnemy from "./DoodleEnemy.js";
->>>>>>> Stashed changes
 export default class DoodleScene extends GameLevel {
     player;
     props;
@@ -38,17 +35,12 @@ export default class DoodleScene extends GameLevel {
             let enemyWidth = 100;
             previousHeight = yPos;
             this.props.push(new Cloud(xPos, this.canvas.height - yPos, cloudWidth, cloudHeight));
-<<<<<<< Updated upstream
-            if (Game.randomNumber(0, 1) === 1) {
-                this.props.push(new Coin(xPos + (cloudWidth / 2) - (coinHeight / 2), this.canvas.height - yPos - (coinHeight * 2), coinWidth, coinHeight));
-=======
             const rng = Game.randomNumber(1, 10);
             if (rng <= 5) {
-                this.props.push(new Coin(xPos + (cloudWidth / 2) - (coinHeight / 2), yPos - (coinHeight * 2), coinWidth, coinHeight));
->>>>>>> Stashed changes
+                this.props.push(new Coin(xPos + (cloudWidth / 2) - (coinHeight / 2), this.canvas.height - yPos - (coinHeight * 2), coinWidth, coinHeight));
             }
-            else if (rng === 10) {
-                this.props.push(new DoodleEnemy(xPos + (cloudWidth / 2) - 10, yPos - enemyHeight, enemyWidth, enemyHeight));
+            else if (rng >= 9) {
+                this.props.push(new DoodleEnemy(xPos + (cloudWidth / 2) - 10, this.canvas.height - yPos - enemyHeight, enemyWidth, enemyHeight));
             }
         }
     }

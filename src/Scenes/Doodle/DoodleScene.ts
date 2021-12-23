@@ -8,11 +8,8 @@ import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
 import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
-<<<<<<< Updated upstream
 import ImageProp from "../../Props/ImageProp.js";
-=======
 import DoodleEnemy from "./DoodleEnemy.js";
->>>>>>> Stashed changes
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -76,11 +73,11 @@ export default class DoodleScene extends GameLevel {
             coinHeight,
           )
         );
-      } else if (rng === 10) {
+      } else if (rng >= 9) {
         this.props.push(
           new DoodleEnemy(
             xPos + (cloudWidth / 2) - 10,
-            yPos - enemyHeight,
+            this.canvas.height - yPos - enemyHeight,
             enemyWidth,
             enemyHeight,
           )
@@ -99,7 +96,7 @@ export default class DoodleScene extends GameLevel {
     this.props.forEach((prop) => {
       prop.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
     });
-    
+
     this.player.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
     // Draw text on canvas.
     Scene.writeTextToCanvas(
