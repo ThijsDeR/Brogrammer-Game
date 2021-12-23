@@ -7,5 +7,5 @@ export default abstract class DoodleLevelInfo {
   
     public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY = 2
 
-    public static readonly LEVEL_YPOS_FINISH = -2000;
+    public static readonly LEVEL_YPOS_FINISH = -20000;
   }
