@@ -31,7 +31,7 @@ export default class DoodlePlayer extends Player {
         if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
             this.airborne = false;
             this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED);
-            let jumpSound = new Audio('./assets/img/Sound/JumpCloud.wav');
+            const jumpSound = new Audio('./assets/img/Sound/JumpCloud.wav');
             jumpSound.volume = 0.3;
             jumpSound.play();
         }
