@@ -12,6 +12,7 @@ export default class DoodleScene extends GameLevel {
     player;
     props;
     nextScene;
+    backgroundMusic;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
@@ -21,6 +22,10 @@ export default class DoodleScene extends GameLevel {
         this.createProps();
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
         this.nextScene = this;
+        this.backgroundMusic = new Audio('./assets/img/Sound/SkyBackgroundMusic.wav');
+        this.backgroundMusic.loop = true;
+        this.backgroundMusic.volume = 0.5;
+        this.backgroundMusic.play();
     }
     createProps() {
         let previousHeight = 300;
@@ -71,10 +76,14 @@ export default class DoodleScene extends GameLevel {
                 if (prop instanceof Coin) {
                     this.userData.increaseCoins(prop.getPoints());
                     this.props.splice(propIndex, 1);
+                    let coinSound = new Audio('./assets/img/Sound/CoinSound.wav');
+                    coinSound.play();
                 }
                 if (prop instanceof DoodleEnemy) {
                     this.player.setDeath(true);
                     this.props.splice(propIndex, 1);
+                    let enemySound = new Audio('./assets/img/Sound/HitEnemy.wav');
+                    enemySound.play();
                 }
             }
             if (prop instanceof Cloud) {
@@ -86,6 +95,8 @@ export default class DoodleScene extends GameLevel {
         this.player.move(this.canvas, contacts, elapsed);
         if (this.player.isDead()) {
             this.nextScene = new HubScene(this.canvas, this.userData);
+            this.backgroundMusic.pause();
+            this.backgroundMusic = null;
         }
         return this.nextScene;
     };

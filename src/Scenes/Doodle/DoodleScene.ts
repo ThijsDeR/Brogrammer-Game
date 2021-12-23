@@ -17,6 +17,8 @@ export default class DoodleScene extends GameLevel {
   private props: Prop[];
 
   private nextScene: Scene;
+
+  private backgroundMusic: HTMLAudioElement
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData);
 
@@ -38,6 +40,12 @@ export default class DoodleScene extends GameLevel {
     );
 
     this.nextScene = this
+
+    // background music
+    this.backgroundMusic = new Audio('./assets/img/Sound/SkyBackgroundMusic.wav');
+    this.backgroundMusic.loop = true;
+    this.backgroundMusic.volume = 0.5
+    this.backgroundMusic.play();
   }
 
   public createProps() {
@@ -143,11 +151,15 @@ export default class DoodleScene extends GameLevel {
         if (prop instanceof Coin) {
           this.userData.increaseCoins(prop.getPoints());
           this.props.splice(propIndex, 1);
+          let coinSound = new Audio('./assets/img/Sound/CoinSound.wav')
+          coinSound.play();
         }
 
         if (prop instanceof DoodleEnemy) {
           this.player.setDeath(true);
           this.props.splice(propIndex, 1);
+          let enemySound = new Audio('./assets/img/Sound/HitEnemy.wav')
+          enemySound.play();
         }
 
       }
@@ -165,6 +177,8 @@ export default class DoodleScene extends GameLevel {
     // If dead === true. Send the player back to the HUB.
     if (this.player.isDead()) {
       this.nextScene = new HubScene(this.canvas, this.userData)
+      this.backgroundMusic.pause();
+      this.backgroundMusic = null
     }
     return this.nextScene;
   };
