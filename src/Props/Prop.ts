@@ -33,7 +33,7 @@ export default abstract class Prop {
    *
    * @param ctx the context of the game canvas
    */
-  public abstract draw(ctx: CanvasRenderingContext2D): void;
+  public abstract draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void;
 
   /**
    * Get the min xPos of prop

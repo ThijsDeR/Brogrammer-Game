@@ -8,6 +8,7 @@ import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
 import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
+import ImageProp from "../../Props/ImageProp.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -19,8 +20,10 @@ export default class DoodleScene extends GameLevel {
     super(canvas, userData);
 
     this.props = [
+      new ImageProp(0, 0, './assets/img/kees.jpg', this.canvas.width, this.canvas.height + 500),
       // Starting Cloud
-      new Cloud(200 , 900, canvas.width - 400, 150),
+      new Cloud(200 , this.canvas.height - 150, canvas.width - 400, 150),
+
     ];
     
 
@@ -38,9 +41,9 @@ export default class DoodleScene extends GameLevel {
 
   public createProps() {
     let previousHeight = 300
-    for (let i = 0; i < 5; i++) {
-      let xPos = Game.randomNumber(300, this.canvas.width - 300);
-      let yPos = Game.randomNumber(previousHeight * 1.2, previousHeight * 1.4);
+    for (let i = 0; i < 1000; i++) {
+      let xPos = Game.randomNumber(this.canvas.width / 8, this.canvas.width - this.canvas.width / 8);
+      let yPos = Game.randomNumber(previousHeight + 200, previousHeight + 400);
       let cloudWidth = this.canvas.width / 5;
       let cloudHeight = 65;
       let coinWidth = 32;
@@ -59,7 +62,7 @@ export default class DoodleScene extends GameLevel {
         this.props.push(
           new Coin(
             xPos + (cloudWidth / 2) - (coinHeight / 2),
-            yPos - (coinHeight * 2),
+            this.canvas.height - yPos - (coinHeight * 2),
             coinWidth,
             coinHeight,
           )
@@ -75,11 +78,11 @@ export default class DoodleScene extends GameLevel {
   public draw(): void {
     this.ctx.fillStyle = "LightSkyBlue";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.player.draw(this.ctx);
     this.props.forEach((prop) => {
-      prop.draw(this.ctx);
+      prop.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
     });
-
+    
+    this.player.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
     // Draw text on canvas.
     Scene.writeTextToCanvas(
       this.ctx,

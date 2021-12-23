@@ -1,5 +1,4 @@
 import CollideHandler from '../../CollideHandler.js';
-import GameInfo from '../../GameInfo.js';
 import KeyboardListener from '../../KeyboardListener.js';
 import Player from '../../Player.js';
 import DoodleLevelInfo from './DoodleLevelInfo.js';
@@ -17,36 +16,21 @@ export default class DoodlePlayer extends Player {
             this.xVel += DoodleLevelInfo.PLAYER_X_SPEED;
     }
     move(canvas, contacts, elapsed) {
-        let xVel;
-        if (this.airborne)
-            xVel = this.xVel / GameInfo.PLAYER_AIRBORNE_X_SPEED_PENTALTY;
-        else
-            xVel = this.xVel;
-        if (xVel < 0) {
-            if (!(this.xPos + xVel < 0 || contacts.includes(CollideHandler.RIGHT_CONTACT))) {
-                this.xPos += xVel * (elapsed / 10);
-            }
-            else {
-                this.xVel = 0;
-            }
+        this.xPos += this.xVel * (elapsed / 10);
+        if (this.xPos < 0) {
+            this.xPos = canvas.width - this.img.width;
         }
-        else {
-            if (!(this.xPos + xVel + this.img.width > canvas.width || contacts.includes(CollideHandler.LEFT_CONTACT))) {
-                this.xPos += xVel * (elapsed / 10);
-            }
-            else {
-                this.xVel = 0;
-            }
+        else if (this.xPos + this.img.width > canvas.width) {
+            this.xPos = 0;
         }
         const flying = () => {
             this.airborne = true;
-            this.yPos += this.yVel * 2 * (elapsed / 10);
-            this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10);
+            this.yPos += this.yVel * (elapsed / 10);
+            this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * (elapsed / 10);
         };
-        flying();
         if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
             this.airborne = false;
-            this.yVel = -3;
+            this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED);
         }
         else {
             flying();

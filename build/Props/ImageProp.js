@@ -6,8 +6,8 @@ export default class ImageProp extends Prop {
         super(xPos, yPos, width, height);
         this.img = Game.loadNewImage(imgSrc, width, height);
     }
-    draw(ctx) {
-        ctx.drawImage(this.img, this.xPos, this.yPos, this.img.width, this.img.height);
+    draw(ctx, offsetX = 0, offsetY = 0) {
+        ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.img.width, this.img.height);
     }
 }
 //# sourceMappingURL=ImageProp.js.map

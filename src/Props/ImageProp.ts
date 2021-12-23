@@ -15,7 +15,7 @@ export default class ImageProp extends Prop {
     this.img = Game.loadNewImage(imgSrc, width, height);
   }
 
-  public draw(ctx: CanvasRenderingContext2D): void {
-    ctx.drawImage(this.img, this.xPos, this.yPos, this.img.width, this.img.height);
+  public draw(ctx: CanvasRenderingContext2D, offsetX: number = 0, offsetY: number = 0): void {
+    ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.img.width, this.img.height);
   }
 }

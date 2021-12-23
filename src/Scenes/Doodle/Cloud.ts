@@ -16,9 +16,9 @@ export default class Cloud extends ImageProp {
     this.opacity = 1;
     this.isDisappearing = false;
   }
-  public draw(ctx: CanvasRenderingContext2D): void {
+  public draw(ctx: CanvasRenderingContext2D, offsetX: number = 0, offsetY: number = 0): void {
     ctx.globalAlpha = this.opacity
-    ctx.drawImage(this.img, this.xPos, this.yPos, this.img.width, this.img.height);
+    super.draw(ctx, offsetX, offsetY)
     ctx.globalAlpha = 1
   }
   public disappear(): void {

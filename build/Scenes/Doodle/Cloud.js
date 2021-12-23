@@ -7,9 +7,9 @@ export default class Cloud extends ImageProp {
         this.opacity = 1;
         this.isDisappearing = false;
     }
-    draw(ctx) {
+    draw(ctx, offsetX = 0, offsetY = 0) {
         ctx.globalAlpha = this.opacity;
-        ctx.drawImage(this.img, this.xPos, this.yPos, this.img.width, this.img.height);
+        super.draw(ctx, offsetX, offsetY);
         ctx.globalAlpha = 1;
     }
     disappear() {
