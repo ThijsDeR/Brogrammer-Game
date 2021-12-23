@@ -8,6 +8,7 @@ import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
 import ImageProp from "../../Props/ImageProp.js";
 import DoodleEnemy from "./DoodleEnemy.js";
+import DoodleLevelInfo from "./DoodleLevelInfo.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
@@ -15,8 +16,9 @@ export default class DoodleScene extends GameLevel {
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
-            new ImageProp(0, 0, './assets/img/kees.jpg', this.canvas.width, this.canvas.height + 500),
+            new ImageProp(0, this.canvas.height - 100, './assets/img/platform.png', this.canvas.width, 100),
             new Cloud(200, this.canvas.height - 150, canvas.width - 400, 150),
+            new ImageProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, './assets/img/platform.png', this.canvas.width, 100)
         ];
         this.createProps();
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
@@ -24,7 +26,9 @@ export default class DoodleScene extends GameLevel {
     }
     createProps() {
         let previousHeight = 100;
-        for (let i = 0; i < 1000; i++) {
+        let i = 0;
+        let atFinish = false;
+        while (i < 1000 && atFinish === false) {
             let xPos = Game.randomNumber(this.canvas.width / 8, this.canvas.width - this.canvas.width / 8);
             let yPos = Game.randomNumber(previousHeight + 200, previousHeight + 300);
             let cloudWidth = this.canvas.width / 5;
@@ -33,6 +37,10 @@ export default class DoodleScene extends GameLevel {
             let coinHeight = 32;
             let enemyHeight = 100;
             let enemyWidth = 100;
+            if (this.canvas.height - yPos < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
+                atFinish = true;
+                break;
+            }
             previousHeight = yPos;
             this.props.push(new Cloud(xPos, this.canvas.height - yPos, cloudWidth, cloudHeight));
             const rng = Game.randomNumber(1, 10);
@@ -42,6 +50,7 @@ export default class DoodleScene extends GameLevel {
             else if (rng >= 9) {
                 this.props.push(new DoodleEnemy(xPos + (cloudWidth / 2) - 10, this.canvas.height - yPos - enemyHeight, enemyWidth, enemyHeight));
             }
+            i++;
         }
     }
     draw() {
@@ -84,6 +93,9 @@ export default class DoodleScene extends GameLevel {
         });
         this.player.move(this.canvas, contacts, elapsed);
         if (this.player.isDead()) {
+            this.nextScene = new HubScene(this.canvas, this.userData);
+        }
+        else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
             this.nextScene = new HubScene(this.canvas, this.userData);
         }
         return this.nextScene;
