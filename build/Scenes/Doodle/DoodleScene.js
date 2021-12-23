@@ -35,7 +35,7 @@ export default class DoodleScene extends GameLevel {
             let cloudHeight = 65;
             let coinWidth = 32;
             let coinHeight = 32;
-            let enemyHeight = 100;
+            let enemyHeight = 60;
             let enemyWidth = 100;
             if (this.canvas.height - yPos < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
                 atFinish = true;
