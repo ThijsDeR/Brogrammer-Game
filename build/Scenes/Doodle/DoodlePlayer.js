@@ -1,4 +1,5 @@
 import CollideHandler from '../../CollideHandler.js';
+import GameInfo from '../../GameInfo.js';
 import KeyboardListener from '../../KeyboardListener.js';
 import Player from '../../Player.js';
 import DoodleLevelInfo from './DoodleLevelInfo.js';
@@ -31,7 +32,7 @@ export default class DoodlePlayer extends Player {
         if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
             this.airborne = false;
             this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED);
-            const jumpSound = new Audio('./assets/img/Sound/JumpCloud.wav');
+            const jumpSound = new Audio(GameInfo.SOUND_PATH + 'JumpCloud.wav');
             jumpSound.volume = 0.3;
             jumpSound.play();
         }

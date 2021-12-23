@@ -55,7 +55,7 @@ export default class DoodlePlayer extends Player {
       this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED);
 
       // sound when hitting the clouds
-      const jumpSound = new Audio('./assets/img/Sound/JumpCloud.wav');
+      const jumpSound = new Audio(GameInfo.SOUND_PATH + 'JumpCloud.wav');
       jumpSound.volume = 0.3
       jumpSound.play();
     } else {

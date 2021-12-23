@@ -9,6 +9,7 @@ import HubScene from "../Hub/HubScene.js";
 import DoodleEnemy from "./DoodleEnemy.js";
 import DoodleLevelInfo from "./DoodleLevelInfo.js";
 import RectProp from "../../Props/RectProp.js";
+import GameInfo from "../../GameInfo.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
@@ -24,7 +25,7 @@ export default class DoodleScene extends GameLevel {
         this.createProps();
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
         this.nextScene = this;
-        this.backgroundMusic = new Audio('./assets/img/Sound/SkyBackgroundMusic.wav');
+        this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'SkyBackgroundMusic.wav');
         this.backgroundMusic.loop = true;
         this.backgroundMusic.volume = 0.5;
         this.backgroundMusic.play();
@@ -84,13 +85,13 @@ export default class DoodleScene extends GameLevel {
                 if (prop instanceof Coin) {
                     this.userData.increaseCoins(prop.getPoints());
                     this.props.splice(propIndex, 1);
-                    const coinSound = new Audio('./assets/img/Sound/CoinSound.wav');
+                    const coinSound = new Audio(GameInfo.SOUND_PATH + 'CoinSound.wav');
                     coinSound.play();
                 }
                 if (prop instanceof DoodleEnemy) {
                     this.player.die();
                     this.props.splice(propIndex, 1);
-                    const enemySound = new Audio('./assets/img/Sound/HitEnemy.wav');
+                    const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav');
                     enemySound.play();
                 }
             }
