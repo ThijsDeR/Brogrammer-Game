@@ -39,6 +39,9 @@ export default class DoodlePlayer extends Player {
             this.dead = true;
         }
     }
+    setDeath(state) {
+        this.dead = state;
+    }
     isDead() {
         return this.dead;
     }

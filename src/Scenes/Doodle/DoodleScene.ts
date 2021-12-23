@@ -8,7 +8,11 @@ import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
 import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
+<<<<<<< Updated upstream
 import ImageProp from "../../Props/ImageProp.js";
+=======
+import DoodleEnemy from "./DoodleEnemy.js";
+>>>>>>> Stashed changes
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -25,7 +29,7 @@ export default class DoodleScene extends GameLevel {
       new Cloud(200 , this.canvas.height - 150, canvas.width - 400, 150),
 
     ];
-    
+
 
     this.createProps();
 
@@ -48,6 +52,9 @@ export default class DoodleScene extends GameLevel {
       let cloudHeight = 65;
       let coinWidth = 32;
       let coinHeight = 32;
+      let enemyHeight = 100;
+      let enemyWidth = 100;
+
       previousHeight = yPos
       this.props.push(
         new Cloud(
@@ -57,8 +64,10 @@ export default class DoodleScene extends GameLevel {
           cloudHeight,
         )
       );
-  
-      if (Game.randomNumber(0, 1) === 1) {
+
+      const rng = Game.randomNumber(1, 10)
+
+      if (rng <= 5) {
         this.props.push(
           new Coin(
             xPos + (cloudWidth / 2) - (coinHeight / 2),
@@ -67,6 +76,15 @@ export default class DoodleScene extends GameLevel {
             coinHeight,
           )
         );
+      } else if (rng === 10) {
+        this.props.push(
+          new DoodleEnemy(
+            xPos + (cloudWidth / 2) - 10,
+            yPos - enemyHeight,
+            enemyWidth,
+            enemyHeight,
+          )
+        )
       }
     }
   }
@@ -111,6 +129,9 @@ export default class DoodleScene extends GameLevel {
       if (CollideHandler.collides(this.player, prop)) {
         const contact = CollideHandler.getContactData(this.player, prop);
 
+        // Check if instance of prop === Cloud
+        // Then checks if the player makes contact with the top of cloud
+        // After contact makes the cloud dissappear.
         if (prop instanceof Cloud) {
           contacts.push(contact);
           if (contact === CollideHandler.TOP_CONTACT) {
@@ -119,12 +140,22 @@ export default class DoodleScene extends GameLevel {
           prop.disappear();
         }
 
+        // Checks if the instance of prop === Coin.
+        // Then check if the player makes contact with a coin prop.
+        // If the player makes contact, Adds 1 point to their total points.
         if (prop instanceof Coin) {
           this.userData.increaseCoins(prop.getPoints());
           this.props.splice(propIndex, 1);
         }
+
+        if (prop instanceof DoodleEnemy) {
+          this.player.setDeath(true);
+          this.props.splice(propIndex, 1);
+        }
+
       }
 
+      // Makes the cloud disappear slowly
       if (prop instanceof Cloud) {
         if (prop.hasDisappeared()) {
           this.props.splice(propIndex, 1);
@@ -133,6 +164,8 @@ export default class DoodleScene extends GameLevel {
     });
     this.player.move(this.canvas, contacts, elapsed);
 
+    // Checks if the player is dead.
+    // If dead === true. Send the player back to the HUB.
     if (this.player.isDead()) {
       this.nextScene = new HubScene(this.canvas, this.userData)
     }
