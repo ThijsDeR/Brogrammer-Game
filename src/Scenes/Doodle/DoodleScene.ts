@@ -195,6 +195,8 @@ export default class DoodleScene extends GameLevel {
       this.backgroundMusic = null
     } else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
       this.nextScene = new HubScene(this.canvas, this.userData)
+      this.backgroundMusic.pause();
+      this.backgroundMusic = null
     }
     return this.nextScene;
   };
