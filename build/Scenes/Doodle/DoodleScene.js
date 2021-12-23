@@ -84,13 +84,13 @@ export default class DoodleScene extends GameLevel {
                 if (prop instanceof Coin) {
                     this.userData.increaseCoins(prop.getPoints());
                     this.props.splice(propIndex, 1);
-                    let coinSound = new Audio('./assets/img/Sound/CoinSound.wav');
+                    const coinSound = new Audio('./assets/img/Sound/CoinSound.wav');
                     coinSound.play();
                 }
                 if (prop instanceof DoodleEnemy) {
                     this.player.die();
                     this.props.splice(propIndex, 1);
-                    let enemySound = new Audio('./assets/img/Sound/HitEnemy.wav');
+                    const enemySound = new Audio('./assets/img/Sound/HitEnemy.wav');
                     enemySound.play();
                 }
             }
