@@ -40,7 +40,7 @@ export default class DoodleScene extends GameLevel {
       this.canvas.width / 2,
       this.canvas.height / 2,
       100,
-      100
+      150
     );
 
     this.nextScene = this
@@ -119,7 +119,8 @@ export default class DoodleScene extends GameLevel {
     });
 
     this.player.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
-    // Draw text on canvas.
+    // Draw text on canvas
+
     Scene.writeTextToCanvas(
       this.ctx,
       `Coins: ${this.userData.getCoins()}`,

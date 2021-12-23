@@ -22,7 +22,7 @@ export default class DoodleScene extends GameLevel {
             new ImageProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, './assets/img/platform.png', this.canvas.width, 100)
         ];
         this.createProps();
-        this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 100);
+        this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, 100, 150);
         this.nextScene = this;
         this.backgroundMusic = new Audio('./assets/img/Sound/SkyBackgroundMusic.wav');
         this.backgroundMusic.loop = true;
@@ -108,6 +108,8 @@ export default class DoodleScene extends GameLevel {
         }
         else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
             this.nextScene = new HubScene(this.canvas, this.userData);
+            this.backgroundMusic.pause();
+            this.backgroundMusic = null;
         }
         return this.nextScene;
     };
