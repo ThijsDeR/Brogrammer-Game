@@ -13,13 +13,13 @@ export default class HubScene extends GameLevel {
         super(canvas, userData);
         this.props = [
             new ImageProp(0, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
-            new ImageProp(0, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
-            new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
-            new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
             new Teleporter(0, (canvas.height / 4) - 150, canvas.width / 10, 200, 'hub'),
-            new Teleporter(0, ((canvas.height / 4) * 2), canvas.width / 10, 200, 'menu'),
+            new ImageProp(0, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
+            new Teleporter(0, ((canvas.height / 4) * 3 - 200), canvas.width / 10, 200, 'menu'),
+            new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
             new Teleporter((canvas.width / 20) * 18, (canvas.height / 4) - 150, canvas.width / 10, 200, 'doodle'),
-            new Teleporter((canvas.width / 20) * 18, ((canvas.height / 4) * 2), canvas.width / 10, 200, 'doodle'),
+            new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
+            new Teleporter((canvas.width / 20) * 18, ((canvas.height / 4) * 3 - 200), canvas.width / 10, 200, 'doodle'),
         ];
         this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
     }
@@ -31,6 +31,10 @@ export default class HubScene extends GameLevel {
         });
         this.player.draw(this.ctx);
         Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20);
+        Scene.writeTextToCanvas(this.ctx, 'Hub', 75, (this.canvas.height / 4) - 170, 20, 'center', 'middle', 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Menu', 80, ((this.canvas.height / 4) * 3) - 220, 20, 'center', 'middle', 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Doodle', (this.canvas.width / 20) * 19, (this.canvas.height / 4) - 170, 20, 'center', 'middle', 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Doodle', (this.canvas.width / 20) * 19, (this.canvas.height / 4) * 3 - 220, 20, 'center', 'middle', 'white');
     }
     processInput() {
         this.player.processInput();

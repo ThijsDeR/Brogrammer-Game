@@ -43,6 +43,22 @@ export default class MenuScene extends CutScene {
       100, 
       50,
     )
+
+    Scene.writeTextToCanvas(
+      this.ctx,
+      'A - D To move left or right', 
+      (this.canvas.width / 4) * 3, 
+      100, 
+      20
+    )
+
+    Scene.writeTextToCanvas(
+      this.ctx,
+      'Space to jump', 
+      (this.canvas.width / 4) * 3, 
+      150, 
+      20
+    )
   }
 
   public processInput(): void {

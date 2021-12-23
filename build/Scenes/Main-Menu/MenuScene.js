@@ -27,6 +27,8 @@ export default class MenuScene extends CutScene {
             prop.draw(this.ctx);
         });
         Scene.writeTextToCanvas(this.ctx, 'BroGrammers Game', this.canvas.width / 2, 100, 50);
+        Scene.writeTextToCanvas(this.ctx, 'A - D To move left or right', (this.canvas.width / 4) * 3, 100, 20);
+        Scene.writeTextToCanvas(this.ctx, 'Space to jump', (this.canvas.width / 4) * 3, 150, 20);
     }
     processInput() {
     }
