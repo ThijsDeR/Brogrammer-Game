@@ -41,10 +41,10 @@ export default class DoodleScene extends GameLevel {
   }
 
   public createProps() {
-    let previousHeight = 300
+    let previousHeight = 100
     for (let i = 0; i < 1000; i++) {
       let xPos = Game.randomNumber(this.canvas.width / 8, this.canvas.width - this.canvas.width / 8);
-      let yPos = Game.randomNumber(previousHeight + 200, previousHeight + 400);
+      let yPos = Game.randomNumber(previousHeight + 200, previousHeight + 300);
       let cloudWidth = this.canvas.width / 5;
       let cloudHeight = 65;
       let coinWidth = 32;
@@ -132,9 +132,10 @@ export default class DoodleScene extends GameLevel {
         if (prop instanceof Cloud) {
           contacts.push(contact);
           if (contact === CollideHandler.TOP_CONTACT) {
-            this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+            // this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+            prop.disappear();
           }
-          prop.disappear();
+          
         }
 
         // Checks if the instance of prop === Coin.
@@ -146,7 +147,7 @@ export default class DoodleScene extends GameLevel {
         }
 
         if (prop instanceof DoodleEnemy) {
-          this.player.setDeath(true);
+          this.player.die();
           this.props.splice(propIndex, 1);
         }
 
