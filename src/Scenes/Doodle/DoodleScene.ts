@@ -92,7 +92,7 @@ export default class DoodleScene extends GameLevel {
             coinHeight,
           )
         );
-      } else if (rng >= 9) {
+      } else if (rng >= 10) {
         this.props.push(
           new DoodleEnemy(
             xPos + (cloudWidth / 2) - 10,

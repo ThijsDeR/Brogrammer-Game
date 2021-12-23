@@ -52,7 +52,7 @@ export default class DoodleScene extends GameLevel {
             if (rng <= 5) {
                 this.props.push(new Coin(xPos + (cloudWidth / 2) - (coinHeight / 2), this.canvas.height - yPos - (coinHeight * 2), coinWidth, coinHeight));
             }
-            else if (rng >= 9) {
+            else if (rng >= 10) {
                 this.props.push(new DoodleEnemy(xPos + (cloudWidth / 2) - 10, this.canvas.height - yPos - enemyHeight, enemyWidth, enemyHeight));
             }
             i++;
