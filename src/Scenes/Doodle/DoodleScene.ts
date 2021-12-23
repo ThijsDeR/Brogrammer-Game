@@ -10,6 +10,7 @@ import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
 import ImageProp from "../../Props/ImageProp.js";
 import DoodleEnemy from "./DoodleEnemy.js";
+import DoodleLevelInfo from "./DoodleLevelInfo.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -23,9 +24,12 @@ export default class DoodleScene extends GameLevel {
     super(canvas, userData);
 
     this.props = [
-      new ImageProp(0, 0, './assets/img/kees.jpg', this.canvas.width, this.canvas.height + 500),
+      new ImageProp(0, this.canvas.height - 100, './assets/img/platform.png', this.canvas.width, 100),
       // Starting Cloud
       new Cloud(200 , this.canvas.height - 150, canvas.width - 400, 150),
+
+      // finishing Cloud
+      new ImageProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, './assets/img/platform.png', this.canvas.width, 100)
 
     ];
 
@@ -49,16 +53,23 @@ export default class DoodleScene extends GameLevel {
   }
 
   public createProps() {
-    let previousHeight = 300
-    for (let i = 0; i < 1000; i++) {
+    let previousHeight = 100
+    let i = 0
+    let atFinish = false
+    while (i < 1000 && atFinish === false) {
       let xPos = Game.randomNumber(this.canvas.width / 8, this.canvas.width - this.canvas.width / 8);
-      let yPos = Game.randomNumber(previousHeight + 200, previousHeight + 400);
+      let yPos = Game.randomNumber(previousHeight + 200, previousHeight + 300);
       let cloudWidth = this.canvas.width / 5;
       let cloudHeight = 65;
       let coinWidth = 32;
       let coinHeight = 32;
-      let enemyHeight = 100;
+      let enemyHeight = 60;
       let enemyWidth = 100;
+
+      if (this.canvas.height - yPos < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
+        atFinish = true
+        break
+      }
 
       previousHeight = yPos
       this.props.push(
@@ -91,6 +102,8 @@ export default class DoodleScene extends GameLevel {
           )
         )
       }
+
+      i++
     }
   }
 
@@ -140,9 +153,10 @@ export default class DoodleScene extends GameLevel {
         if (prop instanceof Cloud) {
           contacts.push(contact);
           if (contact === CollideHandler.TOP_CONTACT) {
-            this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+            // this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+            prop.disappear();
           }
-          prop.disappear();
+
         }
 
         // Checks if the instance of prop === Coin.
@@ -156,7 +170,7 @@ export default class DoodleScene extends GameLevel {
         }
 
         if (prop instanceof DoodleEnemy) {
-          this.player.setDeath(true);
+          this.player.die();
           this.props.splice(propIndex, 1);
           let enemySound = new Audio('./assets/img/Sound/HitEnemy.wav')
           enemySound.play();
@@ -179,6 +193,8 @@ export default class DoodleScene extends GameLevel {
       this.nextScene = new HubScene(this.canvas, this.userData)
       this.backgroundMusic.pause();
       this.backgroundMusic = null
+    } else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
+      this.nextScene = new HubScene(this.canvas, this.userData)
     }
     return this.nextScene;
   };
