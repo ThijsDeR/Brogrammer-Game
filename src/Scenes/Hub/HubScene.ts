@@ -7,6 +7,7 @@ import SceneSelector from '../../SceneSelector.js';
 import Teleporter from '../../Props/Teleporter.js';
 import UserData from '../../UserData.js';
 import HubPlayer from './HubPlayer.js';
+import Game from '../../Game.js';
 
 export default class HubScene extends GameLevel {
   private player: HubPlayer;
@@ -38,10 +39,11 @@ export default class HubScene extends GameLevel {
    */
    public draw(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.player.draw(this.ctx);
+    this.ctx.drawImage(Game.loadNewImage('./assets/img/background.jpg'), 0, 0, this.canvas.width, this.canvas.height)
     this.props.forEach((prop) => {
       prop.draw(this.ctx);
     });
+    this.player.draw(this.ctx);
 
     // Draw text on canvas.
     Scene.writeTextToCanvas(

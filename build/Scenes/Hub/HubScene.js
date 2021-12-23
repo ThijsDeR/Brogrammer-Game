@@ -5,6 +5,7 @@ import Scene from '../../Scene.js';
 import SceneSelector from '../../SceneSelector.js';
 import Teleporter from '../../Props/Teleporter.js';
 import HubPlayer from './HubPlayer.js';
+import Game from '../../Game.js';
 export default class HubScene extends GameLevel {
     player;
     props;
@@ -24,10 +25,11 @@ export default class HubScene extends GameLevel {
     }
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.player.draw(this.ctx);
+        this.ctx.drawImage(Game.loadNewImage('./assets/img/background.jpg'), 0, 0, this.canvas.width, this.canvas.height);
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
+        this.player.draw(this.ctx);
         Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20);
     }
     processInput() {
