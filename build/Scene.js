@@ -9,12 +9,27 @@ export default class Scene {
         this.ctx = this.canvas.getContext('2d');
         this.userData = userData;
     }
-    static writeTextToCanvas(ctx, text, xPos, yPos, fontSize = 20, textAlign = 'center', textBaseline = 'middle', color = 'black') {
+    static writeTextToCanvas(ctx, text, xPos, yPos, fontSize = 20, textAlign = 'center', textBaseline = 'middle', color = 'black', maxWidth = 10000) {
         ctx.font = `${fontSize}px Arial`;
         ctx.fillStyle = color;
         ctx.textAlign = textAlign;
         ctx.textBaseline = textBaseline;
-        ctx.fillText(text, xPos, yPos);
+        const words = text.split(' ');
+        let line = '';
+        for (let i = 0; i < words.length; i++) {
+            const tempLine = line + words[i] + ' ';
+            const metrics = ctx.measureText(tempLine);
+            const tempWidth = metrics.width;
+            if (tempWidth > maxWidth && i > 0) {
+                ctx.fillText(line, xPos, yPos);
+                line = words[i] + ' ';
+                yPos += fontSize;
+            }
+            else {
+                line = tempLine;
+            }
+        }
+        ctx.fillText(line, xPos, yPos);
     }
 }
 //# sourceMappingURL=Scene.js.map
