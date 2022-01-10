@@ -7,7 +7,7 @@ import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import MenuScene from './MenuScene.js';
 
-export default class ControlsScene extends CutScene {
+export default class ControlsScene extends Scene {
   private props: Prop[];
 
   private nextScene: Scene;
