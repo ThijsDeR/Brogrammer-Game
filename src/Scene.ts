@@ -4,7 +4,7 @@ export default abstract class Scene {
   protected canvas: HTMLCanvasElement;
 
   protected ctx: CanvasRenderingContext2D;
-  
+
   protected userData: UserData
   /**
    * l
@@ -38,13 +38,13 @@ export default abstract class Scene {
 
   public static writeTextToCanvas(
     ctx: CanvasRenderingContext2D,
-    text: string, 
-    xPos: number, 
-    yPos: number, 
-    fontSize: number = 20, 
-    textAlign: CanvasTextAlign = 'center', 
+    text: string,
+    xPos: number,
+    yPos: number,
+    fontSize: number = 20,
+    color: string = 'white',
+    textAlign: CanvasTextAlign = 'center',
     textBaseline: CanvasTextBaseline = 'middle',
-    color: string = 'black',
 
   ) {
     ctx.font = `${fontSize}px Arial`

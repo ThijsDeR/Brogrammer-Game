@@ -4,8 +4,10 @@ export default class Button extends RectProp {
     text;
     fontSize;
     id;
+    originalColor;
     constructor(xPos, yPos, width, height, color, text, fontSize, id) {
         super(xPos, yPos, width, height, color, 'stroke');
+        this.originalColor = color;
         this.text = text;
         this.fontSize = fontSize;
         this.id = id;
@@ -14,7 +16,7 @@ export default class Button extends RectProp {
         super.draw(ctx);
         Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.fontSize);
     }
-    isPressed(mouseCoords) {
+    isHovered(mouseCoords) {
         if (mouseCoords.x > this.getMinXPos()
             && mouseCoords.x < this.getMaxXPos()
             && mouseCoords.y > this.getMinYPos()
@@ -24,6 +26,13 @@ export default class Button extends RectProp {
     }
     getId() {
         return this.id;
+    }
+    doHover(mouseCoords) {
+        if (this.isHovered(mouseCoords)) {
+            this.color = 'blue';
+        }
+        else
+            this.color = this.originalColor;
     }
 }
 //# sourceMappingURL=Button.js.map

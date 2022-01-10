@@ -7,9 +7,12 @@ export default class Button extends RectProp{
   private fontSize: number;
 
   private id: string;
+
+  private originalColor: string;
+
   public constructor(
-    xPos: number, 
-    yPos: number, 
+    xPos: number,
+    yPos: number,
     width: number,
     height: number,
     color: string,
@@ -19,6 +22,7 @@ export default class Button extends RectProp{
   ) {
     super(xPos, yPos, width, height, color, 'stroke')
 
+    this.originalColor = color
     this.text = text
     this.fontSize = fontSize
     this.id = id
@@ -28,14 +32,14 @@ export default class Button extends RectProp{
     super.draw(ctx)
     Scene.writeTextToCanvas(
       ctx,
-      this.text, 
-      this.xPos + (this.width / 2), 
-      this.yPos + (this.height / 2), 
+      this.text,
+      this.xPos + (this.width / 2),
+      this.yPos + (this.height / 2),
       this.fontSize
     )
   }
 
-  public isPressed(mouseCoords: {x: number, y: number}): boolean {
+  public isHovered(mouseCoords: {x: number, y: number}): boolean {
     if (
       mouseCoords.x > this.getMinXPos()
       && mouseCoords.x < this.getMaxXPos()
@@ -47,6 +51,13 @@ export default class Button extends RectProp{
 
   public getId(): string {
     return this.id
+  }
+
+  public doHover(mouseCoords: {x: number, y: number}): void {
+    if (this.isHovered(mouseCoords)) {
+      this.color = 'blue';
+    }
+    else this.color = this.originalColor
   }
 
 }

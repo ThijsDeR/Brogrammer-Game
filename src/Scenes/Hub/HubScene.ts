@@ -13,7 +13,7 @@ export default class HubScene extends GameLevel {
   private player: HubPlayer;
 
   private props: Prop[];
-  
+
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
 
@@ -33,10 +33,10 @@ export default class HubScene extends GameLevel {
 
       // Right bottom
       new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
-      new Teleporter((canvas.width / 20) * 18, ((canvas.height / 4) * 3 - 200), canvas.width / 10, 200, 'doodle'),   
-      
+      new Teleporter((canvas.width / 20) * 18, ((canvas.height / 4) * 3 - 200), canvas.width / 10, 200, 'doodle'),
+
     ];
-  
+
     this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8)
   }
 
@@ -58,6 +58,7 @@ export default class HubScene extends GameLevel {
         this.canvas.width / 2,
         40,
         20,
+        'black',
     )
 
     Scene.writeTextToCanvas(
@@ -66,9 +67,9 @@ export default class HubScene extends GameLevel {
       75,
       (this.canvas.height / 4) - 170,
       20,
+      'white',
       'center',
       'middle',
-      'white',
     )
 
     Scene.writeTextToCanvas(
@@ -77,9 +78,9 @@ export default class HubScene extends GameLevel {
       80,
       ((this.canvas.height / 4) * 3) - 220,
       20,
+      'white',
       'center',
       'middle',
-      'white',
     )
 
     Scene.writeTextToCanvas(
@@ -88,9 +89,9 @@ export default class HubScene extends GameLevel {
       (this.canvas.width / 20) * 19,
       (this.canvas.height / 4) - 170,
       20,
+      'white',
       'center',
       'middle',
-      'white',
     )
 
     Scene.writeTextToCanvas(
@@ -99,9 +100,9 @@ export default class HubScene extends GameLevel {
       (this.canvas.width / 20) * 19,
       (this.canvas.height / 4) * 3 - 220,
       20,
+      'white',
       'center',
       'middle',
-      'white',
     )
   }
 

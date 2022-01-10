@@ -66,7 +66,7 @@ export default class DoodleScene extends GameLevel {
             prop.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
         });
         this.player.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
-        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20);
+        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'black');
     }
     processInput() {
         this.player.processInput();

@@ -5,9 +5,9 @@ import HubScene from '../Hub/HubScene.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
-import ControlsScene from './ControlsScreen.js';
+import MenuScene from './MenuScene.js';
 
-export default class MenuScene extends CutScene {
+export default class ControlsScene extends CutScene {
   private props: Prop[];
 
   private nextScene: Scene;
@@ -16,8 +16,7 @@ export default class MenuScene extends CutScene {
     super(canvas, userData)
 
     this.props = [
-      new Button(this.canvas.width / 2 - (500 / 2), 450, 500, 200, 'white', 'Start!', 100, 'startBtn'),
-      new Button(this.canvas.width / 2 - (500 / 2), 700, 500, 200, 'white', 'Controls', 100, 'controls')
+      new Button(this.canvas.width / 2 - (500 / 2), 700, 500, 200, 'white', 'Back', 100, 'backBtn'),
     ]
 
     this.nextScene = this
@@ -26,8 +25,7 @@ export default class MenuScene extends CutScene {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
-            if(prop.getId() === 'startBtn') this.nextScene = new HubScene(this.canvas, this.userData)
-            if(prop.getId() === 'controls') this.nextScene = new ControlsScene(this.canvas, this.userData)
+            if(prop.getId() === 'backBtn') this.nextScene = new MenuScene(this.canvas, this.userData)
           }
         }
       })
@@ -49,13 +47,30 @@ export default class MenuScene extends CutScene {
       prop.draw(this.ctx)
     })
 
-    // Game title
     Scene.writeTextToCanvas(
       this.ctx,
-      'Placeholder Text',
+      'Controlls',
       this.canvas.width / 2,
       100,
       50,
+      'white',
+    )
+
+    Scene.writeTextToCanvas(
+      this.ctx,
+      'Press A or D To move left or right',
+      this.canvas.width / 2,
+      250,
+      30,
+      'white',
+    )
+
+    Scene.writeTextToCanvas(
+      this.ctx,
+      'Press space to jump',
+      this.canvas.width / 2,
+      300,
+      30,
       'white',
     )
   }

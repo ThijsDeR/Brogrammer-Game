@@ -30,11 +30,11 @@ export default class HubScene extends GameLevel {
             prop.draw(this.ctx);
         });
         this.player.draw(this.ctx);
-        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20);
-        Scene.writeTextToCanvas(this.ctx, 'Hub', 75, (this.canvas.height / 4) - 170, 20, 'center', 'middle', 'white');
-        Scene.writeTextToCanvas(this.ctx, 'Menu', 80, ((this.canvas.height / 4) * 3) - 220, 20, 'center', 'middle', 'white');
-        Scene.writeTextToCanvas(this.ctx, 'Doodle', (this.canvas.width / 20) * 19, (this.canvas.height / 4) - 170, 20, 'center', 'middle', 'white');
-        Scene.writeTextToCanvas(this.ctx, 'Doodle', (this.canvas.width / 20) * 19, (this.canvas.height / 4) * 3 - 220, 20, 'center', 'middle', 'white');
+        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'black');
+        Scene.writeTextToCanvas(this.ctx, 'Hub', 75, (this.canvas.height / 4) - 170, 20, 'white', 'center', 'middle');
+        Scene.writeTextToCanvas(this.ctx, 'Menu', 80, ((this.canvas.height / 4) * 3) - 220, 20, 'white', 'center', 'middle');
+        Scene.writeTextToCanvas(this.ctx, 'Doodle', (this.canvas.width / 20) * 19, (this.canvas.height / 4) - 170, 20, 'white', 'center', 'middle');
+        Scene.writeTextToCanvas(this.ctx, 'Doodle', (this.canvas.width / 20) * 19, (this.canvas.height / 4) * 3 - 220, 20, 'white', 'center', 'middle');
     }
     processInput() {
         this.player.processInput();

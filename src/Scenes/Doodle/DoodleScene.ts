@@ -42,7 +42,7 @@ export default class DoodleScene extends GameLevel {
     this.player = new DoodlePlayer(
       this.canvas.width / 2,
       this.canvas.height / 2,
-      this.canvas.width / 25, 
+      this.canvas.width / 25,
       this.canvas.height / 8
     );
 
@@ -130,6 +130,7 @@ export default class DoodleScene extends GameLevel {
       this.canvas.width / 2,
       40,
       20,
+      'black',
     )
   }
 

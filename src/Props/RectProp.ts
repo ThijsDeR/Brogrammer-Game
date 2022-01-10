@@ -1,13 +1,13 @@
 import Prop from './Prop.js';
 
 export default class RectProp extends Prop {
-  private color: string;
+  protected color: string;
 
   private style: 'fill' | 'stroke';
 
   public constructor(
-    xPos: number, 
-    yPos: number, 
+    xPos: number,
+    yPos: number,
     width: number,
     height: number,
     color: string,
