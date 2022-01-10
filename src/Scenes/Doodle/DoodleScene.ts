@@ -13,6 +13,7 @@ import DoodleEnemy from "./DoodleEnemy.js";
 import DoodleLevelInfo from "./DoodleLevelInfo.js";
 import RectProp from "../../Props/RectProp.js";
 import GameInfo from "../../GameInfo.js";
+import Question from "../../Props/Question.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -28,13 +29,23 @@ export default class DoodleScene extends GameLevel {
     this.props = [
       // fall line
       new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'red', 'fill'),
+
       // Starting Cloud
       new Cloud(200 , this.canvas.height - 150, canvas.width - 400, 150),
+
+      // Question prompts
+      new Question(0, this.canvas.height - 1500, this.canvas.width, 20, 'blue', 'fill'),
+      // new Question(400, this.canvas.height - 300, 500, 200, 'green', 'Anwser 1', 50, 'testPrompt'),
 
       // finishing line
       new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'red', 'fill')
 
     ];
+
+    // question promt
+    // if the user reaches x height, trigger a question prompt
+    // user answers question
+    // user goes back to the game
 
 
     this.createProps();
@@ -42,7 +53,7 @@ export default class DoodleScene extends GameLevel {
     this.player = new DoodlePlayer(
       this.canvas.width / 2,
       this.canvas.height / 2,
-      this.canvas.width / 25, 
+      this.canvas.width / 25,
       this.canvas.height / 8
     );
 
@@ -57,6 +68,7 @@ export default class DoodleScene extends GameLevel {
 
   public createProps() {
     let previousHeight = 100
+    let previousQuestionHeight = 0;
     let i = 0
     let atFinish = false
     while (i < 1000 && atFinish === false) {
@@ -68,12 +80,14 @@ export default class DoodleScene extends GameLevel {
       let coinHeight = 32;
       let enemyHeight = 60;
       let enemyWidth = 100;
+      let questionYPos = Game.randomNumber(previousQuestionHeight + 5000, previousQuestionHeight + 8500);
 
       if (this.canvas.height - yPos < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
         atFinish = true
         break
       }
 
+      // Creates a new Cloud
       previousHeight = yPos
       this.props.push(
         new Cloud(
@@ -83,6 +97,19 @@ export default class DoodleScene extends GameLevel {
           cloudHeight,
         )
       );
+
+      // Creates a new Question
+      previousQuestionHeight = questionYPos
+      this.props.push(
+        new Question(
+          0,
+          this.canvas.height - questionYPos,
+          this.canvas.width,
+          20,
+          'green',
+          'fill',
+        )
+      )
 
       const rng = Game.randomNumber(1, 10)
 
@@ -173,6 +200,17 @@ export default class DoodleScene extends GameLevel {
           coinSound.play();
         }
 
+        // Checks if the instance of prop === Question.
+        // Then check if the player makes contact with a Question prop.
+        // If the player makes contact, throws a question.
+        if (prop instanceof Question) {
+          let test = prompt('test', 'test');
+          this.props.splice(propIndex, 1);
+        }
+
+        // Checks if the instance of prop === DoodleEnemy.
+        // Then check if the player makes contact with a DoodleEnemy prop.
+        // If the player makes contact, the player dies.
         if (prop instanceof DoodleEnemy) {
           this.player.die();
           this.props.splice(propIndex, 1);
