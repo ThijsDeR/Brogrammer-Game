@@ -28,8 +28,12 @@ export default class DoodleScene extends GameLevel {
     this.props = [
       // fall line
       new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'red', 'fill'),
+
       // Starting Cloud
       new Cloud(200 , this.canvas.height - 150, canvas.width - 400, 150),
+
+      // Question prompts
+      // new Question()
 
       // finishing line
       new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'red', 'fill')
@@ -42,7 +46,7 @@ export default class DoodleScene extends GameLevel {
     this.player = new DoodlePlayer(
       this.canvas.width / 2,
       this.canvas.height / 2,
-      this.canvas.width / 25, 
+      this.canvas.width / 25,
       this.canvas.height / 8
     );
 
