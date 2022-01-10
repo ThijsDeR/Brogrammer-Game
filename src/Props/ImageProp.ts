@@ -18,4 +18,8 @@ export default class ImageProp extends Prop {
   public draw(ctx: CanvasRenderingContext2D, offsetX: number = 0, offsetY: number = 0): void {
     ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.img.width, this.img.height);
   }
+
+  public getImage(): HTMLImageElement {
+    return this.img
+  }
 }

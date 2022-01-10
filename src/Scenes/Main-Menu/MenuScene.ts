@@ -6,8 +6,9 @@ import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import ControlsScene from './ControlsScreen.js';
+import Player from '../../Player.js';
 
-export default class MenuScene extends CutScene {
+export default class MenuScene extends Scene {
   private props: Prop[];
 
   private nextScene: Scene;

@@ -1,9 +1,7 @@
 import Button from '../../Props/Button.js';
-import CutScene from '../../CutScene.js';
 import HubScene from '../Hub/HubScene.js';
 import Scene from '../../Scene.js';
-import ControlsScene from './ControlsScreen.js';
-export default class MenuScene extends CutScene {
+export default class MenuScene extends Scene {
     props;
     nextScene;
     constructor(canvas, userData) {
