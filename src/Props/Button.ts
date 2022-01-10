@@ -48,5 +48,4 @@ export default class Button extends RectProp{
   public getId(): string {
     return this.id
   }
-
 }

@@ -9,5 +9,8 @@ export default class ImageProp extends Prop {
     draw(ctx, offsetX = 0, offsetY = 0) {
         ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.img.width, this.img.height);
     }
+    getImage() {
+        return this.img;
+    }
 }
 //# sourceMappingURL=ImageProp.js.map

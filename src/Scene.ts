@@ -45,12 +45,28 @@ export default abstract class Scene {
     textAlign: CanvasTextAlign = 'center', 
     textBaseline: CanvasTextBaseline = 'middle',
     color: string = 'black',
-
+    maxWidth: number = 10000,
   ) {
     ctx.font = `${fontSize}px Arial`
     ctx.fillStyle = color;
     ctx.textAlign = textAlign;
-    ctx.textBaseline = textBaseline
-    ctx.fillText(text, xPos, yPos)
+    ctx.textBaseline = textBaseline;
+    const words = text.split(' ');
+    let line = '';
+
+    for(let i = 0; i < words.length; i++) {
+      const tempLine = line + words[i] + ' ';
+      const metrics = ctx.measureText(tempLine);
+      const tempWidth = metrics.width;
+      if (tempWidth > maxWidth && i > 0) {
+        ctx.fillText(line, xPos, yPos);
+        line = words[i] + ' ';
+        yPos += fontSize;
+      }
+      else {
+        line = tempLine;
+      }
+    }
+    ctx.fillText(line, xPos, yPos)
   }
 }
