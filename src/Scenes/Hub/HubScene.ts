@@ -102,6 +102,7 @@ export default class HubScene extends GameLevel {
    */
   public update = (elapsed: number): Scene => {
     let nextScene: Scene = this
+    console.log(this.cutScene)
     if (this.cutScene === null) {
       let contacts: number[] = []
 
@@ -120,14 +121,16 @@ export default class HubScene extends GameLevel {
 
       this.NPCs.forEach((NPC) => {
         if (CollideHandler.collides(this.player, NPC)) {
+          console.log(this.cutScene)
           if (this.player.isInteracting()) {
             this.cutScene = NPC.interact()
+            console.log(this.cutScene)
           }
         }
-        const NPCRocket = NPC.getTeleporter()
-        if (CollideHandler.collides(this.player, NPCRocket)) {
-          if (NPCRocket.isActivated()) {
-            nextScene = SceneSelector.getClassFromString(NPCRocket.getDestinationScene(), this.canvas, this.userData)
+        const NPCTeleporter = NPC.getTeleporter()
+        if (CollideHandler.collides(this.player, NPCTeleporter)) {
+          if (NPCTeleporter.isActivated()) {
+            nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData)
           }
         }
 
@@ -136,7 +139,6 @@ export default class HubScene extends GameLevel {
       this.player.move(this.canvas, contacts, elapsed);
     } else {
       const cutsceneDone = this.cutScene.update(elapsed)
-      console.log(cutsceneDone)
       if (cutsceneDone) this.cutScene = null;
     }
 

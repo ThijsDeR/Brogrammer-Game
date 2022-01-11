@@ -36,7 +36,7 @@ export default class HubScene extends GameLevel {
             NPC.draw(this.ctx);
         });
         this.player.draw(this.ctx);
-        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'center', 'middle', 'white');
+        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'white', 'center', 'middle');
         if (this.cutScene !== null) {
             this.cutScene.draw();
         }
@@ -51,6 +51,7 @@ export default class HubScene extends GameLevel {
     }
     update = (elapsed) => {
         let nextScene = this;
+        console.log(this.cutScene);
         if (this.cutScene === null) {
             let contacts = [];
             this.props.forEach((prop) => {
@@ -67,14 +68,16 @@ export default class HubScene extends GameLevel {
             });
             this.NPCs.forEach((NPC) => {
                 if (CollideHandler.collides(this.player, NPC)) {
+                    console.log(this.cutScene);
                     if (this.player.isInteracting()) {
                         this.cutScene = NPC.interact();
+                        console.log(this.cutScene);
                     }
                 }
-                const NPCRocket = NPC.getTeleporter();
-                if (CollideHandler.collides(this.player, NPCRocket)) {
-                    if (NPCRocket.isActivated()) {
-                        nextScene = SceneSelector.getClassFromString(NPCRocket.getDestinationScene(), this.canvas, this.userData);
+                const NPCTeleporter = NPC.getTeleporter();
+                if (CollideHandler.collides(this.player, NPCTeleporter)) {
+                    if (NPCTeleporter.isActivated()) {
+                        nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData);
                     }
                 }
             });
@@ -82,7 +85,6 @@ export default class HubScene extends GameLevel {
         }
         else {
             const cutsceneDone = this.cutScene.update(elapsed);
-            console.log(cutsceneDone);
             if (cutsceneDone)
                 this.cutScene = null;
         }

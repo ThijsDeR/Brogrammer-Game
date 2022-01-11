@@ -51,9 +51,9 @@ export default class TextBox {
         this.xPos + (this.width / 2),
         this.yPos + (this.height / 2),
         20,
+        'black',
         'center',
         'middle',
-        'black'
       )
     }
   }

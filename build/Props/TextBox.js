@@ -24,7 +24,7 @@ export default class TextBox {
     draw(ctx) {
         this.textBoxImage.draw(ctx);
         if (!this.isDone()) {
-            Scene.writeTextToCanvas(ctx, this.sentences[this.currentSentence].substring(0, this.sentenceLength), this.xPos + (this.width / 2), this.yPos + (this.height / 2), 20, 'center', 'middle', 'black');
+            Scene.writeTextToCanvas(ctx, this.sentences[this.currentSentence].substring(0, this.sentenceLength), this.xPos + (this.width / 2), this.yPos + (this.height / 2), 20, 'black', 'center', 'middle');
         }
     }
     advanceSentence(elapsed) {

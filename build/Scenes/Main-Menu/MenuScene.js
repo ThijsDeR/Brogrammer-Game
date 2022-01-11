@@ -1,6 +1,7 @@
 import Button from '../../Props/Button.js';
 import HubScene from '../Hub/HubScene.js';
 import Scene from '../../Scene.js';
+import ControlsScene from './ControlsScreen.js';
 export default class MenuScene extends Scene {
     props;
     nextScene;

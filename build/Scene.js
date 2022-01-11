@@ -9,7 +9,7 @@ export default class Scene {
         this.ctx = this.canvas.getContext('2d');
         this.userData = userData;
     }
-    static writeTextToCanvas(ctx, text, xPos, yPos, fontSize = 20, textAlign = 'center', textBaseline = 'middle', color = 'black', maxWidth = 10000) {
+    static writeTextToCanvas(ctx, text, xPos, yPos, fontSize = 20, color = 'white', textAlign = 'center', textBaseline = 'middle', maxWidth = 10000) {
         ctx.font = `${fontSize}px Arial`;
         ctx.fillStyle = color;
         ctx.textAlign = textAlign;
