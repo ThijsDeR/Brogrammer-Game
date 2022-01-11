@@ -51,7 +51,6 @@ export default class HubScene extends GameLevel {
     }
     update = (elapsed) => {
         let nextScene = this;
-        console.log(this.cutScene);
         if (this.cutScene === null) {
             let contacts = [];
             this.props.forEach((prop) => {
@@ -68,10 +67,8 @@ export default class HubScene extends GameLevel {
             });
             this.NPCs.forEach((NPC) => {
                 if (CollideHandler.collides(this.player, NPC)) {
-                    console.log(this.cutScene);
                     if (this.player.isInteracting()) {
                         this.cutScene = NPC.interact();
-                        console.log(this.cutScene);
                     }
                 }
                 const NPCTeleporter = NPC.getTeleporter();

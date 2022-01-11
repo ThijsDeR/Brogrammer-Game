@@ -9,6 +9,8 @@ export default class DoodleNPCCutscene extends CutScene {
 
   private textBox: TextBox;
 
+  private endTextBox: TextBox;
+
   public constructor(
     canvas: HTMLCanvasElement,
     userData: UserData,
@@ -19,12 +21,16 @@ export default class DoodleNPCCutscene extends CutScene {
     this.doodleNPC = doodleNPC
 
     const sentences = [
-      "oh no, i need help please help me aaaaahhhhhhhhhhhhhhh",
-      "okay we are done here lmfao lol bye",
-      "ps: thijs is gay"
+      "Please help me, my son is trapped at the top of the clouds.",
+      "Can you save him?"
+    ]
+
+    const endSentences = [
+      "You can go through the portal now."
     ]
 
     this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
+    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
   }
 
   public draw(): void {
@@ -42,8 +48,13 @@ export default class DoodleNPCCutscene extends CutScene {
 
   public update(elapsed: number): boolean {
     this.textBox.advanceSentence(elapsed)
-    if (this.textBox.isDone()) this.doodleNPC.finishInteraction();
-    return this.textBox.isDone()
+    if (this.textBox.isDone()) {
+      this.doodleNPC.finishInteraction();
+      this.textBox = this.endTextBox
+      this.textBox.reset()
+      return true
+    }
+    return false
   }
   
 }

@@ -43,6 +43,10 @@ export default class TextBox {
             this.nextSentenceDelay = 200;
         }
     }
+    reset() {
+        this.currentSentence = 0;
+        this.sentenceLength = 0;
+    }
     isDone() {
         return this.currentSentence > this.sentences.length - 1;
     }

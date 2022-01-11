@@ -4,7 +4,6 @@ import ImageProp from '../../Props/ImageProp.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import SceneSelector from '../../SceneSelector.js';
-import Teleporter from '../../Props/Teleporter.js';
 import UserData from '../../UserData.js';
 import HubPlayer from './HubPlayer.js';
 import Game from '../../Game.js';
@@ -102,7 +101,6 @@ export default class HubScene extends GameLevel {
    */
   public update = (elapsed: number): Scene => {
     let nextScene: Scene = this
-    console.log(this.cutScene)
     if (this.cutScene === null) {
       let contacts: number[] = []
 
@@ -121,10 +119,8 @@ export default class HubScene extends GameLevel {
 
       this.NPCs.forEach((NPC) => {
         if (CollideHandler.collides(this.player, NPC)) {
-          console.log(this.cutScene)
           if (this.player.isInteracting()) {
             this.cutScene = NPC.interact()
-            console.log(this.cutScene)
           }
         }
         const NPCTeleporter = NPC.getTeleporter()

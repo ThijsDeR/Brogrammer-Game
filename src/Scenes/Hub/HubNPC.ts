@@ -13,6 +13,7 @@ export default abstract class HubNPC extends NPC {
     imageSrc: string,
     width: number | undefined = undefined, 
     height: number | undefined = undefined,
+    teleporter: string,
     direction: 'left' | 'right'
     ) {
       super(xPos, yPos, imageSrc, width, height)
@@ -20,7 +21,7 @@ export default abstract class HubNPC extends NPC {
       let rocketxPos;
       if (direction === 'right') rocketxPos = xPos + (width * 1.5);
       else if (direction === 'left') rocketxPos = xPos - (width * 2) - (width * 0.5)
-      this.teleporter = new Teleporter(rocketxPos, yPos - height, width * 2, height * 2, 'doodle')
+      this.teleporter = new Teleporter(rocketxPos, yPos - height, width * 2, height * 2, teleporter)
   } 
 
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {

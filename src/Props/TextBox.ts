@@ -75,6 +75,12 @@ export default class TextBox {
     }
   }
 
+  public reset(): void {
+    this.currentSentence = 0
+    this.sentenceLength = 0
+    
+  }
+
   public isDone(): boolean {
     return this.currentSentence > this.sentences.length - 1
   }
