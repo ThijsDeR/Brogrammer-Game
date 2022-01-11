@@ -34,7 +34,7 @@ export default class ControlsScene extends Scene {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        Scene.writeTextToCanvas(this.ctx, 'Controlls', this.canvas.width / 2, 100, 50, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Controls', this.canvas.width / 2, 100, 50, 'white');
         Scene.writeTextToCanvas(this.ctx, 'Press A or D To move left or right', this.canvas.width / 2, 250, 30, 'white');
         Scene.writeTextToCanvas(this.ctx, 'Press space to jump', this.canvas.width / 2, 300, 30, 'white');
     }
