@@ -56,5 +56,5 @@ export default class DoodleNPCCutscene extends CutScene {
     }
     return false
   }
-  
+
 }

@@ -53,7 +53,7 @@ export default class MenuScene extends Scene {
     // Game title
     Scene.writeTextToCanvas(
       this.ctx,
-      'Placeholder Text',
+      'The epic adventure of Sam Sung',
       this.canvas.width / 2,
       100,
       50,

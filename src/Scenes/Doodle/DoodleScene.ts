@@ -14,6 +14,9 @@ import DoodleLevelInfo from "./DoodleLevelInfo.js";
 import RectProp from "../../Props/RectProp.js";
 import GameInfo from "../../GameInfo.js";
 import Question from "../../Props/Question.js";
+import CutScene from "../../CutScene.js";
+import QuestionCutscene from "./QuestionCutscene.js";
+import DoodleNPC from "../Hub/NPC_Doodle/DoodleNPC.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -21,6 +24,8 @@ export default class DoodleScene extends GameLevel {
   private props: Prop[];
 
   private nextScene: Scene;
+
+  private question: Question;
 
   private backgroundMusic: HTMLAudioElement
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
@@ -46,8 +51,6 @@ export default class DoodleScene extends GameLevel {
     // if the user reaches x height, trigger a question prompt
     // user answers question
     // user goes back to the game
-
-
     this.createProps();
 
     this.player = new DoodlePlayer(
@@ -205,8 +208,9 @@ export default class DoodleScene extends GameLevel {
         // Then check if the player makes contact with a Question prop.
         // If the player makes contact, throws a question.
         if (prop instanceof Question) {
-          let test = prompt('test', 'test');
+          new QuestionCutscene(this.canvas, this.userData, this.question);
           this.props.splice(propIndex, 1);
+
         }
 
         // Checks if the instance of prop === DoodleEnemy.

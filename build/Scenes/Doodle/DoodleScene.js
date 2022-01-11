@@ -11,10 +11,12 @@ import DoodleLevelInfo from "./DoodleLevelInfo.js";
 import RectProp from "../../Props/RectProp.js";
 import GameInfo from "../../GameInfo.js";
 import Question from "../../Props/Question.js";
+import QuestionCutscene from "./QuestionCutscene.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
     nextScene;
+    question;
     backgroundMusic;
     constructor(canvas, userData) {
         super(canvas, userData);
@@ -95,7 +97,7 @@ export default class DoodleScene extends GameLevel {
                     coinSound.play();
                 }
                 if (prop instanceof Question) {
-                    let test = prompt('test', 'test');
+                    new QuestionCutscene(this.canvas, this.userData, this.question);
                     this.props.splice(propIndex, 1);
                 }
                 if (prop instanceof DoodleEnemy) {

@@ -38,7 +38,7 @@ export default class MenuScene extends Scene {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        Scene.writeTextToCanvas(this.ctx, 'Placeholder Text', this.canvas.width / 2, 100, 50, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'The epic adventure of Sam Sung', this.canvas.width / 2, 100, 50, 'white');
     }
     processInput() {
     }
