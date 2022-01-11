@@ -49,7 +49,7 @@ export default class ControlsScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Controlls',
+      'Controls',
       this.canvas.width / 2,
       100,
       50,

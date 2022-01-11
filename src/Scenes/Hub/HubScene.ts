@@ -72,7 +72,7 @@ export default class HubScene extends GameLevel {
         this.canvas.width / 2,
         40,
         20,
-        'white',
+        'black',
         'center',
         'middle',
     )
