@@ -1,8 +1,6 @@
 import CollideHandler from "../../CollideHandler.js";
 import GameLevel from "../../GameLevel.js";
 import Platform from "../../Props/Platform.js";
-import Question from "../../Props/Question.js";
-import RectProp from "../../Props/RectProp.js";
 import Scene from '../../Scene.js';
 import UserData from "../../UserData.js";
 import HubScene from "../Hub/HubScene.js";
@@ -16,6 +14,8 @@ export default class TempleRunScene extends GameLevel {
 
   private question: null | TRQuestion;
 
+  private score: number;
+
   public constructor(
     canvas: HTMLCanvasElement, 
     userData: UserData
@@ -25,6 +25,8 @@ export default class TempleRunScene extends GameLevel {
     this.player = new TempleRunPlayer(this.canvas.width / 4, this.canvas.height / 2, 50, 100)
 
     this.question = new TRQuestion(this.canvas, this.player)
+
+    this.score = 0
   }
 
   private newQuestion(): void {
@@ -36,6 +38,7 @@ export default class TempleRunScene extends GameLevel {
     console.log(this.player.getXPos())
     this.question.draw(this.ctx, this.player.getXPos())
     this.player.draw(this.ctx, this.player.getXPos() - 200)
+    Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, 50, 20, 'black')
   }
 
   public processInput(): void {
@@ -57,6 +60,7 @@ export default class TempleRunScene extends GameLevel {
         } else if (prop instanceof DeadProp) {
           this.player.die()
         } else if (prop instanceof CorrectProp) {
+          this.score += 1;
           this.newQuestion()
         }
       }
