@@ -18,10 +18,10 @@ export default abstract class HubNPC extends NPC {
     ) {
       super(xPos, yPos, imageSrc, width, height)
 
-      let rocketxPos;
-      if (direction === 'right') rocketxPos = xPos + (width * 1.5);
-      else if (direction === 'left') rocketxPos = xPos - (width * 2) - (width * 0.5)
-      this.teleporter = new Teleporter(rocketxPos, yPos - height, width * 2, height * 2, teleporter)
+      let teleporterxPos;
+      if (direction === 'right') teleporterxPos = xPos + (width * 1.5);
+      else if (direction === 'left') teleporterxPos = xPos - (width * 2) - (width * 0.5)
+      this.teleporter = new Teleporter(teleporterxPos, yPos - height, width * 2, height * 2, teleporter)
   } 
 
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {

@@ -1,0 +1,1 @@
+{"version":3,"file":"DeadProp.js","sourceRoot":"","sources":["../../../src/Scenes/Temple-Run/DeadProp.ts"],"names":[],"mappings":"AAAA,OAAO,QAAQ,MAAM,yBAAyB,CAAC;AAE/C,MAAM,CAAC,OAAO,OAAO,QAAS,SAAQ,QAAQ;IAC5C,YACE,IAAY,EACZ,IAAY,EACZ,KAAa,EACb,MAAc;QAEd,KAAK,CAAC,IAAI,EAAE,IAAI,EAAE,KAAK,EAAE,MAAM,EAAE,KAAK,EAAE,MAAM,CAAC,CAAA;IACjD,CAAC;CACF"}

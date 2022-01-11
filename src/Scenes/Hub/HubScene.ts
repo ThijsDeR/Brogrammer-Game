@@ -10,6 +10,7 @@ import Game from '../../Game.js';
 import CutScene from '../../CutScene.js';
 import DoodleNPC from './NPC_Doodle/DoodleNPC.js';
 import HubNPC from './HubNPC.js';
+import TempleRunNPC from './NPC_Temple_Run/TempleRunNPC.js';
 
 export default class HubScene extends GameLevel {
   private player: HubPlayer;
@@ -41,6 +42,7 @@ export default class HubScene extends GameLevel {
     ];
 
     this.NPCs = [
+      new TempleRunNPC(200, (canvas.height / 4) * 3 - 100, canvas.width / 20, 100, this.canvas, this.userData),
       new DoodleNPC((canvas.width / 20) * 16, ((canvas.height / 4) * 3 - 100), canvas.width / 20, 100, this.canvas, this.userData),
       new DoodleNPC((canvas.width / 20) * 16, (canvas.height / 4) - 50, canvas.width / 20, 100, this.canvas, this.userData)
     ]

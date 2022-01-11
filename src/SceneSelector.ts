@@ -3,6 +3,7 @@ import HubScene from './Scenes/Hub/HubScene.js'
 import MenuScene from './Scenes/Main-Menu/MenuScene.js'
 import Scene from './Scene.js'
 import UserData from './UserData.js'
+import TempleRunScene from './Scenes/Temple-Run/TempleRunScene.js'
 
 export default class SceneSelector {
   public static getClassFromString(classString: string, canvas: HTMLCanvasElement, userData: UserData): Scene | null {
@@ -17,6 +18,10 @@ export default class SceneSelector {
 
       case 'menu': {
         return new MenuScene(canvas, userData)
+      }
+
+      case 'templerun': {
+        return new TempleRunScene(canvas, userData)
       }
 
       default: {
