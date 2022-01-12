@@ -15,7 +15,6 @@ import GameInfo from "../../GameInfo.js";
 import Question from "./Question.js";
 import CutScene from "../../CutScene.js";
 import QuestionCutscene from "./QuestionCutscene.js";
-import DoodleNPC from "../Hub/NPC_Doodle/DoodleNPC.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -23,8 +22,6 @@ export default class DoodleScene extends GameLevel {
   private props: Prop[];
 
   private nextScene: Scene;
-
-  private question: Question;
 
   private backgroundMusic: HTMLAudioElement;
 
@@ -69,7 +66,7 @@ export default class DoodleScene extends GameLevel {
     this.cutScene = null
   }
 
-  public createProps() {
+  public createProps(): void {
     let previousHeight = 100
     let previousQuestionHeight = 0;
     let i = 0

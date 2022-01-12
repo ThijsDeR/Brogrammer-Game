@@ -21,7 +21,7 @@ export default class Text extends Prop {
     color: string = 'black',
     fontSize: number = 20,
     textAlign: CanvasTextAlign = 'center',
-    textBaseline: CanvasTextBaseline = 'middle',
+    textBaseLine: CanvasTextBaseline = 'middle',
   ) {
     super(xPos, yPos, width, height)
 
@@ -29,7 +29,7 @@ export default class Text extends Prop {
     this.color = color;
     this.fontSize = fontSize;
     this.textAlign = textAlign;
-    this.textBaseLine = textBaseline;
+    this.textBaseLine = textBaseLine;
   }
 
   public draw(ctx: CanvasRenderingContext2D, offsetX: number = 0, offsetY: number = 0): void {

@@ -1,8 +1,8 @@
 import ImageProp from './ImageProp.js';
 export default class NPC extends ImageProp {
     activated;
-    constructor(xpos, ypos, imageSrc, width = undefined, height = undefined) {
-        super(xpos, ypos, imageSrc, width, height);
+    constructor(xPos, yPos, imageSrc, width = undefined, height = undefined) {
+        super(xPos, yPos, imageSrc, width, height);
         this.activated = false;
     }
     isActivated() {

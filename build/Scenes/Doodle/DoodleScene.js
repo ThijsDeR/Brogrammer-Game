@@ -16,7 +16,6 @@ export default class DoodleScene extends GameLevel {
     player;
     props;
     nextScene;
-    question;
     backgroundMusic;
     cutScene;
     constructor(canvas, userData) {

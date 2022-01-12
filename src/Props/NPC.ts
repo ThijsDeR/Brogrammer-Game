@@ -5,13 +5,13 @@ export default abstract class NPC extends ImageProp {
   protected activated: boolean;
 
   public constructor(
-    xpos: number, 
-    ypos: number,
+    xPos: number, 
+    yPos: number,
     imageSrc: string,
     width: number | undefined = undefined, 
     height: number | undefined = undefined
   ) {
-    super(xpos, ypos, imageSrc, width, height)
+    super(xPos, yPos, imageSrc, width, height)
     this.activated = false;
   }
   
