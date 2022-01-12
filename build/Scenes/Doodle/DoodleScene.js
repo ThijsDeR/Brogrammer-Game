@@ -22,10 +22,10 @@ export default class DoodleScene extends GameLevel {
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
-            new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'red', 'fill'),
+            new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'transparent', 'fill'),
             new Cloud(200, this.canvas.height - 150, canvas.width - 400, 150),
-            new Question(0, this.canvas.height - 1500, this.canvas.width, 20, 'blue', 'fill'),
-            new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'red', 'fill')
+            new Question(0, this.canvas.height - 1500, this.canvas.width, 20, 'transparent', 'fill'),
+            new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'transparent', 'fill')
         ];
         this.createProps();
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
@@ -58,7 +58,7 @@ export default class DoodleScene extends GameLevel {
             previousHeight = yPos;
             this.props.push(new Cloud(xPos, this.canvas.height - yPos, cloudWidth, cloudHeight));
             previousQuestionHeight = questionYPos;
-            this.props.push(new Question(0, this.canvas.height - questionYPos, this.canvas.width, 20, 'green', 'fill'));
+            this.props.push(new Question(0, this.canvas.height - questionYPos, this.canvas.width, 20, 'transparent', 'fill'));
             const rng = Game.randomNumber(1, 10);
             if (rng <= 5) {
                 this.props.push(new Coin(xPos + (cloudWidth / 2) - (coinHeight / 2), this.canvas.height - yPos - (coinHeight * 2), coinWidth, coinHeight));
@@ -124,6 +124,9 @@ export default class DoodleScene extends GameLevel {
                 if (prop instanceof Cloud) {
                     if (prop.hasDisappeared()) {
                         this.props.splice(propIndex, 1);
+                    }
+                    else {
+                        prop.makeDisappear(elapsed);
                     }
                 }
             });

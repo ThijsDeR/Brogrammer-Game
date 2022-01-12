@@ -35,17 +35,17 @@ export default class DoodleScene extends GameLevel {
 
     this.props = [
       // fall line
-      new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'red', 'fill'),
+      new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'transparent', 'fill'),
 
       // Starting Cloud
       new Cloud(200 , this.canvas.height - 150, canvas.width - 400, 150),
 
       // Question prompts
-      new Question(0, this.canvas.height - 1500, this.canvas.width, 20, 'blue', 'fill'),
+      new Question(0, this.canvas.height - 1500, this.canvas.width, 20, 'transparent', 'fill'),
       // new Question(400, this.canvas.height - 300, 500, 200, 'green', 'Anwser 1', 50, 'testPrompt'),
 
       // finishing line
-      new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'red', 'fill')
+      new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'transparent', 'fill')
 
     ];
     
@@ -109,7 +109,7 @@ export default class DoodleScene extends GameLevel {
           this.canvas.height - questionYPos,
           this.canvas.width,
           20,
-          'green',
+          'transparent',
           'fill',
         )
       )
@@ -241,6 +241,8 @@ export default class DoodleScene extends GameLevel {
         if (prop instanceof Cloud) {
           if (prop.hasDisappeared()) {
             this.props.splice(propIndex, 1);
+          } else {
+            prop.makeDisappear(elapsed)
           }
         }
       });

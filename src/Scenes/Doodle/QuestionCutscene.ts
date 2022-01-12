@@ -40,7 +40,8 @@ export default class QuestionCutscene extends CutScene {
       new Button((canvas.width / 5) * 4 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'green', randomQuestion.answers[3].answer, 20, '3'),
       new Text(canvas.width / 2, chatBoxHeight * 2 - 100, canvas.width, 500, randomQuestion.question, 'white', 50)
     ]
-
+    
+    this.player = player
     this.completed = false;
 
     this.canvas.addEventListener('click', (event) => {

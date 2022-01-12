@@ -22,19 +22,15 @@ export default class Cloud extends ImageProp {
     ctx.globalAlpha = 1
   }
   public disappear(): void {
-    if (!this.isDisappearing) {
-      this.isDisappearing = true
-      this.makeDisappear()
-    }
+    this.isDisappearing = true
   }
 
-  private makeDisappear(): void {
-    setTimeout(() => {
+  public makeDisappear(elapsed: number): void {
+    if (this.isDisappearing) {
       if (this.opacity >= 0.1) {
-        this.opacity -= 0.01
-        this.makeDisappear()
+        this.opacity -= 0.01 * (elapsed / 20)
       }
-    }, 50)
+    }
   }
 
   public hasDisappeared(): boolean {
