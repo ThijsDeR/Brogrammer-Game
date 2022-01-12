@@ -44,7 +44,7 @@ export default class HubScene extends GameLevel {
     ];
 
     this.NPCs = [
-      new TempleRunNPC(200, (canvas.height / 4) * 3 - 100, canvas.width / 20, 100, this.canvas, this.userData),
+      new TempleRunNPC(270, (canvas.height / 4) * 3 - 100, canvas.width / 20, 100, this.canvas, this.userData),
       new DoodleNPC((canvas.width / 20) * 16, ((canvas.height / 4) * 3 - 100), canvas.width / 20, 100, this.canvas, this.userData),
       new DoodleNPC((canvas.width / 20) * 16, (canvas.height / 4) - 50, canvas.width / 20, 100, this.canvas, this.userData)
     ]

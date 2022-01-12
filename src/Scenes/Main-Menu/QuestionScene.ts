@@ -75,8 +75,19 @@ export default class QuestionScene extends Scene {
         'middle',
         this.canvas.width / 3
       )
-
     })
+
+    Scene.writeTextToCanvas(
+      this.ctx, 
+      this.question.questionInfo,
+      this.canvas.width / 2,
+      750,
+      25,
+      'white',
+      'center',
+      'middle',
+      this.canvas.width / 3
+    )
 
     
   }
@@ -86,7 +97,7 @@ export default class QuestionScene extends Scene {
   }
 
   public update(elapsed: number): Scene {
-    return this
+    return this.nextScene
   }
   
 }

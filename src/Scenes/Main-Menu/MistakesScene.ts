@@ -6,6 +6,7 @@ import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import MenuScene from './MenuScene.js';
+import QuestionScene from './QuestionScene.js';
 
 export default class MistakeScene extends Scene {
   private props: Prop[];
@@ -17,14 +18,12 @@ export default class MistakeScene extends Scene {
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
 
-    this.props = [];
+    this.props = [new Button(10, 10, 100, 50, 'blue', 'back', 20, 'backBtn')];
     this.questions = this.userData.getQuestions();
-
     this.questions.forEach((question, questionIndex) => {
-      this.props.push(new Button(this.canvas.width / 2 - (200 / 2), 100 * (questionIndex + 1), 200, 100, 'white', `question`, 50, `${questionIndex}`));
+      this.props.push(new Button(this.canvas.width / 2 - (100 / 2), 300 +  (50 * questionIndex), 125, 50, 'white', `Vraag ${questionIndex + 1}`, 25, `${questionIndex}`));
     })
-
-    console.log(this.props)
+    
     this.nextScene = this
 
     const clickFunction = (event: MouseEvent) => {
@@ -33,6 +32,7 @@ export default class MistakeScene extends Scene {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
             if(prop.getId() === 'backBtn') this.nextScene = new MenuScene(this.canvas, this.userData)
+            else this.nextScene = new QuestionScene(this.canvas, this.userData, this.questions[Number(prop.getId())])
           }
         }
       })
@@ -46,7 +46,7 @@ export default class MistakeScene extends Scene {
     const hoverFunction = (event: MouseEvent) => {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
-          prop.doHover({x: event.x, y: event.y}, 'blue')
+          prop.doHover({x: event.x, y: event.y}, 'red')
         }
       })
     }
@@ -65,7 +65,7 @@ export default class MistakeScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Questions',
+      'Vragen',
       this.canvas.width / 2,
       100,
       50,
@@ -74,7 +74,7 @@ export default class MistakeScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      `Here are the anwsers to the questions`,
+      `Hier zijn de antwoorden voor de vragen die je hebt beantwoord`,
       this.canvas.width / 2,
       250,
       30,
