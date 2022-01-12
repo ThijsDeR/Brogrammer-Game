@@ -1,7 +1,7 @@
 import Button from '../../Props/Button.js';
 import HubScene from '../Hub/HubScene.js';
 import Scene from '../../Scene.js';
-import ControlsScene from './ControlsScreen.js';
+import ControlsScene from './ControlsScene.js';
 import MistakeScene from './MistakesScene.js';
 import GameInfo from '../../GameInfo.js';
 export default class MenuScene extends Scene {
