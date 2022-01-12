@@ -7,6 +7,7 @@ import UserData from '../../UserData.js';
 import DoodleLevelInfo from './DoodleLevelInfo.js';
 import DoodlePlayer from './DoodlePlayer.js';
 import Text from '../../Props/Text.js';
+import GameInfo from '../../GameInfo.js';
 
 export default class QuestionCutscene extends CutScene {
   private props: Prop[];
@@ -44,7 +45,7 @@ export default class QuestionCutscene extends CutScene {
     this.player = player
     this.completed = false;
 
-    this.canvas.addEventListener('click', (event) => {
+    const questionClickFunction = (event: MouseEvent) => {
       const question = DoodleLevelInfo.QUESTIONS[this.question]
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
@@ -59,15 +60,34 @@ export default class QuestionCutscene extends CutScene {
           }
         }
       })
-    })
+      
+      if (this.player.isDead()){
+        const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3')
+        wrongSound.volume = 0.8;
+        wrongSound.play();
+      } else {
+        const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
+        correctSound.volume = 0.6;
+        correctSound.play();
+      }
 
-    this.canvas.addEventListener('mousemove', (event) => {
+      if (this.completed) {
+        this.canvas.removeEventListener('click', questionClickFunction)
+        this.canvas.removeEventListener('mousemove', hoverFunction)
+      }
+    }
+
+    const hoverFunction = (event: MouseEvent) => {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           prop.doHover({x: event.x, y: event.y}, 'yellow')
         }
       })
-    })
+    }
+
+    this.canvas.addEventListener('click', questionClickFunction)
+
+    this.canvas.addEventListener('mousemove', hoverFunction)
   }
 
 
