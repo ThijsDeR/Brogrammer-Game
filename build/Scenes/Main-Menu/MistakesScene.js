@@ -11,7 +11,7 @@ export default class MistakeScene extends Scene {
         this.props = [new Button(10, 10, 100, 50, 'blue', 'back', 20, 'backBtn')];
         this.questions = this.userData.getQuestions();
         this.questions.forEach((question, questionIndex) => {
-            this.props.push(new Button(this.canvas.width / 2 - (200 / 2), 300 + (100 * questionIndex), 250, 100, 'white', `Vraag ${questionIndex + 1}`, 50, `${questionIndex}`));
+            this.props.push(new Button(this.canvas.width / 2 - (100 / 2), 300 + (50 * questionIndex), 125, 50, 'white', `Vraag ${questionIndex + 1}`, 25, `${questionIndex}`));
         });
         this.nextScene = this;
         this.canvas.addEventListener('click', (event) => {
