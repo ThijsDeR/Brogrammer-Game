@@ -97,22 +97,4 @@ export default abstract class Prop {
     this.yPos = yPos;
   }
 
-  /**
-   * get the xpos
-   * 
-   * @param xPos xPos
-   */
-  public getXPos(): number {
-    return this.xPos
-  }
-
-  /**
-   * get the ypos
-   * 
-   * @param yPos yPos
-   */
-   public getYPos(): number {
-    return this.yPos
-  }
-
 }

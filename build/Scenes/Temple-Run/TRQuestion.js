@@ -11,9 +11,9 @@ export default class TRQuestion {
         const platformTopYPos = canvas.height / 3 - 50;
         const platformBottomYPos = (canvas.height / 3) * 2 - 50;
         this.props = [
-            new Platform(player.getXPos() + canvas.width + 1000, canvas.height / 3 - 50, 2000, 100),
-            new Platform(player.getXPos() + canvas.width + 1000, (canvas.height / 3) * 2 - 50, 2000, 100),
-            new ImageProp(player.getXPos() + canvas.width, canvas.height / 2 - 250, './assets/img/Dood.jpg', 500, 500)
+            new Platform(player.getMinXPos() + canvas.width + 1000, canvas.height / 3 - 50, 2000, 100),
+            new Platform(player.getMinXPos() + canvas.width + 1000, (canvas.height / 3) * 2 - 50, 2000, 100),
+            new ImageProp(player.getMinXPos() + canvas.width, canvas.height / 2 - 250, './assets/img/Hacker.png', 500, 500)
         ];
         this.addAnswers(canvas, player);
     }
@@ -39,12 +39,12 @@ export default class TRQuestion {
         while (answers.length > 0) {
             const randomAnswer = Game.randomNumber(0, answers.length - 1);
             const answer = answers[randomAnswer];
-            this.props.push(new Text(player.getXPos() + canvas.width + 1000, positions[i], 500, 500, answer.answer, 'black'));
+            this.props.push(new Text(player.getMinXPos() + canvas.width + 1000, positions[i], 500, 500, answer.answer, 'black'));
             if (answer.correct) {
-                this.props.push(new CorrectProp(player.getXPos() + canvas.width + 2500, deathPositions[i], 200, platformTopYPos));
+                this.props.push(new CorrectProp(player.getMinXPos() + canvas.width + 2500, deathPositions[i], 200, platformTopYPos));
             }
             else {
-                this.props.push(new DeadProp(player.getXPos() + canvas.width + 2500, deathPositions[i], 200, platformTopYPos));
+                this.props.push(new DeadProp(player.getMinXPos() + canvas.width + 2500, deathPositions[i], 200, platformTopYPos));
             }
             answers.splice(randomAnswer, 1);
             i++;

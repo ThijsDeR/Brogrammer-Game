@@ -149,10 +149,10 @@ export default class DoodleScene extends GameLevel {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(Game.loadNewImage('./assets/img/Sky_background.jpg'), 0, 0, this.canvas.width, this.canvas.height)
     this.props.forEach((prop) => {
-      prop.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
+      prop.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
     });
 
-    this.player.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
+    this.player.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
     // Draw text on canvas
 
     Scene.writeTextToCanvas(
@@ -254,7 +254,7 @@ export default class DoodleScene extends GameLevel {
         this.nextScene = new HubScene(this.canvas, this.userData)
         this.backgroundMusic.pause();
         this.backgroundMusic = null
-      } else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
+      } else if (this.player.getMinYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
         this.nextScene = new HubScene(this.canvas, this.userData)
         this.backgroundMusic.pause();
         this.backgroundMusic = null

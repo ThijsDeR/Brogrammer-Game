@@ -15,7 +15,7 @@ export default class QuestionScene extends Scene {
 
     this.question = question
 
-    this.backButton = new Button(10, 10, 100, 50, 'blue', 'back', 20, 'backBtn')
+    this.backButton = new Button(10, 10, 100, 50, 'blue', 'red', 'back', 20, 'backBtn')
 
     this.nextScene = this
 
@@ -33,7 +33,7 @@ export default class QuestionScene extends Scene {
     }
 
     const hoverFunction = (event: MouseEvent) => {
-      this.backButton.doHover({x: event.x, y: event.y}, 'red')
+      this.backButton.doHover({x: event.x, y: event.y})
     }
 
     this.canvas.addEventListener('click', clickFunction)

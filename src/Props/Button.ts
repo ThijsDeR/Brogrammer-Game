@@ -10,12 +10,15 @@ export default class Button extends RectProp{
 
   private originalColor: string;
 
+  private hoverColor: string;
+
   public constructor(
     xPos: number,
     yPos: number,
     width: number,
     height: number,
     color: string,
+    hoverColor: string,
     text: string,
     fontSize: number,
     id: string,
@@ -26,6 +29,7 @@ export default class Button extends RectProp{
     this.text = text
     this.fontSize = fontSize
     this.id = id
+    this.hoverColor = hoverColor
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
@@ -57,9 +61,9 @@ export default class Button extends RectProp{
     return this.id
   }
 
-  public doHover(mouseCoords: {x: number, y: number}, color: string): void {
+  public doHover(mouseCoords: {x: number, y: number}): void {
     if (this.isHovered(mouseCoords)) {
-      this.color = color;
+      this.color = this.hoverColor;
     }
     else this.color = this.originalColor
   }

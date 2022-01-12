@@ -30,9 +30,9 @@ export default class TempleRunScene extends GameLevel {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.drawImage(Game.loadNewImage('./assets/img/cave_pixelart_background.png'), 0, 0, this.canvas.width, this.canvas.height);
-        console.log(this.player.getXPos());
-        this.question.draw(this.ctx, this.player.getXPos() - 200);
-        this.player.draw(this.ctx, this.player.getXPos() - 200);
+        console.log(this.player.getMinXPos());
+        this.question.draw(this.ctx, this.player.getMinXPos() - 200);
+        this.player.draw(this.ctx, this.player.getMinXPos() - 200);
         Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, 50, 20, 'black');
     }
     processInput() {

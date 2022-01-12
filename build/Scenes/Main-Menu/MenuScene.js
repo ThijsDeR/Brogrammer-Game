@@ -10,9 +10,9 @@ export default class MenuScene extends Scene {
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
-            new Button(this.canvas.width / 2 - (500 / 2), 250, 500, 200, 'white', 'Start!', 100, 'startBtn'),
-            new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'white', 'Vragen', 100, 'mistakes'),
-            new Button(this.canvas.width / 2 - (500 / 2), 750, 500, 200, 'white', 'Controls', 100, 'controls')
+            new Button(this.canvas.width / 2 - (500 / 2), 250, 500, 200, 'white', 'blue', 'Start!', 100, 'startBtn'),
+            new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'white', 'blue', 'Vragen', 100, 'mistakes'),
+            new Button(this.canvas.width / 2 - (500 / 2), 750, 500, 200, 'white', 'blue', 'Controls', 100, 'controls')
         ];
         this.nextScene = this;
         const clickFunction = (event) => {
@@ -52,7 +52,7 @@ export default class MenuScene extends Scene {
         const hoverFunction = (event) => {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
-                    prop.doHover({ x: event.x, y: event.y }, 'blue');
+                    prop.doHover({ x: event.x, y: event.y });
                 }
             });
         };

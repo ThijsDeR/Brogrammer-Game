@@ -5,12 +5,14 @@ export default class Button extends RectProp {
     fontSize;
     id;
     originalColor;
-    constructor(xPos, yPos, width, height, color, text, fontSize, id) {
+    hoverColor;
+    constructor(xPos, yPos, width, height, color, hoverColor, text, fontSize, id) {
         super(xPos, yPos, width, height, color, 'stroke');
         this.originalColor = color;
         this.text = text;
         this.fontSize = fontSize;
         this.id = id;
+        this.hoverColor = hoverColor;
     }
     draw(ctx) {
         super.draw(ctx);
@@ -27,9 +29,9 @@ export default class Button extends RectProp {
     getId() {
         return this.id;
     }
-    doHover(mouseCoords, color) {
+    doHover(mouseCoords) {
         if (this.isHovered(mouseCoords)) {
-            this.color = color;
+            this.color = this.hoverColor;
         }
         else
             this.color = this.originalColor;

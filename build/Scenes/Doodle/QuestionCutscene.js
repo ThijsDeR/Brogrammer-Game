@@ -17,10 +17,10 @@ export default class QuestionCutscene extends CutScene {
         const chatBoxHeight = (canvas.height / 3);
         this.props = [
             new ImageProp(0, chatBoxHeight * 2, './assets/img/chatbox.png', canvas.width, chatBoxHeight),
-            new Button(canvas.width / 5 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'red', randomQuestion.answers[0].answer, 20, '0'),
-            new Button((canvas.width / 5) * 2 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'blue', randomQuestion.answers[1].answer, 20, '1'),
-            new Button((canvas.width / 5) * 3 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'purple', randomQuestion.answers[2].answer, 20, '2'),
-            new Button((canvas.width / 5) * 4 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'green', randomQuestion.answers[3].answer, 20, '3'),
+            new Button(canvas.width / 5 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'red', 'white', randomQuestion.answers[0].answer, 20, '0'),
+            new Button((canvas.width / 5) * 2 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'blue', 'white', randomQuestion.answers[1].answer, 20, '1'),
+            new Button((canvas.width / 5) * 3 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'purple', 'white', randomQuestion.answers[2].answer, 20, '2'),
+            new Button((canvas.width / 5) * 4 - 100, ((chatBoxHeight - 200) / 2) + (chatBoxHeight * 2), 200, 200, 'green', 'white', randomQuestion.answers[3].answer, 20, '3'),
             new Text(canvas.width / 2, chatBoxHeight * 2 - 100, canvas.width, 500, randomQuestion.question, 'white', 50)
         ];
         this.player = player;
@@ -58,7 +58,7 @@ export default class QuestionCutscene extends CutScene {
         const hoverFunction = (event) => {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
-                    prop.doHover({ x: event.x, y: event.y }, 'yellow');
+                    prop.doHover({ x: event.x, y: event.y });
                 }
             });
         };

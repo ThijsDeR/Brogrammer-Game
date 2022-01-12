@@ -16,7 +16,7 @@ export default class ControlsScene extends Scene {
     super(canvas, userData)
 
     this.props = [
-      new Button(10, 10, 100, 50, 'white', 'Back', 20, 'backBtn'),
+      new Button(10, 10, 100, 50, 'white', 'red', 'Back', 20, 'backBtn'),
     ]
 
     this.nextScene = this
@@ -40,7 +40,7 @@ export default class ControlsScene extends Scene {
     const hoverFunction = (event: MouseEvent) => {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
-          prop.doHover({x: event.x, y: event.y}, 'red')
+          prop.doHover({x: event.x, y: event.y})
         }
       })
     }

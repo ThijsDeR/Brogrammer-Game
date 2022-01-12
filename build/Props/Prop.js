@@ -33,11 +33,5 @@ export default class Prop {
     setYPos(yPos) {
         this.yPos = yPos;
     }
-    getXPos() {
-        return this.xPos;
-    }
-    getYPos() {
-        return this.yPos;
-    }
 }
 //# sourceMappingURL=Prop.js.map
