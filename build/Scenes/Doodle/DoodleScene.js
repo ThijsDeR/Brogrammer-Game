@@ -10,7 +10,7 @@ import DoodleEnemy from "./DoodleEnemy.js";
 import DoodleLevelInfo from "./DoodleLevelInfo.js";
 import RectProp from "../../Props/RectProp.js";
 import GameInfo from "../../GameInfo.js";
-import Question from "../../Props/Question.js";
+import Question from "./Question.js";
 import QuestionCutscene from "./QuestionCutscene.js";
 export default class DoodleScene extends GameLevel {
     player;
@@ -18,6 +18,7 @@ export default class DoodleScene extends GameLevel {
     nextScene;
     question;
     backgroundMusic;
+    cutScene;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
@@ -33,6 +34,7 @@ export default class DoodleScene extends GameLevel {
         this.backgroundMusic.loop = true;
         this.backgroundMusic.volume = 0.5;
         this.backgroundMusic.play();
+        this.cutScene = null;
     }
     createProps() {
         let previousHeight = 100;
@@ -76,55 +78,73 @@ export default class DoodleScene extends GameLevel {
         });
         this.player.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
         Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'black');
+        if (this.cutScene !== null) {
+            this.cutScene.draw();
+        }
     }
     processInput() {
-        this.player.processInput();
+        if (this.cutScene === null) {
+            this.player.processInput();
+        }
+        else {
+            this.cutScene.processInput();
+        }
     }
     update = (elapsed) => {
-        let contacts = [];
-        this.props.forEach((prop, propIndex) => {
-            if (CollideHandler.collides(this.player, prop)) {
-                const contact = CollideHandler.getContactData(this.player, prop);
-                if (prop instanceof Cloud) {
-                    contacts.push(contact);
-                    if (contact === CollideHandler.TOP_CONTACT) {
-                        prop.disappear();
+        if (this.cutScene === null) {
+            let contacts = [];
+            this.props.forEach((prop, propIndex) => {
+                if (CollideHandler.collides(this.player, prop)) {
+                    const contact = CollideHandler.getContactData(this.player, prop);
+                    if (prop instanceof Cloud) {
+                        contacts.push(contact);
+                        if (contact === CollideHandler.TOP_CONTACT) {
+                            prop.disappear();
+                        }
+                    }
+                    if (prop instanceof Coin) {
+                        this.userData.increaseCoins(prop.getPoints());
+                        this.props.splice(propIndex, 1);
+                        const coinSound = new Audio(GameInfo.SOUND_PATH + 'CoinSound.wav');
+                        coinSound.play();
+                    }
+                    if (prop instanceof Question) {
+                        this.cutScene = new QuestionCutscene(this.canvas, this.userData, this.player);
+                        this.props.splice(propIndex, 1);
+                        this.backgroundMusic.pause();
+                    }
+                    if (prop instanceof DoodleEnemy) {
+                        this.player.die();
+                        this.props.splice(propIndex, 1);
+                        const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav');
+                        enemySound.volume = 0.5;
+                        enemySound.play();
                     }
                 }
-                if (prop instanceof Coin) {
-                    this.userData.increaseCoins(prop.getPoints());
-                    this.props.splice(propIndex, 1);
-                    const coinSound = new Audio(GameInfo.SOUND_PATH + 'CoinSound.wav');
-                    coinSound.play();
+                if (prop instanceof Cloud) {
+                    if (prop.hasDisappeared()) {
+                        this.props.splice(propIndex, 1);
+                    }
                 }
-                if (prop instanceof Question) {
-                    new QuestionCutscene(this.canvas, this.userData, this.question);
-                    this.props.splice(propIndex, 1);
-                }
-                if (prop instanceof DoodleEnemy) {
-                    this.player.die();
-                    this.props.splice(propIndex, 1);
-                    const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav');
-                    enemySound.volume = 0.5;
-                    enemySound.play();
-                }
+            });
+            this.player.move(this.canvas, contacts, elapsed);
+            if (this.player.isDead()) {
+                this.nextScene = new HubScene(this.canvas, this.userData);
+                this.backgroundMusic.pause();
+                this.backgroundMusic = null;
             }
-            if (prop instanceof Cloud) {
-                if (prop.hasDisappeared()) {
-                    this.props.splice(propIndex, 1);
-                }
+            else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
+                this.nextScene = new HubScene(this.canvas, this.userData);
+                this.backgroundMusic.pause();
+                this.backgroundMusic = null;
             }
-        });
-        this.player.move(this.canvas, contacts, elapsed);
-        if (this.player.isDead()) {
-            this.nextScene = new HubScene(this.canvas, this.userData);
-            this.backgroundMusic.pause();
-            this.backgroundMusic = null;
         }
-        else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
-            this.nextScene = new HubScene(this.canvas, this.userData);
-            this.backgroundMusic.pause();
-            this.backgroundMusic = null;
+        else {
+            const cutsceneDone = this.cutScene.update(elapsed);
+            if (cutsceneDone) {
+                this.cutScene = null;
+                this.backgroundMusic.play();
+            }
         }
         return this.nextScene;
     };

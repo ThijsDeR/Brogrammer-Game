@@ -8,12 +8,11 @@ import Cloud from "./Cloud.js";
 import DoodlePlayer from "./DoodlePlayer.js";
 import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
-import ImageProp from "../../Props/ImageProp.js";
 import DoodleEnemy from "./DoodleEnemy.js";
 import DoodleLevelInfo from "./DoodleLevelInfo.js";
 import RectProp from "../../Props/RectProp.js";
 import GameInfo from "../../GameInfo.js";
-import Question from "../../Props/Question.js";
+import Question from "./Question.js";
 import CutScene from "../../CutScene.js";
 import QuestionCutscene from "./QuestionCutscene.js";
 import DoodleNPC from "../Hub/NPC_Doodle/DoodleNPC.js";
@@ -27,7 +26,10 @@ export default class DoodleScene extends GameLevel {
 
   private question: Question;
 
-  private backgroundMusic: HTMLAudioElement
+  private backgroundMusic: HTMLAudioElement;
+
+  private cutScene: null | CutScene;
+
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData);
 
@@ -46,11 +48,7 @@ export default class DoodleScene extends GameLevel {
       new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'red', 'fill')
 
     ];
-
-    // question promt
-    // if the user reaches x height, trigger a question prompt
-    // user answers question
-    // user goes back to the game
+    
     this.createProps();
 
     this.player = new DoodlePlayer(
@@ -67,6 +65,8 @@ export default class DoodleScene extends GameLevel {
     this.backgroundMusic.loop = true;
     this.backgroundMusic.volume = 0.5
     this.backgroundMusic.play();
+
+    this.cutScene = null
   }
 
   public createProps() {
@@ -163,13 +163,21 @@ export default class DoodleScene extends GameLevel {
       20,
       'black',
     )
+
+    if (this.cutScene !== null) {
+      this.cutScene.draw()
+    }
   }
 
   /**
    * processing the input of the scene
    */
   public processInput(): void {
-    this.player.processInput();
+    if (this.cutScene === null) {
+      this.player.processInput();
+    } else {
+      this.cutScene.processInput();
+    }
   }
 
   /**
@@ -178,74 +186,83 @@ export default class DoodleScene extends GameLevel {
    * @returns Next Scene
    */
   public update = (elapsed: number): Scene => {
-    let contacts: number[] = [];
-    this.props.forEach((prop, propIndex) => {
-      if (CollideHandler.collides(this.player, prop)) {
-        const contact = CollideHandler.getContactData(this.player, prop);
-
-        // Check if instance of prop === Cloud
-        // Then checks if the player makes contact with the top of cloud
-        // After contact makes the cloud dissappear.
-        if (prop instanceof Cloud) {
-          contacts.push(contact);
-          if (contact === CollideHandler.TOP_CONTACT) {
-            // this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
-            prop.disappear();
+    if (this.cutScene === null) {
+      let contacts: number[] = [];
+      this.props.forEach((prop, propIndex) => {
+        if (CollideHandler.collides(this.player, prop)) {
+          const contact = CollideHandler.getContactData(this.player, prop);
+  
+          // Check if instance of prop === Cloud
+          // Then checks if the player makes contact with the top of cloud
+          // After contact makes the cloud dissappear.
+          if (prop instanceof Cloud) {
+            contacts.push(contact);
+            if (contact === CollideHandler.TOP_CONTACT) {
+              // this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+              prop.disappear();
+            }
+  
           }
-
+  
+          // Checks if the instance of prop === Coin.
+          // Then check if the player makes contact with a coin prop.
+          // If the player makes contact, Adds 1 point to their total points.
+          if (prop instanceof Coin) {
+            this.userData.increaseCoins(prop.getPoints());
+            this.props.splice(propIndex, 1);
+            const coinSound = new Audio(GameInfo.SOUND_PATH + 'CoinSound.wav')
+            coinSound.play();
+          }
+  
+          // Checks if the instance of prop === Question.
+          // Then check if the player makes contact with a Question prop.
+          // If the player makes contact, throws a question.
+          if (prop instanceof Question) {
+            this.cutScene = new QuestionCutscene(this.canvas, this.userData, this.player);
+            this.props.splice(propIndex, 1);
+            this.backgroundMusic.pause()
+  
+          }
+  
+          // Checks if the instance of prop === DoodleEnemy.
+          // Then check if the player makes contact with a DoodleEnemy prop.
+          // If the player makes contact, the player dies.
+          if (prop instanceof DoodleEnemy) {
+            this.player.die();
+            this.props.splice(propIndex, 1);
+            const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
+            enemySound.volume = 0.5;
+            enemySound.play();
+          }
+  
         }
-
-        // Checks if the instance of prop === Coin.
-        // Then check if the player makes contact with a coin prop.
-        // If the player makes contact, Adds 1 point to their total points.
-        if (prop instanceof Coin) {
-          this.userData.increaseCoins(prop.getPoints());
-          this.props.splice(propIndex, 1);
-          const coinSound = new Audio(GameInfo.SOUND_PATH + 'CoinSound.wav')
-          coinSound.play();
+  
+        // Makes the cloud disappear slowly
+        if (prop instanceof Cloud) {
+          if (prop.hasDisappeared()) {
+            this.props.splice(propIndex, 1);
+          }
         }
-
-        // Checks if the instance of prop === Question.
-        // Then check if the player makes contact with a Question prop.
-        // If the player makes contact, throws a question.
-        if (prop instanceof Question) {
-          new QuestionCutscene(this.canvas, this.userData, this.question);
-          this.props.splice(propIndex, 1);
-
-        }
-
-        // Checks if the instance of prop === DoodleEnemy.
-        // Then check if the player makes contact with a DoodleEnemy prop.
-        // If the player makes contact, the player dies.
-        if (prop instanceof DoodleEnemy) {
-          this.player.die();
-          this.props.splice(propIndex, 1);
-          const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
-          enemySound.volume = 0.5;
-          enemySound.play();
-        }
-
+      });
+      this.player.move(this.canvas, contacts, elapsed);
+  
+      // Checks if the player is dead.
+      // If dead === true. Send the player back to the HUB.
+      if (this.player.isDead()) {
+        this.nextScene = new HubScene(this.canvas, this.userData)
+        this.backgroundMusic.pause();
+        this.backgroundMusic = null
+      } else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
+        this.nextScene = new HubScene(this.canvas, this.userData)
+        this.backgroundMusic.pause();
+        this.backgroundMusic = null
       }
-
-      // Makes the cloud disappear slowly
-      if (prop instanceof Cloud) {
-        if (prop.hasDisappeared()) {
-          this.props.splice(propIndex, 1);
-        }
+    } else {
+      const cutsceneDone = this.cutScene.update(elapsed)
+      if (cutsceneDone) {
+        this.cutScene = null;
+        this.backgroundMusic.play()
       }
-    });
-    this.player.move(this.canvas, contacts, elapsed);
-
-    // Checks if the player is dead.
-    // If dead === true. Send the player back to the HUB.
-    if (this.player.isDead()) {
-      this.nextScene = new HubScene(this.canvas, this.userData)
-      this.backgroundMusic.pause();
-      this.backgroundMusic = null
-    } else if (this.player.getYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
-      this.nextScene = new HubScene(this.canvas, this.userData)
-      this.backgroundMusic.pause();
-      this.backgroundMusic = null
     }
     return this.nextScene;
   };
