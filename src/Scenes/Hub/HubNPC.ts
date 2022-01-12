@@ -1,11 +1,14 @@
 import CutScene from '../../CutScene.js';
 import NPC from '../../Props/NPC.js';
 import Teleporter from '../../Props/Teleporter.js';
+import Scene from '../../Scene.js';
 
 export default abstract class HubNPC extends NPC {
   protected scene: CutScene
 
   protected teleporter: Teleporter;
+
+  protected name: string;
 
   public constructor(
     xPos: number, 
@@ -14,19 +17,22 @@ export default abstract class HubNPC extends NPC {
     width: number | undefined = undefined, 
     height: number | undefined = undefined,
     teleporter: string,
-    direction: 'left' | 'right'
+    direction: 'left' | 'right',
+    name: string,
     ) {
       super(xPos, yPos, imageSrc, width, height)
 
-      let rocketxPos;
-      if (direction === 'right') rocketxPos = xPos + (width * 1.5);
-      else if (direction === 'left') rocketxPos = xPos - (width * 2) - (width * 0.5)
-      this.teleporter = new Teleporter(rocketxPos, yPos - height, width * 2, height * 2, teleporter)
+      let teleporterxPos;
+      if (direction === 'right') teleporterxPos = xPos + (width * 1.5);
+      else if (direction === 'left') teleporterxPos = xPos - (width * 2) - (width * 0.5)
+      this.teleporter = new Teleporter(teleporterxPos, yPos - height, width * 2, height * 2, teleporter)
+      this.name = name
   } 
 
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
     super.draw(ctx, offsetX, offsetY)
     this.teleporter.draw(ctx, offsetX, offsetY)
+    Scene.writeTextToCanvas(ctx, this.name, this.xPos + (this.width / 2), this.yPos - 20, 20, 'white')
   }
 
   public abstract interact(): CutScene;

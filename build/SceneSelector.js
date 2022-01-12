@@ -1,6 +1,7 @@
 import DoodleScene from './Scenes/Doodle/DoodleScene.js';
 import HubScene from './Scenes/Hub/HubScene.js';
 import MenuScene from './Scenes/Main-Menu/MenuScene.js';
+import TempleRunScene from './Scenes/Temple-Run/TempleRunScene.js';
 export default class SceneSelector {
     static getClassFromString(classString, canvas, userData) {
         switch (classString) {
@@ -12,6 +13,9 @@ export default class SceneSelector {
             }
             case 'menu': {
                 return new MenuScene(canvas, userData);
+            }
+            case 'templerun': {
+                return new TempleRunScene(canvas, userData);
             }
             default: {
                 return null;

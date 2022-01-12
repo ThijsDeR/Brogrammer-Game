@@ -1,11 +1,10 @@
 import CutScene from '../../../CutScene.js';
-import Teleporter from '../../../Props/Teleporter.js';
 import UserData from '../../../UserData.js';
 import HubNPC from '../HubNPC.js';
-import DoodleNPCCutscene from './DoodleNPCCutscene.js';
+import TempleRunNPCCutscene from './TempleRunNPCCutscene.js';
 
-export default class DoodleNPC extends HubNPC {
-  private cutScene: DoodleNPCCutscene;
+export default class TempleRunNPC extends HubNPC {
+  private cutScene: TempleRunNPCCutscene;
 
   public constructor(
     xpos: number, 
@@ -16,9 +15,9 @@ export default class DoodleNPC extends HubNPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/Dood.jpg', width, height, 'doodle','right', 'Doodle Save')
+    super(xpos, ypos, './assets/img/Dood.jpg', width, height, 'templerun', 'left', 'Online Chatbox')
 
-    this.cutScene = new DoodleNPCCutscene(canvas, userData, this)
+    this.cutScene = new TempleRunNPCCutscene(canvas, userData, this)
   }
 
   public interact(): CutScene {

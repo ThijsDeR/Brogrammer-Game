@@ -6,6 +6,7 @@ import SceneSelector from '../../SceneSelector.js';
 import HubPlayer from './HubPlayer.js';
 import Game from '../../Game.js';
 import DoodleNPC from './NPC_Doodle/DoodleNPC.js';
+import TempleRunNPC from './NPC_Temple_Run/TempleRunNPC.js';
 export default class HubScene extends GameLevel {
     player;
     props;
@@ -20,6 +21,7 @@ export default class HubScene extends GameLevel {
             new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
         ];
         this.NPCs = [
+            new TempleRunNPC(200, (canvas.height / 4) * 3 - 100, canvas.width / 20, 100, this.canvas, this.userData),
             new DoodleNPC((canvas.width / 20) * 16, ((canvas.height / 4) * 3 - 100), canvas.width / 20, 100, this.canvas, this.userData),
             new DoodleNPC((canvas.width / 20) * 16, (canvas.height / 4) - 50, canvas.width / 20, 100, this.canvas, this.userData)
         ];

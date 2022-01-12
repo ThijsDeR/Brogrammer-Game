@@ -34,8 +34,6 @@ export default class CollideHandler {
   }
 
   public static getContactData(object1: Prop, object2: Prop): number {
-    let xPos = object1.getMinXPos();
-    let yPos = object1.getMinYPos();
     let contact: number = CollideHandler.NO_CONTACT;
 
     const object1MidX = object1.getMinXPos() + (object1.getWidth() / 2);
@@ -60,5 +58,14 @@ export default class CollideHandler {
       }
     }
     return contact;
+  }
+
+  public static getVerticalContactData(object1: Prop, object2: Prop): number {
+
+    const object1MidY = object1.getMinYPos() + (object1.getHeight() / 2);
+    const object2MidY = object2.getMinYPos() + (object2.getHeight() / 2);
+
+    if (object1MidY > object2MidY) return CollideHandler.BOTTOM_CONTACT
+    else return CollideHandler.TOP_CONTACT
   }
 }
