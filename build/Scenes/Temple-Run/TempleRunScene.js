@@ -54,9 +54,9 @@ export default class TempleRunScene extends GameLevel {
                 }
                 else if (prop instanceof DeadProp) {
                     this.player.die();
-                    const deathSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
-                    deathSound.volume = 0.8;
-                    deathSound.play();
+                    const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
+                    wrongSound.volume = 0.8;
+                    wrongSound.play();
                     this.backgroundMusic.pause();
                     this.backgroundMusic = null;
                 }

@@ -4,6 +4,7 @@ import Button from '../../Props/Button.js';
 import ImageProp from '../../Props/ImageProp.js';
 import DoodleLevelInfo from './DoodleLevelInfo.js';
 import Text from '../../Props/Text.js';
+import GameInfo from '../../GameInfo.js';
 export default class QuestionCutscene extends CutScene {
     props;
     question;
@@ -24,7 +25,7 @@ export default class QuestionCutscene extends CutScene {
         ];
         this.player = player;
         this.completed = false;
-        this.canvas.addEventListener('click', (event) => {
+        const questionClickFunction = (event) => {
             const question = DoodleLevelInfo.QUESTIONS[this.question];
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
@@ -39,14 +40,30 @@ export default class QuestionCutscene extends CutScene {
                     }
                 }
             });
-        });
-        this.canvas.addEventListener('mousemove', (event) => {
+            if (this.player.isDead()) {
+                const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
+                wrongSound.volume = 0.8;
+                wrongSound.play();
+            }
+            else {
+                const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
+                correctSound.volume = 0.6;
+                correctSound.play();
+            }
+            if (this.completed) {
+                this.canvas.removeEventListener('click', questionClickFunction);
+                this.canvas.removeEventListener('mousemove', hoverFunction);
+            }
+        };
+        const hoverFunction = (event) => {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
                     prop.doHover({ x: event.x, y: event.y }, 'yellow');
                 }
             });
-        });
+        };
+        this.canvas.addEventListener('click', questionClickFunction);
+        this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
