@@ -9,11 +9,14 @@ export default class TempleRunNPCCutscene extends CutScene {
         super(canvas, userData);
         this.doodleNPC = doodleNPC;
         const sentences = [
-            "Please help me, my son is trapped at the top of the clouds.",
-            "Can you save him?"
+            "Ey young lad, nice ta meet ya.",
+            "Been hearin' some weird sounds from this cave.",
+            "I've blocked the entrance so nothing ain't going in or out.",
+            "Can ya look if everythin' is alright in there.",
+            "Aight thanks."
         ];
         const endSentences = [
-            "The portal has already been opened, Go forth young robot."
+            "I've already opened the entrance to the cave."
         ];
         this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
