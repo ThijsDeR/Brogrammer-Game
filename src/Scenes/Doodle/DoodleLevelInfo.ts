@@ -3,13 +3,13 @@ export default abstract class DoodleLevelInfo {
   
     public static readonly PLAYER_X_SPEED: number = 9;
   
-    public static readonly GRAVITY_CONSTANT = 0.098;
+    public static readonly GRAVITY_CONSTANT: number = 0.098;
   
-    public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY = 2
+    public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY: number = 2
 
-    public static readonly LEVEL_YPOS_FINISH = -20000;
+    public static readonly LEVEL_YPOS_FINISH: number = -20000;
 
-    public static readonly QUESTIONS = [
+    public static readonly QUESTIONS: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}[] = [
       {question: 'Wat is de sterkste pincode?', answers: [
         {answer: '0000', correct: false},
         {answer: '123456', correct: false},
