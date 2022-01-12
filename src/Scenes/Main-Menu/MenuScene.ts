@@ -5,7 +5,7 @@ import HubScene from '../Hub/HubScene.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
-import ControlsScene from './ControlsScreen.js';
+import ControlsScene from './ControlsScene.js';
 import Player from '../../Player.js';
 import MistakeScene from './MistakesScene.js';
 import GameInfo from '../../GameInfo.js';

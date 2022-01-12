@@ -1,20 +1,14 @@
 import Button from '../../Props/Button.js';
 import Scene from '../../Scene.js';
 import MenuScene from './MenuScene.js';
-import QuestionScene from './QuestionScene.js';
-export default class MistakeScene extends Scene {
+export default class ControlsScene extends Scene {
     props;
     nextScene;
-    questions;
     constructor(canvas, userData) {
         super(canvas, userData);
-        this.props = [new Button(10, 10, 100, 50, 'blue', 'back', 20, 'backBtn')];
-        this.questions = this.userData.getQuestions();
-        this.questions.forEach((question, questionIndex) => {
-            this.props.push(new Button(this.canvas.width / 2 - (100 / 2), 300 + (50 * questionIndex), 125, 50, 'white', `Vraag ${questionIndex + 1}`, 25, `${questionIndex}`));
-            if (this.props.length > 11) {
-            }
-        });
+        this.props = [
+            new Button(10, 10, 100, 50, 'white', 'Back', 20, 'backBtn'),
+        ];
         this.nextScene = this;
         const clickFunction = (event) => {
             let originalNextScene = this.nextScene;
@@ -23,8 +17,6 @@ export default class MistakeScene extends Scene {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
                         if (prop.getId() === 'backBtn')
                             this.nextScene = new MenuScene(this.canvas, this.userData);
-                        else
-                            this.nextScene = new QuestionScene(this.canvas, this.userData, this.questions[Number(prop.getId())]);
                     }
                 }
             });
@@ -49,9 +41,9 @@ export default class MistakeScene extends Scene {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        this.userData.getQuestions();
-        Scene.writeTextToCanvas(this.ctx, 'Vragen', this.canvas.width / 2, 100, 50, 'white');
-        Scene.writeTextToCanvas(this.ctx, `Hier zijn de antwoorden voor de vragen die je hebt beantwoord`, this.canvas.width / 2, 250, 30, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Controls', this.canvas.width / 2, 100, 50, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Press A or D To move left or right', this.canvas.width / 2, 250, 30, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Press space to jump', this.canvas.width / 2, 300, 30, 'white');
     }
     processInput() {
     }
@@ -59,4 +51,4 @@ export default class MistakeScene extends Scene {
         return this.nextScene;
     };
 }
-//# sourceMappingURL=MistakesScene.js.map
+//# sourceMappingURL=ControlsScene.js.map
