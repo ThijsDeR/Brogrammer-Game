@@ -27,7 +27,8 @@ export default class MistakeScene extends Scene {
     console.log(this.props)
     this.nextScene = this
 
-    this.canvas.addEventListener('click', (event) => {
+    const clickFunction = (event: MouseEvent) => {
+      let originalNextScene = this.nextScene
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
@@ -35,15 +36,23 @@ export default class MistakeScene extends Scene {
           }
         }
       })
-    })
 
-    this.canvas.addEventListener('mousemove', (event) => {
+      if (originalNextScene !== this.nextScene) {
+        this.canvas.removeEventListener('click', clickFunction)
+        this.canvas.removeEventListener('mousemove', hoverFunction)
+      }
+    }
+
+    const hoverFunction = (event: MouseEvent) => {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           prop.doHover({x: event.x, y: event.y}, 'blue')
         }
       })
-    })
+    }
+
+    this.canvas.addEventListener('click', clickFunction)
+    this.canvas.addEventListener('mousemove', hoverFunction)
   }
 
   public draw(): void {

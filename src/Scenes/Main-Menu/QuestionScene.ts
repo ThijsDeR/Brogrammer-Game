@@ -19,15 +19,26 @@ export default class QuestionScene extends Scene {
 
     this.nextScene = this
 
-    this.canvas.addEventListener('click', (event) => {
+    const clickFunction = (event: MouseEvent) => {
+      let originalNextScene = this.nextScene
+
       if (this.backButton.isHovered({x: event.x, y: event.y})) {
         this.nextScene = new MistakeScene(this.canvas, this.userData)
       }
-    })
 
-    this.canvas.addEventListener('mousemove', (event) => {
+      if (originalNextScene !== this.nextScene) {
+        this.canvas.removeEventListener('click', clickFunction)
+        this.canvas.removeEventListener('mousemove', hoverFunction)
+      }
+    }
+
+    const hoverFunction = (event: MouseEvent) => {
       this.backButton.doHover({x: event.x, y: event.y}, 'red')
-    })
+    }
+
+    this.canvas.addEventListener('click', clickFunction)
+
+    this.canvas.addEventListener('mousemove', hoverFunction)
   }
 
   public draw(): void {

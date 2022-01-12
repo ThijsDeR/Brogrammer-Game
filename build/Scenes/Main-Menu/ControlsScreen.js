@@ -10,7 +10,8 @@ export default class ControlsScene extends Scene {
             new Button(this.canvas.width / 2 - (500 / 2), 700, 500, 200, 'white', 'Back', 100, 'backBtn'),
         ];
         this.nextScene = this;
-        this.canvas.addEventListener('click', (event) => {
+        const clickFunction = (event) => {
+            let originalNextScene = this.nextScene;
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
@@ -19,14 +20,20 @@ export default class ControlsScene extends Scene {
                     }
                 }
             });
-        });
-        this.canvas.addEventListener('mousemove', (event) => {
+            if (originalNextScene !== this.nextScene) {
+                this.canvas.removeEventListener('click', clickFunction);
+                this.canvas.removeEventListener('mousemove', hoverFunction);
+            }
+        };
+        const hoverFunction = (event) => {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
                     prop.doHover({ x: event.x, y: event.y }, 'blue');
                 }
             });
-        });
+        };
+        this.canvas.addEventListener('click', clickFunction);
+        this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
         this.ctx.fillStyle = "#454443";

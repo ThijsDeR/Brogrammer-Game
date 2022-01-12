@@ -3,6 +3,7 @@ import HubScene from '../Hub/HubScene.js';
 import Scene from '../../Scene.js';
 import ControlsScene from './ControlsScreen.js';
 import MistakeScene from './MistakesScene.js';
+import GameInfo from '../../GameInfo.js';
 export default class MenuScene extends Scene {
     props;
     nextScene;
@@ -14,27 +15,49 @@ export default class MenuScene extends Scene {
             new Button(this.canvas.width / 2 - (500 / 2), 750, 500, 200, 'white', 'Controls', 100, 'controls')
         ];
         this.nextScene = this;
-        this.canvas.addEventListener('click', (event) => {
+        const clickFunction = (event) => {
+            let originalNextScene = this.nextScene;
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
-                        if (prop.getId() === 'startBtn')
+                        if (prop.getId() === 'startBtn') {
+                            const startSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav');
+                            startSound.volume = 0.5;
+                            startSound.play();
                             this.nextScene = new HubScene(this.canvas, this.userData);
-                        if (prop.getId() === 'controls')
+                        }
+                        ;
+                        if (prop.getId() === 'controls') {
+                            const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
+                            buttonSound.volume = 1;
+                            buttonSound.play();
                             this.nextScene = new ControlsScene(this.canvas, this.userData);
-                        if (prop.getId() === 'mistakes')
+                        }
+                        ;
+                        if (prop.getId() === 'mistakes') {
+                            const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
+                            buttonSound.volume = 1;
+                            buttonSound.play();
                             this.nextScene = new MistakeScene(this.canvas, this.userData);
+                        }
+                        ;
                     }
                 }
             });
-        });
-        this.canvas.addEventListener('mousemove', (event) => {
+            if (originalNextScene !== this.nextScene) {
+                this.canvas.removeEventListener('click', clickFunction);
+                this.canvas.removeEventListener('mousemove', hoverFunction);
+            }
+        };
+        const hoverFunction = (event) => {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
                     prop.doHover({ x: event.x, y: event.y }, 'blue');
                 }
             });
-        });
+        };
+        this.canvas.addEventListener('click', clickFunction);
+        this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
         this.ctx.fillStyle = "#454443";

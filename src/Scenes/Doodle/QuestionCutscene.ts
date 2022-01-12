@@ -61,17 +61,20 @@ export default class QuestionCutscene extends CutScene {
         }
       })
       
-      if (this.player.isDead()){
-        const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3')
-        wrongSound.volume = 0.8;
-        wrongSound.play();
-      } else {
-        const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
-        correctSound.volume = 0.6;
-        correctSound.play();
-      }
+      
 
       if (this.completed) {
+
+        if (this.player.isDead()){
+          const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3')
+          wrongSound.volume = 0.8;
+          wrongSound.play();
+        } else {
+          const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
+          correctSound.volume = 0.6;
+          correctSound.play();
+        }
+
         this.canvas.removeEventListener('click', questionClickFunction)
         this.canvas.removeEventListener('mousemove', hoverFunction)
       }
