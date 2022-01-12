@@ -9,10 +9,13 @@ export default class MenuScene extends Scene {
     nextScene;
     constructor(canvas, userData) {
         super(canvas, userData);
+        const buttonWidth = (this.canvas.width / 4);
+        const buttonHeight = (this.canvas.height / 6);
+        const betweenButtonHeight = (this.canvas.height / 10);
         this.props = [
-            new Button(this.canvas.width / 2 - (500 / 2), 250, 500, 200, 'white', 'blue', 'Start!', 100, 'startBtn'),
-            new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'white', 'blue', 'Vragen', 100, 'mistakes'),
-            new Button(this.canvas.width / 2 - (500 / 2), 750, 500, 200, 'white', 'blue', 'Controls', 100, 'controls')
+            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight), buttonWidth, buttonHeight, 'white', 'blue', 'Start!', this.canvas.height / 20, 'startBtn'),
+            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'blue', 'Vragen', this.canvas.height / 20, 'mistakes'),
+            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'blue', 'Controls', this.canvas.height / 20, 'controls')
         ];
         this.nextScene = this;
         const clickFunction = (event) => {
@@ -65,7 +68,7 @@ export default class MenuScene extends Scene {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        Scene.writeTextToCanvas(this.ctx, 'Het epische avontuur van Sam Sung', this.canvas.width / 2, 100, 50, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Het epische avontuur van Sam Sung', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
     }
     processInput() {
     }

@@ -15,7 +15,7 @@ export default class QuestionScene extends Scene {
 
     this.question = question
 
-    this.backButton = new Button(10, 10, 100, 50, 'blue', 'red', 'back', 20, 'backBtn')
+    this.backButton = new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Back', this.canvas.width / 75, 'backBtn')
 
     this.nextScene = this
 
@@ -50,8 +50,8 @@ export default class QuestionScene extends Scene {
       this.ctx, 
       this.question.question,
       this.canvas.width / 2,
-      200,
-      25,
+      this.canvas.height / 5,
+      this.canvas.height / 25,
       'white',
       'center',
       'middle',
@@ -68,8 +68,8 @@ export default class QuestionScene extends Scene {
         this.ctx, 
         answer.answer,
         this.canvas.width / 2,
-        300 + (100 * answerIndex),
-        25,
+        ((this.canvas.height / 10) * 3) + ((this.canvas.height / 10) * answerIndex),
+        this.canvas.height / 40,
         color,
         'center',
         'middle',
@@ -81,8 +81,8 @@ export default class QuestionScene extends Scene {
       this.ctx, 
       this.question.questionInfo,
       this.canvas.width / 2,
-      750,
-      25,
+      (this.canvas.height / 20) * 15,
+      this.canvas.height / 40,
       'white',
       'center',
       'middle',

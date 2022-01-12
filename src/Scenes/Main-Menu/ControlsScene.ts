@@ -17,9 +17,9 @@ export default class ControlsScene extends Scene {
 
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
-
+    
     this.props = [
-      new Button(10, 10, 100, 50, 'white', 'red', 'Back', 20, 'backBtn'),
+      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Back', this.canvas.width / 75, 'backBtn'),
     ]
 
     this.nextScene = this
@@ -67,8 +67,8 @@ export default class ControlsScene extends Scene {
       this.ctx,
       'Controls',
       this.canvas.width / 2,
-      100,
-      50,
+      this.canvas.height / 10,
+      this.canvas.height / 20,
       'white',
     )
 
@@ -76,8 +76,8 @@ export default class ControlsScene extends Scene {
       this.ctx,
       'Press A or D To move left or right',
       this.canvas.width / 2,
-      250,
-      30,
+      this.canvas.height / 4,
+      this.canvas.height / 25,
       'white',
     )
 
@@ -85,8 +85,8 @@ export default class ControlsScene extends Scene {
       this.ctx,
       'Press space to jump',
       this.canvas.width / 2,
-      300,
-      30,
+      (this.canvas.height / 20) * 6,
+      this.canvas.height / 25,
       'white',
     )
   }

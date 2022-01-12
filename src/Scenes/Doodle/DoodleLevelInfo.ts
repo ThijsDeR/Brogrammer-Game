@@ -7,7 +7,7 @@ export default abstract class DoodleLevelInfo {
   
     public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY: number = 2
 
-    public static readonly LEVEL_YPOS_FINISH: number = -20000;
+    public static readonly LEVEL_YPOS_FINISH: number = -50;
 
     public static readonly QUESTIONS: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}[] = [
       {question: 'Wat is de sterkste pincode?', answers: [

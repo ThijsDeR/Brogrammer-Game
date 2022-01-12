@@ -8,7 +8,7 @@ export default class QuestionScene extends Scene {
     constructor(canvas, userData, question) {
         super(canvas, userData);
         this.question = question;
-        this.backButton = new Button(10, 10, 100, 50, 'blue', 'red', 'back', 20, 'backBtn');
+        this.backButton = new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Back', this.canvas.width / 75, 'backBtn');
         this.nextScene = this;
         const clickFunction = (event) => {
             let originalNextScene = this.nextScene;
@@ -30,16 +30,16 @@ export default class QuestionScene extends Scene {
         this.ctx.fillStyle = "#454443";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.backButton.draw(this.ctx);
-        Scene.writeTextToCanvas(this.ctx, this.question.question, this.canvas.width / 2, 200, 25, 'white', 'center', 'middle', this.canvas.width / 2);
+        Scene.writeTextToCanvas(this.ctx, this.question.question, this.canvas.width / 2, this.canvas.height / 5, this.canvas.height / 25, 'white', 'center', 'middle', this.canvas.width / 2);
         this.question.answers.forEach((answer, answerIndex) => {
             let color;
             if (answer.correct)
                 color = 'green';
             else
                 color = 'red';
-            Scene.writeTextToCanvas(this.ctx, answer.answer, this.canvas.width / 2, 300 + (100 * answerIndex), 25, color, 'center', 'middle', this.canvas.width / 3);
+            Scene.writeTextToCanvas(this.ctx, answer.answer, this.canvas.width / 2, ((this.canvas.height / 10) * 3) + ((this.canvas.height / 10) * answerIndex), this.canvas.height / 40, color, 'center', 'middle', this.canvas.width / 3);
         });
-        Scene.writeTextToCanvas(this.ctx, this.question.questionInfo, this.canvas.width / 2, 750, 25, 'white', 'center', 'middle', this.canvas.width / 3);
+        Scene.writeTextToCanvas(this.ctx, this.question.questionInfo, this.canvas.width / 2, (this.canvas.height / 20) * 15, this.canvas.height / 40, 'white', 'center', 'middle', this.canvas.width / 3);
     }
     processInput() {
     }

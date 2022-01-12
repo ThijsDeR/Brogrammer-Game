@@ -50,7 +50,7 @@ export default class TextBox {
         this.sentences[this.currentSentence].substring(0, this.sentenceLength), 
         this.xPos + (this.width / 2),
         this.yPos + (this.height / 2),
-        20,
+        this.height / 10,
         'black',
         'center',
         'middle',

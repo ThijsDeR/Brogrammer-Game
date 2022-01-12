@@ -14,16 +14,17 @@ export default class HubScene extends GameLevel {
     cutScene;
     constructor(canvas, userData) {
         super(canvas, userData);
+        const platformHeight = (canvas.height / 5);
         this.props = [
-            new ImageProp(0, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
-            new ImageProp(0, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
-            new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
-            new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
+            new ImageProp(0, platformHeight * 2, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
+            new ImageProp(0, platformHeight * 4, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
+            new ImageProp((canvas.width / 5) * 4, platformHeight * 2, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
+            new ImageProp((canvas.width / 5) * 4, platformHeight * 4, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
         ];
         this.NPCs = [
-            new TempleRunNPC(270, (canvas.height / 4) * 3 - 100, canvas.width / 20, 100, this.canvas, this.userData),
-            new DoodleNPC((canvas.width / 20) * 16, ((canvas.height / 4) * 3 - 100), canvas.width / 20, 100, this.canvas, this.userData),
-            new DoodleNPC((canvas.width / 20) * 16, (canvas.height / 4) - 50, canvas.width / 20, 100, this.canvas, this.userData)
+            new TempleRunNPC(this.canvas.width / 7, (platformHeight * 4) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
+            new DoodleNPC((canvas.width / 20) * 16, ((platformHeight * 4) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
+            new DoodleNPC((canvas.width / 20) * 16, (platformHeight * 2) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData)
         ];
         this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
         this.cutScene = null;

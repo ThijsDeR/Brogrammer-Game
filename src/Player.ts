@@ -38,12 +38,13 @@ export default class Player extends ImageProp {
    */
   public processInput(): void {
     this.xVel = 0;
+
     if(!this.airborne){
-      if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) this.yVel = -(GameInfo.PLAYER_Y_SPEED);
+      if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) this.yVel = -(GameInfo.PLAYER_Y_SPEED) * (this.height / 100);
     }
 
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel += -(GameInfo.PLAYER_X_SPEED);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel += GameInfo.PLAYER_X_SPEED;
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(GameInfo.PLAYER_X_SPEED) * (this.width / 100);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
   }
 
   /**
@@ -76,7 +77,7 @@ export default class Player extends ImageProp {
     const flying = () => {
       this.airborne = true;
       this.yPos += this.yVel * 2 * (elapsed / 10);
-      this.yVel += GameInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10);
+      this.yVel += GameInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10) * (this.height / 100);
     }
     let shouldBeFlying = true;
     if (contacts.includes(CollideHandler.BOTTOM_CONTACT) || this.yPos + this.yVel < 0) {

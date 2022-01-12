@@ -1,12 +1,9 @@
 import Button from '../../Props/Button.js';
-import CollideHandler from '../../CollideHandler.js';
-import CutScene from '../../CutScene.js';
 import HubScene from '../Hub/HubScene.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import ControlsScene from './ControlsScene.js';
-import Player from '../../Player.js';
 import MistakeScene from './MistakesScene.js';
 import GameInfo from '../../GameInfo.js';
 
@@ -18,10 +15,14 @@ export default class MenuScene extends Scene {
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
 
+    const buttonWidth = (this.canvas.width / 4)
+    const buttonHeight = (this.canvas.height / 6)
+    const betweenButtonHeight = (this.canvas.height / 10)
+
     this.props = [
-      new Button(this.canvas.width / 2 - (500 / 2), 250, 500, 200, 'white', 'blue', 'Start!', 100, 'startBtn'),
-      new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'white', 'blue', 'Vragen', 100, 'mistakes'),
-      new Button(this.canvas.width / 2 - (500 / 2), 750, 500, 200, 'white', 'blue', 'Controls', 100, 'controls')
+      new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight), buttonWidth, buttonHeight, 'white', 'blue', 'Start!', this.canvas.height / 20, 'startBtn'),
+      new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'blue', 'Vragen', this.canvas.height / 20, 'mistakes'),
+      new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'blue', 'Controls', this.canvas.height / 20, 'controls')
     ]
 
     this.nextScene = this
@@ -83,8 +84,8 @@ export default class MenuScene extends Scene {
       this.ctx,
       'Het epische avontuur van Sam Sung',
       this.canvas.width / 2,
-      100,
-      50,
+      this.canvas.height / 10,
+      this.canvas.height / 20,
       'white',
     )
   }

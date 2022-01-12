@@ -15,6 +15,7 @@ import GameInfo from "../../GameInfo.js";
 import Question from "./Question.js";
 import CutScene from "../../CutScene.js";
 import QuestionCutscene from "./QuestionCutscene.js";
+import FallLine from "./FallLine.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -32,18 +33,17 @@ export default class DoodleScene extends GameLevel {
 
     this.props = [
       // fall line
-      new RectProp(0, this.canvas.height - 20, this.canvas.width, 20, 'transparent', 'fill'),
+      new FallLine(0, this.canvas.height - (this.canvas.height / 100), this.canvas.width, this.canvas.height / 100, 'transparent', 'fill'),
 
       // Starting Cloud
-      new Cloud(200 , this.canvas.height - 150, canvas.width - 400, 150),
+      new Cloud(this.canvas.width / 10 , this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
 
       // Question prompts
-      new Question(0, this.canvas.height - 1500, this.canvas.width, 20, 'transparent', 'fill'),
+      new Question(0, this.canvas.height - (this.canvas.height * 3) / 2, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill'),
       // new Question(400, this.canvas.height - 300, 500, 200, 'green', 'Anwser 1', 50, 'testPrompt'),
 
       // finishing line
-      new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH, this.canvas.width, 20, 'transparent', 'fill')
-
+      new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill')
     ];
     
     this.createProps();
@@ -54,7 +54,8 @@ export default class DoodleScene extends GameLevel {
       this.canvas.width / 25,
       this.canvas.height / 8
     );
-
+    
+    console.log(this.player.isDead())
     this.nextScene = this
 
     // background music
@@ -67,22 +68,22 @@ export default class DoodleScene extends GameLevel {
   }
 
   public createProps(): void {
-    let previousHeight = 100
+    let previousHeight = this.canvas.height / 10
     let previousQuestionHeight = 0;
     let i = 0
     let atFinish = false
     while (i < 1000 && atFinish === false) {
       let xPos = Game.randomNumber(this.canvas.width / 8, this.canvas.width - this.canvas.width / 8);
-      let yPos = Game.randomNumber(previousHeight + 200, previousHeight + 300);
+      let yPos = Game.randomNumber(previousHeight + (this.canvas.height / 5), previousHeight + ((this.canvas.height / 10) * 3));
       let cloudWidth = this.canvas.width / 5;
-      let cloudHeight = 65;
-      let coinWidth = 32;
-      let coinHeight = 32;
-      let enemyHeight = 60;
-      let enemyWidth = 100;
-      let questionYPos = Game.randomNumber(previousQuestionHeight + 5000, previousQuestionHeight + 8500);
+      let cloudHeight = this.canvas.height / 20;
+      let coinWidth = this.canvas.width / 40;
+      let coinHeight = coinWidth
+      let enemyHeight = this.canvas.height / 20;
+      let enemyWidth = this.canvas.width / 20;
+      let questionYPos = Game.randomNumber(previousQuestionHeight + (this.canvas.height * 5), previousQuestionHeight + (this.canvas.height * 8));
 
-      if (this.canvas.height - yPos < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
+      if (this.canvas.height - yPos < DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) {
         atFinish = true
         break
       }
@@ -105,7 +106,7 @@ export default class DoodleScene extends GameLevel {
           0,
           this.canvas.height - questionYPos,
           this.canvas.width,
-          20,
+          this.canvas.height / 50,
           'transparent',
           'fill',
         )
@@ -125,7 +126,7 @@ export default class DoodleScene extends GameLevel {
       } else if (rng >= 10) {
         this.props.push(
           new DoodleEnemy(
-            xPos + (cloudWidth / 2) - 10,
+            xPos + (cloudWidth / 2),
             this.canvas.height - yPos - enemyHeight,
             enemyWidth,
             enemyHeight,
@@ -156,8 +157,8 @@ export default class DoodleScene extends GameLevel {
       this.ctx,
       `Coins: ${this.userData.getCoins()}`,
       this.canvas.width / 2,
-      40,
-      20,
+      this.canvas.height / 25,
+      this.canvas.height / 50,
       'black',
     )
 
@@ -231,6 +232,13 @@ export default class DoodleScene extends GameLevel {
             enemySound.volume = 0.5;
             enemySound.play();
           }
+
+          if (prop instanceof FallLine) {
+            this.player.die();
+            const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
+            enemySound.volume = 0.5;
+            enemySound.play();
+          }
   
         }
   
@@ -244,19 +252,19 @@ export default class DoodleScene extends GameLevel {
         }
       });
       this.player.move(this.canvas, contacts, elapsed);
-  
       // Checks if the player is dead.
       // If dead === true. Send the player back to the HUB.
       if (this.player.isDead()) {
         this.nextScene = new HubScene(this.canvas, this.userData)
         this.backgroundMusic.pause();
         this.backgroundMusic = null
-      } else if (this.player.getMinYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH) {
+      } else if (this.player.getMinYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) {
         this.nextScene = new HubScene(this.canvas, this.userData)
         this.backgroundMusic.pause();
         this.backgroundMusic = null
       }
     } else {
+      console.log('did cutscene')
       const cutsceneDone = this.cutScene.update(elapsed)
       if (cutsceneDone) {
         this.cutScene = null;

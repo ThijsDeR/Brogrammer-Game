@@ -25,8 +25,8 @@ export default class DoodlePlayer extends Player {
   public processInput(): void {
     this.xVel = 0;
 
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel += -(DoodleLevelInfo.PLAYER_X_SPEED);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel += DoodleLevelInfo.PLAYER_X_SPEED;
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(DoodleLevelInfo.PLAYER_X_SPEED) * (this.width / 100);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = DoodleLevelInfo.PLAYER_X_SPEED * (this.width / 100);
   }
 
   /**
@@ -47,12 +47,12 @@ export default class DoodlePlayer extends Player {
     const flying = () => {
       this.airborne = true;
       this.yPos += this.yVel * (elapsed / 10);
-      this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * (elapsed / 10);
+      this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * (elapsed / 10) * (this.height / 100);
     }
 
     if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
       this.airborne = false;
-      this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED);
+      this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED) * (this.height / 100);
 
       // sound when hitting the clouds
       const jumpSound = new Audio(GameInfo.SOUND_PATH + 'JumpCloud.wav');
@@ -60,10 +60,6 @@ export default class DoodlePlayer extends Player {
       jumpSound.play();
     } else {
       flying()
-    }
-
-    if (this.yPos + this.yVel + this.img.height > canvas.height) {
-      this.dead = true
     }
   }
 

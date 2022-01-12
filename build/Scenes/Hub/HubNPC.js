@@ -18,7 +18,7 @@ export default class HubNPC extends NPC {
     draw(ctx, offsetX, offsetY) {
         super.draw(ctx, offsetX, offsetY);
         this.teleporter.draw(ctx, offsetX, offsetY);
-        Scene.writeTextToCanvas(ctx, this.name, this.xPos + (this.width / 2), this.yPos - 20, 20, 'white');
+        Scene.writeTextToCanvas(ctx, this.name, this.xPos + (this.width / 2), this.yPos - 20, this.height / 4, 'white');
     }
     getTeleporter() {
         return this.teleporter;

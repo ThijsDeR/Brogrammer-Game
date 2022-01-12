@@ -26,27 +26,29 @@ export default class HubScene extends GameLevel {
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
 
+    const platformHeight = (canvas.height / 5)
+
     this.props = [
       // Portal platforms
       // Left top
-      new ImageProp(0, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
+      new ImageProp(0, platformHeight * 2, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
       // new Teleporter(0, (canvas.height / 4) - 150, canvas.width / 10, 200, 'hub'),
 
       // Left bottom
-      new ImageProp(0, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
+      new ImageProp(0, platformHeight * 4, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
       // new Teleporter(0, ((canvas.height / 4) * 3 - 200), canvas.width / 10, 200, 'menu'),
 
       // Right top
-      new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) + 50, './assets/img/platform.png', canvas.width / 5, 65),
+      new ImageProp((canvas.width / 5) * 4, platformHeight * 2, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
 
       // Right bottom
-      new ImageProp((canvas.width / 5) * 4, (canvas.height / 4) * 3, './assets/img/platform.png', canvas.width / 5, 65),
+      new ImageProp((canvas.width / 5) * 4, platformHeight * 4, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
     ];
 
     this.NPCs = [
-      new TempleRunNPC(270, (canvas.height / 4) * 3 - 100, canvas.width / 20, 100, this.canvas, this.userData),
-      new DoodleNPC((canvas.width / 20) * 16, ((canvas.height / 4) * 3 - 100), canvas.width / 20, 100, this.canvas, this.userData),
-      new DoodleNPC((canvas.width / 20) * 16, (canvas.height / 4) - 50, canvas.width / 20, 100, this.canvas, this.userData)
+      new TempleRunNPC(this.canvas.width / 7, (platformHeight * 4) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
+      new DoodleNPC((canvas.width / 20) * 16, ((platformHeight * 4) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
+      new DoodleNPC((canvas.width / 20) * 16, (platformHeight * 2) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData)
     ]
 
     this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8)

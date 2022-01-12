@@ -53,20 +53,45 @@ export default abstract class Scene {
     ctx.textBaseline = textBaseline;
     const words = text.split(' ');
     let line = '';
-
+    const yPositions: number[] = []
+    const lines = []
     for(let i = 0; i < words.length; i++) {
       const tempLine = line + words[i] + ' ';
       const metrics = ctx.measureText(tempLine);
       const tempWidth = metrics.width;
       if (tempWidth > maxWidth && i > 0) {
-        ctx.fillText(line, xPos, yPos);
+        lines.push(line)
+        // ctx.fillText(line, xPos, yPos);
         line = words[i] + ' ';
-        yPos += fontSize;
+        // yPos += fontSize;
       }
       else {
         line = tempLine;
       }
     }
-    ctx.fillText(line, xPos, yPos)
+    lines.push(line)
+
+    const amount = lines.length
+    if (amount % 2 === 0) {
+      for(let i = amount / 2;  i > 0; i--) {
+        yPositions.push(yPos - (fontSize * i))
+      }
+      for(let i = 0; i < (amount / 2); i++) {
+        yPositions.push(yPos + (fontSize * i))
+      }
+    } else {
+      for(let i = (amount - 1) / 2; i > 0; i--) {
+        yPositions.push(yPos - (fontSize * i))
+      }
+      yPositions.push(yPos)
+      for(let i = 0; i < (amount - 1) / 2; i++) {
+        yPositions.push(yPos + (fontSize * (i + 1)))
+      }
+    }
+    console.log(lines)
+    lines.forEach((line, lineIndex) => {
+      console.log(line, xPos, yPositions[lineIndex])
+      ctx.fillText(line, xPos, yPositions[lineIndex])
+    })
   }
 }

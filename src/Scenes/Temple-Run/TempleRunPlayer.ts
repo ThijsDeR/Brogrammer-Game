@@ -15,7 +15,7 @@ export default class TempleRunPlayer extends Player {
     super(xPos, yPos, './assets/img/Sam_Suong/robot-preview.png', width, height)
     this.dead = false;
 
-    this.xVel = GameInfo.PLAYER_X_SPEED / 2
+    this.xVel = (GameInfo.PLAYER_X_SPEED / 2) * (this.width / 100)
   }
   
   /**
@@ -24,8 +24,8 @@ export default class TempleRunPlayer extends Player {
    public processInput(): void {
     this.yVel = 0
     
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(GameInfo.PLAYER_X_SPEED);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = GameInfo.PLAYER_X_SPEED;
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(GameInfo.PLAYER_X_SPEED) * (this.height / 100);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = GameInfo.PLAYER_X_SPEED * (this.height / 100);
   }
 
   public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number): void {
