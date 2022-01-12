@@ -6,11 +6,14 @@ import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import MenuScene from './MenuScene.js';
+import Player from '../../Player.js';
 
 export default class ControlsScene extends Scene {
   private props: Prop[];
 
   private nextScene: Scene;
+
+  private player: Player;
 
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
@@ -20,6 +23,8 @@ export default class ControlsScene extends Scene {
     ]
 
     this.nextScene = this
+
+    this.player = new Player(this.canvas.width / 2, this.canvas.height / 2, './assets/img/Sam_Suong/robot-preview.png', this.canvas.width / 25, this.canvas.height / 8)
 
     const clickFunction = (event: MouseEvent) => {
       let originalNextScene = this.nextScene
@@ -56,6 +61,8 @@ export default class ControlsScene extends Scene {
       prop.draw(this.ctx)
     })
 
+    this.player.draw(this.ctx)
+
     Scene.writeTextToCanvas(
       this.ctx,
       'Controls',
@@ -85,10 +92,11 @@ export default class ControlsScene extends Scene {
   }
 
   public processInput(): void {
-
+    this.player.processInput()
   }
 
   public update = (elapsed: number): Scene => {
+    this.player.move(this.canvas, [], elapsed)
     return this.nextScene
   }
 }
