@@ -15,7 +15,7 @@ export default class TempleRunNPC extends HubNPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/Dood.jpg', width, height, 'templerun', 'left', 'Online Chatbox')
+    super(xpos, ypos, './assets/img/old_man.png', width, height, 'templerun', 'left', 'Cave escape')
 
     this.cutScene = new TempleRunNPCCutscene(canvas, userData, this)
   }

@@ -3,7 +3,7 @@ import TempleRunNPCCutscene from './TempleRunNPCCutscene.js';
 export default class TempleRunNPC extends HubNPC {
     cutScene;
     constructor(xpos, ypos, width = undefined, height = undefined, canvas, userData) {
-        super(xpos, ypos, './assets/img/Dood.jpg', width, height, 'templerun', 'left', 'Online Chatbox');
+        super(xpos, ypos, './assets/img/old_man.png', width, height, 'templerun', 'left', 'Cave escape');
         this.cutScene = new TempleRunNPCCutscene(canvas, userData, this);
     }
     interact() {

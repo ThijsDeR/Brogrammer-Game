@@ -10,7 +10,7 @@ export default class MenuScene extends Scene {
         super(canvas, userData);
         this.props = [
             new Button(this.canvas.width / 2 - (500 / 2), 250, 500, 200, 'white', 'Start!', 100, 'startBtn'),
-            new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'white', 'Mistakes', 100, 'mistakes'),
+            new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'white', 'Vragen', 100, 'mistakes'),
             new Button(this.canvas.width / 2 - (500 / 2), 750, 500, 200, 'white', 'Controls', 100, 'controls')
         ];
         this.nextScene = this;
@@ -42,7 +42,7 @@ export default class MenuScene extends Scene {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        Scene.writeTextToCanvas(this.ctx, 'The epic adventure of Sam Sung', this.canvas.width / 2, 100, 50, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Het epische avontuur van Sam Sung', this.canvas.width / 2, 100, 50, 'white');
     }
     processInput() {
     }
