@@ -29,23 +29,8 @@ export default class QuestionCutscene extends CutScene {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
-                        if (prop.getId() === '0') {
-                            if (!question.answers[0].correct) {
-                                this.player.die();
-                            }
-                        }
-                        if (prop.getId() === '1') {
-                            if (!question.answers[1].correct) {
-                                this.player.die();
-                            }
-                        }
-                        if (prop.getId() === '2') {
-                            if (!question.answers[2].correct) {
-                                this.player.die();
-                            }
-                        }
-                        if (prop.getId() === '3') {
-                            if (!question.answers[3].correct) {
+                        for (let i = 0; i < question.answers.length - 1; i++) {
+                            if (Number(prop.getId()) === i && !question.answers[i].correct) {
                                 this.player.die();
                             }
                         }

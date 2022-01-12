@@ -2,14 +2,16 @@ import Button from '../../Props/Button.js';
 import HubScene from '../Hub/HubScene.js';
 import Scene from '../../Scene.js';
 import ControlsScene from './ControlsScreen.js';
+import MistakeScene from './MistakesScene.js';
 export default class MenuScene extends Scene {
     props;
     nextScene;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
-            new Button(this.canvas.width / 2 - (500 / 2), 450, 500, 200, 'white', 'Start!', 100, 'startBtn'),
-            new Button(this.canvas.width / 2 - (500 / 2), 700, 500, 200, 'white', 'Controls', 100, 'controls')
+            new Button(this.canvas.width / 2 - (500 / 2), 250, 500, 200, 'white', 'Start!', 100, 'startBtn'),
+            new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'white', 'Mistakes', 100, 'mistakes'),
+            new Button(this.canvas.width / 2 - (500 / 2), 750, 500, 200, 'white', 'Controls', 100, 'controls')
         ];
         this.nextScene = this;
         this.canvas.addEventListener('click', (event) => {
@@ -20,6 +22,8 @@ export default class MenuScene extends Scene {
                             this.nextScene = new HubScene(this.canvas, this.userData);
                         if (prop.getId() === 'controls')
                             this.nextScene = new ControlsScene(this.canvas, this.userData);
+                        if (prop.getId() === 'mistakes')
+                            this.nextScene = new MistakeScene(this.canvas, this.userData);
                     }
                 }
             });

@@ -5,33 +5,33 @@ import HubScene from '../Hub/HubScene.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
-import ControlsScene from './ControlsScreen.js';
-import Player from '../../Player.js';
-import MistakeScene from './MistakesScene.js';
+import MenuScene from './MenuScene.js';
 
-export default class MenuScene extends Scene {
+export default class MistakeScene extends Scene {
   private props: Prop[];
 
   private nextScene: Scene;
 
+  private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}[];
+
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
 
-    this.props = [
-      new Button(this.canvas.width / 2 - (500 / 2), 250, 500, 200, 'white', 'Start!', 100, 'startBtn'),
-      new Button(this.canvas.width / 2 - (500 / 2), 500, 500, 200, 'white', 'Mistakes', 100, 'mistakes'),
-      new Button(this.canvas.width / 2 - (500 / 2), 750, 500, 200, 'white', 'Controls', 100, 'controls')
-    ]
+    this.props = [];
+    this.questions = this.userData.getQuestions();
 
+    this.questions.forEach((question, questionIndex) => {
+      this.props.push(new Button(this.canvas.width / 2 - (200 / 2), 100 * (questionIndex + 1), 200, 100, 'white', `question`, 50, `${questionIndex}`));
+    })
+
+    console.log(this.props)
     this.nextScene = this
 
     this.canvas.addEventListener('click', (event) => {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
-            if(prop.getId() === 'startBtn') this.nextScene = new HubScene(this.canvas, this.userData)
-            if(prop.getId() === 'controls') this.nextScene = new ControlsScene(this.canvas, this.userData)
-            if(prop.getId() === 'mistakes') this.nextScene = new MistakeScene(this.canvas, this.userData)
+            if(prop.getId() === 'backBtn') this.nextScene = new MenuScene(this.canvas, this.userData)
           }
         }
       })
@@ -52,14 +52,23 @@ export default class MenuScene extends Scene {
     this.props.forEach((prop) => {
       prop.draw(this.ctx)
     })
+    this.userData.getQuestions();
 
-    // Game title
     Scene.writeTextToCanvas(
       this.ctx,
-      'The epic adventure of Sam Sung',
+      'Questions',
       this.canvas.width / 2,
       100,
       50,
+      'white',
+    )
+
+    Scene.writeTextToCanvas(
+      this.ctx,
+      `Here are the anwsers to the questions`,
+      this.canvas.width / 2,
+      250,
+      30,
       'white',
     )
   }
