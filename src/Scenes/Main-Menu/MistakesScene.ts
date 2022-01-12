@@ -5,7 +5,7 @@ import UserData from '../../UserData.js';
 import MenuScene from './MenuScene.js';
 import QuestionScene from './QuestionScene.js';
 
-export default class MistakeScene extends Scene {
+export default class MistakesScene extends Scene {
   private props: Prop[];
 
   private nextScene: Scene;

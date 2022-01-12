@@ -2,7 +2,7 @@ import Button from '../../Props/Button.js';
 import Scene from '../../Scene.js';
 import MenuScene from './MenuScene.js';
 import QuestionScene from './QuestionScene.js';
-export default class MistakeScene extends Scene {
+export default class MistakesScene extends Scene {
     props;
     nextScene;
     questions;
