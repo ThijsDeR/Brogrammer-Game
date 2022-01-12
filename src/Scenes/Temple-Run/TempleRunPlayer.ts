@@ -45,6 +45,10 @@ export default class TempleRunPlayer extends Player {
     this.yPos += this.yVel * 2 * (elapsed / 10);
   }
 
+  public speed_up(): void {
+    this.xVel += 0.0001
+  }
+
   public die(): void {
     this.dead = true;
   }

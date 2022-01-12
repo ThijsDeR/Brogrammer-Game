@@ -23,7 +23,7 @@ export default class TempleRunScene extends GameLevel {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         console.log(this.player.getXPos());
-        this.question.draw(this.ctx, this.player.getXPos());
+        this.question.draw(this.ctx, this.player.getXPos() - 200);
         this.player.draw(this.ctx, this.player.getXPos() - 200);
         Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, 50, 20, 'black');
     }
@@ -48,11 +48,13 @@ export default class TempleRunScene extends GameLevel {
                     this.player.die();
                 }
                 else if (prop instanceof CorrectProp) {
+                    this.userData.increaseCoins(10);
                     this.score += 1;
                     this.newQuestion();
                 }
             }
         });
+        this.player.speed_up();
         this.player.move(this.canvas, contacts, elapsed);
         if (this.player.isDead())
             return new HubScene(this.canvas, this.userData);
