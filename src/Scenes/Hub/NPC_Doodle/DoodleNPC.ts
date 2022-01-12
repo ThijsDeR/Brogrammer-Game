@@ -16,7 +16,7 @@ export default class DoodleNPC extends HubNPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/Dood.jpg', width, height, 'doodle','right')
+    super(xpos, ypos, './assets/img/Dood.jpg', width, height, 'doodle','right', 'Doodle Save')
 
     this.cutScene = new DoodleNPCCutscene(canvas, userData, this)
   }
