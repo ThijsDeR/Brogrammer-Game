@@ -231,7 +231,7 @@ export default class DoodleScene extends GameLevel {
             this.player.die();
             this.props.splice(propIndex, 1);
             const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
-            enemySound.volume = 0.6;
+            enemySound.volume = 0.5;
             enemySound.play();
           }
   
