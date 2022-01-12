@@ -28,7 +28,7 @@ export default class Cloud extends ImageProp {
   public makeDisappear(elapsed: number): void {
     if (this.isDisappearing) {
       if (this.opacity >= 0.1) {
-        this.opacity -= 0.01 * (elapsed / 20)
+        this.opacity -= 0.001 * (elapsed / 20)
       }
     }
   }
