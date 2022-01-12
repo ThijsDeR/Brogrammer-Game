@@ -70,6 +70,7 @@ export default class DoodleScene extends GameLevel {
     draw() {
         this.ctx.fillStyle = "LightSkyBlue";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(Game.loadNewImage('./assets/img/Sky_background.jpg'), 0, 0, this.canvas.width, this.canvas.height);
         this.props.forEach((prop) => {
             prop.draw(this.ctx, 0, this.player.getYPos() - (this.canvas.height / 2));
         });
