@@ -13,7 +13,7 @@ export default class TempleRunNPCCutscene extends CutScene {
             "Can you save him?"
         ];
         const endSentences = [
-            "You can go through the portal now."
+            "The portal has already been opened, Go forth young robot."
         ];
         this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);

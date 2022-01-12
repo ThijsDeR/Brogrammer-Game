@@ -1,10 +1,12 @@
 export default class UserData {
 
   private static readonly COIN_OBJECT_NAME: string = 'coins';
+
+  private static readonly QUESTIONS_OBJECT_NAME: string = 'questions'
+
   private coins: number;
 
-  // TODO: Look at this later.
-  // private upgrades: string[];
+  private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}[];
   
   public constructor() {
     if (localStorage.getItem(UserData.COIN_OBJECT_NAME)) {
@@ -12,6 +14,13 @@ export default class UserData {
     } else {
       this.coins = 0
       localStorage.setItem(UserData.COIN_OBJECT_NAME, `${this.coins}`)
+    } 
+
+    if (localStorage.getItem(UserData.QUESTIONS_OBJECT_NAME)) {
+      this.questions = JSON.parse(localStorage.getItem(UserData.QUESTIONS_OBJECT_NAME))
+    } else {
+      this.questions = [];
+      localStorage.setItem(UserData.QUESTIONS_OBJECT_NAME, JSON.stringify(this.questions))
     }
   }
   
@@ -39,4 +48,22 @@ export default class UserData {
     this.coins -= amount;
     localStorage.setItem(UserData.COIN_OBJECT_NAME, `${this.coins}`)
   }
+
+  public addQuestion(
+    question: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}
+  ): void {
+    this.questions.push(question)
+    localStorage.setItem(UserData.QUESTIONS_OBJECT_NAME, JSON.stringify(this.questions))
+  }
+
+  /**
+   * Getter for Questions
+   * 
+   * @returns questions
+   */
+  public getQuestions(): {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}[] {
+    return this.questions;
+  }
+
+  
 }

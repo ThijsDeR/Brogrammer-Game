@@ -49,6 +49,7 @@ export default class QuestionCutscene extends CutScene {
                                 this.player.die();
                             }
                         }
+                        this.userData.addQuestion(question);
                         this.completed = true;
                     }
                 }
