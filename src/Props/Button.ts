@@ -35,7 +35,11 @@ export default class Button extends RectProp{
       this.text,
       this.xPos + (this.width / 2),
       this.yPos + (this.height / 2),
-      this.fontSize
+      this.fontSize,
+      'white',
+      'center',
+      'middle',
+      this.width,
     )
   }
 
@@ -53,9 +57,9 @@ export default class Button extends RectProp{
     return this.id
   }
 
-  public doHover(mouseCoords: {x: number, y: number}): void {
+  public doHover(mouseCoords: {x: number, y: number}, color: string): void {
     if (this.isHovered(mouseCoords)) {
-      this.color = 'blue';
+      this.color = color;
     }
     else this.color = this.originalColor
   }

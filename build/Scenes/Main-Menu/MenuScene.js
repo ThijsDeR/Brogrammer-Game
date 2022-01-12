@@ -27,7 +27,7 @@ export default class MenuScene extends Scene {
         this.canvas.addEventListener('mousemove', (event) => {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
-                    prop.doHover({ x: event.x, y: event.y });
+                    prop.doHover({ x: event.x, y: event.y }, 'blue');
                 }
             });
         });

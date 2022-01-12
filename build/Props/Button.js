@@ -14,7 +14,7 @@ export default class Button extends RectProp {
     }
     draw(ctx) {
         super.draw(ctx);
-        Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.fontSize);
+        Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.fontSize, 'white', 'center', 'middle', this.width);
     }
     isHovered(mouseCoords) {
         if (mouseCoords.x > this.getMinXPos()
@@ -27,9 +27,9 @@ export default class Button extends RectProp {
     getId() {
         return this.id;
     }
-    doHover(mouseCoords) {
+    doHover(mouseCoords, color) {
         if (this.isHovered(mouseCoords)) {
-            this.color = 'blue';
+            this.color = color;
         }
         else
             this.color = this.originalColor;

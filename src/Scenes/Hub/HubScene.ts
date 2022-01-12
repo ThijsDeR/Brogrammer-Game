@@ -13,6 +13,7 @@ import DoodleNPC from './NPC_Doodle/DoodleNPC.js';
 import HubNPC from './HubNPC.js';
 import TempleRunNPC from './NPC_Temple_Run/TempleRunNPC.js';
 
+
 export default class HubScene extends GameLevel {
   private player: HubPlayer;
 
