@@ -1,4 +1,6 @@
 import CollideHandler from "../../CollideHandler.js";
+import Game from "../../Game.js";
+import GameInfo from "../../GameInfo.js";
 import GameLevel from "../../GameLevel.js";
 import Platform from "../../Props/Platform.js";
 import Scene from '../../Scene.js';
@@ -16,6 +18,8 @@ export default class TempleRunScene extends GameLevel {
 
   private score: number;
 
+  private backgroundMusic: HTMLAudioElement;
+
   public constructor(
     canvas: HTMLCanvasElement, 
     userData: UserData
@@ -27,6 +31,11 @@ export default class TempleRunScene extends GameLevel {
     this.question = new TRQuestion(this.canvas, this.player)
 
     this.score = 0
+
+    this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'CaveBackgroundMusic.mp3');
+    this.backgroundMusic.loop = true;
+    this.backgroundMusic.volume = 0.2
+    this.backgroundMusic.play();
   }
 
   private newQuestion(): void {
@@ -35,6 +44,7 @@ export default class TempleRunScene extends GameLevel {
 
   public draw(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+    this.ctx.drawImage(Game.loadNewImage('./assets/img/cave_pixelart_background.png'), 0, 0, this.canvas.width, this.canvas.height)
     console.log(this.player.getXPos())
     this.question.draw(this.ctx, this.player.getXPos() - 200)
     this.player.draw(this.ctx, this.player.getXPos() - 200)
@@ -59,9 +69,17 @@ export default class TempleRunScene extends GameLevel {
           }
         } else if (prop instanceof DeadProp) {
           this.player.die()
+          const deathSound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
+          deathSound.volume = 0.3;
+          deathSound.play();
+          this.backgroundMusic.pause();
+          this.backgroundMusic = null
         } else if (prop instanceof CorrectProp) {
           this.userData.increaseCoins(10)
           this.score += 1;
+          const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
+          correctSound.volume = 0.6;
+          correctSound.play();
           this.newQuestion()
         }
       }
