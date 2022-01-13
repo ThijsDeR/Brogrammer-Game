@@ -8,7 +8,7 @@ import TempleRunPlayer from "./TempleRunPlayer.js";
 import Text from "../../Props/Text.js";
 
 export default class TRQuestion {
-  private type: 'hacker' | 'opa';
+  private type: 'Hacker' | 'opa';
 
   private props: Prop[];
 
@@ -26,7 +26,7 @@ export default class TRQuestion {
       
     ]
 
-    if(Game.randomNumber(0, 1) === 0) this.type = 'hacker'
+    if(Game.randomNumber(0, 1) === 0) this.type = 'Hacker'
     else this.type = 'opa'
 
     this.props.push(new ImageProp(player.getMinXPos() + canvas.width, (canvas.height / 2) - (canvas.height / 4), `./assets/img/${this.type}.png`, canvas.width / 4, canvas.height / 2))
@@ -52,7 +52,7 @@ export default class TRQuestion {
 
     const answers = [
       {answerImage: './assets/img/chat.png', correct: this.type === 'opa'},
-      {answerImage: './assets/img/block.png', correct: this.type === 'hacker'},
+      {answerImage: './assets/img/block.png', correct: this.type === 'Hacker'},
       {answerImage: './assets/img/checkmark.png', correct: this.type === 'opa'}
     ]
     
