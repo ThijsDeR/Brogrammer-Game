@@ -15,7 +15,7 @@ export default class QuestionScene extends Scene {
 
     this.question = question
 
-    this.backButton = new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Back', this.canvas.width / 75, 'backBtn')
+    this.backButton = new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')
 
     this.nextScene = this
 

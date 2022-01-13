@@ -21,15 +21,23 @@ export default class TempleRunNPCCutscene extends CutScene {
     this.doodleNPC = doodleNPC
 
     const sentences = [
-      "Ey young lad, nice ta meet ya.",
-      "Been hearin' some weird sounds from this cave.",
-      "I've blocked the entrance so nothing ain't going in or out.",
-      "Can ya look if everythin' is alright in there.",
-      "Aight thanks."
+      "Ey knul, leuk om je te ontmoeten",
+      "Er komen nogal rare geluiden uit deze grot.",
+      "Ik heb de ingang geblokkeerd, zodat er niks naar binnen of naar buiten kan.",
+      "Zou je kunnen kijken of alles goed gaat daarbinnen?",
+      "Aight Bedankt!"
+
+      // "Ey young lad, nice ta meet ya.",
+      // "Been hearin' some weird sounds from this cave.",
+      // "I've blocked the entrance so nothing ain't going in or out.",
+      // "Can ya look if everythin' is alright in there.",
+      // "Aight thanks."
     ]
 
     const endSentences = [
-      "I've already opened the entrance to the cave."
+      "De ingang naar de grot is al open hoor!"
+
+      // "I've already opened the entrance to the cave."
     ]
 
     this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)

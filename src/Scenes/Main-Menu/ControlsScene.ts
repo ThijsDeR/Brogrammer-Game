@@ -19,7 +19,7 @@ export default class ControlsScene extends Scene {
     super(canvas, userData)
     
     this.props = [
-      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Back', this.canvas.width / 75, 'backBtn'),
+      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
     ]
 
     this.nextScene = this
@@ -74,7 +74,7 @@ export default class ControlsScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Press A or D To move left or right',
+      'Klik op A en D om naar links en rechts te bewegen',
       this.canvas.width / 2,
       this.canvas.height / 4,
       this.canvas.height / 25,
@@ -83,7 +83,7 @@ export default class ControlsScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Press space to jump',
+      'Klik op spatie om te springen',
       this.canvas.width / 2,
       (this.canvas.height / 20) * 6,
       this.canvas.height / 25,
