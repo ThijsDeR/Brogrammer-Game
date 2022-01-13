@@ -31,9 +31,9 @@ export default class TRQuestion {
             platformBottomYPos + TRQuestion.PLATFORM_HEIGHT
         ];
         const answers = [
-            { answer: 'chat', correct: false },
-            { answer: 'block', correct: true },
-            { answer: 'date', correct: false }
+            { answer: 'Chat', correct: false },
+            { answer: 'Block', correct: true },
+            { answer: 'Bevriend', correct: false }
         ];
         let i = 0;
         while (answers.length > 0) {

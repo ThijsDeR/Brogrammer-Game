@@ -1,7 +1,7 @@
-import CutScene from '../../../CutScene.js';
-import KeyboardListener from '../../../KeyboardListener.js';
-import TextBox from '../../../Props/TextBox.js';
-export default class DoodleNPCCutscene extends CutScene {
+import CutScene from '../../CutScene.js';
+import KeyboardListener from '../../KeyboardListener.js';
+import TextBox from '../../Props/TextBox.js';
+export default class TutorialNPCCutscene extends CutScene {
     doodleNPC;
     textBox;
     endTextBox;
@@ -9,15 +9,11 @@ export default class DoodleNPCCutscene extends CutScene {
         super(canvas, userData);
         this.doodleNPC = doodleNPC;
         const sentences = [
-            "Hey, jij daar, die Robot ja jij! Zou jij mij kunnen helpen?",
-            "Mijn zoon is ontvoerd tot aan de top van de wolken! ",
-            "Zou jij helemaal naar boven kunnen gaan om hem te redden?",
-            "Alvast bedankt!",
-            "Achter me vind je een Portaal die je teleporteerd naar het laagste punt van de wolkentrap",
-            "Ik zal het portaal open maken zodat je er makkelijk naartoe kan gaan."
+            "Goed zo, je weet nu hoe je met NPC'S moet praten",
+            "Mijn taak zit erop."
         ];
         const endSentences = [
-            "Het portaal is al open, ga voort jonge robot."
+            "Start het spel en praat met de andere NPC'S"
         ];
         this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
@@ -36,7 +32,6 @@ export default class DoodleNPCCutscene extends CutScene {
     update(elapsed) {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
-            this.doodleNPC.finishInteraction();
             this.textBox = this.endTextBox;
             this.textBox.reset();
             return true;
@@ -44,4 +39,4 @@ export default class DoodleNPCCutscene extends CutScene {
         return false;
     }
 }
-//# sourceMappingURL=DoodleNPCCutscene.js.map
+//# sourceMappingURL=TutorialNPCCutScene.js.map
