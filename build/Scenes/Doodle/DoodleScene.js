@@ -122,7 +122,7 @@ export default class DoodleScene extends GameLevel {
                         this.cutScene = new QuestionCutscene(this.canvas, this.userData, this.player);
                         this.props.splice(propIndex, 1);
                         this.backgroundMusic.pause();
-                        const questionPopUpSound = new Audio(GameInfo.SOUND_PATH + 'pop.wav');
+                        const questionPopUpSound = new Audio(GameInfo.SOUND_PATH + 'Pop.wav');
                         questionPopUpSound.play();
                     }
                     if (prop instanceof DoodleEnemy) {
