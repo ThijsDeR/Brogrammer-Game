@@ -8,28 +8,31 @@ import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
 import DoodleEnemy from "./DoodleEnemy.js";
 import DoodleLevelInfo from "./DoodleLevelInfo.js";
-import RectProp from "../../Props/RectProp.js";
 import GameInfo from "../../GameInfo.js";
 import Question from "./Question.js";
 import QuestionCutscene from "./QuestionCutscene.js";
 import FallLine from "./FallLine.js";
+import CloudPlatform from "./CloudPlatform.js";
+import SonNPC from "./NPC_Son/SonNPC.js";
+import SonNPCCutscene from "./NPC_Son/SonNPCCutscene.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
     nextScene;
     backgroundMusic;
+    sonNPC;
     cutScene;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
             new FallLine(0, this.canvas.height - (this.canvas.height / 100), this.canvas.width, this.canvas.height / 100, 'transparent', 'fill'),
-            new Cloud(this.canvas.width / 10, this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
+            new CloudPlatform(this.canvas.width / 10, this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
             new Question(0, this.canvas.height - (this.canvas.height * 3) / 2, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill'),
-            new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill')
+            new CloudPlatform(this.canvas.width / 10, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10)
         ];
+        this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData);
         this.createProps();
         this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
-        console.log(this.player.isDead());
         this.nextScene = this;
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'SkyBackgroundMusic.wav');
         this.backgroundMusic.loop = true;
@@ -77,6 +80,7 @@ export default class DoodleScene extends GameLevel {
         this.props.forEach((prop) => {
             prop.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
         });
+        this.sonNPC.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
         this.player.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
         Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 25, this.canvas.height / 50, 'black');
         if (this.cutScene !== null) {
@@ -93,14 +97,28 @@ export default class DoodleScene extends GameLevel {
     }
     update = (elapsed) => {
         if (this.cutScene === null) {
+            let playerOnPlatform = false;
             let contacts = [];
             this.props.forEach((prop, propIndex) => {
                 if (CollideHandler.collides(this.player, prop)) {
                     const contact = CollideHandler.getContactData(this.player, prop);
                     if (prop instanceof Cloud) {
                         contacts.push(contact);
-                        if (contact === CollideHandler.TOP_CONTACT) {
-                            prop.disappear();
+                        if (!(prop instanceof CloudPlatform)) {
+                            if (contact === CollideHandler.TOP_CONTACT) {
+                                prop.disappear();
+                            }
+                        }
+                        else {
+                            playerOnPlatform = true;
+                        }
+                    }
+                    if (prop instanceof Cloud) {
+                        if (prop.hasDisappeared()) {
+                            this.props.splice(propIndex, 1);
+                        }
+                        else {
+                            prop.makeDisappear(elapsed);
                         }
                     }
                     if (prop instanceof Coin) {
@@ -128,33 +146,31 @@ export default class DoodleScene extends GameLevel {
                         enemySound.play();
                     }
                 }
-                if (prop instanceof Cloud) {
-                    if (prop.hasDisappeared()) {
-                        this.props.splice(propIndex, 1);
-                    }
-                    else {
-                        prop.makeDisappear(elapsed);
-                    }
-                }
             });
-            this.player.move(this.canvas, contacts, elapsed);
-            if (this.player.isDead()) {
-                this.nextScene = new HubScene(this.canvas, this.userData);
-                this.backgroundMusic.pause();
-                this.backgroundMusic = null;
+            if (CollideHandler.collides(this.player, this.sonNPC)) {
+                if (this.player.isInteracting()) {
+                    this.cutScene = this.sonNPC.interact();
+                }
             }
-            else if (this.player.getMinYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) {
+            this.player.move(this.canvas, contacts, elapsed, playerOnPlatform);
+            if (this.player.isDead()) {
                 this.nextScene = new HubScene(this.canvas, this.userData);
                 this.backgroundMusic.pause();
                 this.backgroundMusic = null;
             }
         }
         else {
-            console.log('did cutscene');
             const cutsceneDone = this.cutScene.update(elapsed);
             if (cutsceneDone) {
-                this.cutScene = null;
-                this.backgroundMusic.play();
+                if (this.cutScene instanceof SonNPCCutscene) {
+                    this.nextScene = new HubScene(this.canvas, this.userData);
+                    this.backgroundMusic.pause();
+                    this.backgroundMusic = null;
+                }
+                else {
+                    this.cutScene = null;
+                    this.backgroundMusic.play();
+                }
             }
         }
         return this.nextScene;

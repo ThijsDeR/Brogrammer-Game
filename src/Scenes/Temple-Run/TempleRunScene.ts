@@ -26,7 +26,7 @@ export default class TempleRunScene extends GameLevel {
   ) {
     super(canvas, userData)
 
-    this.player = new TempleRunPlayer(this.canvas.width / 4, this.canvas.height / 2, 50, 100)
+    this.player = new TempleRunPlayer(this.canvas.width / 4, this.canvas.height / 2, this.canvas.width / 40, this.canvas.height / 10)
 
     this.question = new TRQuestion(this.canvas, this.player)
 
@@ -45,10 +45,9 @@ export default class TempleRunScene extends GameLevel {
   public draw(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     this.ctx.drawImage(Game.loadNewImage('./assets/img/cave_pixelart_background.png'), 0, 0, this.canvas.width, this.canvas.height)
-    console.log(this.player.getMinXPos())
-    this.question.draw(this.ctx, this.player.getMinXPos() - 200)
-    this.player.draw(this.ctx, this.player.getMinXPos() - 200)
-    Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, 50, 20, 'black')
+    this.question.draw(this.ctx, this.player.getMinXPos() - this.canvas.width / 10)
+    this.player.draw(this.ctx, this.player.getMinXPos() - this.canvas.width / 10)
+    Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, this.canvas.width / 40, this.canvas.height / 50, 'black')
   }
 
   public processInput(): void {

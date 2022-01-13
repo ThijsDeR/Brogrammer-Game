@@ -46,7 +46,7 @@ export default class TempleRunPlayer extends Player {
   }
 
   public speed_up(): void {
-    this.xVel += 0.0001
+    this.xVel += 0.0001 * (this.width / 100)
   }
 
   public die(): void {

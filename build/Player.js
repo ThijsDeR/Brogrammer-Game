@@ -25,7 +25,7 @@ export default class Player extends ImageProp {
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
             this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
     }
-    move(canvas, contacts, elapsed) {
+    move(canvas, contacts, elapsed, onPlatform) {
         let xVel;
         if (this.airborne)
             xVel = this.xVel / GameInfo.PLAYER_AIRBORNE_X_SPEED_PENTALTY;
@@ -69,6 +69,9 @@ export default class Player extends ImageProp {
         }
         if (shouldBeFlying)
             flying();
+    }
+    isInteracting() {
+        return this.keyboardListener.isKeyDown(KeyboardListener.KEY_E);
     }
 }
 //# sourceMappingURL=Player.js.map

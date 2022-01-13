@@ -1,10 +1,11 @@
 import CutScene from '../../../CutScene.js';
+import NPC from '../../../Props/NPC.js';
 import UserData from '../../../UserData.js';
-import HubNPC from '../HubNPC.js';
-import DoodleNPCCutscene from './DoodleNPCCutscene.js';
+import SonNPCCutscene from './SonNPCCutscene.js';
 
-export default class DoodleNPC extends HubNPC {
-  private cutScene: DoodleNPCCutscene;
+
+export default class SonNPC extends NPC {
+  private cutScene: SonNPCCutscene;
 
   public constructor(
     xpos: number, 
@@ -15,9 +16,9 @@ export default class DoodleNPC extends HubNPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/dad.png', width, height, 'doodle','right', 'Wolkentrap')
+    super(xpos, ypos, './assets/img/son.png', width, height)
 
-    this.cutScene = new DoodleNPCCutscene(canvas, userData, this)
+    this.cutScene = new SonNPCCutscene(canvas, userData, this)
   }
 
   public interact(): CutScene {
@@ -25,6 +26,6 @@ export default class DoodleNPC extends HubNPC {
   }
 
   public finishInteraction(): void {
-    this.teleporter.activate()
+    
   }
 }
