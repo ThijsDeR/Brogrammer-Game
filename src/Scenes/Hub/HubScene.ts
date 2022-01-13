@@ -4,7 +4,6 @@ import ImageProp from '../../Props/ImageProp.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import SceneSelector from '../../SceneSelector.js';
-import Teleporter from '../../Props/Teleporter.js';
 import UserData from '../../UserData.js';
 import HubPlayer from './HubPlayer.js';
 import Game from '../../Game.js';

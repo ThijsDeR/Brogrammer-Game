@@ -61,7 +61,7 @@ export default class DoodleScene extends GameLevel {
             previousHeight = yPos;
             this.props.push(new Cloud(xPos, this.canvas.height - yPos, cloudWidth, cloudHeight));
             previousQuestionHeight = questionYPos;
-            this.props.push(new Question(0, this.canvas.height - questionYPos, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill'));
+            this.props.push(new Question(0, this.canvas.height - questionYPos, this.canvas.width, this.canvas.height / 100, 'red', 'fill'));
             const rng = Game.randomNumber(1, 10);
             if (rng <= 5) {
                 this.props.push(new Coin(xPos + (cloudWidth / 2) - (coinHeight / 2), this.canvas.height - yPos - (coinHeight * 2), coinWidth, coinHeight));
@@ -167,6 +167,9 @@ export default class DoodleScene extends GameLevel {
                     this.nextScene = new HubScene(this.canvas, this.userData);
                     this.backgroundMusic.pause();
                     this.backgroundMusic = null;
+                    const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
+                    winSound.volume = 0.6;
+                    winSound.play();
                 }
                 else {
                     this.cutScene = null;

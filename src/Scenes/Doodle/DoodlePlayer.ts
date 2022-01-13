@@ -25,7 +25,7 @@ export default class DoodlePlayer extends Player {
     this.xVel = 0;
 
     if(!this.airborne){
-      if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) this.yVel = -(GameInfo.PLAYER_Y_SPEED) * (this.height / 100);
+      if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED) * (this.height / 100);
     }
 
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(DoodleLevelInfo.PLAYER_X_SPEED) * (this.width / 100);

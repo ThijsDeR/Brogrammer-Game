@@ -17,7 +17,6 @@ import QuestionCutscene from "./QuestionCutscene.js";
 import FallLine from "./FallLine.js";
 import CloudPlatform from "./CloudPlatform.js";
 import SonNPC from "./NPC_Son/SonNPC.js";
-import NPC from "../../Props/NPC.js";
 import SonNPCCutscene from "./NPC_Son/SonNPCCutscene.js";
 
 export default class DoodleScene extends GameLevel {
@@ -110,8 +109,8 @@ export default class DoodleScene extends GameLevel {
           0,
           this.canvas.height - questionYPos,
           this.canvas.width,
-          this.canvas.height / 50,
-          'transparent',
+          this.canvas.height / 100,
+          'red',
           'fill',
         )
       )
@@ -288,6 +287,9 @@ export default class DoodleScene extends GameLevel {
           this.nextScene = new HubScene(this.canvas, this.userData)
           this.backgroundMusic.pause()
           this.backgroundMusic = null
+          const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
+          winSound.volume = 0.6;
+          winSound.play();
         } else {
           this.cutScene = null;
           this.backgroundMusic.play()

@@ -8,6 +8,7 @@ import UserData from "../../UserData.js";
 import HubScene from "../Hub/HubScene.js";
 import CorrectProp from "./CorrectProp.js";
 import DeadProp from "./DeadProp.js";
+import TempleRunInfo from "./TempleRunInfo.js";
 import TempleRunPlayer from "./TempleRunPlayer.js";
 import TRQuestion from "./TRQuestion.js";
 
@@ -86,10 +87,10 @@ export default class TempleRunScene extends GameLevel {
     this.player.speed_up()
     this.player.move(this.canvas, contacts, elapsed)
     if (this.player.isDead()) return new HubScene(this.canvas, this.userData)
-    else if (this.score >= 20) {
-      const correctSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav');
-      correctSound.volume = 0.6;
-      correctSound.play();
+    else if (this.score >= TempleRunInfo.WIN_SCORE) {
+      const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
+      winSound.volume = 0.6;
+      winSound.play();
       this.backgroundMusic.pause();
       this.backgroundMusic = null
       return new HubScene(this.canvas, this.userData)

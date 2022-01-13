@@ -1,5 +1,5 @@
 import CollideHandler from '../../CollideHandler.js';
-import GameInfo from '../../GameInfo.js';
+import TempleRunInfo from './TempleRunInfo.js';
 import KeyboardListener from '../../KeyboardListener.js';
 import Player from '../../Player.js';
 
@@ -15,7 +15,7 @@ export default class TempleRunPlayer extends Player {
     super(xPos, yPos, './assets/img/Sam_Suong/robot-preview.png', width, height)
     this.dead = false;
 
-    this.xVel = (GameInfo.PLAYER_X_SPEED / 2) * (this.width / 100)
+    this.xVel = (TempleRunInfo.PLAYER_X_SPEED / 2) * (this.width / 100)
   }
   
   /**
@@ -24,8 +24,8 @@ export default class TempleRunPlayer extends Player {
    public processInput(): void {
     this.yVel = 0
     
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(GameInfo.PLAYER_Y_SPEED) * (this.height / 200);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = GameInfo.PLAYER_Y_SPEED * (this.height / 200);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(TempleRunInfo.PLAYER_Y_SPEED) * (this.height / 200);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = TempleRunInfo.PLAYER_Y_SPEED * (this.height / 200);
   }
 
   public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number): void {
