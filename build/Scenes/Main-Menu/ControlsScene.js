@@ -9,7 +9,7 @@ export default class ControlsScene extends Scene {
     constructor(canvas, userData) {
         super(canvas, userData);
         this.props = [
-            new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Back', this.canvas.width / 75, 'backBtn'),
+            new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
         ];
         this.nextScene = this;
         this.player = new Player(this.canvas.width / 2, this.canvas.height / 2, './assets/img/Sam_Suong/robot-preview.png', this.canvas.width / 25, this.canvas.height / 8);
@@ -46,8 +46,8 @@ export default class ControlsScene extends Scene {
         });
         this.player.draw(this.ctx);
         Scene.writeTextToCanvas(this.ctx, 'Controls', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
-        Scene.writeTextToCanvas(this.ctx, 'Press A or D To move left or right', this.canvas.width / 2, this.canvas.height / 4, this.canvas.height / 25, 'white');
-        Scene.writeTextToCanvas(this.ctx, 'Press space to jump', this.canvas.width / 2, (this.canvas.height / 20) * 6, this.canvas.height / 25, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Klik op A en D om naar links en rechts te bewegen', this.canvas.width / 2, this.canvas.height / 4, this.canvas.height / 25, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Klik op spatie om te springen', this.canvas.width / 2, (this.canvas.height / 20) * 6, this.canvas.height / 25, 'white');
     }
     processInput() {
         this.player.processInput();

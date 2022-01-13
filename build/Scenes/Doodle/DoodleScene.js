@@ -82,7 +82,7 @@ export default class DoodleScene extends GameLevel {
         });
         this.sonNPC.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
         this.player.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
-        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 25, this.canvas.height / 50, 'black');
+        Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 25, this.canvas.height / 50, 'black');
         if (this.cutScene !== null) {
             this.cutScene.draw();
         }

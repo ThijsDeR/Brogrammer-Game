@@ -39,7 +39,7 @@ export default class HubScene extends GameLevel {
             NPC.draw(this.ctx);
         });
         this.player.draw(this.ctx);
-        Scene.writeTextToCanvas(this.ctx, `Coins: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'black', 'center', 'middle');
+        Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, 40, 20, 'black', 'center', 'middle');
         if (this.cutScene !== null) {
             this.cutScene.draw();
         }

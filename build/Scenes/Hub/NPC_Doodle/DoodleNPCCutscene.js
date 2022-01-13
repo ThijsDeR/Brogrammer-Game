@@ -9,16 +9,15 @@ export default class DoodleNPCCutscene extends CutScene {
         super(canvas, userData);
         this.doodleNPC = doodleNPC;
         const sentences = [
-            "Hello young robot, could you help me.",
-            "I've found myself in quite a predicament.",
-            "You see, my son was taken away to the top of the clouds.",
-            "Could you go up there and help him get back?",
-            "Thank you!",
-            "Behind me is a portal that teleports you to the lowest point of the cloud staircase.",
-            "Let me unlock this portal so you can easily go there."
+            "Hey, jij daar, die Robot ja jij! Zou jij mij kunnen helpen?",
+            "Mijn zoon is ontvoerd tot aan de top van de wolken! ",
+            "Zou jij helemaal naar boven kunnen gaan om hem te redden?",
+            "Alvast bedankt!",
+            "Achter me vind je een Portaal die je teleporteerd naar het laagste punt van de wolkentrap",
+            "Ik zal het portaal open maken zodat je er makkelijk naartoe kan gaan."
         ];
         const endSentences = [
-            "The portal has already been opened, Go forth young robot."
+            "Het portaal is al open, ga voort jonge robot."
         ];
         this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
