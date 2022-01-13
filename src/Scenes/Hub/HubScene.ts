@@ -74,7 +74,7 @@ export default class HubScene extends GameLevel {
     // Draw text on canvas.
     Scene.writeTextToCanvas(
       this.ctx,
-      `Coins: ${this.userData.getCoins()}`,
+      `Munten: ${this.userData.getCoins()}`,
         this.canvas.width / 2,
         40,
         20,

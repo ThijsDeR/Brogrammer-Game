@@ -16,7 +16,7 @@ export default class MistakesScene extends Scene {
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
 
-    this.props = [new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Back', this.canvas.width / 75, 'backBtn')];
+    this.props = [new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')];
 
     this.questions = this.userData.getQuestions();
     

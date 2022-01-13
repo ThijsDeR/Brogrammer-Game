@@ -168,7 +168,7 @@ export default class DoodleScene extends GameLevel {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      `Coins: ${this.userData.getCoins()}`,
+      `Munten: ${this.userData.getCoins()}`,
       this.canvas.width / 2,
       this.canvas.height / 25,
       this.canvas.height / 50,
