@@ -18,6 +18,7 @@ import FallLine from "./FallLine.js";
 import CloudPlatform from "./CloudPlatform.js";
 import SonNPC from "./NPC_Son/SonNPC.js";
 import SonNPCCutscene from "./NPC_Son/SonNPCCutscene.js";
+import Text from "../../Props/Text.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -41,7 +42,7 @@ export default class DoodleScene extends GameLevel {
 
       // Starting Cloud
       new CloudPlatform(this.canvas.width / 10 , this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
-
+      
       // finishing line
       new CloudPlatform(this.canvas.width / 10, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10)
     ];
@@ -71,7 +72,7 @@ export default class DoodleScene extends GameLevel {
   }
 
   public createProps(): void {
-    let previousHeight = this.canvas.height / 10
+    let previousHeight = this.canvas.height / 4
     let previousQuestionHeight = 0;
     let i = 0
     let atFinish = false

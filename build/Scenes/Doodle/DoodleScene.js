@@ -40,7 +40,7 @@ export default class DoodleScene extends GameLevel {
         this.cutScene = null;
     }
     createProps() {
-        let previousHeight = this.canvas.height / 10;
+        let previousHeight = this.canvas.height / 4;
         let previousQuestionHeight = 0;
         let i = 0;
         let atFinish = false;

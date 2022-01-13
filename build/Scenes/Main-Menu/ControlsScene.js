@@ -2,8 +2,7 @@ import Button from '../../Props/Button.js';
 import CollideHandler from '../../CollideHandler.js';
 import Scene from '../../Scene.js';
 import MenuScene from './MenuScene.js';
-import MainNPC from './MainNPC.js';
-import SceneSelector from '../../SceneSelector.js';
+import MainNPC from './NPC_Controls/MainNPC.js';
 import HubPlayer from '../Hub/HubPlayer.js';
 export default class ControlsScene extends Scene {
     props;
@@ -93,12 +92,6 @@ export default class ControlsScene extends Scene {
                 if (CollideHandler.collides(this.player, NPC)) {
                     if (this.player.isInteracting()) {
                         this.cutScene = NPC.interact();
-                    }
-                }
-                const NPCTeleporter = NPC.getTeleporter();
-                if (CollideHandler.collides(this.player, NPCTeleporter)) {
-                    if (NPCTeleporter.isActivated()) {
-                        nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData);
                     }
                 }
             });

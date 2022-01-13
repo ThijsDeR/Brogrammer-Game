@@ -1,15 +1,14 @@
+
 import CutScene from '../../../CutScene.js';
 import NPC from '../../../Props/NPC.js';
 import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
-import SonNPCCutscene from './SonNPCCutscene.js';
+import TutorialNPCCutscene from './TutorialNPCCutScene.js';
 
-
-export default class SonNPC extends NPC {
-  private cutScene: SonNPCCutscene;
+export default class MainNPC extends NPC {
+  private cutScene: TutorialNPCCutscene;
 
   protected name: string;
-
   public constructor(
     xpos: number, 
     ypos: number,
@@ -19,22 +18,18 @@ export default class SonNPC extends NPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/son.png', width, height)
+    super(xpos, ypos, './assets/img/sephiroth.png', width, height)
 
-    this.cutScene = new SonNPCCutscene(canvas, userData, this)
-    this.name = 'Son'
+    this.cutScene = new TutorialNPCCutscene(canvas, userData, this)
+    this.name = 'Tutorial'
   }
 
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
     super.draw(ctx, offsetX, offsetY)
-    Scene.writeTextToCanvas(ctx, this.name, this.xPos + (this.width / 2) - offsetX, this.yPos - 20 - offsetY, this.height / 4, 'white')
+    Scene.writeTextToCanvas(ctx, this.name, this.xPos + (this.width / 2), this.yPos - 20, this.height / 4, 'white')
   }
 
   public interact(): CutScene {
     return this.cutScene
-  }
-
-  public finishInteraction(): void {
-    
   }
 }

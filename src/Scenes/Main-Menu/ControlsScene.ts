@@ -7,7 +7,7 @@ import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import MenuScene from './MenuScene.js';
 import Player from '../../Player.js';
-import MainNPC from './MainNPC.js';
+import MainNPC from './NPC_Controls/MainNPC.js';
 import SceneSelector from '../../SceneSelector.js';
 import HubPlayer from '../Hub/HubPlayer.js';
 
@@ -161,13 +161,6 @@ export default class ControlsScene extends Scene {
               this.cutScene = NPC.interact()
             }
           }
-          const NPCTeleporter = NPC.getTeleporter()
-          if (CollideHandler.collides(this.player, NPCTeleporter)) {
-            if (NPCTeleporter.isActivated()) {
-              nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData)
-            }
-          }
-  
         });
   
         this.player.move(this.canvas, contacts, elapsed);

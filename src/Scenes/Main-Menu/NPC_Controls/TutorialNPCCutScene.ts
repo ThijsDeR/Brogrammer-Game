@@ -1,7 +1,7 @@
-import CutScene from '../../CutScene.js';
-import KeyboardListener from '../../KeyboardListener.js';
-import TextBox from '../../Props/TextBox.js';
-import UserData from '../../UserData.js';
+import CutScene from '../../../CutScene.js';
+import KeyboardListener from '../../../KeyboardListener.js';
+import TextBox from '../../../Props/TextBox.js';
+import UserData from '../../../UserData.js';
 import MainNPC from './MainNPC.js';
 
 
@@ -22,12 +22,15 @@ export default class TutorialNPCCutscene extends CutScene {
     this.doodleNPC = doodleNPC
 
     const sentences = [
-      "Goed zo, je weet nu hoe je met NPC'S moet praten",
-      "Mijn taak zit erop."
+      "Hey welkom! Fijn dat je er bent, druk op spatie om verder te gaan.",
+      "Goed zo, Jij bent er al klaar voor zie ik.",
+      "Dan zit mijn taak er weer op.",
+      "Heel veel succes!"
     ]
 
     const endSentences = [
-      "Start het spel en praat met de andere NPC'S"
+      "Je mag gaan beginnen hoor...",
+      "Start het spel en praat met de andere NPC'S om een level in te gaan"
     ]
 
     this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)

@@ -21,12 +21,16 @@ export default class DoodleNPCCutscene extends CutScene {
     this.doodleNPC = doodleNPC
 
     const sentences = [
-      "Hey, jij daar, die Robot ja jij! Zou jij mij kunnen helpen?",
+      "Hey, jij daar, die Robot!",
+      "ja jij! Zou jij mij kunnen helpen?",
       "Mijn zoon is ontvoerd tot aan de top van de wolken! ",
       "Zou jij helemaal naar boven kunnen gaan om hem te redden?",
       "Alvast bedankt!",
       "Achter me vind je een Portaal die je teleporteerd naar het laagste punt van de wolkentrap",
-      "Ik zal het portaal open maken zodat je er makkelijk naartoe kan gaan."
+      "Ik zal het portaal open maken zodat je er makkelijk naartoe kan gaan.",
+      "Op het onderste platform ben je veilig, totdat je begint met springen",
+      "Dus pas op...",
+      "Als je niet meer omhoog kan, spring dan naast het platform",
 
       // "Hello young robot, could you help me.",
       // "I've found myself in quite a predicament.",
