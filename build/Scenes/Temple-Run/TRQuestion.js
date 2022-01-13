@@ -8,18 +8,18 @@ export default class TRQuestion {
     static PLATFORM_HEIGHT = 100;
     props;
     constructor(canvas, player) {
-        const platformTopYPos = canvas.height / 3 - 50;
-        const platformBottomYPos = (canvas.height / 3) * 2 - 50;
+        const platformTopYPos = (canvas.height / 3) - (canvas.height / 20);
+        const platformBottomYPos = ((canvas.height / 3) * 2) - (canvas.height / 20);
         this.props = [
-            new Platform(player.getMinXPos() + canvas.width + 1000, canvas.height / 3 - 50, 2000, 100),
-            new Platform(player.getMinXPos() + canvas.width + 1000, (canvas.height / 3) * 2 - 50, 2000, 100),
-            new ImageProp(player.getMinXPos() + canvas.width, canvas.height / 2 - 250, './assets/img/Hacker.png', 500, 500)
+            new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2), platformTopYPos, canvas.width, canvas.height / 10),
+            new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2), platformBottomYPos, canvas.width, canvas.height / 10),
+            new ImageProp(player.getMinXPos() + canvas.width, (canvas.height / 2) - (canvas.height / 4), './assets/img/Hacker.png', canvas.width / 4, canvas.height / 2)
         ];
         this.addAnswers(canvas, player);
     }
     addAnswers(canvas, player) {
-        const platformTopYPos = canvas.height / 3 - 50;
-        const platformBottomYPos = (canvas.height / 3) * 2 - 50;
+        const platformTopYPos = (canvas.height / 3) - (canvas.height / 20);
+        const platformBottomYPos = ((canvas.height / 3) * 2) - (canvas.height / 20);
         const positions = [
             platformTopYPos / 2,
             canvas.height / 2,
@@ -27,8 +27,8 @@ export default class TRQuestion {
         ];
         const deathPositions = [
             0,
-            platformTopYPos + TRQuestion.PLATFORM_HEIGHT,
-            platformBottomYPos + TRQuestion.PLATFORM_HEIGHT
+            platformTopYPos + (canvas.height / 10),
+            platformBottomYPos + (canvas.height / 10),
         ];
         const answers = [
             { answer: 'chat', correct: false },
@@ -39,12 +39,12 @@ export default class TRQuestion {
         while (answers.length > 0) {
             const randomAnswer = Game.randomNumber(0, answers.length - 1);
             const answer = answers[randomAnswer];
-            this.props.push(new Text(player.getMinXPos() + canvas.width + 1000, positions[i], 500, 500, answer.answer, 'black'));
+            this.props.push(new Text(player.getMinXPos() + canvas.width + (canvas.width / 2), positions[i], 500, 500, answer.answer, 'black'));
             if (answer.correct) {
-                this.props.push(new CorrectProp(player.getMinXPos() + canvas.width + 2500, deathPositions[i], 200, platformTopYPos));
+                this.props.push(new CorrectProp(player.getMinXPos() + canvas.width + ((canvas.width / 4) * 5), deathPositions[i], canvas.width / 10, platformTopYPos));
             }
             else {
-                this.props.push(new DeadProp(player.getMinXPos() + canvas.width + 2500, deathPositions[i], 200, platformTopYPos));
+                this.props.push(new DeadProp(player.getMinXPos() + canvas.width + ((canvas.width / 4) * 5), deathPositions[i], canvas.width / 10, platformTopYPos));
             }
             answers.splice(randomAnswer, 1);
             i++;

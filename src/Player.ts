@@ -52,7 +52,7 @@ export default class Player extends ImageProp {
    *
    * @param canvas the game canvas
    */
-  public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number): void {
+  public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number, onPlatform?: boolean): void {
     let xVel: number;
 
     // Give the player a speed penalty when airborne
@@ -95,5 +95,9 @@ export default class Player extends ImageProp {
     }
 
     if(shouldBeFlying) flying()
+  }
+
+  public isInteracting(): boolean {
+    return this.keyboardListener.isKeyDown(KeyboardListener.KEY_E)
   }
 }

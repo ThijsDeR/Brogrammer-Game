@@ -10,12 +10,15 @@ import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
 import DoodleEnemy from "./DoodleEnemy.js";
 import DoodleLevelInfo from "./DoodleLevelInfo.js";
-import RectProp from "../../Props/RectProp.js";
 import GameInfo from "../../GameInfo.js";
 import Question from "./Question.js";
 import CutScene from "../../CutScene.js";
 import QuestionCutscene from "./QuestionCutscene.js";
 import FallLine from "./FallLine.js";
+import CloudPlatform from "./CloudPlatform.js";
+import SonNPC from "./NPC_Son/SonNPC.js";
+import NPC from "../../Props/NPC.js";
+import SonNPCCutscene from "./NPC_Son/SonNPCCutscene.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -25,6 +28,8 @@ export default class DoodleScene extends GameLevel {
   private nextScene: Scene;
 
   private backgroundMusic: HTMLAudioElement;
+
+  private sonNPC: SonNPC;
 
   private cutScene: null | CutScene;
 
@@ -36,16 +41,20 @@ export default class DoodleScene extends GameLevel {
       new FallLine(0, this.canvas.height - (this.canvas.height / 100), this.canvas.width, this.canvas.height / 100, 'transparent', 'fill'),
 
       // Starting Cloud
-      new Cloud(this.canvas.width / 10 , this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
+      new CloudPlatform(this.canvas.width / 10 , this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
 
       // Question prompts
       new Question(0, this.canvas.height - (this.canvas.height * 3) / 2, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill'),
       // new Question(400, this.canvas.height - 300, 500, 200, 'green', 'Anwser 1', 50, 'testPrompt'),
 
       // finishing line
-      new RectProp(0, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill')
+      new CloudPlatform(this.canvas.width / 10, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10)
     ];
+
+
+    this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData)
     
+
     this.createProps();
 
     this.player = new DoodlePlayer(
@@ -55,7 +64,6 @@ export default class DoodleScene extends GameLevel {
       this.canvas.height / 8
     );
     
-    console.log(this.player.isDead())
     this.nextScene = this
 
     // background music
@@ -146,9 +154,14 @@ export default class DoodleScene extends GameLevel {
     this.ctx.fillStyle = "LightSkyBlue";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.drawImage(Game.loadNewImage('./assets/img/Sky_background.jpg'), 0, 0, this.canvas.width, this.canvas.height)
+
     this.props.forEach((prop) => {
       prop.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
     });
+
+
+    this.sonNPC.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2))
+
 
     this.player.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
     // Draw text on canvas
@@ -185,6 +198,7 @@ export default class DoodleScene extends GameLevel {
    */
   public update = (elapsed: number): Scene => {
     if (this.cutScene === null) {
+      let playerOnPlatform = false
       let contacts: number[] = [];
       this.props.forEach((prop, propIndex) => {
         if (CollideHandler.collides(this.player, prop)) {
@@ -195,11 +209,26 @@ export default class DoodleScene extends GameLevel {
           // After contact makes the cloud dissappear.
           if (prop instanceof Cloud) {
             contacts.push(contact);
-            if (contact === CollideHandler.TOP_CONTACT) {
-              // this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
-              prop.disappear();
+            if (!(prop instanceof CloudPlatform)) {
+              if (contact === CollideHandler.TOP_CONTACT) {
+                // this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+                prop.disappear();
+              }
+            } else {
+              // if (contact === CollideHandler.TOP_CONTACT) {
+              //   this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
+              // }
+              playerOnPlatform = true
             }
-  
+          }
+
+          // Makes the cloud disappear slowly
+        if (prop instanceof Cloud) {
+            if (prop.hasDisappeared()) {
+              this.props.splice(propIndex, 1);
+            } else {
+              prop.makeDisappear(elapsed)
+            }
           }
   
           // Checks if the instance of prop === Coin.
@@ -242,33 +271,34 @@ export default class DoodleScene extends GameLevel {
   
         }
   
-        // Makes the cloud disappear slowly
-        if (prop instanceof Cloud) {
-          if (prop.hasDisappeared()) {
-            this.props.splice(propIndex, 1);
-          } else {
-            prop.makeDisappear(elapsed)
-          }
-        }
+        
       });
-      this.player.move(this.canvas, contacts, elapsed);
+
+      if (CollideHandler.collides(this.player, this.sonNPC)) {
+        if (this.player.isInteracting()) {
+          this.cutScene = this.sonNPC.interact()
+        }
+      }
+
+      this.player.move(this.canvas, contacts, elapsed, playerOnPlatform);
       // Checks if the player is dead.
       // If dead === true. Send the player back to the HUB.
       if (this.player.isDead()) {
         this.nextScene = new HubScene(this.canvas, this.userData)
         this.backgroundMusic.pause();
         this.backgroundMusic = null
-      } else if (this.player.getMinYPos() < DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) {
-        this.nextScene = new HubScene(this.canvas, this.userData)
-        this.backgroundMusic.pause();
-        this.backgroundMusic = null
       }
     } else {
-      console.log('did cutscene')
       const cutsceneDone = this.cutScene.update(elapsed)
       if (cutsceneDone) {
-        this.cutScene = null;
-        this.backgroundMusic.play()
+        if (this.cutScene instanceof SonNPCCutscene) {
+          this.nextScene = new HubScene(this.canvas, this.userData)
+          this.backgroundMusic.pause()
+          this.backgroundMusic = null
+        } else {
+          this.cutScene = null;
+          this.backgroundMusic.play()
+        }
       }
     }
     return this.nextScene;

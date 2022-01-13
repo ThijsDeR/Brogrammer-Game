@@ -6,6 +6,7 @@ import UserData from '../../UserData.js';
 import ControlsScene from './ControlsScene.js';
 import MistakeScene from './MistakesScene.js';
 import GameInfo from '../../GameInfo.js';
+import ImageProp from '../../Props/ImageProp.js';
 
 export default class MenuScene extends Scene {
   private props: Prop[];
@@ -20,6 +21,7 @@ export default class MenuScene extends Scene {
     const betweenButtonHeight = (this.canvas.height / 10)
 
     this.props = [
+      new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, './assets/img/Sam_Suong/robot-preview.png', this.canvas.width / 6, this.canvas.height / 2),
       new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight), buttonWidth, buttonHeight, 'white', 'blue', 'Start!', this.canvas.height / 20, 'startBtn'),
       new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'blue', 'Vragen', this.canvas.height / 20, 'mistakes'),
       new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'blue', 'Controls', this.canvas.height / 20, 'controls')

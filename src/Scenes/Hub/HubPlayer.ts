@@ -14,8 +14,4 @@ export default class HubPlayer extends Player {
   ) {
     super(xPos, yPos, './assets/img/Sam_Suong/robot-preview.png', width, height)
   }
-
-  public isInteracting(): boolean {
-    return this.keyboardListener.isKeyDown(KeyboardListener.KEY_E)
-  }
 }

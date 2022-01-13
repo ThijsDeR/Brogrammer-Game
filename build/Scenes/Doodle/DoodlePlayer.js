@@ -11,12 +11,16 @@ export default class DoodlePlayer extends Player {
     }
     processInput() {
         this.xVel = 0;
+        if (!this.airborne) {
+            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))
+                this.yVel = -(GameInfo.PLAYER_Y_SPEED) * (this.height / 100);
+        }
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A))
             this.xVel = -(DoodleLevelInfo.PLAYER_X_SPEED) * (this.width / 100);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
             this.xVel = DoodleLevelInfo.PLAYER_X_SPEED * (this.width / 100);
     }
-    move(canvas, contacts, elapsed) {
+    move(canvas, contacts, elapsed, onPlatform) {
         this.xPos += this.xVel * (elapsed / 10);
         if (this.xPos < 0) {
             this.xPos = canvas.width - this.img.width;
@@ -30,11 +34,17 @@ export default class DoodlePlayer extends Player {
             this.yVel += DoodleLevelInfo.GRAVITY_CONSTANT * (elapsed / 10) * (this.height / 100);
         };
         if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
-            this.airborne = false;
-            this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED) * (this.height / 100);
-            const jumpSound = new Audio(GameInfo.SOUND_PATH + 'JumpCloud.wav');
-            jumpSound.volume = 0.3;
-            jumpSound.play();
+            if (onPlatform) {
+                this.airborne = false;
+                this.yVel = 0;
+            }
+            else {
+                this.airborne = true;
+                this.yVel = -(DoodleLevelInfo.PLAYER_Y_SPEED) * (this.height / 100);
+                const jumpSound = new Audio(GameInfo.SOUND_PATH + 'JumpCloud.wav');
+                jumpSound.volume = 0.3;
+                jumpSound.play();
+            }
         }
         else {
             flying();

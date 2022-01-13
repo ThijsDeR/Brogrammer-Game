@@ -9,7 +9,7 @@ export default class Cloud extends ImageProp {
     xPos: number, 
     yPos: number, 
     width: number | undefined = undefined, 
-    height: number | undefined = undefined
+    height: number | undefined = undefined,
     ){
     super(xPos, yPos, './assets/img/cloud.png', width, height)
 
@@ -28,7 +28,7 @@ export default class Cloud extends ImageProp {
   public makeDisappear(elapsed: number): void {
     if (this.isDisappearing) {
       if (this.opacity >= 0.1) {
-        this.opacity -= 0.001 * (elapsed / 20)
+        this.opacity -= 0.004 * (elapsed / 20)
       }
     }
   }

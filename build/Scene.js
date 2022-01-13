@@ -49,9 +49,7 @@ export default class Scene {
                 yPositions.push(yPos + (fontSize * (i + 1)));
             }
         }
-        console.log(lines);
         lines.forEach((line, lineIndex) => {
-            console.log(line, xPos, yPositions[lineIndex]);
             ctx.fillText(line, xPos, yPositions[lineIndex]);
         });
     }

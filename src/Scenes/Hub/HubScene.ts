@@ -107,7 +107,6 @@ export default class HubScene extends GameLevel {
    */
   public update = (elapsed: number): Scene => {
     let nextScene: Scene = this
-    // console.log(this.cutScene)
     if (this.cutScene === null) {
       let contacts: number[] = []
 
