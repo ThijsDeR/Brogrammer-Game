@@ -73,6 +73,14 @@ export default class TempleRunScene extends GameLevel {
         this.player.move(this.canvas, contacts, elapsed);
         if (this.player.isDead())
             return new HubScene(this.canvas, this.userData);
+        else if (this.score >= 20) {
+            const correctSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav');
+            correctSound.volume = 0.6;
+            correctSound.play();
+            this.backgroundMusic.pause();
+            this.backgroundMusic = null;
+            return new HubScene(this.canvas, this.userData);
+        }
         return this;
     }
 }

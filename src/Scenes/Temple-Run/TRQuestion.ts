@@ -5,13 +5,16 @@ import Prop from "../../Props/Prop.js"
 import CorrectProp from "./CorrectProp.js";
 import DeadProp from "./DeadProp.js";
 import TempleRunPlayer from "./TempleRunPlayer.js";
+import Text from "../../Props/Text.js";
 
 export default class TRQuestion {
-  public static readonly PLATFORM_HEIGHT: number = 100
+  private type: 'hacker' | 'opa';
 
-  private props: Prop[]
+  private props: Prop[];
 
   public constructor(canvas: HTMLCanvasElement, player: TempleRunPlayer) {
+
+    
 
     const platformTopYPos = (canvas.height / 3) - (canvas.height / 20)
     const platformBottomYPos = ((canvas.height / 3) * 2) - (canvas.height / 20)
@@ -20,9 +23,14 @@ export default class TRQuestion {
 
       new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2), platformBottomYPos, canvas.width, canvas.height / 10),
 
-      new ImageProp(player.getMinXPos() + canvas.width, (canvas.height / 2) - (canvas.height / 4), './assets/img/Hacker.png', canvas.width / 4, canvas.height / 2)
+      
     ]
-    
+
+    if(Game.randomNumber(0, 1) === 0) this.type = 'hacker'
+    else this.type = 'opa'
+
+    this.props.push(new ImageProp(player.getMinXPos() + canvas.width, (canvas.height / 2) - (canvas.height / 4), `./assets/img/${this.type}.png`, canvas.width / 4, canvas.height / 2))
+    this.props.push(new Text(player.getMinXPos() + canvas.width + (canvas.width / 8), (canvas.height / 2) - (canvas.height / 4), canvas.width, canvas.height, this.type, 'white'))
     this.addAnswers(canvas, player)
   }
 
@@ -43,9 +51,9 @@ export default class TRQuestion {
     ]
 
     const answers = [
-      {answerImage: './assets/img/chat.png', correct: false},
-      {answerImage: './assets/img/block.png', correct: true},
-      {answerImage: './assets/img/checkmark.png', correct: false}
+      {answerImage: './assets/img/chat.png', correct: this.type === 'opa'},
+      {answerImage: './assets/img/block.png', correct: this.type === 'hacker'},
+      {answerImage: './assets/img/checkmark.png', correct: this.type === 'opa'}
     ]
     
     let i = 0
