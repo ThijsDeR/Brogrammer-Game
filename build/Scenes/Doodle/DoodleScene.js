@@ -27,7 +27,6 @@ export default class DoodleScene extends GameLevel {
         this.props = [
             new FallLine(0, this.canvas.height - (this.canvas.height / 100), this.canvas.width, this.canvas.height / 100, 'transparent', 'fill'),
             new CloudPlatform(this.canvas.width / 10, this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
-            new Question(0, this.canvas.height - (this.canvas.height * 3) / 2, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill'),
             new CloudPlatform(this.canvas.width / 10, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10)
         ];
         this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData);
@@ -82,7 +81,7 @@ export default class DoodleScene extends GameLevel {
         });
         this.sonNPC.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
         this.player.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));
-        Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 25, this.canvas.height / 50, 'black');
+        Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 25, this.canvas.height / 25, 'white');
         if (this.cutScene !== null) {
             this.cutScene.draw();
         }
@@ -113,14 +112,6 @@ export default class DoodleScene extends GameLevel {
                             playerOnPlatform = true;
                         }
                     }
-                    if (prop instanceof Cloud) {
-                        if (prop.hasDisappeared()) {
-                            this.props.splice(propIndex, 1);
-                        }
-                        else {
-                            prop.makeDisappear(elapsed);
-                        }
-                    }
                     if (prop instanceof Coin) {
                         this.userData.increaseCoins(prop.getPoints());
                         this.props.splice(propIndex, 1);
@@ -131,6 +122,8 @@ export default class DoodleScene extends GameLevel {
                         this.cutScene = new QuestionCutscene(this.canvas, this.userData, this.player);
                         this.props.splice(propIndex, 1);
                         this.backgroundMusic.pause();
+                        const questionPopUpSound = new Audio(GameInfo.SOUND_PATH + 'pop.wav');
+                        questionPopUpSound.play();
                     }
                     if (prop instanceof DoodleEnemy) {
                         this.player.die();
@@ -144,6 +137,14 @@ export default class DoodleScene extends GameLevel {
                         const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav');
                         enemySound.volume = 0.5;
                         enemySound.play();
+                    }
+                }
+                if (prop instanceof Cloud) {
+                    if (prop.hasDisappeared()) {
+                        this.props.splice(propIndex, 1);
+                    }
+                    else {
+                        prop.makeDisappear(elapsed);
                     }
                 }
             });

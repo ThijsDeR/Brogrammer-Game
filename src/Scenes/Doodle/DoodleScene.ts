@@ -43,10 +43,6 @@ export default class DoodleScene extends GameLevel {
       // Starting Cloud
       new CloudPlatform(this.canvas.width / 10 , this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
 
-      // Question prompts
-      new Question(0, this.canvas.height - (this.canvas.height * 3) / 2, this.canvas.width, this.canvas.height / 50, 'transparent', 'fill'),
-      // new Question(400, this.canvas.height - 300, 500, 200, 'green', 'Anwser 1', 50, 'testPrompt'),
-
       // finishing line
       new CloudPlatform(this.canvas.width / 10, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10)
     ];
@@ -171,8 +167,8 @@ export default class DoodleScene extends GameLevel {
       `Munten: ${this.userData.getCoins()}`,
       this.canvas.width / 2,
       this.canvas.height / 25,
-      this.canvas.height / 50,
-      'black',
+      this.canvas.height / 25,
+      'white',
     )
 
     if (this.cutScene !== null) {
@@ -211,23 +207,12 @@ export default class DoodleScene extends GameLevel {
             contacts.push(contact);
             if (!(prop instanceof CloudPlatform)) {
               if (contact === CollideHandler.TOP_CONTACT) {
-                // this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+
                 prop.disappear();
               }
             } else {
-              // if (contact === CollideHandler.TOP_CONTACT) {
-              //   this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
-              // }
-              playerOnPlatform = true
-            }
-          }
 
-          // Makes the cloud disappear slowly
-        if (prop instanceof Cloud) {
-            if (prop.hasDisappeared()) {
-              this.props.splice(propIndex, 1);
-            } else {
-              prop.makeDisappear(elapsed)
+              playerOnPlatform = true
             }
           }
   
@@ -248,7 +233,8 @@ export default class DoodleScene extends GameLevel {
             this.cutScene = new QuestionCutscene(this.canvas, this.userData, this.player);
             this.props.splice(propIndex, 1);
             this.backgroundMusic.pause()
-  
+            const questionPopUpSound = new Audio(GameInfo.SOUND_PATH + 'pop.wav')
+            questionPopUpSound.play()
           }
   
           // Checks if the instance of prop === DoodleEnemy.
@@ -270,8 +256,15 @@ export default class DoodleScene extends GameLevel {
           }
   
         }
-  
-        
+
+        // Makes the cloud disappear slowly
+        if (prop instanceof Cloud) {
+            if (prop.hasDisappeared()) {
+              this.props.splice(propIndex, 1);
+            } else {
+              prop.makeDisappear(elapsed)
+            }
+        }
       });
 
       if (CollideHandler.collides(this.player, this.sonNPC)) {

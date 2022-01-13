@@ -3,7 +3,7 @@ export default class DoodleLevelInfo {
     static PLAYER_X_SPEED = 9;
     static GRAVITY_CONSTANT = 0.098;
     static PLAYER_AIRBORNE_X_SPEED_PENTALTY = 2;
-    static LEVEL_YPOS_FINISH = -2;
+    static LEVEL_YPOS_FINISH = -50;
     static QUESTIONS = [
         { question: 'Wat is de sterkste pincode?', answers: [
                 { answer: '0000', correct: false },

@@ -76,9 +76,9 @@ export default class HubScene extends GameLevel {
       this.ctx,
       `Munten: ${this.userData.getCoins()}`,
         this.canvas.width / 2,
-        40,
-        20,
-        'black',
+        this.canvas.width / 40,
+        this.canvas.height / 25,
+        'white',
         'center',
         'middle',
     )
