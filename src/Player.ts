@@ -63,7 +63,7 @@ export default class Player extends ImageProp {
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
 
     if (this.xVel < 0) this.direction = 'left';
-    else this.direction = 'right';
+    else if (this.xVel > 0) this.direction = 'right';
   }
 
   /**

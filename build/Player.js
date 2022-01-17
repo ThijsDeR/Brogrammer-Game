@@ -40,7 +40,7 @@ export default class Player extends ImageProp {
             this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
         if (this.xVel < 0)
             this.direction = 'left';
-        else
+        else if (this.xVel > 0)
             this.direction = 'right';
     }
     move(canvas, contacts, elapsed, onPlatform) {
