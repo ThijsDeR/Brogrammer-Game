@@ -20,6 +20,18 @@ export default class DoodlePlayer extends Player {
     this.dead = false;
   }
 
+  public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
+    if (this.direction === 'left') {
+      ctx.save()
+      ctx.translate(this.xPos + this.width - offsetX, 0)
+      ctx.scale(-1, 1)
+      ctx.drawImage(this.img, 0, this.yPos - offsetY, this.width, this.height)
+      ctx.restore()
+    } else if (this.direction === 'right') {
+      ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.width, this.height)
+    } 
+  }
+
   /**
    * processing the input of the player
    */
@@ -32,6 +44,9 @@ export default class DoodlePlayer extends Player {
 
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(DoodleLevelInfo.PLAYER_X_SPEED) * (this.width / 100);
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = DoodleLevelInfo.PLAYER_X_SPEED * (this.width / 100);
+
+    if (this.xVel < 0) this.direction = 'left';
+    else if (this.xVel > 0) this.direction = 'right';
   }
 
   /**

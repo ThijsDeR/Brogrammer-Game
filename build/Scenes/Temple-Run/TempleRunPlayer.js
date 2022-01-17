@@ -9,6 +9,18 @@ export default class TempleRunPlayer extends Player {
         this.dead = false;
         this.xVel = (TempleRunInfo.PLAYER_X_SPEED / 2) * (this.width / 100);
     }
+    draw(ctx, offsetX, offsetY) {
+        if (this.direction === 'left') {
+            ctx.save();
+            ctx.translate(this.xPos + this.width - offsetX, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(this.img, 0, this.yPos - offsetY, this.width, this.height);
+            ctx.restore();
+        }
+        else if (this.direction === 'right') {
+            ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.width, this.height);
+        }
+    }
     processInput() {
         this.yVel = 0;
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W))

@@ -46,7 +46,6 @@ export default class Player extends ImageProp {
     } else if (this.direction === 'right') {
       ctx.drawImage(this.img, this.xPos, this.yPos, this.width, this.height)
     } 
-
   }
 
   /**

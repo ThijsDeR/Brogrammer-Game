@@ -9,6 +9,18 @@ export default class DoodlePlayer extends Player {
         super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height);
         this.dead = false;
     }
+    draw(ctx, offsetX, offsetY) {
+        if (this.direction === 'left') {
+            ctx.save();
+            ctx.translate(this.xPos + this.width - offsetX, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(this.img, 0, this.yPos - offsetY, this.width, this.height);
+            ctx.restore();
+        }
+        else if (this.direction === 'right') {
+            ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.width, this.height);
+        }
+    }
     processInput() {
         this.xVel = 0;
         if (!this.airborne) {
@@ -19,6 +31,10 @@ export default class DoodlePlayer extends Player {
             this.xVel = -(DoodleLevelInfo.PLAYER_X_SPEED) * (this.width / 100);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
             this.xVel = DoodleLevelInfo.PLAYER_X_SPEED * (this.width / 100);
+        if (this.xVel < 0)
+            this.direction = 'left';
+        else if (this.xVel > 0)
+            this.direction = 'right';
     }
     move(canvas, contacts, elapsed, onPlatform) {
         this.xPos += this.xVel * (elapsed / 10);

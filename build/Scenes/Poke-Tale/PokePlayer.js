@@ -8,6 +8,18 @@ export default class PokePlayer extends Player {
         super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height);
         this.dead = false;
     }
+    draw(ctx, offsetX, offsetY) {
+        if (this.direction === 'left') {
+            ctx.save();
+            ctx.translate(this.xPos + this.width - offsetX, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(this.img, 0, this.yPos - offsetY, this.width, this.height);
+            ctx.restore();
+        }
+        else if (this.direction === 'right') {
+            ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.width, this.height);
+        }
+    }
     processInput() {
         this.yVel = 0;
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W))
