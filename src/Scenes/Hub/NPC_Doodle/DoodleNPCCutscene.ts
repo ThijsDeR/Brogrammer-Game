@@ -23,7 +23,7 @@ export default class DoodleNPCCutscene extends CutScene {
 
     const sentences = [
       "Hey, jij daar, die Robot!",
-      "ja jij! Zou jij mij kunnen helpen?",
+      "Ja jij! Zou jij mij kunnen helpen?",
       "Mijn zoon is ontvoerd tot aan de top van de wolken! ",
       "Zou jij helemaal naar boven kunnen gaan om hem te redden?",
       "Alvast bedankt!",
