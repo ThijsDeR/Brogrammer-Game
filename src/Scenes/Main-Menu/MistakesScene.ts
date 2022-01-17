@@ -11,7 +11,7 @@ export default class MistakesScene extends Scene {
 
   private nextScene: Scene;
 
-  private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}[];
+  private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}[];
 
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
@@ -49,7 +49,7 @@ export default class MistakesScene extends Scene {
       if (questionIndex % maxVerticalAmount === 0 && questionIndex !== 0){
         currentRow += 1
       }
-      this.props.push(new Button(xPositions[currentRow] - (questionButtonWidth / 2), ((this.canvas.height / 10) * 4) + ((questionIndex % maxVerticalAmount) * questionButtonHeight), questionButtonWidth, questionButtonHeight, 'white', 'red', `Vraag ${questionIndex + 1}`, this.canvas.height / 40, `${questionIndex}`));
+      this.props.push(new Button(xPositions[currentRow] - (questionButtonWidth / 2), ((this.canvas.height / 10) * 4) + ((questionIndex % maxVerticalAmount) * questionButtonHeight), questionButtonWidth, questionButtonHeight, 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
     })
     
     this.nextScene = this

@@ -31,8 +31,16 @@ export default class UserData {
         localStorage.setItem(UserData.COIN_OBJECT_NAME, `${this.coins}`);
     }
     addQuestion(question) {
-        this.questions.push(question);
-        localStorage.setItem(UserData.QUESTIONS_OBJECT_NAME, JSON.stringify(this.questions));
+        let shouldAdd = true;
+        this.questions.forEach((existingQuestion) => {
+            if (existingQuestion.id === question.id)
+                shouldAdd = false;
+        });
+        if (shouldAdd) {
+            this.questions.push(question);
+            this.questions.sort((firstEl, secondEl) => firstEl.id - secondEl.id);
+            localStorage.setItem(UserData.QUESTIONS_OBJECT_NAME, JSON.stringify(this.questions));
+        }
     }
     getQuestions() {
         return this.questions;

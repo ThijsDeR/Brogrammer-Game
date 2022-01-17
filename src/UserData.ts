@@ -6,7 +6,7 @@ export default class UserData {
 
   private coins: number;
 
-  private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}[];
+  private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}[];
   
   public constructor() {
     if (localStorage.getItem(UserData.COIN_OBJECT_NAME)) {
@@ -50,10 +50,19 @@ export default class UserData {
   }
 
   public addQuestion(
-    question: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}
+    question: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}
   ): void {
-    this.questions.push(question)
-    localStorage.setItem(UserData.QUESTIONS_OBJECT_NAME, JSON.stringify(this.questions))
+    let shouldAdd = true;
+
+    this.questions.forEach((existingQuestion) => {
+      if (existingQuestion.id === question.id) shouldAdd = false
+    })
+
+    if (shouldAdd) {
+      this.questions.push(question)
+      this.questions.sort((firstEl, secondEl) => firstEl.id - secondEl.id)
+      localStorage.setItem(UserData.QUESTIONS_OBJECT_NAME, JSON.stringify(this.questions))
+    }
   }
 
   /**
@@ -61,7 +70,7 @@ export default class UserData {
    * 
    * @returns questions
    */
-  public getQuestions(): {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string}[] {
+  public getQuestions(): {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}[] {
     return this.questions;
   }
 
