@@ -7,6 +7,7 @@ import Platform from "../../Props/Platform.js";
 import Scene from '../../Scene.js';
 import UserData from "../../UserData.js";
 import HubScene from "../Hub/HubScene.js";
+import MenuCutScene from "../MenuCutScene.js";
 import CorrectProp from "./CorrectProp.js";
 import DeadProp from "./DeadProp.js";
 import TempleRunInfo from "./TempleRunInfo.js";
@@ -112,6 +113,11 @@ export default class TempleRunScene extends GameLevel {
         this.backgroundMusic = null
         this.nextScene = new HubScene(this.canvas, this.userData)
       }
+
+      if (this.player.isPausing()) {
+        this.cutScene = new MenuCutScene(this.canvas, this.userData)
+      }
+      
     } else {
       const cutsceneDone = this.cutScene.update(elapsed)
       if (cutsceneDone) {
