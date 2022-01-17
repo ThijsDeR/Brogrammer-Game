@@ -22,11 +22,11 @@ export default class PokeNPCCutscene extends CutScene {
     this.pokeNPC = pokeNPC
 
     const sentences = [
-    'test'
+    'Hello there! Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called pokémon! For some people, pokémon are pets.'
     ]
 
     const endSentences = [
-      'test'
+      'Others use them for fights. Myself...I study pokémon as a profession.'
     ]
 
     this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
