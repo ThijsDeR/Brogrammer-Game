@@ -2,6 +2,7 @@ import CollideHandler from "../../CollideHandler.js";
 import PokeInfo from "./PokeInfo.js";
 import KeyboardListener from "../../KeyboardListener.js";
 import Player from "../../Player.js";
+import UserData from "../../UserData.js";
 
 export default class PokePlayer extends Player {
     private dead: boolean;
@@ -10,9 +11,10 @@ export default class PokePlayer extends Player {
         xPos: number,
         yPos: number,
         width: number | undefined = undefined,
-        height: number | undefined = undefined
+        height: number | undefined = undefined,
+        userData: UserData
       ) {
-          super(xPos, yPos, './assets/img/Sam_Suong/robot-preview.png', width, height)
+          super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height)
           this.dead = false
       }
 

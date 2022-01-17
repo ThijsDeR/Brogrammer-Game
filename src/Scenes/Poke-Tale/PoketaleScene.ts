@@ -26,7 +26,7 @@ export default class PoketaleScene extends GameLevel {
   ) {
     super(canvas, userData)
 
-    this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8)
+    this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData)
 
     this.score = 0
 

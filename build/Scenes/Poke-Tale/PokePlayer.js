@@ -4,8 +4,8 @@ import KeyboardListener from "../../KeyboardListener.js";
 import Player from "../../Player.js";
 export default class PokePlayer extends Player {
     dead;
-    constructor(xPos, yPos, width = undefined, height = undefined) {
-        super(xPos, yPos, './assets/img/Sam_Suong/robot-preview.png', width, height);
+    constructor(xPos, yPos, width = undefined, height = undefined, userData) {
+        super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height);
         this.dead = false;
     }
     processInput() {
