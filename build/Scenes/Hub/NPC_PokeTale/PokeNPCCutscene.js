@@ -20,10 +20,25 @@ export default class PokeNPCCutscene extends CutScene {
             'To catch them is my real test, to train them is my ca...',
             'Ehh het portaal is open hoor ga maar snel voordat nindenbo© acties onderneemt!'
         ];
-        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
+        const notReadySentences = [
+            "Ik heb op het moment niks voor je",
+        ];
+        const doneSentences = [
+            "Oh, ben je hier alweer?",
+            "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
+            "Succes!"
+        ];
+        if (this.userData.getNPCStoryProgress('templerun').finished === false)
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, notReadySentences);
+        else if (this.userData.getNPCStoryProgress('poke').finished)
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences);
+        else if (this.userData.getNPCStoryProgress('poke').talkedTo === true) {
+            this.pokeNPC.finishInteraction();
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
+        }
+        else
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
-        if (this.userData.getNPCStoryProgress('poke').talkedTo === true)
-            this.textBox = this.endTextBox;
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -40,7 +55,9 @@ export default class PokeNPCCutscene extends CutScene {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
             this.pokeNPC.finishInteraction();
-            this.textBox = this.endTextBox;
+            if (this.userData.getNPCStoryProgress('templerun').finished) {
+                this.textBox = this.endTextBox;
+            }
             this.textBox.reset();
             return true;
         }

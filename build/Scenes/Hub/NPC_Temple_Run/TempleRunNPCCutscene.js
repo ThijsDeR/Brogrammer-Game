@@ -18,10 +18,25 @@ export default class TempleRunNPCCutscene extends CutScene {
         const endSentences = [
             "De ingang naar de grot is al open hoor!"
         ];
-        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
+        const notReadySentences = [
+            "Ik heb op het moment niks voor je",
+        ];
+        const doneSentences = [
+            "Oh, ben je hier alweer?",
+            "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
+            "Succes!"
+        ];
+        if (this.userData.getNPCStoryProgress('doodle').finished === false)
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, notReadySentences);
+        else if (this.userData.getNPCStoryProgress('templerun').finished)
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences);
+        else if (this.userData.getNPCStoryProgress('templerun').talkedTo === true) {
+            this.templeRunNPC.finishInteraction();
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
+        }
+        else
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
-        if (this.userData.getNPCStoryProgress('templerun').talkedTo === true)
-            this.textBox = this.endTextBox;
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -38,7 +53,9 @@ export default class TempleRunNPCCutscene extends CutScene {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
             this.templeRunNPC.finishInteraction();
-            this.textBox = this.endTextBox;
+            if (this.userData.getNPCStoryProgress('doodle').finished) {
+                this.textBox = this.endTextBox;
+            }
             this.textBox.reset();
             return true;
         }

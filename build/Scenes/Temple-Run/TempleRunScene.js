@@ -37,7 +37,7 @@ export default class TempleRunScene extends GameLevel {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.drawImage(Game.loadNewImage('./assets/img/cave_pixelart_background.png'), 0, 0, this.canvas.width, this.canvas.height);
         this.question.draw(this.ctx, this.player.getMinXPos() - this.canvas.width / 10);
-        this.player.draw(this.ctx, this.player.getMinXPos() - this.canvas.width / 10);
+        this.player.draw(this.ctx, this.player.getMinXPos() - this.canvas.width / 10, 0);
         Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, this.canvas.width / 40, this.canvas.height / 50, 'white');
         if (this.cutScene !== null) {
             this.cutScene.draw();
@@ -90,6 +90,7 @@ export default class TempleRunScene extends GameLevel {
                 const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
                 winSound.volume = 0.6;
                 winSound.play();
+                this.userData.changeNPCStoryProgress({ name: 'templerun', talkedTo: true, finished: true });
                 this.nextScene = new HubScene(this.canvas, this.userData);
             }
             if (this.player.isPausing()) {

@@ -293,6 +293,7 @@ export default class DoodleScene extends GameLevel {
           const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
           winSound.volume = 0.6;
           winSound.play();
+          this.userData.changeNPCStoryProgress({name: 'doodle', talkedTo: true, finished: true})
         } else {
           let optionalCutScene = this.cutScene.getOptionalScene()
           if (optionalCutScene) this.nextScene = optionalCutScene

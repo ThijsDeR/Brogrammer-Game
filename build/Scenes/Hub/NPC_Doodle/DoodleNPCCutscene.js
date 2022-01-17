@@ -23,10 +23,20 @@ export default class DoodleNPCCutscene extends CutScene {
         const endSentences = [
             "Het portaal is al open, ga voort jonge robot."
         ];
-        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
+        const doneSentences = [
+            "Oh, ben je hier alweer?",
+            "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
+            "Succes!"
+        ];
+        if (this.userData.getNPCStoryProgress('doodle').finished)
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences);
+        else if (this.userData.getNPCStoryProgress('doodle').talkedTo === true) {
+            this.doodleNPC.finishInteraction();
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
+        }
+        else
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
-        if (this.userData.getNPCStoryProgress('doodle').talkedTo === true)
-            this.textBox = this.endTextBox;
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';

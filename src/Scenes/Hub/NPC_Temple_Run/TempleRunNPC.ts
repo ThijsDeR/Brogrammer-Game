@@ -24,11 +24,13 @@ export default class TempleRunNPC extends HubNPC {
 
   public interact(): CutScene {
     const originalData = this.userData.getNPCStoryProgress('templerun')
-    this.userData.changeNPCStoryProgress({name: 'templerun', talkedTo: true, finished: originalData.finished })
+    if (this.userData.getNPCStoryProgress('doodle').finished) {
+      this.userData.changeNPCStoryProgress({name: 'templerun', talkedTo: true, finished: originalData.finished })
+    }
     return this.cutScene
   }
 
   public finishInteraction(): void {
-    this.teleporter.activate()
+    if (this.userData.getNPCStoryProgress('doodle').finished === true) this.teleporter.activate()
   }
 }

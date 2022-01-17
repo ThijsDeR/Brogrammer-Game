@@ -10,11 +10,14 @@ export default class PokeNPC extends HubNPC {
     }
     interact() {
         const originalData = this.userData.getNPCStoryProgress('poke');
-        this.userData.changeNPCStoryProgress({ name: 'poke', talkedTo: true, finished: originalData.finished });
+        if (this.userData.getNPCStoryProgress('templerun').finished) {
+            this.userData.changeNPCStoryProgress({ name: 'poke', talkedTo: true, finished: originalData.finished });
+        }
         return this.cutScene;
     }
     finishInteraction() {
-        this.teleporter.activate();
+        if (this.userData.getNPCStoryProgress('templerun').finished === true)
+            this.teleporter.activate();
     }
 }
 //# sourceMappingURL=PokeNPC.js.map

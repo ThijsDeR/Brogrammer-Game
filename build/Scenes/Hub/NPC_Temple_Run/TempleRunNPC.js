@@ -10,11 +10,14 @@ export default class TempleRunNPC extends HubNPC {
     }
     interact() {
         const originalData = this.userData.getNPCStoryProgress('templerun');
-        this.userData.changeNPCStoryProgress({ name: 'templerun', talkedTo: true, finished: originalData.finished });
+        if (this.userData.getNPCStoryProgress('doodle').finished) {
+            this.userData.changeNPCStoryProgress({ name: 'templerun', talkedTo: true, finished: originalData.finished });
+        }
         return this.cutScene;
     }
     finishInteraction() {
-        this.teleporter.activate();
+        if (this.userData.getNPCStoryProgress('doodle').finished === true)
+            this.teleporter.activate();
     }
 }
 //# sourceMappingURL=TempleRunNPC.js.map
