@@ -14,6 +14,7 @@ export default class PokePlayer extends Player {
             this.yVel = -(PokeInfo.PLAYER_Y_SPEED) * (this.height / 200);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S))
             this.yVel = PokeInfo.PLAYER_Y_SPEED * (this.height / 200);
+        this.xVel = 0;
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A))
             this.xVel = -(PokeInfo.PLAYER_X_SPEED) * (this.width / 100);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
@@ -30,6 +31,14 @@ export default class PokePlayer extends Player {
             this.yVel = 0;
             if (this.yPos + this.yVel + this.img.height > canvas.height)
                 this.yPos = canvas.height - this.img.height;
+        }
+        this.yPos += this.yVel * 2 * (elapsed / 10);
+        this.xPos += this.xVel * (elapsed / 10);
+        if (this.xPos < 0) {
+            this.xPos = canvas.width - this.img.width;
+        }
+        else if (this.xPos + this.img.width > canvas.width) {
+            this.xPos = 0;
         }
     }
     die() {

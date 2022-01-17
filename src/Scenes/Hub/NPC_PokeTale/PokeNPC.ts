@@ -15,7 +15,7 @@ export default class PokeNPC extends HubNPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/Verkoper.png', width, height, 'poketale','right', 'Telefonie')
+    super(xpos, ypos, './assets/img/Ash.png', width, height, 'poketale','right', 'Poketale')
 
     this.cutScene = new PokeNPCCutscene(canvas, userData, this)
   }

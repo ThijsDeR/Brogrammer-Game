@@ -9,10 +9,16 @@ export default class PokeNPCCutscene extends CutScene {
         super(canvas, userData);
         this.pokeNPC = pokeNPC;
         const sentences = [
-            'Hello there! Welcome to the world of pokémon! My name is Oak! People call me the pokémon Prof! This world is inhabited by creatures called pokémon! For some people, pokémon are pets.'
+            "I wanna be the very best, like no one even wa....",
+            'Hey jij daar! ik ben het Ash Ketchup',
+            'Zou jij even hier naar binnen kunnen gaan?',
+            'Ik weet niet wat er daar gaande is, maar het klinkt niet goed.',
+            'En pas op! Er zitten hier enge monsters die de grootte zijn van een pocket!',
+            'Bedankt! en als je me nodig hebt, sta ik hier.'
         ];
         const endSentences = [
-            'Others use them for fights. Myself...I study pokémon as a profession.'
+            'To catch them is my real test, to train them is my ca...',
+            'Ehh het portaal is open hoor ga maar snel voordat nindenbo© acties onderneemt!'
         ];
         this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
