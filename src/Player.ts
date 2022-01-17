@@ -100,4 +100,8 @@ export default class Player extends ImageProp {
   public isInteracting(): boolean {
     return this.keyboardListener.isKeyDown(KeyboardListener.KEY_E)
   }
+
+  public isPausing(): boolean {
+    return this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC)
+  }
 }

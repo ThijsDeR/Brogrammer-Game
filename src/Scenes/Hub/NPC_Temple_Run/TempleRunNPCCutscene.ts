@@ -1,10 +1,12 @@
 import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
+import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
 import TempleRunNPC from './TempleRunNPC.js';
 
 export default class TempleRunNPCCutscene extends CutScene {
+  
   private doodleNPC: TempleRunNPC;
 
   private textBox: TextBox;
@@ -66,6 +68,10 @@ export default class TempleRunNPCCutscene extends CutScene {
       return true
     }
     return false
+  }
+
+  public getOptionalScene(): Scene | null{
+    return null
   }
   
 }

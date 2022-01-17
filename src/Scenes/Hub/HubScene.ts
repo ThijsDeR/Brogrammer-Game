@@ -11,6 +11,7 @@ import CutScene from '../../CutScene.js';
 import DoodleNPC from './NPC_Doodle/DoodleNPC.js';
 import HubNPC from './HubNPC.js';
 import TempleRunNPC from './NPC_Temple_Run/TempleRunNPC.js';
+import MenuCutScene from '../MenuCutScene.js';
 
 
 export default class HubScene extends GameLevel {
@@ -19,6 +20,8 @@ export default class HubScene extends GameLevel {
   private props: Prop[];
 
   private NPCs: HubNPC[];
+
+  private nextScene: Scene | null
 
   private cutScene: null | CutScene;
 
@@ -52,6 +55,7 @@ export default class HubScene extends GameLevel {
     this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8)
 
     this.cutScene = null
+    this.nextScene = this
   }
 
   /**
@@ -104,7 +108,6 @@ export default class HubScene extends GameLevel {
    * @returns Next Scene
    */
   public update = (elapsed: number): Scene => {
-    let nextScene: Scene = this
     if (this.cutScene === null) {
       let contacts: number[] = []
 
@@ -130,18 +133,27 @@ export default class HubScene extends GameLevel {
         const NPCTeleporter = NPC.getTeleporter()
         if (CollideHandler.collides(this.player, NPCTeleporter)) {
           if (NPCTeleporter.isActivated()) {
-            nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData)
+            this.nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData)
           }
         }
 
       });
 
       this.player.move(this.canvas, contacts, elapsed);
+
+      if (this.player.isPausing()) {
+        this.cutScene = new MenuCutScene(this.canvas, this.userData)
+      }
+
     } else {
       const cutsceneDone = this.cutScene.update(elapsed)
-      if (cutsceneDone) this.cutScene = null;
+      if (cutsceneDone) {
+        let optionalCutScene = this.cutScene.getOptionalScene()
+        if (optionalCutScene) this.nextScene = optionalCutScene
+        this.cutScene = null
+      };
     }
 
-    return nextScene
+    return this.nextScene
   }
 }

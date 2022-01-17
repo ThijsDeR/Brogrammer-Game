@@ -73,5 +73,8 @@ export default class Player extends ImageProp {
     isInteracting() {
         return this.keyboardListener.isKeyDown(KeyboardListener.KEY_E);
     }
+    isPausing() {
+        return this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC);
+    }
 }
 //# sourceMappingURL=Player.js.map

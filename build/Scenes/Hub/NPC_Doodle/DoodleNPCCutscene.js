@@ -47,5 +47,8 @@ export default class DoodleNPCCutscene extends CutScene {
         }
         return false;
     }
+    getOptionalScene() {
+        return null;
+    }
 }
 //# sourceMappingURL=DoodleNPCCutscene.js.map

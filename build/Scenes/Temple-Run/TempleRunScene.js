@@ -15,11 +15,15 @@ export default class TempleRunScene extends GameLevel {
     question;
     score;
     backgroundMusic;
+    nextScene;
+    cutScene;
     constructor(canvas, userData) {
         super(canvas, userData);
         this.player = new TempleRunPlayer(this.canvas.width / 4, this.canvas.height / 2, this.canvas.width / 40, this.canvas.height / 10);
         this.question = new TRQuestion(this.canvas, this.player);
         this.score = 0;
+        this.cutScene = null;
+        this.nextScene = this;
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'CaveBackgroundMusic.mp3');
         this.backgroundMusic.loop = true;
         this.backgroundMusic.volume = 0.2;
@@ -34,55 +38,75 @@ export default class TempleRunScene extends GameLevel {
         this.question.draw(this.ctx, this.player.getMinXPos() - this.canvas.width / 10);
         this.player.draw(this.ctx, this.player.getMinXPos() - this.canvas.width / 10);
         Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, this.canvas.width / 40, this.canvas.height / 50, 'white');
+        if (this.cutScene !== null) {
+            this.cutScene.draw();
+        }
     }
     processInput() {
-        this.player.processInput();
+        if (this.cutScene === null) {
+            this.player.processInput();
+        }
+        else {
+            this.cutScene.processInput();
+        }
     }
     update(elapsed) {
-        let contacts = [];
-        this.question.getProps().forEach((prop) => {
-            if (CollideHandler.collides(this.player, prop)) {
-                if (prop instanceof Platform) {
-                    const contact = CollideHandler.getVerticalContactData(this.player, prop);
-                    contacts.push(contact);
-                    if (contact === CollideHandler.TOP_CONTACT) {
-                        this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+        if (this.cutScene === null) {
+            let contacts = [];
+            this.question.getProps().forEach((prop) => {
+                if (CollideHandler.collides(this.player, prop)) {
+                    if (prop instanceof Platform) {
+                        const contact = CollideHandler.getVerticalContactData(this.player, prop);
+                        contacts.push(contact);
+                        if (contact === CollideHandler.TOP_CONTACT) {
+                            this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
+                        }
+                        else if (contact === CollideHandler.BOTTOM_CONTACT) {
+                            this.player.setYPos(prop.getMaxYPos());
+                        }
                     }
-                    else if (contact === CollideHandler.BOTTOM_CONTACT) {
-                        this.player.setYPos(prop.getMaxYPos());
+                    else if (prop instanceof DeadProp) {
+                        this.player.die();
+                        const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
+                        wrongSound.volume = 0.8;
+                        wrongSound.play();
+                        this.backgroundMusic.pause();
+                        this.backgroundMusic = null;
+                    }
+                    else if (prop instanceof CorrectProp) {
+                        this.userData.increaseCoins(10);
+                        this.score += 1;
+                        const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
+                        correctSound.volume = 0.6;
+                        correctSound.play();
+                        this.newQuestion();
                     }
                 }
-                else if (prop instanceof DeadProp) {
-                    this.player.die();
-                    const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
-                    wrongSound.volume = 0.8;
-                    wrongSound.play();
-                    this.backgroundMusic.pause();
-                    this.backgroundMusic = null;
-                }
-                else if (prop instanceof CorrectProp) {
-                    this.userData.increaseCoins(10);
-                    this.score += 1;
-                    const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
-                    correctSound.volume = 0.6;
-                    correctSound.play();
-                    this.newQuestion();
-                }
+            });
+            this.player.speed_up();
+            this.player.move(this.canvas, contacts, elapsed);
+            if (this.player.isDead())
+                return new HubScene(this.canvas, this.userData);
+            else if (this.score >= TempleRunInfo.WIN_SCORE) {
+                const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
+                winSound.volume = 0.6;
+                winSound.play();
+                this.backgroundMusic.pause();
+                this.backgroundMusic = null;
+                this.nextScene = new HubScene(this.canvas, this.userData);
             }
-        });
-        this.player.speed_up();
-        this.player.move(this.canvas, contacts, elapsed);
-        if (this.player.isDead())
-            return new HubScene(this.canvas, this.userData);
-        else if (this.score >= TempleRunInfo.WIN_SCORE) {
-            const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
-            winSound.volume = 0.6;
-            winSound.play();
-            this.backgroundMusic.pause();
-            this.backgroundMusic = null;
-            return new HubScene(this.canvas, this.userData);
         }
-        return this;
+        else {
+            const cutsceneDone = this.cutScene.update(elapsed);
+            if (cutsceneDone) {
+                let optionalCutScene = this.cutScene.getOptionalScene();
+                if (optionalCutScene)
+                    this.nextScene = optionalCutScene;
+                this.cutScene = null;
+                this.backgroundMusic.play();
+            }
+        }
+        return this.nextScene;
     }
 }
 //# sourceMappingURL=TempleRunScene.js.map

@@ -77,5 +77,8 @@ export default class QuestionCutscene extends CutScene {
     update(elapsed) {
         return this.completed;
     }
+    getOptionalScene() {
+        return null;
+    }
 }
 //# sourceMappingURL=QuestionCutscene.js.map
