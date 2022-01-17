@@ -23,7 +23,7 @@ export default class PokeNPCCutscene extends CutScene {
 
     const sentences = [
     "I wanna be the very best, like no one even wa....",
-    'Hey jij daar! ik ben het Ash Ketchup',
+    'Hey jij daar! Ik ben het Ash Ketchup',
     'Zou jij even hier naar binnen kunnen gaan?',
     'Ik weet niet wat er daar gaande is, maar het klinkt niet goed.',
     'En pas op! Er zitten hier enge monsters die de grootte zijn van een pocket!',

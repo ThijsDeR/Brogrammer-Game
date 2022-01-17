@@ -3,7 +3,7 @@ import GameInfo from '../../GameInfo.js';
 import GameLevel from '../../GameLevel.js';
 import Scene from '../../Scene.js';
 import HubScene from '../Hub/HubScene.js';
-import TempleRunInfo from '../Temple-Run/TempleRunInfo.js';
+import PokeInfo from './PokeInfo.js';
 import PokePlayer from './PokePlayer.js';
 export default class PoketaleScene extends GameLevel {
     player;
@@ -13,7 +13,7 @@ export default class PoketaleScene extends GameLevel {
     cutScene;
     constructor(canvas, userData) {
         super(canvas, userData);
-        this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 2, this.canvas.width / 40, this.canvas.height / 10);
+        this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 8, this.canvas.height / 3);
         this.score = 0;
         this.cutScene = null;
         this.nextScene = this;
@@ -21,7 +21,7 @@ export default class PoketaleScene extends GameLevel {
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.drawImage(Game.loadNewImage('./assets/img/poketale_bg.png'), 0, 0, this.canvas.width, this.canvas.height);
-        this.player.draw(this.ctx, this.player.getMinXPos() - this.canvas.width / 10);
+        this.player.draw(this.ctx);
         Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, this.canvas.width / 40, this.canvas.height / 50, 'white');
         if (this.cutScene !== null) {
             this.cutScene.draw();
@@ -41,7 +41,7 @@ export default class PoketaleScene extends GameLevel {
             this.player.move(this.canvas, contacts, elapsed);
             if (this.player.isDead())
                 return new HubScene(this.canvas, this.userData);
-            else if (this.score >= TempleRunInfo.WIN_SCORE) {
+            else if (this.score >= PokeInfo.WIN_SCORE) {
                 const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
                 winSound.volume = 0.6;
                 winSound.play();

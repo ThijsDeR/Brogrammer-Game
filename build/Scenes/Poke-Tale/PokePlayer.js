@@ -22,6 +22,12 @@ export default class PokePlayer extends Player {
     }
     move(canvas, contacts, elapsed) {
         this.xPos += this.xVel * (elapsed / 10);
+        if (this.xPos < 0) {
+            this.xPos = canvas.width - this.img.width;
+        }
+        else if (this.xPos + this.img.width > canvas.width) {
+            this.xPos = 0;
+        }
         if (contacts.includes(CollideHandler.BOTTOM_CONTACT) || this.yPos + this.yVel < 0) {
             this.yVel = 0;
             if (this.yPos + this.yVel < 0)
@@ -33,13 +39,6 @@ export default class PokePlayer extends Player {
                 this.yPos = canvas.height - this.img.height;
         }
         this.yPos += this.yVel * 2 * (elapsed / 10);
-        this.xPos += this.xVel * (elapsed / 10);
-        if (this.xPos < 0) {
-            this.xPos = canvas.width - this.img.width;
-        }
-        else if (this.xPos + this.img.width > canvas.width) {
-            this.xPos = 0;
-        }
     }
     die() {
         this.dead = true;
