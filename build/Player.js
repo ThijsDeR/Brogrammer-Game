@@ -7,12 +7,26 @@ export default class Player extends ImageProp {
     yVel;
     keyboardListener;
     airborne;
+    direction;
     constructor(xPos, yPos, imageSrc, width = undefined, height = undefined) {
         super(xPos, yPos, imageSrc, width, height);
         this.keyboardListener = new KeyboardListener();
         this.xVel = 0;
         this.yVel = 0;
         this.airborne = false;
+        this.direction = 'right';
+    }
+    draw(ctx, offsetX, offsetY) {
+        if (this.direction === 'left') {
+            ctx.save();
+            ctx.translate(this.xPos + this.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(this.img, 0, this.yPos, this.width, this.height);
+            ctx.restore();
+        }
+        else if (this.direction === 'right') {
+            ctx.drawImage(this.img, this.xPos, this.yPos, this.width, this.height);
+        }
     }
     processInput() {
         this.xVel = 0;
@@ -24,6 +38,10 @@ export default class Player extends ImageProp {
             this.xVel = -(GameInfo.PLAYER_X_SPEED) * (this.width / 100);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
             this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
+        if (this.xVel < 0)
+            this.direction = 'left';
+        else
+            this.direction = 'right';
     }
     move(canvas, contacts, elapsed, onPlatform) {
         let xVel;

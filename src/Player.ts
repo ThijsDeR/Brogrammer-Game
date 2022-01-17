@@ -12,6 +12,8 @@ export default class Player extends ImageProp {
 
   protected airborne: boolean;
 
+  protected direction: 'left' | 'right'
+
   /**
    * Initializing the player
    *
@@ -31,6 +33,20 @@ export default class Player extends ImageProp {
     this.xVel = 0;
     this.yVel = 0;
     this.airborne = false
+    this.direction = 'right';
+  }
+
+  public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
+    if (this.direction === 'left') {
+      ctx.save()
+      ctx.translate(this.xPos + this.width, 0)
+      ctx.scale(-1, 1)
+      ctx.drawImage(this.img, 0, this.yPos, this.width, this.height)
+      ctx.restore()
+    } else if (this.direction === 'right') {
+      ctx.drawImage(this.img, this.xPos, this.yPos, this.width, this.height)
+    } 
+
   }
 
   /**
@@ -45,6 +61,9 @@ export default class Player extends ImageProp {
 
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(GameInfo.PLAYER_X_SPEED) * (this.width / 100);
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
+
+    if (this.xVel < 0) this.direction = 'left';
+    else this.direction = 'right';
   }
 
   /**
