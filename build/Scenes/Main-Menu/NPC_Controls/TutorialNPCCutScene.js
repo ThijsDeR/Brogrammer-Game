@@ -41,5 +41,8 @@ export default class TutorialNPCCutscene extends CutScene {
         }
         return false;
     }
+    getOptionalScene() {
+        return null;
+    }
 }
 //# sourceMappingURL=TutorialNPCCutScene.js.map

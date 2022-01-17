@@ -42,5 +42,8 @@ export default class TempleRunNPCCutscene extends CutScene {
         }
         return false;
     }
+    getOptionalScene() {
+        return null;
+    }
 }
 //# sourceMappingURL=TempleRunNPCCutscene.js.map

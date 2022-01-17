@@ -7,10 +7,12 @@ import HubPlayer from './HubPlayer.js';
 import Game from '../../Game.js';
 import DoodleNPC from './NPC_Doodle/DoodleNPC.js';
 import TempleRunNPC from './NPC_Temple_Run/TempleRunNPC.js';
+import MenuCutScene from '../MenuCutScene.js';
 export default class HubScene extends GameLevel {
     player;
     props;
     NPCs;
+    nextScene;
     cutScene;
     constructor(canvas, userData) {
         super(canvas, userData);
@@ -27,6 +29,7 @@ export default class HubScene extends GameLevel {
         ];
         this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
         this.cutScene = null;
+        this.nextScene = this;
     }
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -52,7 +55,6 @@ export default class HubScene extends GameLevel {
         }
     }
     update = (elapsed) => {
-        let nextScene = this;
         if (this.cutScene === null) {
             let contacts = [];
             this.props.forEach((prop) => {
@@ -76,18 +78,26 @@ export default class HubScene extends GameLevel {
                 const NPCTeleporter = NPC.getTeleporter();
                 if (CollideHandler.collides(this.player, NPCTeleporter)) {
                     if (NPCTeleporter.isActivated()) {
-                        nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData);
+                        this.nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData);
                     }
                 }
             });
             this.player.move(this.canvas, contacts, elapsed);
+            if (this.player.isPausing()) {
+                this.cutScene = new MenuCutScene(this.canvas, this.userData);
+            }
         }
         else {
             const cutsceneDone = this.cutScene.update(elapsed);
-            if (cutsceneDone)
+            if (cutsceneDone) {
+                let optionalCutScene = this.cutScene.getOptionalScene();
+                if (optionalCutScene)
+                    this.nextScene = optionalCutScene;
                 this.cutScene = null;
+            }
+            ;
         }
-        return nextScene;
+        return this.nextScene;
     };
 }
 //# sourceMappingURL=HubScene.js.map

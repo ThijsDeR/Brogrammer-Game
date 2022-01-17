@@ -1,6 +1,7 @@
 import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
+import HubScene from '../../Hub/HubScene.js';
 export default class SonNPCCutscene extends CutScene {
     sonNPC;
     textBox;
@@ -33,6 +34,9 @@ export default class SonNPCCutscene extends CutScene {
             return true;
         }
         return false;
+    }
+    getOptionalScene() {
+        return new HubScene(this.canvas, this.userData);
     }
 }
 //# sourceMappingURL=SonNPCCutscene.js.map

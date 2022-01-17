@@ -15,6 +15,7 @@ import FallLine from "./FallLine.js";
 import CloudPlatform from "./CloudPlatform.js";
 import SonNPC from "./NPC_Son/SonNPC.js";
 import SonNPCCutscene from "./NPC_Son/SonNPCCutscene.js";
+import MenuCutScene from "../MenuCutScene.js";
 export default class DoodleScene extends GameLevel {
     player;
     props;
@@ -159,12 +160,15 @@ export default class DoodleScene extends GameLevel {
                 this.backgroundMusic.pause();
                 this.backgroundMusic = null;
             }
+            if (this.player.isPausing()) {
+                this.cutScene = new MenuCutScene(this.canvas, this.userData);
+            }
         }
         else {
             const cutsceneDone = this.cutScene.update(elapsed);
             if (cutsceneDone) {
                 if (this.cutScene instanceof SonNPCCutscene) {
-                    this.nextScene = new HubScene(this.canvas, this.userData);
+                    this.nextScene = this.cutScene.getOptionalScene();
                     this.backgroundMusic.pause();
                     this.backgroundMusic = null;
                     const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
@@ -172,6 +176,9 @@ export default class DoodleScene extends GameLevel {
                     winSound.play();
                 }
                 else {
+                    let optionalCutScene = this.cutScene.getOptionalScene();
+                    if (optionalCutScene)
+                        this.nextScene = optionalCutScene;
                     this.cutScene = null;
                     this.backgroundMusic.play();
                 }

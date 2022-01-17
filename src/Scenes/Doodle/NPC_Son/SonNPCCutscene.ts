@@ -1,10 +1,13 @@
 import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
+import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
+import HubScene from '../../Hub/HubScene.js';
 import SonNPC from './SonNPC.js';
 
 export default class SonNPCCutscene extends CutScene {
+  
   private sonNPC: SonNPC;
 
   private textBox: TextBox;
@@ -50,6 +53,10 @@ export default class SonNPCCutscene extends CutScene {
       return true
     }
     return false
+  }
+
+  public getOptionalScene(): Scene {
+    return new HubScene(this.canvas, this.userData)
   }
 
 }

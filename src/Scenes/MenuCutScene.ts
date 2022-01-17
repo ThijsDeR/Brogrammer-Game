@@ -1,9 +1,10 @@
-import CutScene from "../CutScene";
-import Button from "../Props/Button";
-import Prop from "../Props/Prop";
-import Scene from "../Scene";
-import UserData from "../UserData";
-import MenuScene from "./Main-Menu/MenuScene";
+import CutScene from "../CutScene.js";
+import Button from "../Props/Button.js";
+import Prop from "../Props/Prop.js";
+import Scene from "../Scene.js";
+import UserData from "../UserData.js";
+import HubScene from "./Hub/HubScene.js";
+import MenuScene from "./Main-Menu/MenuScene.js";
 
 
 export default class MenuCutScene extends CutScene {
@@ -22,7 +23,8 @@ export default class MenuCutScene extends CutScene {
 
     this.props = [
       new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight), buttonWidth, buttonHeight, 'white', 'blue', 'Verder', this.canvas.height / 20, 'verder'),
-      new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'blue', 'Stoppen', this.canvas.height / 20, 'stoppen'),
+      new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'blue', 'Hub', this.canvas.height / 20, 'hub'),
+      new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'blue', 'Menu', this.canvas.height / 20, 'menu'),
     ]
 
     this.completed = false
@@ -32,7 +34,9 @@ export default class MenuCutScene extends CutScene {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
-            if (prop.getId() === 'stoppen') {
+            if (prop.getId() === 'hub') {
+              this.nextScene = new HubScene(canvas, userData)
+            } else if (prop.getId() === 'menu') {
               this.nextScene = new MenuScene(canvas, userData)
             }
             this.completed = true
