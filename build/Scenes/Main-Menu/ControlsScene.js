@@ -1,4 +1,5 @@
 import Button from '../../Props/Button.js';
+import GameInfo from '../../GameInfo.js';
 import CollideHandler from '../../CollideHandler.js';
 import Scene from '../../Scene.js';
 import MenuScene from './MenuScene.js';
@@ -32,6 +33,9 @@ export default class ControlsScene extends Scene {
                 }
             });
             if (originalNextScene !== this.nextScene) {
+                const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
+                buttonSound.volume = 1;
+                buttonSound.play();
                 this.canvas.removeEventListener('click', clickFunction);
                 this.canvas.removeEventListener('mousemove', hoverFunction);
             }

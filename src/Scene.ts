@@ -47,6 +47,7 @@ export default abstract class Scene {
     textBaseline: CanvasTextBaseline = 'middle',
     maxWidth: number = 10000,
   ) {
+    
     ctx.font = `${fontSize}px Arial`
     ctx.fillStyle = color;
     ctx.textAlign = textAlign;
