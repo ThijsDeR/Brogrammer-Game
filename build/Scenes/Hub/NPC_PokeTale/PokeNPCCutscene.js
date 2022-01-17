@@ -1,22 +1,18 @@
 import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
-export default class TempleRunNPCCutscene extends CutScene {
-    templeRunNPC;
+export default class PokeNPCCutscene extends CutScene {
+    pokeNPC;
     textBox;
     endTextBox;
-    constructor(canvas, userData, templeRunNPC) {
+    constructor(canvas, userData, pokeNPC) {
         super(canvas, userData);
-        this.templeRunNPC = templeRunNPC;
+        this.pokeNPC = pokeNPC;
         const sentences = [
-            "Ey knul, leuk om je te ontmoeten",
-            "Er komen nogal rare geluiden uit deze grot.",
-            "Ik heb de ingang geblokkeerd, zodat er niks naar binnen of naar buiten kan.",
-            "Zou je kunnen kijken of alles goed gaat daarbinnen?",
-            "Aight Bedankt!"
+            'test'
         ];
         const endSentences = [
-            "De ingang naar de grot is al open hoor!"
+            'test'
         ];
         this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
         this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
@@ -24,7 +20,7 @@ export default class TempleRunNPCCutscene extends CutScene {
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(this.templeRunNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height);
+        this.ctx.drawImage(this.pokeNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height);
         this.textBox.draw(this.ctx);
     }
     processInput() {
@@ -35,7 +31,7 @@ export default class TempleRunNPCCutscene extends CutScene {
     update(elapsed) {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
-            this.templeRunNPC.finishInteraction();
+            this.pokeNPC.finishInteraction();
             this.textBox = this.endTextBox;
             this.textBox.reset();
             return true;
@@ -46,4 +42,4 @@ export default class TempleRunNPCCutscene extends CutScene {
         return null;
     }
 }
-//# sourceMappingURL=TempleRunNPCCutscene.js.map
+//# sourceMappingURL=PokeNPCCutscene.js.map

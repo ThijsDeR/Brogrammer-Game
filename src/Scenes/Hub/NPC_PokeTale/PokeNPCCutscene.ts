@@ -3,11 +3,10 @@ import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
 import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
-import TempleRunNPC from './TempleRunNPC.js';
+import PokeNPC from './PokeNPC.js';
 
-export default class TempleRunNPCCutscene extends CutScene {
-  
-  private templeRunNPC: TempleRunNPC;
+export default class PokeNPCCutscene extends CutScene {
+  private pokeNPC: PokeNPC;
 
   private textBox: TextBox;
 
@@ -16,30 +15,18 @@ export default class TempleRunNPCCutscene extends CutScene {
   public constructor(
     canvas: HTMLCanvasElement,
     userData: UserData,
-    templeRunNPC: TempleRunNPC,
+    pokeNPC: PokeNPC,
   ) {
     super(canvas, userData)
 
-    this.templeRunNPC = templeRunNPC
+    this.pokeNPC = pokeNPC
 
     const sentences = [
-      "Ey knul, leuk om je te ontmoeten",
-      "Er komen nogal rare geluiden uit deze grot.",
-      "Ik heb de ingang geblokkeerd, zodat er niks naar binnen of naar buiten kan.",
-      "Zou je kunnen kijken of alles goed gaat daarbinnen?",
-      "Aight Bedankt!"
-
-      // "Ey young lad, nice ta meet ya.",
-      // "Been hearin' some weird sounds from this cave.",
-      // "I've blocked the entrance so nothing ain't going in or out.",
-      // "Can ya look if everythin' is alright in there.",
-      // "Aight thanks."
+    'test'
     ]
 
     const endSentences = [
-      "De ingang naar de grot is al open hoor!"
-
-      // "I've already opened the entrance to the cave."
+      'test'
     ]
 
     this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
@@ -49,7 +36,7 @@ export default class TempleRunNPCCutscene extends CutScene {
   public draw(): void {
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
-    this.ctx.drawImage(this.templeRunNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height)
+    this.ctx.drawImage(this.pokeNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height)
     this.textBox.draw(this.ctx)
   }
 
@@ -62,7 +49,7 @@ export default class TempleRunNPCCutscene extends CutScene {
   public update(elapsed: number): boolean {
     this.textBox.advanceSentence(elapsed)
     if (this.textBox.isDone()) {
-      this.templeRunNPC.finishInteraction();
+      this.pokeNPC.finishInteraction();
       this.textBox = this.endTextBox
       this.textBox.reset()
       return true
@@ -73,5 +60,5 @@ export default class TempleRunNPCCutscene extends CutScene {
   public getOptionalScene(): Scene | null{
     return null
   }
-  
+
 }
