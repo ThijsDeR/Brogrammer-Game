@@ -36,4 +36,6 @@ export default abstract class CutScene {
    * update the scene
    */
   public abstract update(elapsed: number): boolean;
+
+  public abstract getOptionalScene(): Scene | null
 }
