@@ -1,4 +1,5 @@
 import GameInfo from '../../GameInfo.js';
+import GridGenerator from '../../GridGenerator.js';
 import Button from '../../Props/Button.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
@@ -6,7 +7,7 @@ import UserData from '../../UserData.js';
 import MenuScene from './MenuScene.js';
 import QuestionScene from './QuestionScene.js';
 
-export default class MistakesScene extends Scene {
+export default class QuestionsScene extends Scene {
   private props: Prop[];
 
   private nextScene: Scene;
@@ -43,13 +44,20 @@ export default class MistakesScene extends Scene {
       }
     }
 
+    const positions = GridGenerator.generateGrid(
+      this.canvas.width / 2, 
+      (this.canvas.height / 10) * 4, 
+      this.questions.length, 
+      (this.canvas.height - ((this.canvas.height / 10) * 4) - ((this.canvas.height / 10) * 2)),
+      questionButtonWidth,
+      questionButtonHeight,
+      betweenQuestionArea,
+      0 
+    )
+
     let currentRow = 0
     this.questions.forEach((question, questionIndex) => {
-      const maxVerticalAmount = Math.round((this.canvas.height - ((this.canvas.height / 10) * 4) - ((this.canvas.height / 10) * 2)) / questionButtonHeight) 
-      if (questionIndex % maxVerticalAmount === 0 && questionIndex !== 0){
-        currentRow += 1
-      }
-      this.props.push(new Button(xPositions[currentRow] - (questionButtonWidth / 2), ((this.canvas.height / 10) * 4) + ((questionIndex % maxVerticalAmount) * questionButtonHeight), questionButtonWidth, questionButtonHeight, 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
+      this.props.push(new Button(positions[questionIndex].x - (questionButtonWidth / 2), positions[questionIndex].y, questionButtonWidth, questionButtonHeight, 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
     })
     
     this.nextScene = this

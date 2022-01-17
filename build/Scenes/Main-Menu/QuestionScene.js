@@ -1,6 +1,6 @@
 import Button from "../../Props/Button.js";
 import Scene from "../../Scene.js";
-import MistakeScene from "./MistakesScene.js";
+import MistakeScene from "./QuestionsScene.js";
 export default class QuestionScene extends Scene {
     question;
     backButton;

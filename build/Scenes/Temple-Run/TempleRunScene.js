@@ -20,7 +20,7 @@ export default class TempleRunScene extends GameLevel {
     cutScene;
     constructor(canvas, userData) {
         super(canvas, userData);
-        this.player = new TempleRunPlayer(this.canvas.width / 4, this.canvas.height / 2, this.canvas.width / 40, this.canvas.height / 10);
+        this.player = new TempleRunPlayer(this.canvas.width / 4, this.canvas.height / 2, this.canvas.width / 40, this.canvas.height / 10, this.userData);
         this.question = new TRQuestion(this.canvas, this.player);
         this.score = 0;
         this.cutScene = null;

@@ -30,15 +30,15 @@ export default class TRQuestion {
       {name: 'Vriend', chat: true, block: false, accept: true},
       {name: 'Vriendin', chat: true, block: false, accept: true},
       {name: 'Beste vriend', chat: true, block: false, accept: true},
-      {name: 'Buurmeisje', chat: true, block: true, accept: true},
-      {name: 'Buurvrouw', chat: false, block: false, accept: true},
+      {name: 'Buurmeisje', chat: true, block: false, accept: true},
+      {name: 'Buurvrouw', chat: true, block: false, accept: true},
       {name: 'Pestkop', chat: false, block: true, accept: false},
       {name: 'Verkoper', chat: false, block: true, accept: false},
       {name: 'Hacker', chat: false, block: true, accept: false}
   ]
     this.currentCharacter = characters[Game.randomNumber(0, characters.length - 1)]
 
-    this.props.push(new ImageProp(player.getMinXPos() + canvas.width, (canvas.height / 2) - (canvas.height / 4), `./assets/img/${this.currentCharacter.name}.png`, canvas.width / 4, canvas.height / 2))
+    this.props.push(new ImageProp(player.getMinXPos() + canvas.width, (canvas.height / 2) - (canvas.height / 4), `./assets/img/Temple-Run/${this.currentCharacter.name}.png`, canvas.width / 4, canvas.height / 2))
     this.props.push(new Text(player.getMinXPos() + canvas.width + (canvas.width / 8), (canvas.height / 2) - (canvas.height / 4), canvas.width, canvas.height, this.currentCharacter.name, 'white'))
     this.addAnswers(canvas, player)
   }
@@ -60,9 +60,9 @@ export default class TRQuestion {
     ]
 
     const answers = [
-      {answerImage: './assets/img/chat.png', correct: this.currentCharacter.chat},
-      {answerImage: './assets/img/block.png', correct: this.currentCharacter.block},
-      {answerImage: './assets/img/checkmark.png', correct: this.currentCharacter.accept}
+      {answerImage: './assets/img/Temple-Run/chat.png', correct: this.currentCharacter.chat},
+      {answerImage: './assets/img/Temple-Run/block.png', correct: this.currentCharacter.block},
+      {answerImage: './assets/img/Temple-Run/checkmark.png', correct: this.currentCharacter.accept}
     ]
     
     let i = 0

@@ -58,7 +58,8 @@ export default class DoodleScene extends GameLevel {
       this.canvas.width / 2,
       this.canvas.height / 2,
       this.canvas.width / 25,
-      this.canvas.height / 8
+      this.canvas.height / 8,
+      this.userData
     );
     
     this.nextScene = this

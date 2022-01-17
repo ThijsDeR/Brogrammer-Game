@@ -32,7 +32,7 @@ export default class DoodleScene extends GameLevel {
         ];
         this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData);
         this.createProps();
-        this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
+        this.player = new DoodlePlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         this.nextScene = this;
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'SkyBackgroundMusic.wav');
         this.backgroundMusic.loop = true;

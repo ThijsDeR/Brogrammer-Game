@@ -27,7 +27,7 @@ export default class HubScene extends GameLevel {
             new TempleRunNPC(this.canvas.width / 7, (platformHeight * 4) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
             new DoodleNPC((canvas.width / 20) * 16, ((platformHeight * 4) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
         ];
-        this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8);
+        this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         this.cutScene = null;
         this.nextScene = this;
     }
@@ -41,7 +41,7 @@ export default class HubScene extends GameLevel {
             NPC.draw(this.ctx);
         });
         this.player.draw(this.ctx);
-        Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.width / 40, this.canvas.height / 25, 'white', 'center', 'middle');
+        Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 20, this.canvas.height / 25, 'white', 'center', 'middle');
         if (this.cutScene !== null) {
             this.cutScene.draw();
         }

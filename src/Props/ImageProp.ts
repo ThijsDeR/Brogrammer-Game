@@ -4,6 +4,8 @@ import Prop from './Prop.js';
 export default class ImageProp extends Prop {
   protected img: HTMLImageElement;
 
+  protected imgSrc: string;
+
   public constructor(
     xPos: number, 
     yPos: number, 
@@ -13,6 +15,8 @@ export default class ImageProp extends Prop {
   ) {
     super(xPos, yPos, width, height)
     this.img = Game.loadNewImage(imgSrc, width, height);
+
+    this.imgSrc = imgSrc
   }
 
   public draw(ctx: CanvasRenderingContext2D, offsetX: number = 0, offsetY: number = 0): void {
@@ -21,5 +25,9 @@ export default class ImageProp extends Prop {
 
   public getImage(): HTMLImageElement {
     return this.img
+  }
+
+  public getImageSrc(): string {
+    return this.imgSrc
   }
 }

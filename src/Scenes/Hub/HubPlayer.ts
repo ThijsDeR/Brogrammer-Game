@@ -1,6 +1,7 @@
 import KeyboardListener from '../../KeyboardListener.js';
 import Player from '../../Player.js';
 import Prop from '../../Props/Prop.js';
+import UserData from '../../UserData.js';
 
 export default class HubPlayer extends Player {
 
@@ -10,8 +11,10 @@ export default class HubPlayer extends Player {
     xPos: number, 
     yPos: number, 
     width: number | undefined = undefined, 
-    height: number | undefined = undefined
+    height: number | undefined = undefined,
+    userData: UserData,
   ) {
-    super(xPos, yPos, './assets/img/Sam_Suong/robot-preview.png', width, height)
+    console.log(`${userData.getCurrentSkin().src}`)
+    super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height)
   }
 }

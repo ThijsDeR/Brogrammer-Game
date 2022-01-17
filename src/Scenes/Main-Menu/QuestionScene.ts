@@ -1,7 +1,7 @@
 import Button from "../../Props/Button.js";
 import Scene from "../../Scene.js";
 import UserData from "../../UserData.js";
-import MistakeScene from "./MistakesScene.js";
+import MistakeScene from "./QuestionsScene.js";
 
 export default class QuestionScene extends Scene {
   private question: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string};

@@ -37,7 +37,7 @@ export default class ControlsScene extends Scene {
       new MainNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
     ]  
 
-    this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8)
+    this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData)
 
     const clickFunction = (event: MouseEvent) => {
       let originalNextScene = this.nextScene
