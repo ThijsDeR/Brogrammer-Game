@@ -1,3 +1,5 @@
+import NPC from "./Props/NPC";
+
 export default class UserData {
 
   private static readonly COIN_OBJECT_NAME: string = 'coins';
@@ -8,6 +10,8 @@ export default class UserData {
 
   private static readonly CURRENT_SKIN_OBJECT_NAME: string = 'current_skin'
 
+  private static readonly STORY_PROGRESS_OBJECT_NAME: string = 'story_progress'
+
   private coins: number;
 
   private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}[];
@@ -15,6 +19,8 @@ export default class UserData {
   private skins: {src: string, id: number}[];
 
   private currentSkin: number;
+
+  private storyProgress: {NPCs: {name: string, talkedTo: boolean, finished: boolean}[]}
   
   public constructor() {
     if (localStorage.getItem(UserData.COIN_OBJECT_NAME)) {
@@ -46,6 +52,15 @@ export default class UserData {
       this.currentSkin = 0
       localStorage.setItem(UserData.CURRENT_SKIN_OBJECT_NAME, `${this.currentSkin}`)
     } 
+
+    if (localStorage.getItem(UserData.STORY_PROGRESS_OBJECT_NAME)) {
+      this.storyProgress = JSON.parse(localStorage.getItem(UserData.STORY_PROGRESS_OBJECT_NAME))
+    } else {
+      this.storyProgress = {NPCs: []}
+      localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress))
+    }
+
+
   }
   
   /**
@@ -125,5 +140,26 @@ export default class UserData {
 
   public getCurrentSkin(): {src: string, id: number} {
     return this.skins[this.currentSkin]
+  }
+
+  public getStoryProgress(): {NPCs: {name: string, talkedTo: boolean, finished: boolean}[]} {
+    return this.storyProgress
+  }
+  
+  public getNPCStoryProgress(name: string): {name: string, talkedTo: boolean, finished: boolean} {
+    const NPCData = this.storyProgress.NPCs.filter((NPC) => NPC.name === name)[0]
+    if (NPCData) return NPCData
+    else {
+      this.changeNPCStoryProgress({name: name, talkedTo: false, finished: false})
+
+      return {name: name, talkedTo: false, finished: false}
+    }
+  }
+
+  public changeNPCStoryProgress(NPCStoryProgress: {name: string, talkedTo: boolean, finished: boolean}) {
+    const newNPCArray = this.storyProgress.NPCs.filter((NPC) => NPC.name !== NPCStoryProgress.name)
+    newNPCArray.push(NPCStoryProgress)
+    this.storyProgress.NPCs = newNPCArray
+    localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress))
   }
 }

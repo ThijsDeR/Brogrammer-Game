@@ -280,8 +280,6 @@ export default class DoodleScene extends GameLevel {
       // If dead === true. Send the player back to the HUB.
       if (this.player.isDead()) {
         this.nextScene = new HubScene(this.canvas, this.userData)
-        this.backgroundMusic.pause();
-        this.backgroundMusic = null
       }
 
       if (this.player.isPausing()) {
@@ -292,8 +290,6 @@ export default class DoodleScene extends GameLevel {
       if (cutsceneDone) {
         if (this.cutScene instanceof SonNPCCutscene) {
           this.nextScene = this.cutScene.getOptionalScene()
-          this.backgroundMusic.pause()
-          this.backgroundMusic = null
           const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
           winSound.volume = 0.6;
           winSound.play();
@@ -304,6 +300,10 @@ export default class DoodleScene extends GameLevel {
           this.backgroundMusic.play()
         }
       }
+    }
+    if (this.nextScene !== this) {
+      this.backgroundMusic.pause()
+      this.backgroundMusic = null
     }
     return this.nextScene;
   };

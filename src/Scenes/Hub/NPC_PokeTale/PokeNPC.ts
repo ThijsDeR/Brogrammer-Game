@@ -6,6 +6,8 @@ import PokeNPCCutscene from './PokeNPCCutscene.js';
 export default class PokeNPC extends HubNPC {
   private cutScene: PokeNPCCutscene;
 
+  private userData: UserData;
+
   public constructor(
     xpos: number, 
     ypos: number,
@@ -16,11 +18,13 @@ export default class PokeNPC extends HubNPC {
     
   ) {
     super(xpos, ypos, './assets/img/Ash.png', width, height, 'poketale','right', 'Poketale')
-
+    this.userData = userData
     this.cutScene = new PokeNPCCutscene(canvas, userData, this)
   }
 
   public interact(): CutScene {
+    const originalData = this.userData.getNPCStoryProgress('poke')
+    this.userData.changeNPCStoryProgress({name: 'poke', talkedTo: true, finished: originalData.finished })
     return this.cutScene
   }
 

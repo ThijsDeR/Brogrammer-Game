@@ -6,6 +6,8 @@ import DoodleNPCCutscene from './DoodleNPCCutscene.js';
 export default class DoodleNPC extends HubNPC {
   private cutScene: DoodleNPCCutscene;
 
+  private userData: UserData;
+
   public constructor(
     xpos: number, 
     ypos: number,
@@ -16,11 +18,13 @@ export default class DoodleNPC extends HubNPC {
     
   ) {
     super(xpos, ypos, './assets/img/dad.png', width, height, 'doodle','right', 'Wolkentrap')
-
+    this.userData = userData;
     this.cutScene = new DoodleNPCCutscene(canvas, userData, this)
   }
 
   public interact(): CutScene {
+    const originalData = this.userData.getNPCStoryProgress('doodle')
+    this.userData.changeNPCStoryProgress({name: 'doodle', talkedTo: true, finished: originalData.finished })
     return this.cutScene
   }
 

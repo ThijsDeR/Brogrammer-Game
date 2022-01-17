@@ -37,6 +37,8 @@ export default class PokeNPCCutscene extends CutScene {
 
     this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
     this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
+
+    if (this.userData.getNPCStoryProgress('poke').talkedTo === true) this.textBox = this.endTextBox
   }
 
   public draw(): void {

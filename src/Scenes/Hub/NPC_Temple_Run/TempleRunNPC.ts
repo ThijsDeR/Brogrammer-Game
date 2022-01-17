@@ -6,6 +6,8 @@ import TempleRunNPCCutscene from './TempleRunNPCCutscene.js';
 export default class TempleRunNPC extends HubNPC {
   private cutScene: TempleRunNPCCutscene;
 
+  private userData: UserData;
+
   public constructor(
     xpos: number, 
     ypos: number,
@@ -16,11 +18,13 @@ export default class TempleRunNPC extends HubNPC {
     
   ) {
     super(xpos, ypos, './assets/img/Temple-Run/opa.png', width, height, 'templerun', 'left', 'Grot Plotter')
-
+    this.userData = userData
     this.cutScene = new TempleRunNPCCutscene(canvas, userData, this)
   }
 
   public interact(): CutScene {
+    const originalData = this.userData.getNPCStoryProgress('templerun')
+    this.userData.changeNPCStoryProgress({name: 'templerun', talkedTo: true, finished: originalData.finished })
     return this.cutScene
   }
 

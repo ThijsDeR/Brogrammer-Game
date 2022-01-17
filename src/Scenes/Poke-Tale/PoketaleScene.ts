@@ -67,8 +67,6 @@ export default class PoketaleScene extends GameLevel {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
         winSound.volume = 0.6;
         winSound.play();
-        this.backgroundMusic.pause();
-        this.backgroundMusic = null
         this.nextScene = new HubScene(this.canvas, this.userData)
       }
     } else {
@@ -79,6 +77,10 @@ export default class PoketaleScene extends GameLevel {
         this.cutScene = null;
         this.backgroundMusic.play()
       }
+    }
+    if (this.nextScene !== this) {
+      this.backgroundMusic.pause();
+      this.backgroundMusic = null
     }
     return this.nextScene
   }

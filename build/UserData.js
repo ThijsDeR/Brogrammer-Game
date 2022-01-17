@@ -3,10 +3,12 @@ export default class UserData {
     static QUESTIONS_OBJECT_NAME = 'questions';
     static SKINS_OBJECT_NAME = 'skins';
     static CURRENT_SKIN_OBJECT_NAME = 'current_skin';
+    static STORY_PROGRESS_OBJECT_NAME = 'story_progress';
     coins;
     questions;
     skins;
     currentSkin;
+    storyProgress;
     constructor() {
         if (localStorage.getItem(UserData.COIN_OBJECT_NAME)) {
             this.coins = Number(localStorage.getItem(UserData.COIN_OBJECT_NAME));
@@ -37,6 +39,13 @@ export default class UserData {
         else {
             this.currentSkin = 0;
             localStorage.setItem(UserData.CURRENT_SKIN_OBJECT_NAME, `${this.currentSkin}`);
+        }
+        if (localStorage.getItem(UserData.STORY_PROGRESS_OBJECT_NAME)) {
+            this.storyProgress = JSON.parse(localStorage.getItem(UserData.STORY_PROGRESS_OBJECT_NAME));
+        }
+        else {
+            this.storyProgress = { NPCs: [] };
+            localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
         }
     }
     getCoins() {
@@ -90,6 +99,24 @@ export default class UserData {
     }
     getCurrentSkin() {
         return this.skins[this.currentSkin];
+    }
+    getStoryProgress() {
+        return this.storyProgress;
+    }
+    getNPCStoryProgress(name) {
+        const NPCData = this.storyProgress.NPCs.filter((NPC) => NPC.name === name)[0];
+        if (NPCData)
+            return NPCData;
+        else {
+            this.changeNPCStoryProgress({ name: name, talkedTo: false, finished: false });
+            return { name: name, talkedTo: false, finished: false };
+        }
+    }
+    changeNPCStoryProgress(NPCStoryProgress) {
+        const newNPCArray = this.storyProgress.NPCs.filter((NPC) => NPC.name !== NPCStoryProgress.name);
+        newNPCArray.push(NPCStoryProgress);
+        this.storyProgress.NPCs = newNPCArray;
+        localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
     }
 }
 //# sourceMappingURL=UserData.js.map
