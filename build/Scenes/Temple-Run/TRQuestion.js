@@ -5,7 +5,7 @@ import CorrectProp from "./CorrectProp.js";
 import DeadProp from "./DeadProp.js";
 import Text from "../../Props/Text.js";
 export default class TRQuestion {
-    type;
+    currentCharacter;
     props;
     constructor(canvas, player) {
         const platformTopYPos = (canvas.height / 3) - (canvas.height / 20);
@@ -14,12 +14,21 @@ export default class TRQuestion {
             new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2), platformTopYPos, canvas.width, canvas.height / 10),
             new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2), platformBottomYPos, canvas.width, canvas.height / 10),
         ];
-        if (Game.randomNumber(0, 1) === 0)
-            this.type = 'Hacker';
-        else
-            this.type = 'opa';
-        this.props.push(new ImageProp(player.getMinXPos() + canvas.width, (canvas.height / 2) - (canvas.height / 4), `./assets/img/${this.type}.png`, canvas.width / 4, canvas.height / 2));
-        this.props.push(new Text(player.getMinXPos() + canvas.width + (canvas.width / 8), (canvas.height / 2) - (canvas.height / 4), canvas.width, canvas.height, this.type, 'white'));
+        const characters = [
+            { name: 'Opa', chat: true, block: false, accept: true },
+            { name: 'Oma', chat: true, block: false, accept: true },
+            { name: 'Vriend', chat: true, block: false, accept: true },
+            { name: 'Vriendin', chat: true, block: false, accept: true },
+            { name: 'Beste vriend', chat: true, block: false, accept: true },
+            { name: 'Buurmeisje', chat: true, block: true, accept: true },
+            { name: 'Buurvrouw', chat: false, block: false, accept: true },
+            { name: 'Pestkop', chat: false, block: true, accept: false },
+            { name: 'Verkoper', chat: false, block: true, accept: false },
+            { name: 'Hacker', chat: false, block: true, accept: false }
+        ];
+        this.currentCharacter = characters[Game.randomNumber(0, characters.length - 1)];
+        this.props.push(new ImageProp(player.getMinXPos() + canvas.width, (canvas.height / 2) - (canvas.height / 4), `./assets/img/${this.currentCharacter.name}.png`, canvas.width / 4, canvas.height / 2));
+        this.props.push(new Text(player.getMinXPos() + canvas.width + (canvas.width / 8), (canvas.height / 2) - (canvas.height / 4), canvas.width, canvas.height, this.currentCharacter.name, 'white'));
         this.addAnswers(canvas, player);
     }
     addAnswers(canvas, player) {
@@ -36,9 +45,9 @@ export default class TRQuestion {
             platformBottomYPos + (canvas.height / 10),
         ];
         const answers = [
-            { answerImage: './assets/img/chat.png', correct: this.type === 'opa' },
-            { answerImage: './assets/img/block.png', correct: this.type === 'Hacker' },
-            { answerImage: './assets/img/checkmark.png', correct: this.type === 'opa' }
+            { answerImage: './assets/img/chat.png', correct: this.currentCharacter.chat },
+            { answerImage: './assets/img/block.png', correct: this.currentCharacter.block },
+            { answerImage: './assets/img/checkmark.png', correct: this.currentCharacter.accept }
         ];
         let i = 0;
         while (answers.length > 0) {
