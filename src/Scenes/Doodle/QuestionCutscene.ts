@@ -8,6 +8,7 @@ import DoodleLevelInfo from './DoodleLevelInfo.js';
 import DoodlePlayer from './DoodlePlayer.js';
 import Text from '../../Props/Text.js';
 import GameInfo from '../../GameInfo.js';
+import Scene from '../../Scene.js';
 
 export default class QuestionCutscene extends CutScene {
   private props: Prop[];
@@ -107,6 +108,10 @@ export default class QuestionCutscene extends CutScene {
 
   public update(elapsed: number): boolean {
     return this.completed
+  }
+
+  public getOptionalScene(): Scene | null {
+    return null;
   }
 
 }
