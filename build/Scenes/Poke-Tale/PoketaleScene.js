@@ -6,6 +6,7 @@ import HubScene from '../Hub/HubScene.js';
 import PokeTaleInfo from './Info/PokeTaleInfo.js';
 import PokePlayer from './PokePlayer.js';
 import PokeEnemy from './PokeEnemy.js';
+import MenuCutScene from '../MenuCutScene.js';
 export default class PoketaleScene extends GameLevel {
     player;
     props;
@@ -25,6 +26,10 @@ export default class PoketaleScene extends GameLevel {
         this.score = 0;
         this.cutScene = null;
         this.nextScene = this;
+        this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'PokeTale_bg.wav');
+        this.backgroundMusic.loop = true;
+        this.backgroundMusic.volume = 0.05;
+        this.backgroundMusic.play();
     }
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -50,13 +55,17 @@ export default class PoketaleScene extends GameLevel {
         if (this.cutScene === null) {
             let contacts = [];
             this.player.move(this.canvas, contacts, elapsed);
-            if (this.player.isDead())
+            if (this.player.isDead()) {
                 return new HubScene(this.canvas, this.userData);
+            }
             else if (this.score >= PokeTaleInfo.WIN_SCORE) {
                 const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
                 winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME;
                 winSound.play();
                 this.nextScene = new HubScene(this.canvas, this.userData);
+            }
+            if (this.player.isPausing()) {
+                this.cutScene = new MenuCutScene(this.canvas, this.userData);
             }
         }
         else {
@@ -72,8 +81,10 @@ export default class PoketaleScene extends GameLevel {
         if (this.nextScene !== this) {
             this.backgroundMusic.pause();
             this.backgroundMusic = null;
+            this.backgroundMusic.volume = 1;
         }
         return this.nextScene;
     }
+    ;
 }
 //# sourceMappingURL=PoketaleScene.js.map

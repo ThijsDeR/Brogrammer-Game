@@ -9,6 +9,8 @@ import PokeTaleInfo from './Info/PokeTaleInfo.js';
 import PokePlayer from './PokePlayer.js';
 import PokeEnemy from './PokeEnemy.js';
 import Prop from '../../Props/Prop.js';
+import CollideHandler from '../../CollideHandler.js';
+import MenuCutScene from '../MenuCutScene.js';
 
 export default class PoketaleScene extends GameLevel {
   private player: PokePlayer;
@@ -67,10 +69,10 @@ export default class PoketaleScene extends GameLevel {
     this.cutScene = null
     this.nextScene = this
 
-    // this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + '');
-    // this.backgroundMusic.loop = true;
-    // this.backgroundMusic.volume = 0.2
-    // this.backgroundMusic.play();
+    this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'PokeTale_bg.wav');
+    this.backgroundMusic.loop = true;
+    this.backgroundMusic.volume = 0.05
+    this.backgroundMusic.play();
   }
 
   public draw(): void {
@@ -97,14 +99,37 @@ export default class PoketaleScene extends GameLevel {
   public update(elapsed: number): Scene {
     if (this.cutScene === null) {
       let contacts: number[] = []
+      //  this.props.forEach((prop, propIndex) => {
+      //    if (CollideHandler.collides(this.player, prop)) {
+      //      const contact = CollideHandler.getContactData(this.player, prop);
+
+        // //Checks if the instance of prop === DoodleEnemy.
+        // //Then check if the player makes contact with a DoodleEnemy prop.
+        // //If the player makes contact, the player dies.
+        //    if (prop instanceof PokeEnemy) {
+        //      this.props.splice(propIndex, 1);
+        //       const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
+        //       enemySound.volume = 0.5;
+        //       enemySound.play();
+        //    }
+        //   }
+        // }
+
+
       this.player.move(this.canvas, contacts, elapsed)
-      if (this.player.isDead()) return new HubScene(this.canvas, this.userData)
-      else if (this.score >= PokeTaleInfo.WIN_SCORE) {
+      if (this.player.isDead()) {
+        return new HubScene(this.canvas, this.userData)
+      } else if (this.score >= PokeTaleInfo.WIN_SCORE) {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
         winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME;
         winSound.play();
         this.nextScene = new HubScene(this.canvas, this.userData)
       }
+
+      if (this.player.isPausing()) {
+        this.cutScene = new MenuCutScene(this.canvas, this.userData)
+      }
+
     } else {
       const cutsceneDone = this.cutScene.update(elapsed)
       if (cutsceneDone) {
@@ -114,10 +139,11 @@ export default class PoketaleScene extends GameLevel {
         this.backgroundMusic.play()
       }
     }
-    if (this.nextScene !== this) {
-      this.backgroundMusic.pause();
-      this.backgroundMusic = null
+  if (this.nextScene !== this) {
+    this.backgroundMusic.pause();
+    this.backgroundMusic = null
+    this.backgroundMusic.volume = 1
     }
-    return this.nextScene
-  }
+  return this.nextScene
+  };
 }
