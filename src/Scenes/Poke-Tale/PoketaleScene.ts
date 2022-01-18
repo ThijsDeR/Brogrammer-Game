@@ -5,14 +5,10 @@ import GameLevel from '../../GameLevel.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import HubScene from '../Hub/HubScene.js';
-<<<<<<< Updated upstream
 import PokeTaleInfo from './Info/PokeTaleInfo.js';
-=======
-import Prop from "../../Props/Prop.js";
-import PokeInfo from './PokeInfo.js';
->>>>>>> Stashed changes
 import PokePlayer from './PokePlayer.js';
 import PokeEnemy from './PokeEnemy.js';
+import Prop from '../../Props/Prop.js';
 
 export default class PoketaleScene extends GameLevel {
   private player: PokePlayer;

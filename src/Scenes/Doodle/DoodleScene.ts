@@ -48,13 +48,8 @@ export default class DoodleScene extends GameLevel {
     ];
 
 
-<<<<<<< Updated upstream
     this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData)
-    
-=======
-    this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData)
 
->>>>>>> Stashed changes
 
     this.createProps();
 
