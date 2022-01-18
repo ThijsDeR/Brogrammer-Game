@@ -106,7 +106,7 @@ export default class ShopScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Shop',
+      'Winkel',
       this.canvas.width / 2,
       this.canvas.height / 10,
       this.canvas.height / 20,
@@ -143,11 +143,11 @@ export default class ShopScene extends Scene {
   }
 
   public processInput(): void {
-      
+
   }
 
   public update(elapsed: number): Scene {
     return this.nextScene
   }
-  
+
 }

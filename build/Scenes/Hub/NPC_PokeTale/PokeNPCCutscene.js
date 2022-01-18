@@ -12,7 +12,7 @@ export default class PokeNPCCutscene extends CutScene {
         this.pokeNPC = pokeNPC;
         const sentences = [
             "I wanna be the very best, like no one even wa....",
-            'Hey jij daar! Ik ben het Ash Ketchup',
+            'Hey jij daar! Ik ben Ash Ketchup',
             'Zou jij even hier naar binnen kunnen gaan?',
             'Ik weet niet wat er daar gaande is, maar het klinkt niet goed.',
             'En pas op! Er zitten hier enge monsters die de grootte zijn van een pocket!',
@@ -23,11 +23,11 @@ export default class PokeNPCCutscene extends CutScene {
             'Ehh het portaal is open hoor ga maar snel voordat nindenbo© acties onderneemt!'
         ];
         const notReadySentences = [
-            "Ik heb op het moment niks voor je",
+            "Je kan nog niet hier naartoe, speel eerst de andere spellen.",
         ];
         const doneSentences = [
             "Oh, ben je hier alweer?",
-            "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
+            "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij.",
             "Succes!"
         ];
         if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished === false)

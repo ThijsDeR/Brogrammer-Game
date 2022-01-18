@@ -69,7 +69,7 @@ export default class ShopScene extends Scene {
         this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.backButton.draw(this.ctx);
-        Scene.writeTextToCanvas(this.ctx, 'Shop', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Winkel', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
         Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 5, this.canvas.height / 25, 'white', 'center', 'middle');
         this.shopItems.forEach((shopItem) => {
             shopItem.draw(this.ctx);

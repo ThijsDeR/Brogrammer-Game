@@ -111,7 +111,7 @@ export default class MenuScene extends Scene {
   }
 
   public draw(): void {
-    this.ctx.fillStyle = "#454443";
+    this.ctx.fillStyle = "#2E5984";
     this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
 
     this.robotImage.draw(this.ctx)
@@ -127,7 +127,7 @@ export default class MenuScene extends Scene {
       this.canvas.width / 2,
       this.canvas.height / 10,
       this.canvas.height / 20,
-      'white',
+      'black',
     )
   }
 

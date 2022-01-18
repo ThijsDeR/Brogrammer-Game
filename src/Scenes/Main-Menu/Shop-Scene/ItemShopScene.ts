@@ -25,7 +25,7 @@ export default class ItemShopScene extends Scene {
 
     this.buttons = [
       new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
-      new Button(this.canvas.width / 2 - (buttonWidth / 2), (this.canvas.height / 3) * 2 + buttonHeight, buttonWidth, buttonHeight, 'green', 'blue', 'Buy', this.canvas.width / 100, 'buy'),
+      new Button(this.canvas.width / 2 - (buttonWidth / 2), (this.canvas.height / 3) * 2 + buttonHeight, buttonWidth, buttonHeight, 'green', 'blue', 'Kopen', this.canvas.width / 100, 'buy'),
     ]
 
     this.nextScene = this
@@ -54,7 +54,7 @@ export default class ItemShopScene extends Scene {
           }
         }
       })
-      
+
 
       if (originalNextScene !== this.nextScene) {
         this.canvas.removeEventListener('click', clickFunction)
@@ -88,10 +88,10 @@ export default class ItemShopScene extends Scene {
       this.canvas.width / 8,
       this.canvas.height / 3
     )
-    
+
     Scene.writeTextToCanvas(
       this.ctx,
-      'Shop',
+      'Winkel',
       this.canvas.width / 2,
       this.canvas.height / 10,
       this.canvas.height / 20,
@@ -111,7 +111,7 @@ export default class ItemShopScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      `Name: ${this.shopItem.getName()}`,
+      `Naam: ${this.shopItem.getName()}`,
       this.canvas.width / 5,
       this.canvas.height / 3,
       this.canvas.width / 50,
@@ -121,7 +121,7 @@ export default class ItemShopScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      `Cost: ${this.shopItem.getCost()}`,
+      `Kost: ${this.shopItem.getCost()}`,
       this.canvas.width / 5,
       (this.canvas.height / 3) + (this.canvas.height / 10),
       this.canvas.width / 50,
@@ -132,11 +132,11 @@ export default class ItemShopScene extends Scene {
   }
 
   public processInput(): void {
-      
+
   }
 
   public update(elapsed: number): Scene {
     return this.nextScene
   }
-  
+
 }

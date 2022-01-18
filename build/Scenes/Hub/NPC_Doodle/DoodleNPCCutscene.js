@@ -15,11 +15,11 @@ export default class DoodleNPCCutscene extends CutScene {
             "Mijn zoon is ontvoerd tot aan de top van de wolken! ",
             "Zou jij helemaal naar boven kunnen gaan om hem te redden?",
             "Alvast bedankt!",
-            "Achter me vind je een Portaal die je teleporteerd naar het laagste punt van de wolkentrap",
+            "Achter me vind je een Portaal die je teleporteert naar het laagste punt van de wolkentrap.",
             "Ik zal het portaal open maken zodat je er makkelijk naartoe kan gaan.",
-            "Op het onderste platform ben je veilig, totdat je begint met springen",
+            "Op het onderste platform ben je veilig, totdat je begint met springen.",
             "Dus pas op...",
-            "Als je niet meer omhoog kan, spring dan naast het platform",
+            "Als je niet meer omhoog kan, spring dan naast het platform.",
         ];
         const endSentences = [
             "Het portaal is al open, ga voort jonge robot."
