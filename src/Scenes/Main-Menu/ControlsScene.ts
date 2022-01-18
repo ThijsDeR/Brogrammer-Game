@@ -34,7 +34,7 @@ export default class ControlsScene extends Scene {
 
     this.NPCs =[
       new TutorialNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
-    ]  
+    ]
 
     this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData)
 
@@ -114,7 +114,7 @@ export default class ControlsScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      "Klik op E om met NPC'S te praten",
+      "Loop naar een persoon en klik op E om met hem te praten.",
       this.canvas.width / 2,
       (this.canvas.height / 20) * 7,
       this.canvas.height / 25,
