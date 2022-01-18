@@ -23,13 +23,13 @@ export default class PokePlayer extends Player {
       public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
         if (this.direction === 'left') {
           ctx.save()
-          ctx.translate(this.xPos + this.width - offsetX, 0)
+          ctx.translate(this.xPos + this.width, 0)
           ctx.scale(-1, 1)
-          ctx.drawImage(this.img, 0, this.yPos - offsetY, this.width, this.height)
+          ctx.drawImage(this.img, 0, this.yPos, this.width, this.height)
           ctx.restore()
         } else if (this.direction === 'right') {
-          ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.width, this.height)
-        } 
+          ctx.drawImage(this.img, this.xPos, this.yPos, this.width, this.height)
+        }
       }
 
       /**
@@ -37,7 +37,7 @@ export default class PokePlayer extends Player {
        */
       public processInput(): void {
           this.yVel = 0;
-          
+
           if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 200);
           if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 200);
 

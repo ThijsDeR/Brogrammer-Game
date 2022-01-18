@@ -12,13 +12,13 @@ export default class PokePlayer extends Player {
     draw(ctx, offsetX, offsetY) {
         if (this.direction === 'left') {
             ctx.save();
-            ctx.translate(this.xPos + this.width - offsetX, 0);
+            ctx.translate(this.xPos + this.width, 0);
             ctx.scale(-1, 1);
-            ctx.drawImage(this.img, 0, this.yPos - offsetY, this.width, this.height);
+            ctx.drawImage(this.img, 0, this.yPos, this.width, this.height);
             ctx.restore();
         }
         else if (this.direction === 'right') {
-            ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.width, this.height);
+            ctx.drawImage(this.img, this.xPos, this.yPos, this.width, this.height);
         }
     }
     processInput() {
