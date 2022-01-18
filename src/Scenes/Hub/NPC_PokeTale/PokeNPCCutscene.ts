@@ -25,7 +25,7 @@ export default class PokeNPCCutscene extends CutScene {
 
     const sentences = [
     "I wanna be the very best, like no one even wa....",
-    'Hey jij daar! Ik ben het Ash Ketchup',
+    'Hey jij daar! Ik ben Ash Ketchup',
     'Zou jij even hier naar binnen kunnen gaan?',
     'Ik weet niet wat er daar gaande is, maar het klinkt niet goed.',
     'En pas op! Er zitten hier enge monsters die de grootte zijn van een pocket!',
@@ -38,12 +38,12 @@ export default class PokeNPCCutscene extends CutScene {
     ]
 
     const notReadySentences = [
-      "Ik heb op het moment niks voor je",
+      "Je kan nog niet hier naartoe, speel eerst de andere spellen.",
     ]
 
     const doneSentences = [
       "Oh, ben je hier alweer?",
-      "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
+      "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij.",
       "Succes!"
     ]
 
@@ -51,10 +51,10 @@ export default class PokeNPCCutscene extends CutScene {
     else if (this.userData.getNPCStoryProgress('poke').finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences)
     else if (this.userData.getNPCStoryProgress('poke').talkedTo === true) {
       this.pokeNPC.finishInteraction()
-      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences) 
-    }  
+      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
+    }
     else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
-    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)    
+    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
   }
 
   public draw(): void {

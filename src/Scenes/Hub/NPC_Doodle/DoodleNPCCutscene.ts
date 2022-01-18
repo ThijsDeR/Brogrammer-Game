@@ -28,11 +28,11 @@ export default class DoodleNPCCutscene extends CutScene {
       "Mijn zoon is ontvoerd tot aan de top van de wolken! ",
       "Zou jij helemaal naar boven kunnen gaan om hem te redden?",
       "Alvast bedankt!",
-      "Achter me vind je een Portaal die je teleporteerd naar het laagste punt van de wolkentrap",
+      "Achter me vind je een Portaal die je teleporteert naar het laagste punt van de wolkentrap.",
       "Ik zal het portaal open maken zodat je er makkelijk naartoe kan gaan.",
-      "Op het onderste platform ben je veilig, totdat je begint met springen",
+      "Op het onderste platform ben je veilig, totdat je begint met springen.",
       "Dus pas op...",
-      "Als je niet meer omhoog kan, spring dan naast het platform",
+      "Als je niet meer omhoog kan, spring dan naast het platform.",
 
       // "Hello young robot, could you help me.",
       // "I've found myself in quite a predicament.",
@@ -58,10 +58,10 @@ export default class DoodleNPCCutscene extends CutScene {
     if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences)
     else if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).talkedTo === true) {
       this.doodleNPC.finishInteraction()
-      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences) 
-    }  
+      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
+    }
     else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
-    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)   
+    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
   }
 
   public draw(): void {

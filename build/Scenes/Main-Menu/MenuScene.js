@@ -90,13 +90,13 @@ export default class MenuScene extends Scene {
         this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
-        this.ctx.fillStyle = "#454443";
+        this.ctx.fillStyle = "#2E5984";
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.robotImage.draw(this.ctx);
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        Scene.writeTextToCanvas(this.ctx, 'Het epische avontuur van Sam Sung', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Het epische avontuur van Sam Sung', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'black');
     }
     processInput() {
     }

@@ -81,7 +81,6 @@ export default class PoketaleScene extends GameLevel {
         if (this.nextScene !== this) {
             this.backgroundMusic.pause();
             this.backgroundMusic = null;
-            this.backgroundMusic.volume = 1;
         }
         return this.nextScene;
     }

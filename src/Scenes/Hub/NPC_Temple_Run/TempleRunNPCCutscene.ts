@@ -25,13 +25,13 @@ export default class TempleRunNPCCutscene extends CutScene {
     this.templeRunNPC = templeRunNPC
 
     const sentences = [
-      "Ey knul, leuk om je te ontmoeten",
+      "Ey knul, leuk om je te ontmoeten.",
       "Er komen nogal rare geluiden uit deze grot.",
       "Ik heb de ingang geblokkeerd, zodat er niks naar binnen of naar buiten kan.",
       "Zou je kunnen kijken of alles goed gaat daarbinnen?",
       "Er zitten namelijk nog mensen in de grot.",
-      "Kijk goed naar de personen en kies of je ze moet blocken, accepteren of er mee kan chatten!",
-      "Aight alvast bedankt en succces!"
+      "Kijk goed naar de personen en kies of je ze moet blokken, accepteren of er mee kan chatten!",
+      "Aight alvast bedankt en succes!"
 
       // "Ey young lad, nice ta meet ya.",
       // "Been hearin' some weird sounds from this cave.",
@@ -47,12 +47,12 @@ export default class TempleRunNPCCutscene extends CutScene {
     ]
 
     const notReadySentences = [
-      "Ik heb op het moment niks voor je",
+      "Je kan nog niet hier naartoe, speel eerst Wolkentrap."
     ]
 
     const doneSentences = [
       "Oh, ben je hier alweer?",
-      "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
+      "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij.",
       "Succes!"
     ]
 

@@ -38,7 +38,7 @@ export default class ItemShopScene extends Scene {
             this.nextScene = new ShopScene(this.canvas, this.userData)
           }
 
-          if (button.getId() === 'buy') {
+          if (button.getId() === 'Kopen') {
             if (this.userData.getCoins() > this.shopItem.getCost()) {
               const startSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav')
               startSound.volume = MenuInfo.SHOP_CLICK_VOLUME;
@@ -54,7 +54,7 @@ export default class ItemShopScene extends Scene {
           }
         }
       })
-      
+
 
       if (originalNextScene !== this.nextScene) {
         this.canvas.removeEventListener('click', clickFunction)
@@ -88,7 +88,7 @@ export default class ItemShopScene extends Scene {
       this.canvas.width / 8,
       this.canvas.height / 3
     )
-    
+
     Scene.writeTextToCanvas(
       this.ctx,
       'Shop',
@@ -132,11 +132,11 @@ export default class ItemShopScene extends Scene {
   }
 
   public processInput(): void {
-      
+
   }
 
   public update(elapsed: number): Scene {
     return this.nextScene
   }
-  
+
 }
