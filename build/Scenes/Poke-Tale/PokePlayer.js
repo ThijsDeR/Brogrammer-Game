@@ -24,17 +24,21 @@ export default class PokePlayer extends Player {
     processInput() {
         this.yVel = 0;
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W))
-            this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 19000);
+            this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 200);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S))
-            this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 19000);
+            this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 200);
         this.xVel = 0;
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A))
-            this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 80);
+            this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 1);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
-            this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 80);
+            this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 1);
+        if (this.xVel < 0)
+            this.direction = 'left';
+        else if (this.xVel > 0)
+            this.direction = 'right';
     }
     move(canvas, contacts, elapsed) {
-        this.xPos += this.xVel * (elapsed / GameInfo.ELAPSED_PENALTY);
+        this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
         if (this.xPos < 0) {
             this.xPos = canvas.width - this.img.width;
         }
@@ -51,7 +55,9 @@ export default class PokePlayer extends Player {
             if (this.yPos + this.yVel + this.img.height > canvas.height)
                 this.yPos = canvas.height - this.img.height;
         }
-        this.yPos += this.yVel * 2 * (elapsed / GameInfo.ELAPSED_PENALTY);
+        CollideHandler.LEFT_CONTACT;
+        CollideHandler.RIGHT_CONTACT;
+        this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
     }
     die() {
         this.dead = true;
