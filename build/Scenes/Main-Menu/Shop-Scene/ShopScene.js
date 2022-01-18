@@ -2,6 +2,7 @@ import GameInfo from "../../../GameInfo.js";
 import GridGenerator from "../../../GridGenerator.js";
 import Button from "../../../Props/Button.js";
 import Scene from "../../../Scene.js";
+import MenuInfo from "../Info/MenuInfo.js";
 import MenuScene from "../MenuScene.js";
 import ItemShopScene from "./ItemShopScene.js";
 import ShopItem from "./ShopItem.js";
@@ -16,14 +17,14 @@ export default class ShopScene extends Scene {
         this.nextScene = this;
         this.shopItems = [];
         this.items = [
-            { name: 'Rood', src: './assets/img/Sam_Suong/robot-preview-red.png', cost: 400, id: 1 },
-            { name: 'Groen', src: './assets/img/Sam_Suong/robot-preview-green.png', cost: 400, id: 2 },
-            { name: 'Blauw', src: './assets/img/Sam_Suong/robot-preview-blue.png', cost: 400, id: 3 },
-            { name: 'Groene Hoed', src: './assets/img/Sam_Suong/robot-preview-greenhat.png', cost: 800, id: 4 },
-            { name: 'Bril', src: './assets/img/Sam_Suong/robot-preview-glasses.png', cost: 800, id: 5 },
-            { name: 'Katten Oren', src: './assets/img/Sam_Suong/robot-preview-cat.png', cost: 800, id: 6 },
-            { name: 'Goud', src: './assets/img/Sam_Suong/robot-preview-goud.png', cost: 1000, id: 7 },
-            { name: 'Dark', src: './assets/img/Sam_Suong/robot-preview-dark.png', cost: 1000, id: 8 },
+            { name: 'Rood', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-red.png', cost: 400, id: 1 },
+            { name: 'Groen', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-green.png', cost: 400, id: 2 },
+            { name: 'Blauw', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-blue.png', cost: 400, id: 3 },
+            { name: 'Groene Hoed', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-greenhat.png', cost: 800, id: 4 },
+            { name: 'Bril', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-glasses.png', cost: 800, id: 5 },
+            { name: 'Katten Oren', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-cat.png', cost: 800, id: 6 },
+            { name: 'Goud', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-goud.png', cost: 1000, id: 7 },
+            { name: 'Dark', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-dark.png', cost: 1000, id: 8 },
         ];
         this.items = this.items.filter((item) => {
             const skins = this.userData.getSkins().filter((skin) => skin.id === item.id);
@@ -42,7 +43,7 @@ export default class ShopScene extends Scene {
             this.shopItems.forEach((shopItem) => {
                 if (shopItem.isHovered({ x: event.x, y: event.y })) {
                     const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                    buttonSound.volume = 1;
+                    buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
                     buttonSound.play();
                     this.nextScene = new ItemShopScene(this.canvas, this.userData, shopItem);
                 }
@@ -65,7 +66,7 @@ export default class ShopScene extends Scene {
         this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
-        this.ctx.fillStyle = "#454443";
+        this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.backButton.draw(this.ctx);
         Scene.writeTextToCanvas(this.ctx, 'Shop', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');

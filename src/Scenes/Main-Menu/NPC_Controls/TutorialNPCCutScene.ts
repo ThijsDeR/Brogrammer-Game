@@ -3,7 +3,7 @@ import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
 import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
-import MainNPC from './MainNPC.js';
+import MainNPC from './TutorialNPC.js';
 
 
 export default class TutorialNPCCutscene extends CutScene {

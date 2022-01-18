@@ -9,7 +9,6 @@ import DoodlePlayer from "./DoodlePlayer.js";
 import Game from "../../Game.js";
 import HubScene from "../Hub/HubScene.js";
 import DoodleEnemy from "./DoodleEnemy.js";
-import DoodleLevelInfo from "./DoodleLevelInfo.js";
 import GameInfo from "../../GameInfo.js";
 import Question from "./Question.js";
 import CutScene from "../../CutScene.js";
@@ -18,8 +17,8 @@ import FallLine from "./FallLine.js";
 import CloudPlatform from "./CloudPlatform.js";
 import SonNPC from "./NPC_Son/SonNPC.js";
 import SonNPCCutscene from "./NPC_Son/SonNPCCutscene.js";
-import Text from "../../Props/Text.js";
 import MenuCutScene from "../MenuCutScene.js";
+import DoodleInfo from "./Info/DoodleInfo.js";
 
 export default class DoodleScene extends GameLevel {
   private player: DoodlePlayer;
@@ -45,11 +44,11 @@ export default class DoodleScene extends GameLevel {
       new CloudPlatform(this.canvas.width / 10 , this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
       
       // finishing line
-      new CloudPlatform(this.canvas.width / 10, DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10)
+      new CloudPlatform(this.canvas.width / 10, DoodleInfo.LEVEL_YPOS_FINISH * this.canvas.height, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10)
     ];
 
 
-    this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData)
+    this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData)
     
 
     this.createProps();
@@ -89,7 +88,7 @@ export default class DoodleScene extends GameLevel {
       let enemyWidth = this.canvas.width / 20;
       let questionYPos = Game.randomNumber(previousQuestionHeight + (this.canvas.height * 5), previousQuestionHeight + (this.canvas.height * 8));
 
-      if (this.canvas.height - yPos < DoodleLevelInfo.LEVEL_YPOS_FINISH * this.canvas.height) {
+      if (this.canvas.height - yPos < DoodleInfo.LEVEL_YPOS_FINISH * this.canvas.height) {
         atFinish = true
         break
       }
@@ -151,7 +150,7 @@ export default class DoodleScene extends GameLevel {
   public draw(): void {
     this.ctx.fillStyle = "LightSkyBlue";
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.drawImage(Game.loadNewImage('./assets/img/Sky_background.jpg'), 0, 0, this.canvas.width, this.canvas.height)
+    this.ctx.drawImage(Game.loadNewImage(GameInfo.IMG_PATH + 'Sky_background.jpg'), 0, 0, this.canvas.width, this.canvas.height)
 
     this.props.forEach((prop) => {
       prop.draw(this.ctx, 0, this.player.getMinYPos() - (this.canvas.height / 2));

@@ -1,4 +1,5 @@
 import CutScene from '../../../CutScene.js';
+import GameInfo from '../../../GameInfo.js';
 import NPC from '../../../Props/NPC.js';
 import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
@@ -19,7 +20,7 @@ export default class SonNPC extends NPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/son.png', width, height)
+    super(xpos, ypos, GameInfo.IMG_PATH + 'son.png', width, height)
 
     this.cutScene = new SonNPCCutscene(canvas, userData, this)
     this.name = 'Son'

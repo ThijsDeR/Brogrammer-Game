@@ -1,3 +1,4 @@
+import GameInfo from '../GameInfo.js';
 import ImageProp from './ImageProp.js';
 
 export default class Coin extends ImageProp {
@@ -9,7 +10,7 @@ export default class Coin extends ImageProp {
         width: number | undefined = undefined, 
         height: number | undefined = undefined
         ){
-        super(xPos, yPos, './assets/img/coin.png', width, height)
+        super(xPos, yPos, GameInfo.IMG_PATH + 'coin.png', width, height)
         this.points = 1;
       }
 

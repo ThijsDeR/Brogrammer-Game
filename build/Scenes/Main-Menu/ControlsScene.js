@@ -3,8 +3,9 @@ import GameInfo from '../../GameInfo.js';
 import CollideHandler from '../../CollideHandler.js';
 import Scene from '../../Scene.js';
 import MenuScene from './MenuScene.js';
-import MainNPC from './NPC_Controls/MainNPC.js';
+import TutorialNPC from './NPC_Controls/TutorialNPC.js';
 import HubPlayer from '../Hub/HubPlayer.js';
+import MenuInfo from './Info/MenuInfo.js';
 export default class ControlsScene extends Scene {
     props;
     nextScene;
@@ -19,7 +20,7 @@ export default class ControlsScene extends Scene {
         this.cutScene = null;
         this.nextScene = this;
         this.NPCs = [
-            new MainNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
+            new TutorialNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
         ];
         this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         const clickFunction = (event) => {
@@ -34,7 +35,7 @@ export default class ControlsScene extends Scene {
             });
             if (originalNextScene !== this.nextScene) {
                 const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                buttonSound.volume = 1;
+                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
                 buttonSound.play();
                 this.canvas.removeEventListener('click', clickFunction);
                 this.canvas.removeEventListener('mousemove', hoverFunction);
@@ -51,7 +52,7 @@ export default class ControlsScene extends Scene {
         this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
-        this.ctx.fillStyle = "#454443";
+        this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.props.forEach((prop) => {
             prop.draw(this.ctx);

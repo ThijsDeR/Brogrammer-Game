@@ -1,4 +1,6 @@
+import GameInfo from '../../GameInfo.js';
 import ImageProp from '../../Props/ImageProp.js';
+import DoodleInfo from './Info/DoodleInfo.js';
 
 export default class Cloud extends ImageProp {
   private opacity: number;
@@ -11,7 +13,7 @@ export default class Cloud extends ImageProp {
     width: number | undefined = undefined, 
     height: number | undefined = undefined,
     ){
-    super(xPos, yPos, './assets/img/cloud.png', width, height)
+    super(xPos, yPos, GameInfo.IMG_PATH + 'cloud.png', width, height)
 
     this.opacity = 1;
     this.isDisappearing = false;
@@ -29,7 +31,7 @@ export default class Cloud extends ImageProp {
     if (this.isDisappearing) {
       console.log(this.opacity)
       if (this.opacity >= 0.1) {
-        this.opacity -= 0.005 * (elapsed / 20)
+        this.opacity -= DoodleInfo.CLOUD_DISSAPEAR * (elapsed / GameInfo.ELAPSED_PENALTY)
       }
     }
   }

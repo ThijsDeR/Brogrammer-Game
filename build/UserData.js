@@ -1,3 +1,4 @@
+import GameInfo from "./GameInfo.js";
 export default class UserData {
     static COIN_OBJECT_NAME = 'coins';
     static QUESTIONS_OBJECT_NAME = 'questions';
@@ -29,7 +30,7 @@ export default class UserData {
         }
         else {
             this.skins = [
-                { src: './assets/img/Sam_Suong/robot-preview.png', id: 0 }
+                { src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview.png', id: 0 }
             ];
             localStorage.setItem(UserData.SKINS_OBJECT_NAME, JSON.stringify(this.skins));
         }

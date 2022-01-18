@@ -1,3 +1,4 @@
+import GameInfo from '../GameInfo.js';
 import ImageProp from './ImageProp.js';
 
 export default class Teleporter extends ImageProp {
@@ -12,7 +13,7 @@ export default class Teleporter extends ImageProp {
     height: number | undefined = undefined,
     scene: string,
   ) {
-    super(xPos, yPos, './assets/img/Portal.png', width, height)
+    super(xPos, yPos, GameInfo.IMG_PATH + 'Portal.png', width, height)
 
     this.destinationScene = scene;
 

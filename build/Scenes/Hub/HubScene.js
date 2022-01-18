@@ -9,6 +9,7 @@ import DoodleNPC from './NPC_Doodle/DoodleNPC.js';
 import TempleRunNPC from './NPC_Temple_Run/TempleRunNPC.js';
 import MenuCutScene from '../MenuCutScene.js';
 import PokeNPC from './NPC_PokeTale/PokeNPC.js';
+import GameInfo from '../../GameInfo.js';
 export default class HubScene extends GameLevel {
     player;
     props;
@@ -19,10 +20,10 @@ export default class HubScene extends GameLevel {
         super(canvas, userData);
         const platformHeight = (canvas.height / 5);
         this.props = [
-            new ImageProp(0, platformHeight * 2, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
-            new ImageProp(0, platformHeight * 4, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
-            new ImageProp((canvas.width / 5) * 4, platformHeight * 2, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
-            new ImageProp((canvas.width / 5) * 4, platformHeight * 4, './assets/img/platform.png', canvas.width / 5, this.canvas.height / 20),
+            new ImageProp(0, platformHeight * 2, GameInfo.IMG_PATH + 'platform.png', canvas.width / 5, this.canvas.height / 20),
+            new ImageProp(0, platformHeight * 4, GameInfo.IMG_PATH + 'platform.png', canvas.width / 5, this.canvas.height / 20),
+            new ImageProp((canvas.width / 5) * 4, platformHeight * 2, GameInfo.IMG_PATH + 'platform.png', canvas.width / 5, this.canvas.height / 20),
+            new ImageProp((canvas.width / 5) * 4, platformHeight * 4, GameInfo.IMG_PATH + 'platform.png', canvas.width / 5, this.canvas.height / 20),
         ];
         this.NPCs = [
             new TempleRunNPC(this.canvas.width / 7, (platformHeight * 4) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
@@ -35,7 +36,7 @@ export default class HubScene extends GameLevel {
     }
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(Game.loadNewImage('./assets/img/background.jpg'), 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(Game.loadNewImage(GameInfo.IMG_PATH + 'background.jpg'), 0, 0, this.canvas.width, this.canvas.height);
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });

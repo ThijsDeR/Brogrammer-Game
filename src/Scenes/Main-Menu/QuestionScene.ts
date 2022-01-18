@@ -1,6 +1,9 @@
+import GameInfo from "../../GameInfo.js";
 import Button from "../../Props/Button.js";
 import Scene from "../../Scene.js";
 import UserData from "../../UserData.js";
+import MenuCutScene from "../MenuCutScene.js";
+import MenuInfo from "./Info/MenuInfo.js";
 import MistakeScene from "./QuestionsScene.js";
 
 export default class QuestionScene extends Scene {
@@ -23,6 +26,9 @@ export default class QuestionScene extends Scene {
       let originalNextScene = this.nextScene
 
       if (this.backButton.isHovered({x: event.x, y: event.y})) {
+        const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
+        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+        buttonSound.play();
         this.nextScene = new MistakeScene(this.canvas, this.userData)
       }
 
@@ -42,7 +48,7 @@ export default class QuestionScene extends Scene {
   }
 
   public draw(): void {
-    this.ctx.fillStyle = "#454443";
+    this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
     this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
     this.backButton.draw(this.ctx)
 

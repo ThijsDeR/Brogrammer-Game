@@ -2,6 +2,7 @@ import GameInfo from '../../GameInfo.js';
 import GridGenerator from '../../GridGenerator.js';
 import Button from '../../Props/Button.js';
 import Scene from '../../Scene.js';
+import MenuInfo from './Info/MenuInfo.js';
 import MenuScene from './MenuScene.js';
 import QuestionScene from './QuestionScene.js';
 export default class QuestionsScene extends Scene {
@@ -54,7 +55,7 @@ export default class QuestionsScene extends Scene {
             });
             if (originalNextScene !== this.nextScene) {
                 const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                buttonSound.volume = 1;
+                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
                 buttonSound.play();
                 this.canvas.removeEventListener('click', clickFunction);
                 this.canvas.removeEventListener('mousemove', hoverFunction);
@@ -71,7 +72,7 @@ export default class QuestionsScene extends Scene {
         this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
-        this.ctx.fillStyle = "#454443";
+        this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.props.forEach((prop) => {
             prop.draw(this.ctx);

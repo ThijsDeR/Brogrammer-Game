@@ -1,6 +1,7 @@
 import GameInfo from "../../../GameInfo.js";
 import Button from "../../../Props/Button.js";
 import Scene from "../../../Scene.js";
+import MenuInfo from "../Info/MenuInfo.js";
 import ShopScene from "./ShopScene.js";
 export default class ItemShopScene extends Scene {
     shopItem;
@@ -26,7 +27,7 @@ export default class ItemShopScene extends Scene {
                     if (button.getId() === 'buy') {
                         if (this.userData.getCoins() > this.shopItem.getCost()) {
                             const startSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav');
-                            startSound.volume = 0.5;
+                            startSound.volume = MenuInfo.SHOP_CLICK_VOLUME;
                             startSound.play();
                             this.userData.addSkin({ src: this.shopItem.getImage().getImageSrc(), id: this.shopItem.getId() });
                             this.userData.decreaseCoins(this.shopItem.getCost());
@@ -34,7 +35,7 @@ export default class ItemShopScene extends Scene {
                         }
                         else {
                             const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
-                            wrongSound.volume = 0.5;
+                            wrongSound.volume = MenuInfo.SHOP_CLICK_VOLUME;
                             wrongSound.play();
                         }
                     }
@@ -54,7 +55,7 @@ export default class ItemShopScene extends Scene {
         this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
-        this.ctx.fillStyle = "#454443";
+        this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.buttons.forEach((button) => {
             button.draw(this.ctx);

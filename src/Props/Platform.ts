@@ -1,3 +1,4 @@
+import GameInfo from '../GameInfo.js';
 import ImageProp from './ImageProp.js';
 
 export default class Platform extends ImageProp {
@@ -7,6 +8,6 @@ export default class Platform extends ImageProp {
     width: number | undefined = undefined, 
     height: number | undefined = undefined,
   ) {
-    super(xPos, yPos, './assets/img/platform.png', width, height)
+    super(xPos, yPos, GameInfo.IMG_PATH + 'platform.png', width, height)
   }
 }

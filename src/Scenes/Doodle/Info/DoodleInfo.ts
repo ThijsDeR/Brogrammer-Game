@@ -1,4 +1,4 @@
-export default abstract class DoodleLevelInfo {
+export default abstract class DoodleInfo {
     public static readonly PLAYER_Y_SPEED: number = 10;
   
     public static readonly PLAYER_X_SPEED: number = 9;
@@ -8,6 +8,8 @@ export default abstract class DoodleLevelInfo {
     public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY: number = 2
 
     public static readonly LEVEL_YPOS_FINISH: number = -50;
+
+    public static readonly CLOUD_DISSAPEAR: number = 1/500
 
     public static readonly QUESTIONS: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}[] = [
       {question: 'Wat is de sterkste pincode?', answers: [
@@ -91,4 +93,6 @@ export default abstract class DoodleLevelInfo {
         id: 10
       },
     ]
+
+    public static readonly DOODLE_PROGRESS_OBJECT_NAME: string = 'doodle'
   }

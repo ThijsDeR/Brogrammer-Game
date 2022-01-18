@@ -1,8 +1,9 @@
 import CollideHandler from '../../CollideHandler.js';
-import TempleRunInfo from './TempleRunInfo.js';
+import TempleRunInfo from './Info/TempleRunInfo.js';
 import KeyboardListener from '../../KeyboardListener.js';
 import Player from '../../Player.js';
 import UserData from '../../UserData.js';
+import GameInfo from '../../GameInfo.js';
 
 export default class TempleRunPlayer extends Player {
   private dead: boolean;
@@ -17,7 +18,7 @@ export default class TempleRunPlayer extends Player {
     super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height)
     this.dead = false;
 
-    this.xVel = (TempleRunInfo.PLAYER_X_SPEED / 2) * (this.width / 100)
+    this.xVel = (TempleRunInfo.PLAYER_X_SPEED) * (this.width / 100)
   }
   
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
@@ -44,7 +45,7 @@ export default class TempleRunPlayer extends Player {
 
   public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number): void {
 
-    this.xPos += this.xVel * (elapsed / 10)
+    this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY)
 
     if (contacts.includes(CollideHandler.BOTTOM_CONTACT) || this.yPos + this.yVel < 0) {
       this.yVel = 0;
@@ -56,11 +57,11 @@ export default class TempleRunPlayer extends Player {
       if (this.yPos + this.yVel + this.img.height > canvas.height) this.yPos = canvas.height - this.img.height
     }
 
-    this.yPos += this.yVel * 2 * (elapsed / 10);
+    this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
   }
 
   public speed_up(): void {
-    this.xVel += 0.0001 * (this.width / 100)
+    this.xVel += TempleRunInfo.PLAYER_SPEED_UP * (this.width / 100)
   }
 
   public die(): void {

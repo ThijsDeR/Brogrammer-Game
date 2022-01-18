@@ -1,5 +1,7 @@
+import GameInfo from "../../GameInfo.js";
 import Button from "../../Props/Button.js";
 import Scene from "../../Scene.js";
+import MenuInfo from "./Info/MenuInfo.js";
 import MistakeScene from "./QuestionsScene.js";
 export default class QuestionScene extends Scene {
     question;
@@ -13,6 +15,9 @@ export default class QuestionScene extends Scene {
         const clickFunction = (event) => {
             let originalNextScene = this.nextScene;
             if (this.backButton.isHovered({ x: event.x, y: event.y })) {
+                const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
+                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+                buttonSound.play();
                 this.nextScene = new MistakeScene(this.canvas, this.userData);
             }
             if (originalNextScene !== this.nextScene) {
@@ -27,7 +32,7 @@ export default class QuestionScene extends Scene {
         this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
-        this.ctx.fillStyle = "#454443";
+        this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.backButton.draw(this.ctx);
         Scene.writeTextToCanvas(this.ctx, this.question.question, this.canvas.width / 2, this.canvas.height / 5, this.canvas.height / 25, 'white', 'center', 'middle', this.canvas.width / 2);

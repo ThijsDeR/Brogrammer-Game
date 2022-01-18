@@ -1,6 +1,8 @@
 import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
+import PokeTaleInfo from '../../Poke-Tale/Info/PokeTaleInfo.js';
+import TempleRunInfo from '../../Temple-Run/Info/TempleRunInfo.js';
 export default class PokeNPCCutscene extends CutScene {
     pokeNPC;
     textBox;
@@ -55,7 +57,11 @@ export default class PokeNPCCutscene extends CutScene {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
             this.pokeNPC.finishInteraction();
-            if (this.userData.getNPCStoryProgress('templerun').finished) {
+            const originalData = this.userData.getNPCStoryProgress('poke');
+            if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished) {
+                this.userData.changeNPCStoryProgress({ name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: originalData.finished });
+            }
+            if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished) {
                 this.textBox = this.endTextBox;
             }
             this.textBox.reset();

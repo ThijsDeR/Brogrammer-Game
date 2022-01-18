@@ -1,11 +1,12 @@
 
 import CutScene from '../../../CutScene.js';
+import GameInfo from '../../../GameInfo.js';
 import NPC from '../../../Props/NPC.js';
 import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
 import TutorialNPCCutscene from './TutorialNPCCutScene.js';
 
-export default class MainNPC extends NPC {
+export default class TutorialNPC extends NPC {
   private cutScene: TutorialNPCCutscene;
 
   protected name: string;
@@ -18,7 +19,7 @@ export default class MainNPC extends NPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/sephiroth.png', width, height)
+    super(xpos, ypos, GameInfo.IMG_PATH + 'sephiroth.png', width, height)
 
     this.cutScene = new TutorialNPCCutscene(canvas, userData, this)
     this.name = 'Tutorial'

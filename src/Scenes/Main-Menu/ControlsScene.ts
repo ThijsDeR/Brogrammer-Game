@@ -2,15 +2,13 @@ import Button from '../../Props/Button.js';
 import GameInfo from '../../GameInfo.js';
 import CollideHandler from '../../CollideHandler.js';
 import CutScene from '../../CutScene.js';
-import HubScene from '../Hub/HubScene.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import MenuScene from './MenuScene.js';
-import Player from '../../Player.js';
-import MainNPC from './NPC_Controls/MainNPC.js';
-import SceneSelector from '../../SceneSelector.js';
+import TutorialNPC from './NPC_Controls/TutorialNPC.js';
 import HubPlayer from '../Hub/HubPlayer.js';
+import MenuInfo from './Info/MenuInfo.js';
 
 export default class ControlsScene extends Scene {
   private props: Prop[];
@@ -19,7 +17,7 @@ export default class ControlsScene extends Scene {
 
   private player: HubPlayer;
 
-  private NPCs: MainNPC[];
+  private NPCs: TutorialNPC[];
 
   private cutScene: null | CutScene;
 
@@ -35,7 +33,7 @@ export default class ControlsScene extends Scene {
     this.nextScene = this
 
     this.NPCs =[
-      new MainNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
+      new TutorialNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
     ]  
 
     this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData)
@@ -52,7 +50,7 @@ export default class ControlsScene extends Scene {
 
       if (originalNextScene !== this.nextScene) {
         const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
-        buttonSound.volume = 1;
+        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
         buttonSound.play();
         this.canvas.removeEventListener('click', clickFunction)
         this.canvas.removeEventListener('mousemove', hoverFunction)
@@ -72,7 +70,7 @@ export default class ControlsScene extends Scene {
   }
 
   public draw(): void {
-    this.ctx.fillStyle = "#454443";
+    this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
     this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
     this.props.forEach((prop) => {
       prop.draw(this.ctx)

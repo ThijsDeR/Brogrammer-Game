@@ -1,6 +1,8 @@
 import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
+import DoodleInfo from '../../Doodle/Info/DoodleInfo.js';
+import TempleRunInfo from '../../Temple-Run/Info/TempleRunInfo.js';
 export default class TempleRunNPCCutscene extends CutScene {
     templeRunNPC;
     textBox;
@@ -53,8 +55,10 @@ export default class TempleRunNPCCutscene extends CutScene {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
             this.templeRunNPC.finishInteraction();
-            if (this.userData.getNPCStoryProgress('doodle').finished) {
+            const originalData = this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME);
+            if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished) {
                 this.textBox = this.endTextBox;
+                this.userData.changeNPCStoryProgress({ name: TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME, talkedTo: true, finished: originalData.finished });
             }
             this.textBox.reset();
             return true;

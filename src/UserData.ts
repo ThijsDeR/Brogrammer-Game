@@ -1,4 +1,4 @@
-import NPC from "./Props/NPC";
+import GameInfo from "./GameInfo.js";
 
 export default class UserData {
 
@@ -41,7 +41,7 @@ export default class UserData {
       this.skins = JSON.parse(localStorage.getItem(UserData.SKINS_OBJECT_NAME))
     } else {
       this.skins = [
-        {src: './assets/img/Sam_Suong/robot-preview.png', id: 0}
+        {src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview.png', id: 0}
       ]
       localStorage.setItem(UserData.SKINS_OBJECT_NAME, JSON.stringify(this.skins))
     }

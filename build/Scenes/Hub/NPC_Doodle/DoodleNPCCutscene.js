@@ -1,6 +1,7 @@
 import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
+import DoodleInfo from '../../Doodle/Info/DoodleInfo.js';
 export default class DoodleNPCCutscene extends CutScene {
     doodleNPC;
     textBox;
@@ -28,9 +29,9 @@ export default class DoodleNPCCutscene extends CutScene {
             "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
             "Succes!"
         ];
-        if (this.userData.getNPCStoryProgress('doodle').finished)
+        if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished)
             this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences);
-        else if (this.userData.getNPCStoryProgress('doodle').talkedTo === true) {
+        else if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).talkedTo === true) {
             this.doodleNPC.finishInteraction();
             this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
         }
@@ -52,6 +53,8 @@ export default class DoodleNPCCutscene extends CutScene {
     update(elapsed) {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
+            const originalData = this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME);
+            this.userData.changeNPCStoryProgress({ name: DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: originalData.finished });
             this.doodleNPC.finishInteraction();
             this.textBox = this.endTextBox;
             this.textBox.reset();

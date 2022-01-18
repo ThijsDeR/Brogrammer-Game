@@ -1,5 +1,7 @@
 import CutScene from '../../../CutScene.js';
+import GameInfo from '../../../GameInfo.js';
 import UserData from '../../../UserData.js';
+import TempleRunInfo from '../../Temple-Run/Info/TempleRunInfo.js';
 import HubNPC from '../HubNPC.js';
 import PokeNPCCutscene from './PokeNPCCutscene.js';
 
@@ -17,20 +19,16 @@ export default class PokeNPC extends HubNPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, './assets/img/Ash.png', width, height, 'poketale','right', 'Poketale')
+    super(xpos, ypos, GameInfo.IMG_PATH + 'Ash.png', width, height, 'poketale','right', 'Poketale')
     this.userData = userData
     this.cutScene = new PokeNPCCutscene(canvas, userData, this)
   }
 
   public interact(): CutScene {
-    const originalData = this.userData.getNPCStoryProgress('poke')
-    if (this.userData.getNPCStoryProgress('templerun').finished) {
-      this.userData.changeNPCStoryProgress({name: 'poke', talkedTo: true, finished: originalData.finished })
-    }
     return this.cutScene
   }
 
   public finishInteraction(): void {
-    if (this.userData.getNPCStoryProgress('templerun').finished === true) this.teleporter.activate()
+    if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished === true) this.teleporter.activate()
   }
 }

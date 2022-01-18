@@ -3,7 +3,7 @@ import GameInfo from '../../GameInfo.js';
 import GameLevel from '../../GameLevel.js';
 import Scene from '../../Scene.js';
 import HubScene from '../Hub/HubScene.js';
-import PokeInfo from './PokeInfo.js';
+import PokeTaleInfo from './Info/PokeTaleInfo.js';
 import PokePlayer from './PokePlayer.js';
 export default class PoketaleScene extends GameLevel {
     player;
@@ -20,9 +20,9 @@ export default class PoketaleScene extends GameLevel {
     }
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(Game.loadNewImage('./assets/img/poketale_bg.png'), 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(Game.loadNewImage(GameInfo.IMG_PATH + 'poketale_bg.png'), 0, 0, this.canvas.width, this.canvas.height);
         this.player.draw(this.ctx);
-        Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width / 2, this.canvas.width / 40, this.canvas.height / 50, 'white');
+        Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width * PokeTaleInfo.SCORE_TEXT_X_POS, this.canvas.height * PokeTaleInfo.SCORE_TEXT_Y_POS, this.canvas.height * PokeTaleInfo.SCORE_TEXT_FONT_SIZE, 'white');
         if (this.cutScene !== null) {
             this.cutScene.draw();
         }
@@ -41,9 +41,9 @@ export default class PoketaleScene extends GameLevel {
             this.player.move(this.canvas, contacts, elapsed);
             if (this.player.isDead())
                 return new HubScene(this.canvas, this.userData);
-            else if (this.score >= PokeInfo.WIN_SCORE) {
+            else if (this.score >= PokeTaleInfo.WIN_SCORE) {
                 const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
-                winSound.volume = 0.6;
+                winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME;
                 winSound.play();
                 this.nextScene = new HubScene(this.canvas, this.userData);
             }
