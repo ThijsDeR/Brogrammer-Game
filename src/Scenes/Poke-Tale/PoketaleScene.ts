@@ -1,4 +1,3 @@
-import CollideHandler from '../../CollideHandler.js';
 import CutScene from '../../CutScene.js';
 import Game from '../../Game.js';
 import GameInfo from '../../GameInfo.js';
@@ -6,11 +5,19 @@ import GameLevel from '../../GameLevel.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
 import HubScene from '../Hub/HubScene.js';
+<<<<<<< Updated upstream
 import PokeTaleInfo from './Info/PokeTaleInfo.js';
+=======
+import Prop from "../../Props/Prop.js";
+import PokeInfo from './PokeInfo.js';
+>>>>>>> Stashed changes
 import PokePlayer from './PokePlayer.js';
+import PokeEnemy from './PokeEnemy.js';
 
 export default class PoketaleScene extends GameLevel {
   private player: PokePlayer;
+
+  private props: Prop[];
 
   private score: number;
 
@@ -21,12 +28,21 @@ export default class PoketaleScene extends GameLevel {
   private cutScene: CutScene | null
 
   public constructor(
-    canvas: HTMLCanvasElement, 
+    canvas: HTMLCanvasElement,
     userData: UserData
   ) {
     super(canvas, userData)
 
     this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData)
+
+    this.props =[
+      new PokeEnemy(
+        Game.randomNumber(540, 1080),
+        Game.randomNumber(0, 1980),
+        40,
+        40,
+      )
+    ]
 
     this.score = 0
 

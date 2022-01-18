@@ -1,4 +1,3 @@
-import Prop from '../../Props/Prop.js';
 import RectProp from '../../Props/RectProp.js';
 
 export default class Question extends RectProp {

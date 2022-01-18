@@ -5,8 +5,10 @@ import Scene from '../../Scene.js';
 import HubScene from '../Hub/HubScene.js';
 import PokeTaleInfo from './Info/PokeTaleInfo.js';
 import PokePlayer from './PokePlayer.js';
+import PokeEnemy from './PokeEnemy.js';
 export default class PoketaleScene extends GameLevel {
     player;
+    props;
     score;
     backgroundMusic;
     nextScene;
@@ -14,6 +16,9 @@ export default class PoketaleScene extends GameLevel {
     constructor(canvas, userData) {
         super(canvas, userData);
         this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData);
+        this.props = [
+            new PokeEnemy(Game.randomNumber(540, 1080), Game.randomNumber(0, 1980), 40, 40)
+        ];
         this.score = 0;
         this.cutScene = null;
         this.nextScene = this;
