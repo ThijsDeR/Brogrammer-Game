@@ -1,5 +1,5 @@
 export default class PokeTaleInfo {
-    static PLAYER_Y_SPEED = 10;
+    static PLAYER_Y_SPEED = 9;
     static PLAYER_X_SPEED = 9;
     static WIN_SCORE = 30;
     static WIN_SOUND_VOLUME = 3 / 5;

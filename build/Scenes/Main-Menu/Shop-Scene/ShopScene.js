@@ -17,14 +17,14 @@ export default class ShopScene extends Scene {
         this.nextScene = this;
         this.shopItems = [];
         this.items = [
-            { name: 'Rood', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-red.png', cost: 400, id: 1 },
-            { name: 'Groen', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-green.png', cost: 400, id: 2 },
-            { name: 'Blauw', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-blue.png', cost: 400, id: 3 },
-            { name: 'Groene Hoed', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-greenhat.png', cost: 800, id: 4 },
-            { name: 'Bril', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-glasses.png', cost: 800, id: 5 },
+            { name: 'Rode Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-red.png', cost: 400, id: 1 },
+            { name: 'Gras Groen', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-green.png', cost: 400, id: 2 },
+            { name: 'Stekelvarken Blauw', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-blue.png', cost: 400, id: 3 },
+            { name: 'Lonk', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-greenhat.png', cost: 800, id: 4 },
+            { name: 'Stijlvolle Bril', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-glasses.png', cost: 800, id: 5 },
             { name: 'Katten Oren', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-cat.png', cost: 800, id: 6 },
-            { name: 'Goud', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-goud.png', cost: 1000, id: 7 },
-            { name: 'Dark', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-dark.png', cost: 1000, id: 8 },
+            { name: '24 Karaat Goud', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-goud.png', cost: 1000, id: 7 },
+            { name: 'Schaduwbot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-dark.png', cost: 1000, id: 8 },
         ];
         this.items = this.items.filter((item) => {
             const skins = this.userData.getSkins().filter((skin) => skin.id === item.id);
