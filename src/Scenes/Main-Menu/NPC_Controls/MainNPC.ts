@@ -10,18 +10,18 @@ export default class MainNPC extends NPC {
 
   protected name: string;
   public constructor(
-    xpos: number, 
+    xpos: number,
     ypos: number,
-    width: number | undefined = undefined, 
+    width: number | undefined = undefined,
     height: number | undefined = undefined,
     canvas: HTMLCanvasElement,
     userData: UserData,
-    
+
   ) {
     super(xpos, ypos, './assets/img/sephiroth.png', width, height)
 
     this.cutScene = new TutorialNPCCutscene(canvas, userData, this)
-    this.name = 'Tutorial'
+    this.name = 'instructie'
   }
 
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {

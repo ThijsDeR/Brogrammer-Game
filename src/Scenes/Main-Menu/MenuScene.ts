@@ -27,7 +27,7 @@ export default class MenuScene extends Scene {
 
     const positions = GridGenerator.generateGrid(
       this.canvas.width / 3,
-      this.canvas.height / 3, 
+      this.canvas.height / 3,
       4,
       (this.canvas.height / 3) * 2 - (this.canvas.height / 10),
       buttonWidth,
@@ -42,8 +42,8 @@ export default class MenuScene extends Scene {
       new Button(((this.canvas.width / 5) * 4) + (this.canvas.width / 12), (this.canvas.height / 4) + (this.canvas.height / 2), this.canvas.width / 12, this.canvas.height / 10, 'white', 'red', '>', this.canvas.height / 12, 'increaseCurrentSkin'),
       new Button(positions[0].x - (buttonWidth / 2), positions[0].y, buttonWidth, buttonHeight, 'white', 'blue', 'Start!', this.canvas.height / 20, 'startBtn'),
       new Button(positions[1].x - (buttonWidth / 2), positions[1].y, buttonWidth, buttonHeight, 'white', 'blue', 'Vragen', this.canvas.height / 20, 'mistakes'),
-      new Button(positions[2].x - (buttonWidth / 2), positions[2].y, buttonWidth, buttonHeight, 'white', 'blue', 'Controls', this.canvas.height / 20, 'controls'),
-      new Button(positions[3].x - (buttonWidth / 2), positions[3].y, buttonWidth, buttonHeight, 'white', 'blue', 'Shop', this.canvas.height / 20, 'shop')
+      new Button(positions[2].x - (buttonWidth / 2), positions[2].y, buttonWidth, buttonHeight, 'white', 'blue', 'Besturing', this.canvas.height / 20, 'controls'),
+      new Button(positions[3].x - (buttonWidth / 2), positions[3].y, buttonWidth, buttonHeight, 'white', 'blue', 'Winkel', this.canvas.height / 20, 'shop')
 
     ]
 
@@ -115,7 +115,7 @@ export default class MenuScene extends Scene {
     this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
 
     this.robotImage.draw(this.ctx)
-    
+
     this.props.forEach((prop) => {
       prop.draw(this.ctx)
     })

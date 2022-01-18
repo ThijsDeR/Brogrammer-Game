@@ -13,7 +13,9 @@ export default class TempleRunNPCCutscene extends CutScene {
             "Er komen nogal rare geluiden uit deze grot.",
             "Ik heb de ingang geblokkeerd, zodat er niks naar binnen of naar buiten kan.",
             "Zou je kunnen kijken of alles goed gaat daarbinnen?",
-            "Aight Bedankt!"
+            "Er zitten namelijk nog mensen in de grot.",
+            "Kijk goed naar de personen en kies of je ze moet blocken, accepteren of er mee kan chatten!",
+            "Aight alvast bedankt en succces!"
         ];
         const endSentences = [
             "De ingang naar de grot is al open hoor!"
