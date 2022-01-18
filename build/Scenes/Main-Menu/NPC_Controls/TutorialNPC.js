@@ -8,7 +8,7 @@ export default class TutorialNPC extends NPC {
     constructor(xpos, ypos, width = undefined, height = undefined, canvas, userData) {
         super(xpos, ypos, GameInfo.IMG_PATH + 'sephiroth.png', width, height);
         this.cutScene = new TutorialNPCCutscene(canvas, userData, this);
-        this.name = 'Tutorial';
+        this.name = 'Instructie';
     }
     draw(ctx, offsetX, offsetY) {
         super.draw(ctx, offsetX, offsetY);

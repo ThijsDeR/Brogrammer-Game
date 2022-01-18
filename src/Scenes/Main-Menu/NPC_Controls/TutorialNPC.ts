@@ -22,7 +22,7 @@ export default class TutorialNPC extends NPC {
     super(xpos, ypos, GameInfo.IMG_PATH + 'sephiroth.png', width, height)
 
     this.cutScene = new TutorialNPCCutscene(canvas, userData, this)
-    this.name = 'instructie'
+    this.name = 'Instructie'
   }
 
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
