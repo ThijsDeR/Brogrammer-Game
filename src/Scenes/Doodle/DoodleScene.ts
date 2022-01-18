@@ -42,14 +42,14 @@ export default class DoodleScene extends GameLevel {
 
       // Starting Cloud
       new CloudPlatform(this.canvas.width / 10 , this.canvas.height - this.canvas.height / 20, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10),
-      
+
       // finishing line
       new CloudPlatform(this.canvas.width / 10, DoodleInfo.LEVEL_YPOS_FINISH * this.canvas.height, canvas.width - (this.canvas.width / 10) * 2, this.canvas.height / 10)
     ];
 
 
     this.sonNPC = new SonNPC((this.canvas.width / 2) - (this.canvas.width / 40), (DoodleInfo.LEVEL_YPOS_FINISH * this.canvas.height) - (this.canvas.height / 10), this.canvas.width / 20, this.canvas.height / 10, this.canvas, this.userData)
-    
+
 
     this.createProps();
 
@@ -60,7 +60,7 @@ export default class DoodleScene extends GameLevel {
       this.canvas.height / 8,
       this.userData
     );
-    
+
     this.nextScene = this
 
     // background music
@@ -200,7 +200,7 @@ export default class DoodleScene extends GameLevel {
       this.props.forEach((prop, propIndex) => {
         if (CollideHandler.collides(this.player, prop)) {
           const contact = CollideHandler.getContactData(this.player, prop);
-  
+
           // Check if instance of prop === Cloud
           // Then checks if the player makes contact with the top of cloud
           // After contact makes the cloud dissappear.
@@ -216,7 +216,7 @@ export default class DoodleScene extends GameLevel {
               playerOnPlatform = true
             }
           }
-  
+
           // Checks if the instance of prop === Coin.
           // Then check if the player makes contact with a coin prop.
           // If the player makes contact, Adds 1 point to their total points.
@@ -226,7 +226,7 @@ export default class DoodleScene extends GameLevel {
             const coinSound = new Audio(GameInfo.SOUND_PATH + 'CoinSound.wav')
             coinSound.play();
           }
-  
+
           // Checks if the instance of prop === Question.
           // Then check if the player makes contact with a Question prop.
           // If the player makes contact, throws a question.
@@ -237,7 +237,7 @@ export default class DoodleScene extends GameLevel {
             const questionPopUpSound = new Audio(GameInfo.SOUND_PATH + 'Pop.wav')
             questionPopUpSound.play()
           }
-  
+
           // Checks if the instance of prop === DoodleEnemy.
           // Then check if the player makes contact with a DoodleEnemy prop.
           // If the player makes contact, the player dies.
@@ -255,7 +255,7 @@ export default class DoodleScene extends GameLevel {
             enemySound.volume = 0.5;
             enemySound.play();
           }
-  
+
         }
 
         // Makes the cloud disappear slowly

@@ -12,13 +12,13 @@ export default class PokePlayer extends Player {
     draw(ctx, offsetX, offsetY) {
         if (this.direction === 'left') {
             ctx.save();
-            ctx.translate(this.xPos + this.width - offsetX, 0);
+            ctx.translate(this.xPos + this.width, 0);
             ctx.scale(-1, 1);
-            ctx.drawImage(this.img, 0, this.yPos - offsetY, this.width, this.height);
+            ctx.drawImage(this.img, 0, this.yPos, this.width, this.height);
             ctx.restore();
         }
         else if (this.direction === 'right') {
-            ctx.drawImage(this.img, this.xPos - offsetX, this.yPos - offsetY, this.width, this.height);
+            ctx.drawImage(this.img, this.xPos, this.yPos, this.width, this.height);
         }
     }
     processInput() {
@@ -32,9 +32,13 @@ export default class PokePlayer extends Player {
             this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 100);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
             this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 100);
+        if (this.xVel < 0)
+            this.direction = 'left';
+        else if (this.xVel > 0)
+            this.direction = 'right';
     }
     move(canvas, contacts, elapsed) {
-        this.xPos += this.xVel * (elapsed / GameInfo.ELAPSED_PENALTY);
+        this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
         if (this.xPos < 0) {
             this.xPos = canvas.width - this.img.width;
         }
@@ -51,7 +55,9 @@ export default class PokePlayer extends Player {
             if (this.yPos + this.yVel + this.img.height > canvas.height)
                 this.yPos = canvas.height - this.img.height;
         }
-        this.yPos += this.yVel * 2 * (elapsed / GameInfo.ELAPSED_PENALTY);
+        CollideHandler.LEFT_CONTACT;
+        CollideHandler.RIGHT_CONTACT;
+        this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
     }
     die() {
         this.dead = true;
