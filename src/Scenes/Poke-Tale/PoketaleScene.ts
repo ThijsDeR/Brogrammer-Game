@@ -33,32 +33,35 @@ export default class PoketaleScene extends GameLevel {
 
     this.props =[
       new PokeEnemy(
-        Game.randomNumber(540, 1080),
-        Game.randomNumber(0, 1980),
+        Game.randomNumber(100, 1800),
+        Game.randomNumber(450, 1000),
         40,
         40,
       ),
+
       new PokeEnemy(
-        Game.randomNumber(540, 1080),
-        Game.randomNumber(0, 1980),
+        Game.randomNumber(100, 1800),
+        Game.randomNumber(450, 1000),
         40,
         40,
       ),
+
       new PokeEnemy(
-        Game.randomNumber(540, 1080),
-        Game.randomNumber(0, 1980),
+        Game.randomNumber(100, 1800),
+        Game.randomNumber(450, 1000),
         40,
         40,
       ),
+
       new PokeEnemy(
-        Game.randomNumber(540, 1080),
-        Game.randomNumber(0, 1980),
+        Game.randomNumber(100, 1800),
+        Game.randomNumber(450, 1000),
         40,
         40,
-      )
+      ),
     ]
 
-    
+
     this.score = 0
 
     this.cutScene = null
@@ -76,7 +79,7 @@ export default class PoketaleScene extends GameLevel {
     this.player.draw(this.ctx)
     Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width * PokeTaleInfo.SCORE_TEXT_X_POS, this.canvas.height * PokeTaleInfo.SCORE_TEXT_Y_POS, this.canvas.height * PokeTaleInfo.SCORE_TEXT_FONT_SIZE, 'white')
     this.props.forEach((prop) => {
-      prop.draw(this.ctx, 0,  (this.canvas.height / 2));
+      prop.draw(this.ctx);
     });
     if (this.cutScene !== null) {
       this.cutScene.draw()
