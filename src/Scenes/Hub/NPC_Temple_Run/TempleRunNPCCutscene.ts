@@ -8,7 +8,7 @@ import TempleRunInfo from '../../Temple-Run/Info/TempleRunInfo.js';
 import TempleRunNPC from './TempleRunNPC.js';
 
 export default class TempleRunNPCCutscene extends CutScene {
-  
+
   private templeRunNPC: TempleRunNPC;
 
   private textBox: TextBox;
@@ -29,7 +29,9 @@ export default class TempleRunNPCCutscene extends CutScene {
       "Er komen nogal rare geluiden uit deze grot.",
       "Ik heb de ingang geblokkeerd, zodat er niks naar binnen of naar buiten kan.",
       "Zou je kunnen kijken of alles goed gaat daarbinnen?",
-      "Aight Bedankt!"
+      "Er zitten namelijk nog mensen in de grot.",
+      "Kijk goed naar de personen en kies of je ze moet blocken, accepteren of er mee kan chatten!",
+      "Aight alvast bedankt en succces!"
 
       // "Ey young lad, nice ta meet ya.",
       // "Been hearin' some weird sounds from this cave.",
@@ -53,15 +55,15 @@ export default class TempleRunNPCCutscene extends CutScene {
       "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
       "Succes!"
     ]
-    
+
     if (this.userData.getNPCStoryProgress('doodle').finished === false) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, notReadySentences)
     else if (this.userData.getNPCStoryProgress('templerun').finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences)
     else if (this.userData.getNPCStoryProgress('templerun').talkedTo === true) {
       this.templeRunNPC.finishInteraction()
-      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences) 
-    }  
+      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
+    }
     else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
-    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)    
+    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
   }
 
   public draw(): void {
@@ -95,5 +97,5 @@ export default class TempleRunNPCCutscene extends CutScene {
   public getOptionalScene(): Scene | null{
     return null
   }
-  
+
 }

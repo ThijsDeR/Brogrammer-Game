@@ -64,7 +64,7 @@ export default class ControlsScene extends Scene {
         if (this.cutScene !== null) {
             this.cutScene.draw();
         }
-        Scene.writeTextToCanvas(this.ctx, 'Controls', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Besturing', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
         Scene.writeTextToCanvas(this.ctx, 'Klik op A en D om naar links en rechts te bewegen', this.canvas.width / 2, this.canvas.height / 4, this.canvas.height / 25, 'white');
         Scene.writeTextToCanvas(this.ctx, 'Klik op spatie om te springen', this.canvas.width / 2, (this.canvas.height / 20) * 6, this.canvas.height / 25, 'white');
         Scene.writeTextToCanvas(this.ctx, "Klik op E om met NPC'S te praten", this.canvas.width / 2, (this.canvas.height / 20) * 7, this.canvas.height / 25, 'white');

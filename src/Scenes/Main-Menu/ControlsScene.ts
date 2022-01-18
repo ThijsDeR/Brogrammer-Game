@@ -23,13 +23,13 @@ export default class ControlsScene extends Scene {
 
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
-    
+
     this.props = [
       new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
     ]
 
     this.cutScene = null
-    
+
     this.nextScene = this
 
     this.NPCs =[
@@ -64,7 +64,7 @@ export default class ControlsScene extends Scene {
         }
       })
     }
-    
+
     this.canvas.addEventListener('click', clickFunction)
     this.canvas.addEventListener('mousemove', hoverFunction)
   }
@@ -87,7 +87,7 @@ export default class ControlsScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Controls',
+      'Besturing',
       this.canvas.width / 2,
       this.canvas.height / 10,
       this.canvas.height / 20,
@@ -143,7 +143,7 @@ export default class ControlsScene extends Scene {
       // console.log(this.cutScene)
       if (this.cutScene === null) {
         let contacts: number[] = []
-  
+
         this.props.forEach((prop) => {
           if (CollideHandler.collides(this.player, prop)) {
             const contact = CollideHandler.getContactData(this.player, prop);
@@ -153,10 +153,10 @@ export default class ControlsScene extends Scene {
             } else if (contact === CollideHandler.BOTTOM_CONTACT) {
               this.player.setYPos(prop.getMaxYPos())
             }
-  
+
           }
         });
-  
+
         this.NPCs.forEach((NPC) => {
           if (CollideHandler.collides(this.player, NPC)) {
             if (this.player.isInteracting()) {
@@ -164,13 +164,13 @@ export default class ControlsScene extends Scene {
             }
           }
         });
-  
+
         this.player.move(this.canvas, contacts, elapsed);
       } else {
         const cutsceneDone = this.cutScene.update(elapsed)
         if (cutsceneDone) this.cutScene = null;
       }
-  
+
       return this.nextScene
     }
   }
