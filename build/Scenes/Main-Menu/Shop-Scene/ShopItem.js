@@ -8,7 +8,7 @@ export default class ShopItem {
     id;
     constructor(xPos, yPos, width, height, name, imageSrc, cost, id) {
         this.img = new ImageProp(xPos, yPos, imageSrc, width, (height / 4) * 3);
-        this.button = new Button(xPos, yPos + (height / 4) * 3, width, (height / 4), 'black', 'red', 'buy', width / 10, 'buy');
+        this.button = new Button(xPos, yPos + (height / 4) * 3, width, (height / 4), 'black', 'red', 'Kopen', width / 10, 'buy');
         this.name = name;
         this.cost = cost;
         this.id = id;

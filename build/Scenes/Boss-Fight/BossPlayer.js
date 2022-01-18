@@ -34,7 +34,7 @@ export default class BossPlayer extends Player {
             this.xVel = BossInfo.PLAYER_X_SPEED * (this.width / 100);
     }
     move(canvas, contacts, elapsed) {
-        this.xPos += this.xVel * (elapsed / GameInfo.ELAPSED_PENALTY);
+        this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
         if (this.xPos < 0) {
             this.xPos = canvas.width - this.img.width;
         }
@@ -51,7 +51,7 @@ export default class BossPlayer extends Player {
             if (this.yPos + this.yVel + this.img.height > canvas.height)
                 this.yPos = canvas.height - this.img.height;
         }
-        this.yPos += this.yVel * 2 * (elapsed / GameInfo.ELAPSED_PENALTY);
+        this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
     }
     die() {
         this.dead = true;

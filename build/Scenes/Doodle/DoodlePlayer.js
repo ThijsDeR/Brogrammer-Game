@@ -37,7 +37,7 @@ export default class DoodlePlayer extends Player {
             this.direction = 'right';
     }
     move(canvas, contacts, elapsed, onPlatform) {
-        this.xPos += this.xVel * (elapsed / 10);
+        this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
         if (this.xPos < 0) {
             this.xPos = canvas.width - this.img.width;
         }
@@ -46,8 +46,8 @@ export default class DoodlePlayer extends Player {
         }
         const flying = () => {
             this.airborne = true;
-            this.yPos += this.yVel * (elapsed / 10);
-            this.yVel += DoodleInfo.GRAVITY_CONSTANT * (elapsed / 10) * (this.height / 100);
+            this.yPos += this.yVel * (elapsed * GameInfo.ELAPSED_PENALTY);
+            this.yVel += DoodleInfo.GRAVITY_CONSTANT * (elapsed * GameInfo.ELAPSED_PENALTY) * (this.height / 100);
         };
         if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
             if (onPlatform) {
