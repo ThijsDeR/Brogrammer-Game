@@ -29,9 +29,9 @@ export default class PokePlayer extends Player {
             this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 200);
         this.xVel = 0;
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A))
-            this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 1);
+            this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 100);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
-            this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 1);
+            this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 100);
         if (this.xVel < 0)
             this.direction = 'left';
         else if (this.xVel > 0)
