@@ -73,4 +73,3 @@ export default class DoodlePlayer extends Player {
         return this.dead;
     }
 }
-//# sourceMappingURL=DoodlePlayer.js.map

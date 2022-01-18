@@ -80,13 +80,13 @@ export default class Player extends ImageProp {
     // Checks if the right side of player collides with something.
     if (xVel < 0) {
       if (!(this.xPos + xVel < 0 || contacts.includes(CollideHandler.RIGHT_CONTACT))) {
-        this.xPos += xVel * (elapsed / 10)
+        this.xPos += xVel * (elapsed * GameInfo.ELAPSED_PENALTY)
       } else {
         this.xVel = 0
       }
     } else {
       if (!(this.xPos + xVel + this.img.width > canvas.width || contacts.includes(CollideHandler.LEFT_CONTACT))) {
-        this.xPos += xVel * (elapsed / 10)
+        this.xPos += xVel * (elapsed * GameInfo.ELAPSED_PENALTY)
       } else {
         this.xVel = 0
       }
@@ -94,8 +94,8 @@ export default class Player extends ImageProp {
 
     const flying = () => {
       this.airborne = true;
-      this.yPos += this.yVel * 2 * (elapsed / 10);
-      this.yVel += GameInfo.GRAVITY_CONSTANT * 2 * (elapsed / 10) * (this.height / 100);
+      this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
+      this.yVel += GameInfo.GRAVITY_CONSTANT * 2 * (elapsed * GameInfo.ELAPSED_PENALTY) * (this.height / 100);
     }
     let shouldBeFlying = true;
     if (contacts.includes(CollideHandler.BOTTOM_CONTACT) || this.yPos + this.yVel < 0) {

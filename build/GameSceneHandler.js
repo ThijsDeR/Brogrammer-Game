@@ -23,4 +23,3 @@ export default class GameSceneHandler {
         this.scene.draw();
     }
 }
-//# sourceMappingURL=GameSceneHandler.js.map

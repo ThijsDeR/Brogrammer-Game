@@ -3,4 +3,3 @@ export default class MenuInfo {
     static UI_CLICK_VOLUME = 1;
     static SHOP_CLICK_VOLUME = 1 / 2;
 }
-//# sourceMappingURL=MenuInfo.js.map

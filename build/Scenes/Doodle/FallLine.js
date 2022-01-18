@@ -4,4 +4,3 @@ export default class FallLine extends RectProp {
         super(xPos, yPos, width, height, color, style);
     }
 }
-//# sourceMappingURL=FallLine.js.map

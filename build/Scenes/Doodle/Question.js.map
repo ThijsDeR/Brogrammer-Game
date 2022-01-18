@@ -1,1 +1,0 @@
-{"version":3,"file":"Question.js","sourceRoot":"","sources":["../../../src/Scenes/Doodle/Question.ts"],"names":[],"mappings":"AAAA,OAAO,QAAQ,MAAM,yBAAyB,CAAC;AAE/C,MAAM,CAAC,OAAO,OAAO,QAAS,SAAQ,QAAQ;IAE5C,YACE,IAAY,EACZ,IAAY,EACZ,KAAa,EACb,MAAc,EACd,KAAa,EACb,KAAwB;QAExB,KAAK,CAAC,IAAI,EAAE,IAAI,EAAE,KAAK,EAAE,MAAM,EAAE,KAAK,EAAE,KAAK,CAAC,CAAC;IACjD,CAAC;CACF"}

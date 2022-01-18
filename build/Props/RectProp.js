@@ -18,4 +18,3 @@ export default class RectProp extends Prop {
             ctx.stroke();
     }
 }
-//# sourceMappingURL=RectProp.js.map

@@ -7,4 +7,3 @@ export default class GameInfo {
     static IMG_PATH = './assets/img/';
     static SOUND_PATH = './assets/Sound/';
 }
-//# sourceMappingURL=GameInfo.js.map

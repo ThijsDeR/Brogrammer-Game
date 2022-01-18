@@ -34,4 +34,3 @@ export default class Prop {
         this.yPos = yPos;
     }
 }
-//# sourceMappingURL=Prop.js.map

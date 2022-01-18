@@ -110,4 +110,3 @@ export default class ControlsScene extends Scene {
         return this.nextScene;
     };
 }
-//# sourceMappingURL=ControlsScene.js.map

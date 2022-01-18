@@ -39,4 +39,3 @@ export default class SonNPCCutscene extends CutScene {
         return new HubScene(this.canvas, this.userData);
     }
 }
-//# sourceMappingURL=SonNPCCutscene.js.map

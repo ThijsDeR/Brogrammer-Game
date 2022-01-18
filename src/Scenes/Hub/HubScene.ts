@@ -14,6 +14,9 @@ import TempleRunNPC from './NPC_Temple_Run/TempleRunNPC.js';
 import MenuCutScene from '../MenuCutScene.js';
 import PokeNPC from './NPC_PokeTale/PokeNPC.js';
 import GameInfo from '../../GameInfo.js';
+import PokeTaleInfo from '../Poke-Tale/Info/PokeTaleInfo.js';
+import Platform from '../../Props/Platform.js';
+import BossNPC from './NPC_Boss/BossNPC.js';
 
 
 export default class HubScene extends GameLevel {
@@ -30,24 +33,26 @@ export default class HubScene extends GameLevel {
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
 
-    const platformHeight = (canvas.height / 5)
+    const platformHeight = (this.canvas.height / 5)
 
     this.props = [
       // Portal platforms
       // Left top
-      new ImageProp(0, platformHeight * 2, GameInfo.IMG_PATH + 'platform.png', canvas.width / 5, this.canvas.height / 20),
-      // new Teleporter(0, (canvas.height / 4) - 150, canvas.width / 10, 200, 'hub'),
+      new Platform(0, platformHeight * 2, this.canvas.width / 5, this.canvas.height / 20),
+      // new Teleporter(0, (this.canvas.height / 4) - 150, this.canvas.width / 10, 200, 'hub'),
 
       // Left bottom
-      new ImageProp(0, platformHeight * 4, GameInfo.IMG_PATH + 'platform.png', canvas.width / 5, this.canvas.height / 20),
-      // new Teleporter(0, ((canvas.height / 4) * 3 - 200), canvas.width / 10, 200, 'menu'),
+      new Platform(0, platformHeight * 4, this.canvas.width / 5, this.canvas.height / 20),
+      // new Teleporter(0, ((this.canvas.height / 4) * 3 - 200), this.canvas.width / 10, 200, 'menu'),
 
       // Right top
-      new ImageProp((canvas.width / 5) * 4, platformHeight * 2, GameInfo.IMG_PATH + 'platform.png', canvas.width / 5, this.canvas.height / 20),
+      new Platform((this.canvas.width / 5) * 4, platformHeight * 2, this.canvas.width / 5, this.canvas.height / 20),
 
       // Right bottom
-      new ImageProp((canvas.width / 5) * 4, platformHeight * 4, GameInfo.IMG_PATH + 'platform.png', canvas.width / 5, this.canvas.height / 20),
+      new Platform((this.canvas.width / 5) * 4, platformHeight * 4, this.canvas.width / 5, this.canvas.height / 20),
     ];
+
+    
 
     this.NPCs = [
       new TempleRunNPC(this.canvas.width / 7, (platformHeight * 4) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
@@ -55,7 +60,13 @@ export default class HubScene extends GameLevel {
       new PokeNPC((canvas.width / 20) * 16, ((platformHeight * 2) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
     ]
 
-    this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData)
+    if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished) {
+      this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), (this.canvas.height / 3), this.canvas.width / 5, this.canvas.height / 20))
+      this.props.push(new ImageProp((this.canvas.width / 2) - (this.canvas.width / 20), (this.canvas.height / 3) + (this.canvas.height / 20), GameInfo.IMG_PATH + 'son.png', this.canvas.width / 10, this.canvas.height - ((this.canvas.height / 3) + (this.canvas.height / 20))))
+      this.NPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), (this.canvas.height / 3) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData))
+    }
+
+    this.player = new HubPlayer(this.canvas.width / 2, (this.canvas.height / 5) * 4, this.canvas.width / 25, this.canvas.height / 8, this.userData)
 
     this.cutScene = null
     this.nextScene = this

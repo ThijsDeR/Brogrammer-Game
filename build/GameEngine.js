@@ -72,4 +72,3 @@ export default class GameEngine {
         this.frameCount += 1;
     };
 }
-//# sourceMappingURL=GameEngine.js.map

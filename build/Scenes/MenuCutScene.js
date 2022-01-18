@@ -65,4 +65,3 @@ export default class MenuCutScene extends CutScene {
         return this.nextScene;
     }
 }
-//# sourceMappingURL=MenuCutScene.js.map

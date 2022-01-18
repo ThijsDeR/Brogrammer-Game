@@ -4,4 +4,3 @@ export default class CloudPlatform extends Cloud {
         super(xPos, yPos, width, height);
     }
 }
-//# sourceMappingURL=CloudPlatform.js.map

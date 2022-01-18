@@ -72,4 +72,3 @@ export default class ItemShopScene extends Scene {
         return this.nextScene;
     }
 }
-//# sourceMappingURL=ItemShopScene.js.map

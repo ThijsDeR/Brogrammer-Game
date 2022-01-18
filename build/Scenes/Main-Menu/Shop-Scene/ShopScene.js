@@ -84,4 +84,3 @@ export default class ShopScene extends Scene {
         return this.nextScene;
     }
 }
-//# sourceMappingURL=ShopScene.js.map

@@ -120,4 +120,3 @@ export default class UserData {
         localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
     }
 }
-//# sourceMappingURL=UserData.js.map

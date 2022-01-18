@@ -16,4 +16,3 @@ export default class TempleRunInfo {
     static WIN_SCORE = 20;
     static TEMPLE_RUN_PROGRESS_OBJECT_NAME = 'templerun';
 }
-//# sourceMappingURL=TempleRunInfo.js.map

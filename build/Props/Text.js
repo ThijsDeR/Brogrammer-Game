@@ -22,4 +22,3 @@ export default class Text extends Prop {
         this.yPos = yPos;
     }
 }
-//# sourceMappingURL=Text.js.map

@@ -18,4 +18,3 @@ export default class Teleporter extends ImageProp {
         return this.activated;
     }
 }
-//# sourceMappingURL=Teleporter.js.map

@@ -24,4 +24,3 @@ export default class HubNPC extends NPC {
         return this.teleporter;
     }
 }
-//# sourceMappingURL=HubNPC.js.map

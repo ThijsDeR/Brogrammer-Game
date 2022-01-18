@@ -13,4 +13,3 @@ export default class CutScene {
         this.keyboardListener = new KeyboardListener();
     }
 }
-//# sourceMappingURL=CutScene.js.map

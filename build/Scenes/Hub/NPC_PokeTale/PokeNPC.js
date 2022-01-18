@@ -18,4 +18,3 @@ export default class PokeNPC extends HubNPC {
             this.teleporter.activate();
     }
 }
-//# sourceMappingURL=PokeNPC.js.map

@@ -45,4 +45,3 @@ export default class GridGenerator {
         return positions;
     }
 }
-//# sourceMappingURL=GridGenerator.js.map

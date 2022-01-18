@@ -27,4 +27,3 @@ export default class SceneSelector {
         }
     }
 }
-//# sourceMappingURL=SceneSelector.js.map

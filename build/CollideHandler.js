@@ -45,4 +45,3 @@ export default class CollideHandler {
             return CollideHandler.TOP_CONTACT;
     }
 }
-//# sourceMappingURL=CollideHandler.js.map

@@ -95,4 +95,3 @@ export default class Player extends ImageProp {
         return this.keyboardListener.isKeyDown(KeyboardListener.KEY_ESC);
     }
 }
-//# sourceMappingURL=Player.js.map

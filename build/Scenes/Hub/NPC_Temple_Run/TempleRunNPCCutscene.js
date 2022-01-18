@@ -71,4 +71,3 @@ export default class TempleRunNPCCutscene extends CutScene {
         return null;
     }
 }
-//# sourceMappingURL=TempleRunNPCCutscene.js.map

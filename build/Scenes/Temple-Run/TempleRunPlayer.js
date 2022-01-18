@@ -53,4 +53,3 @@ export default class TempleRunPlayer extends Player {
         return this.dead;
     }
 }
-//# sourceMappingURL=TempleRunPlayer.js.map

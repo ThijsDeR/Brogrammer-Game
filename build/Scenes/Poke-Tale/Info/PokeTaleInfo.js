@@ -8,4 +8,3 @@ export default class PokeTaleInfo {
     static SCORE_TEXT_FONT_SIZE = 1 / 50;
     static POKE_TALE_PROGRESS_OBJECT_NAME = 'poke';
 }
-//# sourceMappingURL=PokeTaleInfo.js.map

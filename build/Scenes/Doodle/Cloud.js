@@ -29,4 +29,3 @@ export default class Cloud extends ImageProp {
         return this.opacity < 0.1;
     }
 }
-//# sourceMappingURL=Cloud.js.map

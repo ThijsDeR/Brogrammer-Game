@@ -87,4 +87,3 @@ export default class QuestionsScene extends Scene {
         return this.nextScene;
     };
 }
-//# sourceMappingURL=QuestionsScene.js.map

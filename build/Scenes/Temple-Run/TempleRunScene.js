@@ -114,4 +114,3 @@ export default class TempleRunScene extends GameLevel {
         return this.nextScene;
     }
 }
-//# sourceMappingURL=TempleRunScene.js.map

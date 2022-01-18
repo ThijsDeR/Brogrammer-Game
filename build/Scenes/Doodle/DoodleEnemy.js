@@ -5,4 +5,3 @@ export default class DoodleEnemy extends ImageProp {
         super(xPos, yPos, GameInfo.IMG_PATH + 'Slime.png', width, height);
     }
 }
-//# sourceMappingURL=DoodleEnemy.js.map
