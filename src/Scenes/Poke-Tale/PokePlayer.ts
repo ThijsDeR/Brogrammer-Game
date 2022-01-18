@@ -36,15 +36,15 @@ export default class PokePlayer extends Player {
        * processing the input of the player
        */
       public processInput(): void {
-          this.yVel = 0;
+        this.yVel = 0;
 
-          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 200);
-          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 200);
+          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 19000);
+          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 19000);
 
           this.xVel = 0;
 
-          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 100);
-          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 100);
+          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 80);
+          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 80);
 
       }
 
