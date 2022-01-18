@@ -9,6 +9,7 @@ import PokeTaleInfo from './Info/PokeTaleInfo.js';
 import PokePlayer from './PokePlayer.js';
 import PokeEnemy from './PokeEnemy.js';
 import Prop from '../../Props/Prop.js';
+import CollideHandler from '../../CollideHandler.js';
 
 export default class PoketaleScene extends GameLevel {
   private player: PokePlayer;
@@ -94,6 +95,21 @@ export default class PoketaleScene extends GameLevel {
   public update(elapsed: number): Scene {
     if (this.cutScene === null) {
       let contacts: number[] = []
+      //  this.props.forEach((prop, propIndex) => {
+      //    if (CollideHandler.collides(this.player, prop)) {
+      //      const contact = CollideHandler.getContactData(this.player, prop);
+
+           // Checks if the instance of prop === DoodleEnemy.
+           // Then check if the player makes contact with a DoodleEnemy prop.
+           // If the player makes contact, the player dies.
+          //  if (prop instanceof PokeEnemy) {
+          //    this.player.die();
+          //    this.props.splice(propIndex, 1);
+          //    const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
+          //    enemySound.volume = 0.5;
+          //    enemySound.play();
+          //  }
+
       this.player.move(this.canvas, contacts, elapsed)
       if (this.player.isDead()) return new HubScene(this.canvas, this.userData)
       else if (this.score >= PokeTaleInfo.WIN_SCORE) {
@@ -111,6 +127,7 @@ export default class PoketaleScene extends GameLevel {
         this.backgroundMusic.play()
       }
     }
+    
     if (this.nextScene !== this) {
       this.backgroundMusic.pause();
       this.backgroundMusic = null
