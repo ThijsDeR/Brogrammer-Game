@@ -66,4 +66,3 @@ export default class DoodleNPCCutscene extends CutScene {
         return null;
     }
 }
-//# sourceMappingURL=DoodleNPCCutscene.js.map

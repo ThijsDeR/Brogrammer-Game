@@ -31,4 +31,3 @@ export default class Game {
         return Math.round(Math.random() * (max - min) + min);
     }
 }
-//# sourceMappingURL=Game.js.map

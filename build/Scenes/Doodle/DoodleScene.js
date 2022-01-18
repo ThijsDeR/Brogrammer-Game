@@ -188,4 +188,3 @@ export default class DoodleScene extends GameLevel {
         return this.nextScene;
     };
 }
-//# sourceMappingURL=DoodleScene.js.map

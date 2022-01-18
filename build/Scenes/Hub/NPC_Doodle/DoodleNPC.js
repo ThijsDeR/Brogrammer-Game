@@ -16,4 +16,3 @@ export default class DoodleNPC extends HubNPC {
         this.teleporter.activate();
     }
 }
-//# sourceMappingURL=DoodleNPC.js.map

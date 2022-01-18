@@ -1,1 +1,0 @@
-{"version":3,"file":"CorrectProp.js","sourceRoot":"","sources":["../../../src/Scenes/Temple-Run/CorrectProp.ts"],"names":[],"mappings":"AAAA,OAAO,QAAQ,MAAM,yBAAyB,CAAC;AAE/C,MAAM,CAAC,OAAO,OAAO,WAAY,SAAQ,QAAQ;IAC/C,YACE,IAAY,EACZ,IAAY,EACZ,KAAa,EACb,MAAc;QAEd,KAAK,CAAC,IAAI,EAAE,IAAI,EAAE,KAAK,EAAE,MAAM,EAAE,OAAO,EAAE,MAAM,CAAC,CAAA;IACnD,CAAC;CACF"}

@@ -52,4 +52,3 @@ export default class TextBox {
         return this.currentSentence > this.sentences.length - 1;
     }
 }
-//# sourceMappingURL=TextBox.js.map

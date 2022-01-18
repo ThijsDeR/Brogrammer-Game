@@ -20,4 +20,3 @@ export default class SonNPC extends NPC {
     finishInteraction() {
     }
 }
-//# sourceMappingURL=SonNPC.js.map

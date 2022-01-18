@@ -59,4 +59,3 @@ export default class KeyboardListener {
         return this.keyCodeStates[keyCode] === true;
     }
 }
-//# sourceMappingURL=KeyboardListener.js.map

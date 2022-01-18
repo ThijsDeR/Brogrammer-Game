@@ -18,4 +18,3 @@ export default class TempleRunNPC extends HubNPC {
             this.teleporter.activate();
     }
 }
-//# sourceMappingURL=TempleRunNPC.js.map

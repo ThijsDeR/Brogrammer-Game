@@ -9,4 +9,3 @@ export default class NPC extends ImageProp {
         return this.activated;
     }
 }
-//# sourceMappingURL=NPC.js.map

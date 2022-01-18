@@ -4,4 +4,3 @@ export default class DeadProp extends RectProp {
         super(xPos, yPos, width, height, 'red', 'fill');
     }
 }
-//# sourceMappingURL=DeadProp.js.map

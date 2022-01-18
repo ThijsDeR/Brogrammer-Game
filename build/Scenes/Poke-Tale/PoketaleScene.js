@@ -65,4 +65,3 @@ export default class PoketaleScene extends GameLevel {
         return this.nextScene;
     }
 }
-//# sourceMappingURL=PoketaleScene.js.map

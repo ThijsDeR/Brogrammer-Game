@@ -4,4 +4,3 @@ export default class Question extends RectProp {
         super(xPos, yPos, width, height, color, style);
     }
 }
-//# sourceMappingURL=Question.js.map

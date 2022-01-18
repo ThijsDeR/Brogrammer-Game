@@ -5,4 +5,3 @@ export default class Platform extends ImageProp {
         super(xPos, yPos, GameInfo.IMG_PATH + 'platform.png', width, height);
     }
 }
-//# sourceMappingURL=Platform.js.map

@@ -104,4 +104,3 @@ export default class MenuScene extends Scene {
         return this.nextScene;
     };
 }
-//# sourceMappingURL=MenuScene.js.map

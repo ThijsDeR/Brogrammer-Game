@@ -10,4 +10,3 @@ export default class Coin extends ImageProp {
         return this.points;
     }
 }
-//# sourceMappingURL=Coin.js.map

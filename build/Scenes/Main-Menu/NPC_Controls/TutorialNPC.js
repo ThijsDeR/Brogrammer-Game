@@ -18,4 +18,3 @@ export default class TutorialNPC extends NPC {
         return this.cutScene;
     }
 }
-//# sourceMappingURL=TutorialNPC.js.map

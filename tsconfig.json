@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "es6",
         "target": "esnext",
-        "sourceMap": true,
+        "sourceMap": false,
         "noImplicitAny": true,
         "noImplicitReturns": true,
         "removeComments": true,

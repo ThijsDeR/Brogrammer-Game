@@ -74,4 +74,3 @@ export default class TRQuestion {
         return this.props;
     }
 }
-//# sourceMappingURL=TRQuestion.js.map

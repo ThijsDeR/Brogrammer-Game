@@ -46,4 +46,3 @@ export default class ShopItem {
         }
     }
 }
-//# sourceMappingURL=ShopItem.js.map

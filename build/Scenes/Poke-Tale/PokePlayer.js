@@ -60,4 +60,3 @@ export default class PokePlayer extends Player {
         return this.dead;
     }
 }
-//# sourceMappingURL=PokePlayer.js.map

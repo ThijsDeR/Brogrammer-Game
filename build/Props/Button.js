@@ -37,4 +37,3 @@ export default class Button extends RectProp {
             this.color = this.originalColor;
     }
 }
-//# sourceMappingURL=Button.js.map

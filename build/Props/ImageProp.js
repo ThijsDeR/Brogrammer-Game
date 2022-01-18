@@ -18,4 +18,3 @@ export default class ImageProp extends Prop {
         return this.imgSrc;
     }
 }
-//# sourceMappingURL=ImageProp.js.map

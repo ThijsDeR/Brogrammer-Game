@@ -6,4 +6,3 @@ export default class HubPlayer extends Player {
         super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height);
     }
 }
-//# sourceMappingURL=HubPlayer.js.map

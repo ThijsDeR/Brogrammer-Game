@@ -4,4 +4,3 @@ export default class CorrectProp extends RectProp {
         super(xPos, yPos, width, height, 'green', 'fill');
     }
 }
-//# sourceMappingURL=CorrectProp.js.map

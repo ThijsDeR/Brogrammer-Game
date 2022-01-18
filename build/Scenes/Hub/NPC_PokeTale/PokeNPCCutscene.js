@@ -30,11 +30,11 @@ export default class PokeNPCCutscene extends CutScene {
             "Je bent al klaar met dit level, als je er nog eens doorheen wilt mag het van mij",
             "Succes!"
         ];
-        if (this.userData.getNPCStoryProgress('templerun').finished === false)
+        if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished === false)
             this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, notReadySentences);
-        else if (this.userData.getNPCStoryProgress('poke').finished)
+        else if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished)
             this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences);
-        else if (this.userData.getNPCStoryProgress('poke').talkedTo === true) {
+        else if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).talkedTo === true) {
             this.pokeNPC.finishInteraction();
             this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
         }
@@ -57,7 +57,7 @@ export default class PokeNPCCutscene extends CutScene {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
             this.pokeNPC.finishInteraction();
-            const originalData = this.userData.getNPCStoryProgress('poke');
+            const originalData = this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME);
             if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished) {
                 this.userData.changeNPCStoryProgress({ name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: originalData.finished });
             }
@@ -73,4 +73,3 @@ export default class PokeNPCCutscene extends CutScene {
         return null;
     }
 }
-//# sourceMappingURL=PokeNPCCutscene.js.map
