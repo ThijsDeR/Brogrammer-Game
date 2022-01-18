@@ -49,7 +49,7 @@ export default class BossPlayer extends Player {
       }
 
       public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number): void {
-          this.xPos += this.xVel * (elapsed / GameInfo.ELAPSED_PENALTY)
+          this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY)
 
           if (this.xPos < 0) {
             this.xPos = canvas.width - this.img.width
@@ -71,7 +71,7 @@ export default class BossPlayer extends Player {
 
         //   CollideHandler.RIGHT_CONTACT
 
-        this.yPos += this.yVel * 2 * (elapsed / GameInfo.ELAPSED_PENALTY);
+        this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
       }
 
       public die(): void {
