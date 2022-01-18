@@ -5,6 +5,7 @@ import Scene from './Scene.js'
 import UserData from './UserData.js'
 import TempleRunScene from './Scenes/Temple-Run/TempleRunScene.js'
 import PoketaleScene from './Scenes/Poke-Tale/PoketaleScene.js'
+import BossScene from './Scenes/Boss-Fight/BossScene.js'
 
 export default class SceneSelector {
   public static getClassFromString(classString: string, canvas: HTMLCanvasElement, userData: UserData): Scene | null {
@@ -26,9 +27,13 @@ export default class SceneSelector {
       }
 
       case 'poketale': {
-      return new PoketaleScene(canvas, userData)
+        return new PoketaleScene(canvas, userData)
       }
       
+      case 'boss': {
+        return new BossScene(canvas, userData)
+      }
+
       default: {
         return null
       }

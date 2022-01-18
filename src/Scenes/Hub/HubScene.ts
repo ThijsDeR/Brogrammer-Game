@@ -17,6 +17,7 @@ import GameInfo from '../../GameInfo.js';
 import PokeTaleInfo from '../Poke-Tale/Info/PokeTaleInfo.js';
 import Platform from '../../Props/Platform.js';
 import BossNPC from './NPC_Boss/BossNPC.js';
+import Ladder from './Ladder.js';
 
 
 export default class HubScene extends GameLevel {
@@ -62,7 +63,7 @@ export default class HubScene extends GameLevel {
 
     if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished) {
       this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), (this.canvas.height / 3), this.canvas.width / 5, this.canvas.height / 20))
-      this.props.push(new ImageProp((this.canvas.width / 2) - (this.canvas.width / 20), (this.canvas.height / 3) + (this.canvas.height / 20), GameInfo.IMG_PATH + 'son.png', this.canvas.width / 10, this.canvas.height - ((this.canvas.height / 3) + (this.canvas.height / 20))))
+      this.props.push(new Ladder((this.canvas.width / 2) - (this.canvas.width / 20), (this.canvas.height / 3) + (this.canvas.height / 20), this.canvas.width / 10, this.canvas.height - ((this.canvas.height / 3) + (this.canvas.height / 20))))
       this.NPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), (this.canvas.height / 3) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData))
     }
 
@@ -128,12 +129,17 @@ export default class HubScene extends GameLevel {
       this.props.forEach((prop) => {
         if (CollideHandler.collides(this.player, prop)) {
           const contact = CollideHandler.getContactData(this.player, prop);
-          contacts.push(contact)
-          if (contact === CollideHandler.TOP_CONTACT) {
-            this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
-          } else if (contact === CollideHandler.BOTTOM_CONTACT) {
-            this.player.setYPos(prop.getMaxYPos())
+          if (!(prop instanceof Ladder)) {
+            contacts.push(contact)
+            if (contact === CollideHandler.TOP_CONTACT) {
+              this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
+            } 
+          } else {
+            this.player.climb()
           }
+          // else if (contact === CollideHandler.BOTTOM_CONTACT) {
+          //   this.player.setYPos(prop.getMaxYPos())
+          // }
 
         }
       });

@@ -6,7 +6,7 @@ export default class BossNPC extends HubNPC {
     cutScene;
     userData;
     constructor(xpos, ypos, width = undefined, height = undefined, canvas, userData) {
-        super(xpos, ypos, GameInfo.IMG_PATH + 'Ash.png', width, height, 'poketale', 'right', 'Poketale');
+        super(xpos, ypos, GameInfo.IMG_PATH + 'sephiroth.png', width, height, 'boss', 'right', 'EindBaas');
         this.userData = userData;
         this.cutScene = new BossNPCCutscene(canvas, userData, this);
     }

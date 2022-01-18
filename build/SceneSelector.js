@@ -3,6 +3,7 @@ import HubScene from './Scenes/Hub/HubScene.js';
 import MenuScene from './Scenes/Main-Menu/MenuScene.js';
 import TempleRunScene from './Scenes/Temple-Run/TempleRunScene.js';
 import PoketaleScene from './Scenes/Poke-Tale/PoketaleScene.js';
+import BossScene from './Scenes/Boss-Fight/BossScene.js';
 export default class SceneSelector {
     static getClassFromString(classString, canvas, userData) {
         switch (classString) {
@@ -20,6 +21,9 @@ export default class SceneSelector {
             }
             case 'poketale': {
                 return new PoketaleScene(canvas, userData);
+            }
+            case 'boss': {
+                return new BossScene(canvas, userData);
             }
             default: {
                 return null;

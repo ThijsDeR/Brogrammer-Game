@@ -4,4 +4,3 @@ export default class PokeEnemy extends ImageProp {
         super(xPos, yPos, './assets/img/Slime.png', width, height);
     }
 }
-//# sourceMappingURL=PokeEnemy.js.map
