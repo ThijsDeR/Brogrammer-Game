@@ -175,7 +175,7 @@ export default class HubScene extends GameLevel {
       this.player.move(this.canvas, contacts, elapsed);
 
       if (this.player.isPausing()) {
-        this.cutScene = new MenuCutScene(this.canvas, this.userData, this.backgroundMusicHub)
+        this.cutScene = new MenuCutScene(this.canvas, this.userData, this.backgroundMusicHub, true)
       }
 
     } else {

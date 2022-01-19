@@ -8,7 +8,7 @@ export default class MenuCutScene extends CutScene {
     completed;
     nextScene;
     backgroundMusicHub;
-    constructor(canvas, userData, backgroundMusicHub) {
+    constructor(canvas, userData, backgroundMusicHub, isPlaying = false) {
         super(canvas, userData);
         this.backgroundMusicHub = backgroundMusicHub;
         const buttonWidth = (this.canvas.width / 4);
@@ -26,7 +26,7 @@ export default class MenuCutScene extends CutScene {
                 if (prop instanceof Button) {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
                         if (prop.getId() === 'hub') {
-                            this.nextScene = new HubScene(canvas, userData, true, this.backgroundMusicHub);
+                            this.nextScene = new HubScene(canvas, userData, isPlaying, this.backgroundMusicHub);
                         }
                         else if (prop.getId() === 'menu') {
                             this.nextScene = new MenuScene(canvas, userData);
