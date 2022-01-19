@@ -7,6 +7,7 @@ import UserData from '../../UserData.js';
 import HubInfo from './Info/HubInfo.js';
 
 export default class HubPlayer extends Player {
+  public goingThroughPlatform: boolean;
   
   public constructor(
     xPos: number, 
@@ -23,11 +24,14 @@ export default class HubPlayer extends Player {
     this.xVel = 0;
 
     if(!this.airborne){
-      if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) this.yVel = -(GameInfo.PLAYER_Y_SPEED) * (this.height / 100);
+      if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) this.yVel = -(HubInfo.PLAYER_Y_SPEED) * (this.height / 100);
     }
 
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(GameInfo.PLAYER_X_SPEED) * (this.width / 100);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.goingThroughPlatform = true
+    else this.goingThroughPlatform = false
+
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(HubInfo.PLAYER_X_SPEED) * (this.width / 100);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = HubInfo.PLAYER_X_SPEED * (this.width / 100);
 
     if (this.xVel < 0) this.direction = 'left';
     else if (this.xVel > 0) this.direction = 'right';
@@ -76,5 +80,9 @@ export default class HubPlayer extends Player {
     }
 
     if(shouldBeFlying) flying()
+  }
+
+  public isGoingThroughPlatform(): boolean {
+    return this.goingThroughPlatform
   }
 }

@@ -60,8 +60,8 @@ export default class HubScene extends GameLevel {
     ]
 
     if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished) {
-      this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), (this.canvas.height / 2), this.canvas.width / 5, this.canvas.height / 20))
-      this.NPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), (this.canvas.height / 2) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData))
+      this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), ((this.canvas.height / 3) * 2), this.canvas.width / 5, this.canvas.height / 20))
+      this.NPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), ((this.canvas.height / 3) * 2) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData))
     }
 
     this.player = new HubPlayer(this.canvas.width / 2, (this.canvas.height / 5) * 4, this.canvas.width / 25, this.canvas.height / 8, this.userData)
@@ -125,11 +125,13 @@ export default class HubScene extends GameLevel {
 
       this.props.forEach((prop) => {
         if (CollideHandler.collides(this.player, prop)) {
-          const contact = CollideHandler.getContactData(this.player, prop);
+          if (!this.player.isGoingThroughPlatform()) {
+            const contact = CollideHandler.getContactData(this.player, prop);
             contacts.push(contact)
             if (contact === CollideHandler.TOP_CONTACT) {
               this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
             } 
+          }
 
           // else if (contact === CollideHandler.BOTTOM_CONTACT) {
           //   this.player.setYPos(prop.getMaxYPos())
