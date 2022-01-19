@@ -7,7 +7,6 @@ import UserData from '../../UserData.js';
 import HubInfo from './Info/HubInfo.js';
 
 export default class HubPlayer extends Player {
-  private climbing: boolean;
   
   public constructor(
     xPos: number, 
@@ -18,8 +17,6 @@ export default class HubPlayer extends Player {
   ) {
     console.log(`${userData.getCurrentSkin().src}`)
     super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height)
-
-    this.climbing = false
   }
 
   public processInput(): void {
@@ -31,9 +28,6 @@ export default class HubPlayer extends Player {
 
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(GameInfo.PLAYER_X_SPEED) * (this.width / 100);
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
-
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.climbing = true
-    else this.climbing = false
 
     if (this.xVel < 0) this.direction = 'left';
     else if (this.xVel > 0) this.direction = 'right';
@@ -81,14 +75,6 @@ export default class HubPlayer extends Player {
       if (this.yPos + this.yVel + this.img.height > canvas.height) this.yPos = canvas.height - this.img.height
     }
 
-    if (this.climbing) shouldBeFlying = false
-
     if(shouldBeFlying) flying()
-  }
-
-  public climb() {
-    if (this.climbing) {
-      this.yPos -= HubInfo.PLAYER_CLIMB_SPEED
-    }
   }
 }

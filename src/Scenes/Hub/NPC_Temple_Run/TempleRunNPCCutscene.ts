@@ -30,7 +30,7 @@ export default class TempleRunNPCCutscene extends CutScene {
       "Ik heb de ingang geblokkeerd, zodat er niks naar binnen of naar buiten kan.",
       "Zou je kunnen kijken of alles goed gaat daarbinnen?",
       "Er zitten namelijk nog mensen in de grot.",
-      "Kijk goed naar de personen en kies of je ze moet blokken, accepteren of er mee kan chatten!",
+      "Kijk goed naar de personen en kies of je ze moet blokkeren, accepteren of er mee kan chatten!",
       "Aight alvast bedankt en succes!"
 
       // "Ey young lad, nice ta meet ya.",
@@ -47,7 +47,7 @@ export default class TempleRunNPCCutscene extends CutScene {
     ]
 
     const notReadySentences = [
-      "Je kan nog niet hier naartoe, speel eerst Wolkentrap."
+      "Je kunt hier nog niet naartoe, voltooi eerst Wolkentrap."
     ]
 
     const doneSentences = [

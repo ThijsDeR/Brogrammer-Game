@@ -1,3 +1,3 @@
 export default class HubInfo {
-    static PLAYER_CLIMB_SPEED = 1;
+    static PLAYER_CLIMB_SPEED = -100;
 }

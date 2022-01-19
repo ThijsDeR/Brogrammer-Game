@@ -12,7 +12,6 @@ import GameInfo from '../../GameInfo.js';
 import PokeTaleInfo from '../Poke-Tale/Info/PokeTaleInfo.js';
 import Platform from '../../Props/Platform.js';
 import BossNPC from './NPC_Boss/BossNPC.js';
-import Ladder from './Ladder.js';
 export default class HubScene extends GameLevel {
     player;
     props;
@@ -34,9 +33,8 @@ export default class HubScene extends GameLevel {
             new PokeNPC((canvas.width / 20) * 16, ((platformHeight * 2) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
         ];
         if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished) {
-            this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), (this.canvas.height / 3), this.canvas.width / 5, this.canvas.height / 20));
-            this.props.push(new Ladder((this.canvas.width / 2) - (this.canvas.width / 20), (this.canvas.height / 3) + (this.canvas.height / 20), this.canvas.width / 10, this.canvas.height - ((this.canvas.height / 3) + (this.canvas.height / 20))));
-            this.NPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), (this.canvas.height / 3) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData));
+            this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), (this.canvas.height / 2), this.canvas.width / 5, this.canvas.height / 20));
+            this.NPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), (this.canvas.height / 2) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData));
         }
         this.player = new HubPlayer(this.canvas.width / 2, (this.canvas.height / 5) * 4, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         this.cutScene = null;
@@ -71,14 +69,9 @@ export default class HubScene extends GameLevel {
             this.props.forEach((prop) => {
                 if (CollideHandler.collides(this.player, prop)) {
                     const contact = CollideHandler.getContactData(this.player, prop);
-                    if (!(prop instanceof Ladder)) {
-                        contacts.push(contact);
-                        if (contact === CollideHandler.TOP_CONTACT) {
-                            this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
-                        }
-                    }
-                    else {
-                        this.player.climb();
+                    contacts.push(contact);
+                    if (contact === CollideHandler.TOP_CONTACT) {
+                        this.player.setYPos(prop.getMinYPos() - this.player.getHeight());
                     }
                 }
             });
