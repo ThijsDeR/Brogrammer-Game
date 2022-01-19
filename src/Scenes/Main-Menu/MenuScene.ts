@@ -17,7 +17,11 @@ export default class MenuScene extends Scene {
 
   private robotImage: ImageProp;
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData) {
+  private backgroundMusic: HTMLAudioElement;
+
+  private isPlaying: boolean;
+
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlaying?: boolean) {
     super(canvas, userData)
 
     const buttonWidth = (this.canvas.width / 4)
@@ -47,7 +51,9 @@ export default class MenuScene extends Scene {
 
     ]
 
-    this.nextScene = this
+    this.isPlaying = isPlaying ? true : false;
+
+    this.nextScene = this;
 
     const clickFunction = (event: MouseEvent) => {
       let originalNextScene = this.nextScene
@@ -58,6 +64,8 @@ export default class MenuScene extends Scene {
               const startSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav')
               startSound.volume = 0.5;
               startSound.play();
+              this.backgroundMusic.pause()
+              this.backgroundMusic = null
               this.nextScene = new HubScene(this.canvas, this.userData);
             }else if (prop.getId() === 'controls') {
               const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
@@ -103,7 +111,17 @@ export default class MenuScene extends Scene {
         if (prop instanceof Button) {
           prop.doHover({x: event.x, y: event.y})
         }
-      })
+      }) 
+
+      if (this.isPlaying === false) {
+        this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'menu-music.wav');
+        this.backgroundMusic.loop = true;
+        this.backgroundMusic.volume = 0.1
+        this.backgroundMusic.play();
+        this.isPlaying = true;
+      }
+      
+      
     }
 
     this.canvas.addEventListener('click', clickFunction)

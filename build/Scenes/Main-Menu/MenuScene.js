@@ -11,7 +11,9 @@ export default class MenuScene extends Scene {
     props;
     nextScene;
     robotImage;
-    constructor(canvas, userData) {
+    backgroundMusic;
+    isPlaying;
+    constructor(canvas, userData, isPlaying) {
         super(canvas, userData);
         const buttonWidth = (this.canvas.width / 4);
         const buttonHeight = (this.canvas.height / 6);
@@ -27,6 +29,7 @@ export default class MenuScene extends Scene {
             new Button(positions[2].x - (buttonWidth / 2), positions[2].y, buttonWidth, buttonHeight, 'white', 'blue', 'Besturing', this.canvas.height / 20, 'controls'),
             new Button(positions[3].x - (buttonWidth / 2), positions[3].y, buttonWidth, buttonHeight, 'white', 'blue', 'Winkel', this.canvas.height / 20, 'shop')
         ];
+        this.isPlaying = isPlaying ? true : false;
         this.nextScene = this;
         const clickFunction = (event) => {
             let originalNextScene = this.nextScene;
@@ -37,6 +40,8 @@ export default class MenuScene extends Scene {
                             const startSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav');
                             startSound.volume = 0.5;
                             startSound.play();
+                            this.backgroundMusic.pause();
+                            this.backgroundMusic = null;
                             this.nextScene = new HubScene(this.canvas, this.userData);
                         }
                         else if (prop.getId() === 'controls') {
@@ -85,6 +90,13 @@ export default class MenuScene extends Scene {
                     prop.doHover({ x: event.x, y: event.y });
                 }
             });
+            if (this.isPlaying === false) {
+                this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'menu-music.wav');
+                this.backgroundMusic.loop = true;
+                this.backgroundMusic.volume = 0.1;
+                this.backgroundMusic.play();
+                this.isPlaying = true;
+            }
         };
         this.canvas.addEventListener('click', clickFunction);
         this.canvas.addEventListener('mousemove', hoverFunction);

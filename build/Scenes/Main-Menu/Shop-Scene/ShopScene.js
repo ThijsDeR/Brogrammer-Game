@@ -49,7 +49,10 @@ export default class ShopScene extends Scene {
                 }
             });
             if (this.backButton.isHovered({ x: event.x, y: event.y })) {
-                this.nextScene = new MenuScene(this.canvas, this.userData);
+                this.nextScene = new MenuScene(this.canvas, this.userData, true);
+                const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
+                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+                buttonSound.play();
             }
             if (originalNextScene !== this.nextScene) {
                 this.canvas.removeEventListener('click', clickFunction);

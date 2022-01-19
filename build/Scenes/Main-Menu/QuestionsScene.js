@@ -47,7 +47,7 @@ export default class QuestionsScene extends Scene {
                 if (prop instanceof Button) {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
                         if (prop.getId() === 'backBtn')
-                            this.nextScene = new MenuScene(this.canvas, this.userData);
+                            this.nextScene = new MenuScene(this.canvas, this.userData, true);
                         else
                             this.nextScene = new QuestionScene(this.canvas, this.userData, this.questions[Number(prop.getId())]);
                     }

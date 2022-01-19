@@ -20,7 +20,7 @@ export default class GameSceneHandler {
   public constructor(game: Game) {
     this.game = game;
     this.engine = new GameEngine(this, GameEngine.PLAY_CATCH_UP);
-    this.scene = new MenuScene(this.game.getCanvas(), this.game.getUserData());
+    this.scene = new MenuScene(this.game.getCanvas(), this.game.getUserData(), null);
   }
 
   /**
