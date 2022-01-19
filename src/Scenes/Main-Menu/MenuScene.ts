@@ -147,7 +147,7 @@ export default class MenuScene extends Scene {
       this.canvas.width / 2,
       this.canvas.height / 10,
       this.canvas.height / 20,
-      'black',
+      'white',
     )
   }
 

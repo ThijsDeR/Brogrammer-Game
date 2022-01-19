@@ -7,14 +7,21 @@ import MenuScene from "../MenuScene.js";
 import ItemShopScene from "./ItemShopScene.js";
 import ShopItem from "./ShopItem.js";
 export default class ShopScene extends Scene {
-    backButton;
+    static ITEMS_PER_PAGE = 14;
+    buttons;
     nextScene;
     items;
     shopItems;
     backgroundMusic;
+    pages;
+    currentPage;
     constructor(canvas, userData, backgroundMusic) {
         super(canvas, userData);
-        this.backButton = new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn');
+        this.buttons = [
+            new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
+            new Button((this.canvas.width / 2) - (this.canvas.width / 12), (this.canvas.height / 10) * 9, this.canvas.width / 12, this.canvas.height / 10, 'white', 'red', '<', this.canvas.height / 12, 'decreaseShopPage'),
+            new Button((this.canvas.width / 2), (this.canvas.height / 10) * 9, this.canvas.width / 12, this.canvas.height / 10, 'white', 'red', '>', this.canvas.height / 12, 'increaseShopPage'),
+        ];
         this.nextScene = this;
         this.shopItems = [];
         this.backgroundMusic = backgroundMusic;
@@ -37,14 +44,11 @@ export default class ShopScene extends Scene {
             const skins = this.userData.getSkins().filter((skin) => skin.id === item.id);
             return skins.length === 0;
         });
-        console.log(this.items);
-        const shopItemWidth = canvas.width / 12;
-        const shopItemHeight = canvas.height / 4;
-        const positions = GridGenerator.generateGrid(this.canvas.width / 2, this.canvas.height / 3, this.items.length, (canvas.height / 3), shopItemWidth, shopItemHeight, canvas.width / 200, canvas.height / 50);
-        console.log(positions);
-        this.items.forEach((item, itemIndex) => {
-            this.shopItems.push(new ShopItem(positions[itemIndex].x - (shopItemWidth / 2), positions[itemIndex].y, shopItemWidth, shopItemHeight, item.name, item.src, item.cost, item.id));
-        });
+        this.currentPage = 0;
+        this.pages = Math.floor(this.items.length / ShopScene.ITEMS_PER_PAGE);
+        if (this.items.length % ShopScene.ITEMS_PER_PAGE !== 0)
+            this.pages += 1;
+        this.generateShop(canvas);
         const clickFunction = (event) => {
             let originalNextScene = this.nextScene;
             this.shopItems.forEach((shopItem) => {
@@ -55,19 +59,37 @@ export default class ShopScene extends Scene {
                     this.nextScene = new ItemShopScene(this.canvas, this.userData, shopItem);
                 }
             });
-            if (this.backButton.isHovered({ x: event.x, y: event.y })) {
-                this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
-                const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
-                buttonSound.play();
-            }
+            this.buttons.forEach((button) => {
+                if (button.isHovered({ x: event.x, y: event.y })) {
+                    const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
+                    buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+                    buttonSound.play();
+                    if (button.getId() === 'backBtn') {
+                        this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
+                    }
+                    if (button.getId() === 'increaseShopPage') {
+                        this.currentPage += 1;
+                        if (this.currentPage + 1 > this.pages)
+                            this.currentPage = 0;
+                        this.generateShop(canvas);
+                    }
+                    if (button.getId() === 'decreaseShopPage') {
+                        this.currentPage -= 1;
+                        if (this.currentPage < 0)
+                            this.currentPage = this.pages - 1;
+                        this.generateShop(canvas);
+                    }
+                }
+            });
             if (originalNextScene !== this.nextScene) {
                 this.canvas.removeEventListener('click', clickFunction);
                 this.canvas.removeEventListener('mousemove', hoverFunction);
             }
         };
         const hoverFunction = (event) => {
-            this.backButton.doHover({ x: event.x, y: event.y });
+            this.buttons.forEach((button) => {
+                button.doHover({ x: event.x, y: event.y });
+            });
             this.shopItems.forEach((shopItem) => {
                 shopItem.doHover({ x: event.x, y: event.y });
             });
@@ -75,15 +97,28 @@ export default class ShopScene extends Scene {
         this.canvas.addEventListener('click', clickFunction);
         this.canvas.addEventListener('mousemove', hoverFunction);
     }
+    generateShop(canvas) {
+        this.shopItems = [];
+        const shopItemWidth = canvas.width / 12;
+        const shopItemHeight = canvas.height / 4;
+        const positions = GridGenerator.generateGrid(this.canvas.width / 2, this.canvas.height / 3, ShopScene.ITEMS_PER_PAGE, (canvas.height / 3), shopItemWidth, shopItemHeight, canvas.width / 200, canvas.height / 50);
+        let tempArray = [...this.items];
+        tempArray.splice(ShopScene.ITEMS_PER_PAGE * this.currentPage, ShopScene.ITEMS_PER_PAGE).forEach((item, itemIndex) => {
+            this.shopItems.push(new ShopItem(positions[itemIndex].x - (shopItemWidth / 2), positions[itemIndex].y, shopItemWidth, shopItemHeight, item.name, item.src, item.cost, item.id));
+        });
+    }
     draw() {
         this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.backButton.draw(this.ctx);
+        this.buttons.forEach((button) => {
+            button.draw(this.ctx);
+        });
         Scene.writeTextToCanvas(this.ctx, 'Winkel', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
         Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 5, this.canvas.height / 25, 'white', 'center', 'middle');
         this.shopItems.forEach((shopItem) => {
             shopItem.draw(this.ctx);
         });
+        Scene.writeTextToCanvas(this.ctx, `Page ${this.currentPage + 1} out of ${this.pages}`, this.canvas.width / 3, (this.canvas.height / 10) * 9 + (this.canvas.height / 20), this.canvas.height / 50, 'white');
         if (this.shopItems.length === 0) {
             Scene.writeTextToCanvas(this.ctx, 'Je hebt alles al gekocht!', this.canvas.width / 2, this.canvas.height / 2, this.canvas.height / 25, 'white', 'center', 'middle');
         }

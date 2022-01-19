@@ -10,7 +10,9 @@ import ItemShopScene from "./ItemShopScene.js";
 import ShopItem from "./ShopItem.js";
 
 export default class ShopScene extends Scene {
-  private backButton: Button;
+  public static readonly ITEMS_PER_PAGE: number = 14;
+
+  private buttons: Button[];
 
   private nextScene: Scene;
 
@@ -20,11 +22,18 @@ export default class ShopScene extends Scene {
 
   private backgroundMusic: HTMLAudioElement;
 
+  private pages: number;
+
+  private currentPage: number;
+
   public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
     super(canvas, userData)
 
-    this.backButton = new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')
-
+    this.buttons = [
+      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
+      new Button((this.canvas.width / 2) - (this.canvas.width / 12), (this.canvas.height / 10) * 9, this.canvas.width / 12, this.canvas.height / 10, 'white', 'red', '<', this.canvas.height / 12, 'decreaseShopPage'),
+      new Button((this.canvas.width / 2), (this.canvas.height / 10) * 9, this.canvas.width / 12, this.canvas.height / 10, 'white', 'red', '>', this.canvas.height / 12, 'increaseShopPage'),
+    ]
     this.nextScene = this;
 
     this.shopItems = [];
@@ -52,25 +61,12 @@ export default class ShopScene extends Scene {
       const skins = this.userData.getSkins().filter((skin) => skin.id === item.id)
       return skins.length === 0
     })
-    console.log(this.items)
+    
+    this.currentPage = 0
+    this.pages = Math.floor(this.items.length / ShopScene.ITEMS_PER_PAGE)
+    if (this.items.length % ShopScene.ITEMS_PER_PAGE !== 0) this.pages += 1
 
-    const shopItemWidth = canvas.width / 12
-    const shopItemHeight = canvas.height / 4
-
-    const positions = GridGenerator.generateGrid(
-      this.canvas.width / 2,
-      this.canvas.height / 3,
-      this.items.length,
-      (canvas.height / 3),
-      shopItemWidth,
-      shopItemHeight,
-      canvas.width / 200,
-      canvas.height / 50,
-    )
-    console.log(positions)
-    this.items.forEach((item, itemIndex) => {
-      this.shopItems.push(new ShopItem(positions[itemIndex].x - (shopItemWidth / 2), positions[itemIndex].y, shopItemWidth, shopItemHeight, item.name, item.src, item.cost, item.id))
-    })
+    this.generateShop(canvas)
 
     const clickFunction = (event: MouseEvent) => {
       let originalNextScene = this.nextScene
@@ -84,12 +80,27 @@ export default class ShopScene extends Scene {
         }
       })
 
-      if (this.backButton.isHovered({x: event.x, y: event.y})) {
-        this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic)
-        const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
-        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
-        buttonSound.play();
-      }
+      this.buttons.forEach((button) => {
+        if (button.isHovered({x: event.x, y: event.y})) {
+          const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
+          buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+          buttonSound.play();
+          if (button.getId() === 'backBtn') {
+            this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic)
+          }
+          if (button.getId() === 'increaseShopPage') {
+            this.currentPage += 1
+            if (this.currentPage + 1 > this.pages) this.currentPage = 0
+            this.generateShop(canvas)
+          }
+          if (button.getId() === 'decreaseShopPage') {
+            this.currentPage -= 1
+            if (this.currentPage < 0) this.currentPage = this.pages - 1
+            this.generateShop(canvas)
+          }
+        }
+      })
+      
 
       if (originalNextScene !== this.nextScene) {
         this.canvas.removeEventListener('click', clickFunction)
@@ -98,7 +109,9 @@ export default class ShopScene extends Scene {
     }
 
     const hoverFunction = (event: MouseEvent) => {
-      this.backButton.doHover({x: event.x, y: event.y})
+      this.buttons.forEach((button) => {
+        button.doHover({x: event.x, y: event.y})
+      })
 
       this.shopItems.forEach((shopItem) => {
         shopItem.doHover({x: event.x, y: event.y})
@@ -110,11 +123,36 @@ export default class ShopScene extends Scene {
     this.canvas.addEventListener('mousemove', hoverFunction)
   }
 
+  public generateShop(canvas: HTMLCanvasElement): void {
+    this.shopItems = []
+
+    const shopItemWidth = canvas.width / 12
+    const shopItemHeight = canvas.height / 4
+
+    const positions = GridGenerator.generateGrid(
+      this.canvas.width / 2,
+      this.canvas.height / 3,
+      ShopScene.ITEMS_PER_PAGE,
+      (canvas.height / 3),
+      shopItemWidth,
+      shopItemHeight,
+      canvas.width / 200,
+      canvas.height / 50,
+    )
+    let tempArray = [...this.items]
+    tempArray.splice(ShopScene.ITEMS_PER_PAGE * this.currentPage, ShopScene.ITEMS_PER_PAGE).forEach((item, itemIndex) => {
+      this.shopItems.push(new ShopItem(positions[itemIndex].x - (shopItemWidth / 2), positions[itemIndex].y, shopItemWidth, shopItemHeight, item.name, item.src, item.cost, item.id))
+    })
+
+  }
+
   public draw(): void {
     this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
     this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
 
-    this.backButton.draw(this.ctx)
+    this.buttons.forEach((button) => {
+      button.draw(this.ctx)
+    })
 
     Scene.writeTextToCanvas(
       this.ctx,
@@ -139,6 +177,16 @@ export default class ShopScene extends Scene {
     this.shopItems.forEach((shopItem) => {
       shopItem.draw(this.ctx)
     })
+
+    Scene.writeTextToCanvas(
+      this.ctx,
+      `Page ${this.currentPage + 1} out of ${this.pages}`,
+      this.canvas.width / 3,
+      (this.canvas.height / 10) * 9 + (this.canvas.height / 20),
+      this.canvas.height / 50,
+      'white',
+
+    )
 
     if (this.shopItems.length === 0) {
       Scene.writeTextToCanvas(

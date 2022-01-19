@@ -15,11 +15,9 @@ export default class GridGenerator {
                 itemsHeight += (itemHeight + paddingY);
             }
         }
-        console.log(itemAmount, amountPerRow);
         let rowAmount = Math.floor(itemAmount / amountPerRow);
         if (itemAmount % amountPerRow !== 0)
             rowAmount += 1;
-        console.log(rowAmount);
         if (rowAmount % 2 === 0) {
             for (let i = rowAmount / 2; i > 0; i--) {
                 xPositions.push(xPos - (itemWidth * i) - (paddingX * i) + (itemWidth / 2));
