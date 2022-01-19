@@ -1,7 +1,3 @@
-import RectProp from "../../Props/RectProp.js";
-import Game from "../../Game.js"
-import BossInfo from "./Info/BossInfo.js";
-import Scene from "../../Scene.js";
 import GameInfo from "../../GameInfo.js";
 import ImageProp from "../../Props/ImageProp.js";
 
@@ -50,6 +46,16 @@ export default class PlayerProjectile {
 
   public draw(ctx: CanvasRenderingContext2D): void {
     this.image.draw(ctx)
+  }
+
+  public checkOutOfCanvas(canvas: HTMLCanvasElement): boolean {
+    if (
+      this.xPos > canvas.width 
+      || this.xPos < 0 - this.width
+      || this.yPos > canvas.height
+      || this.yPos < 0 - this.height
+    ) return true
+    return false
   }
 
   public getImage(): ImageProp {

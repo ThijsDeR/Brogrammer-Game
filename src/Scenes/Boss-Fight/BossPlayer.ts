@@ -91,9 +91,10 @@ export default class BossPlayer extends Player {
         this.projectiles.push(new PlayerProjectile(this.xPos, this.yPos, this.width / 2, this.height / 2, Math.cos(tempTan), Math.sin(tempTan)))
       }
 
-      public update(elapsed: number): void {
-        this.projectiles.forEach((projectile) => {
+      public update(elapsed: number, canvas: HTMLCanvasElement) {
+        this.projectiles.forEach((projectile, projectileIndex) => {
           projectile.move(elapsed)
+          if (projectile.checkOutOfCanvas(canvas)) this.projectiles.splice(projectileIndex, 1)
         })
       }
 

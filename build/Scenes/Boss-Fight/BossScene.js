@@ -22,7 +22,7 @@ export default class BossScene extends GameLevel {
         this.cutScene = null;
         this.nextScene = this;
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'CaveBackgroundMusic.mp3');
-        this.backgroundMusic.volume = 0.6;
+        this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME;
         this.backgroundMusic.loop = true;
         this.backgroundMusic.play();
         this.clickFunction = (event) => {
@@ -52,8 +52,8 @@ export default class BossScene extends GameLevel {
         if (this.cutScene === null) {
             let contacts = [];
             this.player.move(this.canvas, contacts, elapsed);
-            this.player.update(elapsed);
-            this.boss.update(elapsed);
+            this.player.update(elapsed, this.canvas);
+            this.boss.update(elapsed, this.canvas);
             this.boss.shootProjectile(elapsed, this.player);
             this.boss.getProjectiles().forEach((projectile) => {
                 if (CollideHandler.collides(this.player, projectile.getRectProp())) {
