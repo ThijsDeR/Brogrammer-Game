@@ -23,7 +23,7 @@ export default class Boss extends ImageProp {
   ) {
     super(xPos, yPos, GameInfo.IMG_PATH + 'sephiroth.png', width, height)
 
-    this.health = 1000
+    this.health = BossInfo.BOSS_HEALTH
 
     this.projectiles = []
 

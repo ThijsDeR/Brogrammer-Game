@@ -15,4 +15,5 @@ export default class BossInfo {
         "Ik heb je IP-Adres",
         "Ik ga je kapot maken"
     ];
+    static BOSS_HEALTH = 100;
 }

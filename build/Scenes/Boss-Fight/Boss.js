@@ -10,7 +10,7 @@ export default class Boss extends ImageProp {
     projectileDelay;
     constructor(xPos, yPos, width = undefined, height = undefined) {
         super(xPos, yPos, GameInfo.IMG_PATH + 'sephiroth.png', width, height);
-        this.health = 1000;
+        this.health = BossInfo.BOSS_HEALTH;
         this.projectiles = [];
         this.lastProjectileTime = 0;
         this.projectileDelay = BossInfo.STARTING_PROJECTILE_DELAY;

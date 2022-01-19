@@ -27,4 +27,6 @@ export default abstract class BossInfo {
     "Ik heb je IP-Adres",
     "Ik ga je kapot maken"
   ]
+
+  public static readonly BOSS_HEALTH = 100;
 }
