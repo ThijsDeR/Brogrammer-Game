@@ -27,7 +27,7 @@ export default class TextBox {
     width: number,
     height: number,
     sentences: string[],
-    
+    textBoxImage: string,
   ) {
     this.xPos = xPos;
     this.yPos = yPos;
@@ -38,7 +38,7 @@ export default class TextBox {
     this.currentSentence = 0;
     this.sentenceLength = 0;
 
-    this.textBoxImage = new ImageProp(this.xPos, this.yPos, GameInfo.IMG_PATH + 'chatbox.png', this.width, this.height)
+    this.textBoxImage = new ImageProp(this.xPos, this.yPos, textBoxImage, this.width, this.height)
 
     this.nextSentenceDelay = 200;
   }
@@ -47,8 +47,8 @@ export default class TextBox {
     this.textBoxImage.draw(ctx)
     if (!this.isDone()) {
       Scene.writeTextToCanvas(
-        ctx, 
-        this.sentences[this.currentSentence].substring(0, this.sentenceLength), 
+        ctx,
+        this.sentences[this.currentSentence].substring(0, this.sentenceLength),
         this.xPos + (this.width / 2),
         this.yPos + (this.height / 2),
         this.height / 10,
@@ -79,7 +79,7 @@ export default class TextBox {
   public reset(): void {
     this.currentSentence = 0
     this.sentenceLength = 0
-    
+
   }
 
   public isDone(): boolean {

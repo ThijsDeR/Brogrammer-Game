@@ -160,7 +160,7 @@ export default class ControlsScene extends Scene {
               contacts.push(contact)
               if (contact === CollideHandler.TOP_CONTACT) {
                 this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
-              } 
+              }
             }
 
           }
@@ -169,6 +169,7 @@ export default class ControlsScene extends Scene {
         this.NPCs.forEach((NPC) => {
           if (CollideHandler.collides(this.player, NPC)) {
             if (this.player.isInteracting()) {
+              console.log('git commit arson')
               this.cutScene = NPC.interact()
             }
           }

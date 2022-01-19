@@ -6,6 +6,7 @@ import UserData from '../../../UserData.js';
 import DoodleInfo from '../../Doodle/Info/DoodleInfo.js';
 import TempleRunInfo from '../../Temple-Run/Info/TempleRunInfo.js';
 import TempleRunNPC from './TempleRunNPC.js';
+import GameInfo from '../../../GameInfo.js';
 
 export default class TempleRunNPCCutscene extends CutScene {
 
@@ -56,14 +57,14 @@ export default class TempleRunNPCCutscene extends CutScene {
       "Succes!"
     ]
 
-    if (this.userData.getNPCStoryProgress('doodle').finished === false) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, notReadySentences)
-    else if (this.userData.getNPCStoryProgress('templerun').finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences)
+    if (this.userData.getNPCStoryProgress('doodle').finished === false) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, notReadySentences, GameInfo.IMG_PATH + 'chatbox.png')
+    else if (this.userData.getNPCStoryProgress('templerun').finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences, GameInfo.IMG_PATH + 'chatbox.png')
     else if (this.userData.getNPCStoryProgress('templerun').talkedTo === true) {
       this.templeRunNPC.finishInteraction()
-      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
+      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png')
     }
-    else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
-    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
+    else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png')
+    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png')
   }
 
   public draw(): void {

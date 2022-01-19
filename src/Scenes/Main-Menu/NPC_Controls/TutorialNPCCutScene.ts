@@ -4,6 +4,7 @@ import TextBox from '../../../Props/TextBox.js';
 import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
 import MainNPC from './TutorialNPC.js';
+import GameInfo from '../../../GameInfo.js';
 
 
 export default class TutorialNPCCutscene extends CutScene {
@@ -34,8 +35,8 @@ export default class TutorialNPCCutscene extends CutScene {
       "Start het spel en praat met de andere NPC'S om een level in te gaan"
     ]
 
-    this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
-    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)
+    this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png')
+    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png')
   }
 
   public draw(): void {
@@ -52,7 +53,7 @@ export default class TutorialNPCCutscene extends CutScene {
   }
 
   public update(elapsed: number): boolean {
-    this.textBox.advanceSentence(elapsed)
+   this.textBox.advanceSentence(elapsed)
     if (this.textBox.isDone()) {
       this.textBox = this.endTextBox
       this.textBox.reset()
@@ -64,5 +65,5 @@ export default class TutorialNPCCutscene extends CutScene {
   public getOptionalScene(): Scene | null{
     return null
   }
-  
+
 }

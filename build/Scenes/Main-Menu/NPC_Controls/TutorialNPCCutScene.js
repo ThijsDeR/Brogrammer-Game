@@ -1,6 +1,7 @@
 import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
+import GameInfo from '../../../GameInfo.js';
 export default class TutorialNPCCutscene extends CutScene {
     doodleNPC;
     textBox;
@@ -18,8 +19,8 @@ export default class TutorialNPCCutscene extends CutScene {
             "Je mag gaan beginnen hoor...",
             "Start het spel en praat met de andere NPC'S om een level in te gaan"
         ];
-        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
-        this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
+        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png');
+        this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png');
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';

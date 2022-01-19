@@ -29,9 +29,11 @@ export default class HubScene extends GameLevel {
 
   private cutScene: null | CutScene;
 
-  private backgroundMusic: HTMLAudioElement;
+  private backgroundMusicHub: HTMLAudioElement;
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData) {
+  private isPlayingHub: boolean;
+
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlayingHub?: boolean, backgroundMusicHub?: HTMLAudioElement| null) {
     super(canvas, userData)
 
     const platformHeight = (this.canvas.height / 5)
@@ -53,11 +55,18 @@ export default class HubScene extends GameLevel {
       new Platform((this.canvas.width / 5) * 4, platformHeight * 4, this.canvas.width / 5, this.canvas.height / 20),
     ];
 
+    this.isPlayingHub = isPlayingHub ? true : false;
+
     // background music
-    this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'hub-music.mp3');
-    this.backgroundMusic.loop = true;
-    this.backgroundMusic.volume = 0.1
-    this.backgroundMusic.play();
+    if (this.isPlayingHub === false) {
+      this.backgroundMusicHub = new Audio(GameInfo.SOUND_PATH + 'hub-music.mp3');
+      this.backgroundMusicHub.loop = true;
+      this.backgroundMusicHub.volume = 0.1
+      this.backgroundMusicHub.play();
+      this.isPlayingHub = true;
+    } else {
+      if (backgroundMusicHub !== undefined) this.backgroundMusicHub = backgroundMusicHub;
+    }
     
 
     this.NPCs = [
@@ -157,8 +166,6 @@ export default class HubScene extends GameLevel {
         const NPCTeleporter = NPC.getTeleporter()
         if (CollideHandler.collides(this.player, NPCTeleporter)) {
           if (NPCTeleporter.isActivated()) {
-            this.backgroundMusic.pause()
-            this.backgroundMusic = null
             this.nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData)
           }
         }
@@ -168,7 +175,7 @@ export default class HubScene extends GameLevel {
       this.player.move(this.canvas, contacts, elapsed);
 
       if (this.player.isPausing()) {
-        this.cutScene = new MenuCutScene(this.canvas, this.userData)
+        this.cutScene = new MenuCutScene(this.canvas, this.userData, this.backgroundMusicHub, true)
       }
 
     } else {
@@ -179,7 +186,10 @@ export default class HubScene extends GameLevel {
         this.cutScene = null
       };
     }
-
+    if (this.nextScene !== this && !(this.nextScene instanceof HubScene)) {
+      this.backgroundMusicHub.pause()
+      this.backgroundMusicHub = null
+    }
     return this.nextScene
   }
 }

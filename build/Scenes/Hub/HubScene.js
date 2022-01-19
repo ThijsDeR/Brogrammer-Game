@@ -18,8 +18,9 @@ export default class HubScene extends GameLevel {
     NPCs;
     nextScene;
     cutScene;
-    backgroundMusic;
-    constructor(canvas, userData) {
+    backgroundMusicHub;
+    isPlayingHub;
+    constructor(canvas, userData, isPlayingHub, backgroundMusicHub) {
         super(canvas, userData);
         const platformHeight = (this.canvas.height / 5);
         this.props = [
@@ -28,10 +29,18 @@ export default class HubScene extends GameLevel {
             new Platform((this.canvas.width / 5) * 4, platformHeight * 2, this.canvas.width / 5, this.canvas.height / 20),
             new Platform((this.canvas.width / 5) * 4, platformHeight * 4, this.canvas.width / 5, this.canvas.height / 20),
         ];
-        this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'hub-music.mp3');
-        this.backgroundMusic.loop = true;
-        this.backgroundMusic.volume = 0.1;
-        this.backgroundMusic.play();
+        this.isPlayingHub = isPlayingHub ? true : false;
+        if (this.isPlayingHub === false) {
+            this.backgroundMusicHub = new Audio(GameInfo.SOUND_PATH + 'hub-music.mp3');
+            this.backgroundMusicHub.loop = true;
+            this.backgroundMusicHub.volume = 0.1;
+            this.backgroundMusicHub.play();
+            this.isPlayingHub = true;
+        }
+        else {
+            if (backgroundMusicHub !== undefined)
+                this.backgroundMusicHub = backgroundMusicHub;
+        }
         this.NPCs = [
             new TempleRunNPC(this.canvas.width / 7, (platformHeight * 4) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
             new DoodleNPC((canvas.width / 20) * 16, ((platformHeight * 4) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
@@ -92,15 +101,13 @@ export default class HubScene extends GameLevel {
                 const NPCTeleporter = NPC.getTeleporter();
                 if (CollideHandler.collides(this.player, NPCTeleporter)) {
                     if (NPCTeleporter.isActivated()) {
-                        this.backgroundMusic.pause();
-                        this.backgroundMusic = null;
                         this.nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData);
                     }
                 }
             });
             this.player.move(this.canvas, contacts, elapsed);
             if (this.player.isPausing()) {
-                this.cutScene = new MenuCutScene(this.canvas, this.userData);
+                this.cutScene = new MenuCutScene(this.canvas, this.userData, this.backgroundMusicHub, true);
             }
         }
         else {
@@ -112,6 +119,10 @@ export default class HubScene extends GameLevel {
                 this.cutScene = null;
             }
             ;
+        }
+        if (this.nextScene !== this && !(this.nextScene instanceof HubScene)) {
+            this.backgroundMusicHub.pause();
+            this.backgroundMusicHub = null;
         }
         return this.nextScene;
     };

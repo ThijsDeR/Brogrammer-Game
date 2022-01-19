@@ -8,6 +8,7 @@ import PokePlayer from './PokePlayer.js';
 import PokeEnemy from './PokeEnemy.js';
 import CollideHandler from '../../CollideHandler.js';
 import MenuCutScene from '../MenuCutScene.js';
+import BattleScene from './BattleScene.js';
 export default class PoketaleScene extends GameLevel {
     player;
     props;
@@ -17,12 +18,12 @@ export default class PoketaleScene extends GameLevel {
     cutScene;
     constructor(canvas, userData) {
         super(canvas, userData);
-        this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData);
+        this.player = new PokePlayer(this.canvas.width / 10, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         this.props = [
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(400, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(400, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(400, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(400, 1800), Game.randomNumber(450, 900), 100, 100),
         ];
         this.score = 0;
         this.cutScene = null;
@@ -59,7 +60,8 @@ export default class PoketaleScene extends GameLevel {
                 if (CollideHandler.collides(this.player, prop)) {
                     const contact = CollideHandler.getContactData(this.player, prop);
                     if (prop instanceof PokeEnemy) {
-                        console.log("You hit me!");
+                        this.cutScene = new BattleScene(this.canvas, this.userData, this.player, prop);
+                        console.log("Hit registered");
                         this.props.splice(propIndex, 1);
                     }
                 }

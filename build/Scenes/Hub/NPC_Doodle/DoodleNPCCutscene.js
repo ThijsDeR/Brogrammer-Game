@@ -2,6 +2,7 @@ import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
 import DoodleInfo from '../../Doodle/Info/DoodleInfo.js';
+import GameInfo from '../../../GameInfo.js';
 export default class DoodleNPCCutscene extends CutScene {
     doodleNPC;
     textBox;
@@ -30,14 +31,14 @@ export default class DoodleNPCCutscene extends CutScene {
             "Succes!"
         ];
         if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished)
-            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences);
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences, GameInfo.IMG_PATH + 'chatbox.png');
         else if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).talkedTo === true) {
             this.doodleNPC.finishInteraction();
-            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png');
         }
         else
-            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
-        this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences);
+            this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png');
+        this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png');
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
