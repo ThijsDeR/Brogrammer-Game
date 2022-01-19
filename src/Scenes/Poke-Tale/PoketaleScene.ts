@@ -36,30 +36,30 @@ export default class PoketaleScene extends GameLevel {
     this.props =[
       new PokeEnemy(
         Game.randomNumber(100, 1800),
-        Game.randomNumber(450, 1000),
-        40,
-        40,
+        Game.randomNumber(450, 900),
+        100,
+        100,
       ),
 
       new PokeEnemy(
         Game.randomNumber(100, 1800),
-        Game.randomNumber(450, 1000),
-        40,
-        40,
+        Game.randomNumber(450, 900),
+        100,
+        100,
       ),
 
       new PokeEnemy(
         Game.randomNumber(100, 1800),
-        Game.randomNumber(450, 1000),
-        40,
-        40,
+        Game.randomNumber(450, 900),
+        100,
+        100,
       ),
 
       new PokeEnemy(
         Game.randomNumber(100, 1800),
-        Game.randomNumber(450, 1000),
-        40,
-        40,
+        Game.randomNumber(450, 900),
+        100,
+        100,
       ),
     ]
 
@@ -108,6 +108,8 @@ export default class PoketaleScene extends GameLevel {
         // //If the player makes contact, the player dies.
            if (prop instanceof PokeEnemy) {
              console.log("You hit me!")
+             // Should call a startFight function
+
              this.props.splice(propIndex, 1);
            }
           }

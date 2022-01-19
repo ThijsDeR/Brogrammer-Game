@@ -19,10 +19,10 @@ export default class PoketaleScene extends GameLevel {
         super(canvas, userData);
         this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         this.props = [
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 1000), 40, 40),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 1000), 40, 40),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 1000), 40, 40),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 1000), 40, 40),
+            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
         ];
         this.score = 0;
         this.cutScene = null;

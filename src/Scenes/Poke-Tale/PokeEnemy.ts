@@ -8,7 +8,7 @@ export default class PokeEnemy extends ImageProp {
     width: number | undefined = undefined,
     height: number | undefined = undefined
     ){
-    super(xPos, yPos, './assets/img/Slime.png', width, height)
+    super(xPos, yPos, './assets/img/PokeEnemy.png', width, height)
 
   }
 }
