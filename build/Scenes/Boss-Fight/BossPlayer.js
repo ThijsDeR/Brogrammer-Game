@@ -63,9 +63,11 @@ export default class BossPlayer extends Player {
         const tempTan = Math.atan2(mouseCoords.y - this.getMinYPos(), mouseCoords.x - this.getMinXPos());
         this.projectiles.push(new PlayerProjectile(this.xPos, this.yPos, this.width / 2, this.height / 2, Math.cos(tempTan), Math.sin(tempTan)));
     }
-    update(elapsed) {
-        this.projectiles.forEach((projectile) => {
+    update(elapsed, canvas) {
+        this.projectiles.forEach((projectile, projectileIndex) => {
             projectile.move(elapsed);
+            if (projectile.checkOutOfCanvas(canvas))
+                this.projectiles.splice(projectileIndex, 1);
         });
     }
     getProjectiles() {

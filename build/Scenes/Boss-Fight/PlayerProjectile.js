@@ -26,6 +26,14 @@ export default class PlayerProjectile {
     draw(ctx) {
         this.image.draw(ctx);
     }
+    checkOutOfCanvas(canvas) {
+        if (this.xPos > canvas.width
+            || this.xPos < 0 - this.width
+            || this.yPos > canvas.height
+            || this.yPos < 0 - this.height)
+            return true;
+        return false;
+    }
     getImage() {
         return this.image;
     }

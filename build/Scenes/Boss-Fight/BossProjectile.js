@@ -32,6 +32,14 @@ export default class BossProjectile {
         this.rectProp.draw(ctx);
         Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.height / 5, 'white', 'center', 'middle', this.width);
     }
+    checkOutOfCanvas(canvas) {
+        if (this.xPos > canvas.width
+            || this.xPos < 0 - this.width
+            || this.yPos > canvas.height
+            || this.yPos < 0 - this.height)
+            return true;
+        return false;
+    }
     getRectProp() {
         return this.rectProp;
     }

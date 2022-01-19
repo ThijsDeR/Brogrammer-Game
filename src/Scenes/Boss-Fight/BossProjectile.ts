@@ -66,6 +66,16 @@ export default class BossProjectile {
     )
   }
 
+  public checkOutOfCanvas(canvas: HTMLCanvasElement): boolean {
+    if (
+      this.xPos > canvas.width 
+      || this.xPos < 0 - this.width
+      || this.yPos > canvas.height
+      || this.yPos < 0 - this.height
+    ) return true
+    return false
+  }
+
   public getRectProp(): RectProp {
     return this.rectProp
   }
