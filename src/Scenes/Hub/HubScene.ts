@@ -29,6 +29,8 @@ export default class HubScene extends GameLevel {
 
   private cutScene: null | CutScene;
 
+  private backgroundMusic: HTMLAudioElement;
+
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     super(canvas, userData)
 
@@ -51,6 +53,11 @@ export default class HubScene extends GameLevel {
       new Platform((this.canvas.width / 5) * 4, platformHeight * 4, this.canvas.width / 5, this.canvas.height / 20),
     ];
 
+    // background music
+    this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'hub-music.mp3');
+    this.backgroundMusic.loop = true;
+    this.backgroundMusic.volume = 0.1
+    this.backgroundMusic.play();
     
 
     this.NPCs = [
@@ -149,6 +156,8 @@ export default class HubScene extends GameLevel {
         const NPCTeleporter = NPC.getTeleporter()
         if (CollideHandler.collides(this.player, NPCTeleporter)) {
           if (NPCTeleporter.isActivated()) {
+            this.backgroundMusic.pause()
+            this.backgroundMusic = null
             this.nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData)
           }
         }

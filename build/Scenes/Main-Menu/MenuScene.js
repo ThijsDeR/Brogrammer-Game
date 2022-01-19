@@ -11,7 +11,9 @@ export default class MenuScene extends Scene {
     props;
     nextScene;
     robotImage;
-    constructor(canvas, userData) {
+    backgroundMusic;
+    isPlaying;
+    constructor(canvas, userData, isPlaying, backgroundMusic) {
         super(canvas, userData);
         const buttonWidth = (this.canvas.width / 4);
         const buttonHeight = (this.canvas.height / 6);
@@ -27,6 +29,7 @@ export default class MenuScene extends Scene {
             new Button(positions[2].x - (buttonWidth / 2), positions[2].y, buttonWidth, buttonHeight, 'white', 'blue', 'Besturing', this.canvas.height / 20, 'controls'),
             new Button(positions[3].x - (buttonWidth / 2), positions[3].y, buttonWidth, buttonHeight, 'white', 'blue', 'Winkel', this.canvas.height / 20, 'shop')
         ];
+        this.isPlaying = isPlaying ? true : false;
         this.nextScene = this;
         const clickFunction = (event) => {
             let originalNextScene = this.nextScene;
@@ -34,28 +37,30 @@ export default class MenuScene extends Scene {
                 if (prop instanceof Button) {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
                         if (prop.getId() === 'startBtn') {
-                            const startSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav');
-                            startSound.volume = 0.5;
-                            startSound.play();
+                            const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
+                            buttonSound.volume = 1;
+                            buttonSound.play();
+                            this.backgroundMusic.pause();
+                            this.backgroundMusic = null;
                             this.nextScene = new HubScene(this.canvas, this.userData);
                         }
                         else if (prop.getId() === 'controls') {
                             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
                             buttonSound.volume = 1;
                             buttonSound.play();
-                            this.nextScene = new ControlsScene(this.canvas, this.userData);
+                            this.nextScene = new ControlsScene(this.canvas, this.userData, this.backgroundMusic);
                         }
                         else if (prop.getId() === 'mistakes') {
                             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
                             buttonSound.volume = 1;
                             buttonSound.play();
-                            this.nextScene = new QuestionsScene(this.canvas, this.userData);
+                            this.nextScene = new QuestionsScene(this.canvas, this.userData, this.backgroundMusic);
                         }
                         else if (prop.getId() === 'shop') {
                             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
                             buttonSound.volume = 1;
                             buttonSound.play();
-                            this.nextScene = new ShopScene(this.canvas, this.userData);
+                            this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
                         }
                         else if (prop.getId() === 'decreaseCurrentSkin') {
                             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
@@ -85,6 +90,17 @@ export default class MenuScene extends Scene {
                     prop.doHover({ x: event.x, y: event.y });
                 }
             });
+            if (this.isPlaying === false) {
+                this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'menu-music.wav');
+                this.backgroundMusic.loop = true;
+                this.backgroundMusic.volume = 0.1;
+                this.backgroundMusic.play();
+                this.isPlaying = true;
+            }
+            else {
+                if (backgroundMusic !== undefined)
+                    this.backgroundMusic = backgroundMusic;
+            }
         };
         this.canvas.addEventListener('click', clickFunction);
         this.canvas.addEventListener('mousemove', hoverFunction);
