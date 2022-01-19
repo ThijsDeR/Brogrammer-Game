@@ -14,18 +14,22 @@ export default class ShopScene extends Scene {
 
   private nextScene: Scene;
 
-  private items: {name: string, src: string, cost: number, id: number}[]
+  private items: {name: string, src: string, cost: number, id: number}[];
 
-  private shopItems: ShopItem[]
+  private shopItems: ShopItem[];
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData) {
+  private backgroundMusic: HTMLAudioElement;
+
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
     super(canvas, userData)
 
     this.backButton = new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')
 
-    this.nextScene = this
+    this.nextScene = this;
 
-    this.shopItems = []
+    this.shopItems = [];
+
+    this.backgroundMusic = backgroundMusic
 
     this.items = [
       {name: 'Rode Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-red.png', cost: 400, id: 1},
@@ -76,7 +80,7 @@ export default class ShopScene extends Scene {
       })
 
       if (this.backButton.isHovered({x: event.x, y: event.y})) {
-        this.nextScene = new MenuScene(this.canvas, this.userData, true)
+        this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic)
         const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
         buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
         buttonSound.play();

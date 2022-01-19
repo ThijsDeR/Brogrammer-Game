@@ -15,12 +15,16 @@ export default class QuestionsScene extends Scene {
 
   private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}[];
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData) {
+  private backgroundMusic: HTMLAudioElement;
+
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
     super(canvas, userData)
 
     this.props = [new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')];
 
     this.questions = this.userData.getQuestions();
+
+    this.backgroundMusic = backgroundMusic;
     
     const questionButtonWidth = this.canvas.width / 15
     const questionButtonHeight = this.canvas.height / 20
@@ -68,7 +72,9 @@ export default class QuestionsScene extends Scene {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
-            if(prop.getId() === 'backBtn') this.nextScene = new MenuScene(this.canvas, this.userData, true)
+            if(prop.getId() === 'backBtn') {
+              this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
+            }
             else this.nextScene = new QuestionScene(this.canvas, this.userData, this.questions[Number(prop.getId())])
           }
         }

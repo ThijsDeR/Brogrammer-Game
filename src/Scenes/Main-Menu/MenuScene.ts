@@ -21,7 +21,7 @@ export default class MenuScene extends Scene {
 
   private isPlaying: boolean;
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlaying?: boolean) {
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlaying?: boolean, backgroundMusic?: HTMLAudioElement| null) {
     super(canvas, userData)
 
     const buttonWidth = (this.canvas.width / 4)
@@ -71,17 +71,17 @@ export default class MenuScene extends Scene {
               const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
               buttonSound.volume = 1;
               buttonSound.play();
-              this.nextScene = new ControlsScene(this.canvas, this.userData);
+              this.nextScene = new ControlsScene(this.canvas, this.userData, this.backgroundMusic);
             }else if (prop.getId() === 'mistakes') {
               const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
               buttonSound.volume = 1;
               buttonSound.play();
-              this.nextScene = new QuestionsScene(this.canvas, this.userData);
+              this.nextScene = new QuestionsScene(this.canvas, this.userData, this.backgroundMusic);
             } else if (prop.getId() === 'shop') {
               const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
               buttonSound.volume = 1;
               buttonSound.play();
-              this.nextScene = new ShopScene(this.canvas, this.userData);
+              this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
             } else if (prop.getId() === 'decreaseCurrentSkin') {
               const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
               buttonSound.volume = 1;
@@ -112,13 +112,15 @@ export default class MenuScene extends Scene {
           prop.doHover({x: event.x, y: event.y})
         }
       }) 
-
+      
       if (this.isPlaying === false) {
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'menu-music.wav');
         this.backgroundMusic.loop = true;
         this.backgroundMusic.volume = 0.1
         this.backgroundMusic.play();
         this.isPlaying = true;
+      } else {
+        if (backgroundMusic !== undefined) this.backgroundMusic = backgroundMusic;
       }
       
       

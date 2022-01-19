@@ -13,12 +13,14 @@ export default class ControlsScene extends Scene {
     player;
     NPCs;
     cutScene;
+    backgroundMusic;
     constructor(canvas, userData, backgroundMusic) {
         super(canvas, userData);
         this.props = [
             new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
         ];
         this.cutScene = null;
+        this.backgroundMusic = backgroundMusic;
         this.nextScene = this;
         this.NPCs = [
             new TutorialNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
@@ -31,7 +33,7 @@ export default class ControlsScene extends Scene {
                 if (prop instanceof Button) {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
                         if (prop.getId() === 'backBtn') {
-                            this.nextScene = new MenuScene(this.canvas, this.userData, true);
+                            this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
                         }
                     }
                 }

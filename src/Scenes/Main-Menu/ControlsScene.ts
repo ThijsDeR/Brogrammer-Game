@@ -22,7 +22,9 @@ export default class ControlsScene extends Scene {
 
   private cutScene: null | CutScene;
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement| null) {
+  private backgroundMusic: HTMLAudioElement
+
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
     super(canvas, userData)
 
     this.props = [
@@ -30,6 +32,8 @@ export default class ControlsScene extends Scene {
     ]
 
     this.cutScene = null
+
+    this.backgroundMusic = backgroundMusic
 
     this.nextScene = this
 
@@ -47,7 +51,7 @@ export default class ControlsScene extends Scene {
           if (prop.isHovered({x: event.x, y: event.y})) {
             if(prop.getId() === 'backBtn') {
               // backgroundMusic.pause()
-              this.nextScene = new MenuScene(this.canvas, this.userData, true)
+              this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic)
             }
           }
         }

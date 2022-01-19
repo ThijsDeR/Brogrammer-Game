@@ -13,7 +13,7 @@ export default class MenuScene extends Scene {
     robotImage;
     backgroundMusic;
     isPlaying;
-    constructor(canvas, userData, isPlaying) {
+    constructor(canvas, userData, isPlaying, backgroundMusic) {
         super(canvas, userData);
         const buttonWidth = (this.canvas.width / 4);
         const buttonHeight = (this.canvas.height / 6);
@@ -48,19 +48,19 @@ export default class MenuScene extends Scene {
                             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
                             buttonSound.volume = 1;
                             buttonSound.play();
-                            this.nextScene = new ControlsScene(this.canvas, this.userData);
+                            this.nextScene = new ControlsScene(this.canvas, this.userData, this.backgroundMusic);
                         }
                         else if (prop.getId() === 'mistakes') {
                             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
                             buttonSound.volume = 1;
                             buttonSound.play();
-                            this.nextScene = new QuestionsScene(this.canvas, this.userData);
+                            this.nextScene = new QuestionsScene(this.canvas, this.userData, this.backgroundMusic);
                         }
                         else if (prop.getId() === 'shop') {
                             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
                             buttonSound.volume = 1;
                             buttonSound.play();
-                            this.nextScene = new ShopScene(this.canvas, this.userData);
+                            this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
                         }
                         else if (prop.getId() === 'decreaseCurrentSkin') {
                             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
@@ -96,6 +96,10 @@ export default class MenuScene extends Scene {
                 this.backgroundMusic.volume = 0.1;
                 this.backgroundMusic.play();
                 this.isPlaying = true;
+            }
+            else {
+                if (backgroundMusic !== undefined)
+                    this.backgroundMusic = backgroundMusic;
             }
         };
         this.canvas.addEventListener('click', clickFunction);
