@@ -129,18 +129,19 @@ export default class ShopScene extends Scene {
     const shopItemWidth = canvas.width / 12
     const shopItemHeight = canvas.height / 4
 
+    let tempArray = [...this.items].splice(ShopScene.ITEMS_PER_PAGE * this.currentPage, ShopScene.ITEMS_PER_PAGE)
+
     const positions = GridGenerator.generateGrid(
       this.canvas.width / 2,
       this.canvas.height / 3,
-      ShopScene.ITEMS_PER_PAGE,
+      tempArray.length,
       (canvas.height / 3),
       shopItemWidth,
       shopItemHeight,
       canvas.width / 200,
       canvas.height / 50,
     )
-    let tempArray = [...this.items]
-    tempArray.splice(ShopScene.ITEMS_PER_PAGE * this.currentPage, ShopScene.ITEMS_PER_PAGE).forEach((item, itemIndex) => {
+    tempArray.forEach((item, itemIndex) => {
       this.shopItems.push(new ShopItem(positions[itemIndex].x - (shopItemWidth / 2), positions[itemIndex].y, shopItemWidth, shopItemHeight, item.name, item.src, item.cost, item.id))
     })
 
