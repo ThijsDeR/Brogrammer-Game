@@ -101,8 +101,6 @@ export default class HubScene extends GameLevel {
                 const NPCTeleporter = NPC.getTeleporter();
                 if (CollideHandler.collides(this.player, NPCTeleporter)) {
                     if (NPCTeleporter.isActivated()) {
-                        this.backgroundMusicHub.pause();
-                        this.backgroundMusicHub = null;
                         this.nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData);
                     }
                 }
