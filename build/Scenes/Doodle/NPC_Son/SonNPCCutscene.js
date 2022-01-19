@@ -22,7 +22,7 @@ export default class SonNPCCutscene extends CutScene {
         this.textBox.draw(this.ctx);
     }
     processInput() {
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_E)) {
             this.textBox.nextSentence();
         }
     }

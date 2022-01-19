@@ -65,7 +65,7 @@ export default class PokeNPCCutscene extends CutScene {
   }
 
   public processInput(): void {
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_E)) {
       this.textBox.nextSentence()
     }
   }

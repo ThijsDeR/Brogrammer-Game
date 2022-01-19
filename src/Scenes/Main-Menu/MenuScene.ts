@@ -61,9 +61,9 @@ export default class MenuScene extends Scene {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
             if (prop.getId() === 'startBtn') {
-              const startSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav')
-              startSound.volume = 0.5;
-              startSound.play();
+              const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
+              buttonSound.volume = 1;
+              buttonSound.play();
               this.backgroundMusic.pause()
               this.backgroundMusic = null
               this.nextScene = new HubScene(this.canvas, this.userData);
