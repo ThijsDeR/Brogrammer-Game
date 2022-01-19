@@ -37,6 +37,7 @@ export default class BossScene extends GameLevel {
   public draw(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
     this.ctx.drawImage(Game.loadNewImage(GameInfo.IMG_PATH + 'poketale_bg.png'), 0, 0, this.canvas.width, this.canvas.height)
+    this.player.draw(this.ctx)
 
     if (this.cutScene !== null) {
       this.cutScene.draw()
@@ -55,7 +56,7 @@ export default class BossScene extends GameLevel {
     if (this.cutScene === null) {
       let contacts: number[] = []
       this.player.move(this.canvas, contacts, elapsed)
-      if (this.player.isDead()) return new HubScene(this.canvas, this.userData)
+      if (this.player.isDead()) this.nextScene = new HubScene(this.canvas, this.userData)
       else if (this.score >= BossInfo.WIN_SCORE) {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
         winSound.volume = BossInfo.WIN_SOUND_VOLUME;

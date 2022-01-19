@@ -102,7 +102,7 @@ export default class TempleRunScene extends GameLevel {
       })
       this.player.speed_up()
       this.player.move(this.canvas, contacts, elapsed)
-      if (this.player.isDead()) return new HubScene(this.canvas, this.userData)
+      if (this.player.isDead()) this.nextScene = new HubScene(this.canvas, this.userData)
       else if (this.score >= TempleRunInfo.WIN_SCORE) {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
         winSound.volume = TempleRunInfo.WIN_SOUND_VOLUME;
