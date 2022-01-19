@@ -11,10 +11,14 @@ export default class TempleRunNPC extends HubNPC {
         this.cutScene = new TempleRunNPCCutscene(canvas, userData, this);
     }
     interact() {
-        return this.cutScene;
+        if (this.talkingDelay < 0)
+            return this.cutScene;
+        else
+            return null;
     }
     finishInteraction() {
         if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished === true)
             this.teleporter.activate();
+        this.talkingDelay = 1000;
     }
 }

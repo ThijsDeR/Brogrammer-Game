@@ -153,6 +153,7 @@ export default class HubScene extends GameLevel {
             this.cutScene = NPC.interact()
           }
         }
+        NPC.removeDelay(elapsed)
         const NPCTeleporter = NPC.getTeleporter()
         if (CollideHandler.collides(this.player, NPCTeleporter)) {
           if (NPCTeleporter.isActivated()) {

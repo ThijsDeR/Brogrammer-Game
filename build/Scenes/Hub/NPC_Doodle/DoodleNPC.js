@@ -10,9 +10,13 @@ export default class DoodleNPC extends HubNPC {
         this.cutScene = new DoodleNPCCutscene(canvas, userData, this);
     }
     interact() {
-        return this.cutScene;
+        if (this.talkingDelay < 0)
+            return this.cutScene;
+        else
+            return null;
     }
     finishInteraction() {
         this.teleporter.activate();
+        this.talkingDelay = 1000;
     }
 }

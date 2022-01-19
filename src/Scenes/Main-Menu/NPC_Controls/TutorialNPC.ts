@@ -30,7 +30,12 @@ export default class TutorialNPC extends NPC {
     Scene.writeTextToCanvas(ctx, this.name, this.xPos + (this.width / 2), this.yPos - 20, this.height / 4, 'white')
   }
 
-  public interact(): CutScene {
-    return this.cutScene
+  public interact(): CutScene | null {
+    if (this.talkingDelay < 0) return this.cutScene
+    else return null
+  }
+
+  public finishInteraction(): void {
+    this.talkingDelay = 1000
   }
 }

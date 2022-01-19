@@ -23,11 +23,13 @@ export default class DoodleNPC extends HubNPC {
     this.cutScene = new DoodleNPCCutscene(canvas, userData, this)
   }
 
-  public interact(): CutScene {
-    return this.cutScene
+  public interact(): CutScene | null {
+    if (this.talkingDelay < 0) return this.cutScene
+    else return null
   }
 
   public finishInteraction(): void {
     this.teleporter.activate()
+    this.talkingDelay = 1000
   }
 }
