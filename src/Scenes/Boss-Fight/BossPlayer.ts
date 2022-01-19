@@ -4,9 +4,12 @@ import KeyboardListener from "../../KeyboardListener.js";
 import Player from "../../Player.js";
 import UserData from "../../UserData.js";
 import GameInfo from "../../GameInfo.js";
+import PlayerProjectile from "./PlayerProjectile.js";
 
 export default class BossPlayer extends Player {
     private dead: boolean;
+
+    private projectiles: PlayerProjectile[]
 
     public constructor(
         xPos: number,
@@ -16,7 +19,9 @@ export default class BossPlayer extends Player {
         userData: UserData
       ) {
           super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height)
+
           this.dead = false
+          this.projectiles = []
       }
 
 
@@ -30,6 +35,10 @@ export default class BossPlayer extends Player {
         } else if (this.direction === 'right') {
           ctx.drawImage(this.img, this.xPos, this.yPos, this.width, this.height)
         } 
+
+        this.projectiles.forEach((projectile) => {
+          projectile.draw(ctx)
+        })
       }
 
       /**
@@ -72,6 +81,28 @@ export default class BossPlayer extends Player {
         //   CollideHandler.RIGHT_CONTACT
 
         this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
+      }
+
+      public shootProjectile(mouseCoords: {x: number, y: number}): void {
+        const tempTan = Math.atan2(
+          mouseCoords.y - this.getMinYPos(),
+          mouseCoords.x - this.getMinXPos()
+        )
+        this.projectiles.push(new PlayerProjectile(this.xPos, this.yPos, this.width / 2, this.height / 2, Math.cos(tempTan), Math.sin(tempTan)))
+      }
+
+      public update(elapsed: number): void {
+        this.projectiles.forEach((projectile) => {
+          projectile.move(elapsed)
+        })
+      }
+
+      public getProjectiles(): PlayerProjectile[] {
+        return this.projectiles
+      }
+
+      public removeProjectile(index: number): void {
+        this.projectiles.splice(index, 1)
       }
 
       public die(): void {

@@ -3,11 +3,14 @@ import BossInfo from "./Info/BossInfo.js";
 import KeyboardListener from "../../KeyboardListener.js";
 import Player from "../../Player.js";
 import GameInfo from "../../GameInfo.js";
+import PlayerProjectile from "./PlayerProjectile.js";
 export default class BossPlayer extends Player {
     dead;
+    projectiles;
     constructor(xPos, yPos, width = undefined, height = undefined, userData) {
         super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height);
         this.dead = false;
+        this.projectiles = [];
     }
     draw(ctx, offsetX, offsetY) {
         if (this.direction === 'left') {
@@ -20,6 +23,9 @@ export default class BossPlayer extends Player {
         else if (this.direction === 'right') {
             ctx.drawImage(this.img, this.xPos, this.yPos, this.width, this.height);
         }
+        this.projectiles.forEach((projectile) => {
+            projectile.draw(ctx);
+        });
     }
     processInput() {
         this.yVel = 0;
@@ -52,6 +58,21 @@ export default class BossPlayer extends Player {
                 this.yPos = canvas.height - this.img.height;
         }
         this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
+    }
+    shootProjectile(mouseCoords) {
+        const tempTan = Math.atan2(mouseCoords.y - this.getMinYPos(), mouseCoords.x - this.getMinXPos());
+        this.projectiles.push(new PlayerProjectile(this.xPos, this.yPos, this.width / 2, this.height / 2, Math.cos(tempTan), Math.sin(tempTan)));
+    }
+    update(elapsed) {
+        this.projectiles.forEach((projectile) => {
+            projectile.move(elapsed);
+        });
+    }
+    getProjectiles() {
+        return this.projectiles;
+    }
+    removeProjectile(index) {
+        this.projectiles.splice(index, 1);
     }
     die() {
         this.dead = true;
