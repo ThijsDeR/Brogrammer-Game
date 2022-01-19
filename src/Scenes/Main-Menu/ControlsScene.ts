@@ -9,6 +9,7 @@ import MenuScene from './MenuScene.js';
 import TutorialNPC from './NPC_Controls/TutorialNPC.js';
 import HubPlayer from '../Hub/HubPlayer.js';
 import MenuInfo from './Info/MenuInfo.js';
+import Platform from '../../Props/Platform.js';
 
 export default class ControlsScene extends Scene {
   private props: Prop[];
@@ -21,7 +22,9 @@ export default class ControlsScene extends Scene {
 
   private cutScene: null | CutScene;
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData) {
+  private backgroundMusic: HTMLAudioElement
+
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
     super(canvas, userData)
 
     this.props = [
@@ -30,11 +33,14 @@ export default class ControlsScene extends Scene {
 
     this.cutScene = null
 
+    this.backgroundMusic = backgroundMusic
+
     this.nextScene = this
 
     this.NPCs =[
       new TutorialNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
     ]
+    this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), ((this.canvas.height / 3) * 2), this.canvas.width / 5, this.canvas.height / 20))
 
     this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData)
 
@@ -43,7 +49,10 @@ export default class ControlsScene extends Scene {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
-            if(prop.getId() === 'backBtn') this.nextScene = new MenuScene(this.canvas, this.userData)
+            if(prop.getId() === 'backBtn') {
+              // backgroundMusic.pause()
+              this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic)
+            }
           }
         }
       })
@@ -105,7 +114,7 @@ export default class ControlsScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Klik op spatie om te springen',
+      'Klik op spatie om te springen en op S om door platforms te vallen.',
       this.canvas.width / 2,
       (this.canvas.height / 20) * 6,
       this.canvas.height / 25,
@@ -146,12 +155,12 @@ export default class ControlsScene extends Scene {
 
         this.props.forEach((prop) => {
           if (CollideHandler.collides(this.player, prop)) {
-            const contact = CollideHandler.getContactData(this.player, prop);
-            contacts.push(contact)
-            if (contact === CollideHandler.TOP_CONTACT) {
-              this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
-            } else if (contact === CollideHandler.BOTTOM_CONTACT) {
-              this.player.setYPos(prop.getMaxYPos())
+            if (!this.player.isGoingThroughPlatform()) {
+              const contact = CollideHandler.getContactData(this.player, prop);
+              contacts.push(contact)
+              if (contact === CollideHandler.TOP_CONTACT) {
+                this.player.setYPos(prop.getMinYPos() - this.player.getHeight())
+              } 
             }
 
           }

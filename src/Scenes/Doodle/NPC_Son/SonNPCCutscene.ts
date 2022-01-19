@@ -25,7 +25,7 @@ export default class SonNPCCutscene extends CutScene {
     const sentences = [
       "Oh dankjewel, ik ben hier al zo lang",
       "ik moest zelfs die vieze slimes opeten, ewwww",
-      "laten we teruggaan"
+      "laten we nu maar teruggaan"
     ]
 
 
@@ -40,7 +40,7 @@ export default class SonNPCCutscene extends CutScene {
   }
 
   public processInput(): void {
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_E)) {
       this.textBox.nextSentence()
     }
   }

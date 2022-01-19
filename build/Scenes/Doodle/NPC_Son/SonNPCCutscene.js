@@ -11,7 +11,7 @@ export default class SonNPCCutscene extends CutScene {
         const sentences = [
             "Oh dankjewel, ik ben hier al zo lang",
             "ik moest zelfs die vieze slimes opeten, ewwww",
-            "laten we teruggaan"
+            "laten we nu maar teruggaan"
         ];
         this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
     }
@@ -22,7 +22,7 @@ export default class SonNPCCutscene extends CutScene {
         this.textBox.draw(this.ctx);
     }
     processInput() {
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) {
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_E)) {
             this.textBox.nextSentence();
         }
     }

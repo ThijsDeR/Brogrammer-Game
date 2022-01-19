@@ -36,6 +36,9 @@ export default class ItemShopScene extends Scene {
         if (button.isHovered({x: event.x, y: event.y})) {
           if (button.getId() === 'backBtn') {
             this.nextScene = new ShopScene(this.canvas, this.userData)
+            const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
+            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+            buttonSound.play();
           }
 
           if (button.getId() === 'buy') {

@@ -6,6 +6,7 @@ import HubScene from '../Hub/HubScene.js';
 import PokeTaleInfo from './Info/PokeTaleInfo.js';
 import PokePlayer from './PokePlayer.js';
 import PokeEnemy from './PokeEnemy.js';
+import CollideHandler from '../../CollideHandler.js';
 import MenuCutScene from '../MenuCutScene.js';
 export default class PoketaleScene extends GameLevel {
     player;
@@ -18,10 +19,10 @@ export default class PoketaleScene extends GameLevel {
         super(canvas, userData);
         this.player = new PokePlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         this.props = [
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 1000), 40, 40),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 1000), 40, 40),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 1000), 40, 40),
-            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 1000), 40, 40),
+            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
+            new PokeEnemy(Game.randomNumber(100, 1800), Game.randomNumber(450, 900), 100, 100),
         ];
         this.score = 0;
         this.cutScene = null;
@@ -54,6 +55,15 @@ export default class PoketaleScene extends GameLevel {
     update(elapsed) {
         if (this.cutScene === null) {
             let contacts = [];
+            this.props.forEach((prop, propIndex) => {
+                if (CollideHandler.collides(this.player, prop)) {
+                    const contact = CollideHandler.getContactData(this.player, prop);
+                    if (prop instanceof PokeEnemy) {
+                        console.log("You hit me!");
+                        this.props.splice(propIndex, 1);
+                    }
+                }
+            });
             this.player.move(this.canvas, contacts, elapsed);
             if (this.player.isDead()) {
                 return new HubScene(this.canvas, this.userData);

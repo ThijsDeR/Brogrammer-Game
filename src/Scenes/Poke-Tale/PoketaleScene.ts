@@ -36,30 +36,30 @@ export default class PoketaleScene extends GameLevel {
     this.props =[
       new PokeEnemy(
         Game.randomNumber(100, 1800),
-        Game.randomNumber(450, 1000),
-        40,
-        40,
+        Game.randomNumber(450, 900),
+        100,
+        100,
       ),
 
       new PokeEnemy(
         Game.randomNumber(100, 1800),
-        Game.randomNumber(450, 1000),
-        40,
-        40,
+        Game.randomNumber(450, 900),
+        100,
+        100,
       ),
 
       new PokeEnemy(
         Game.randomNumber(100, 1800),
-        Game.randomNumber(450, 1000),
-        40,
-        40,
+        Game.randomNumber(450, 900),
+        100,
+        100,
       ),
 
       new PokeEnemy(
         Game.randomNumber(100, 1800),
-        Game.randomNumber(450, 1000),
-        40,
-        40,
+        Game.randomNumber(450, 900),
+        100,
+        100,
       ),
     ]
 
@@ -99,21 +99,21 @@ export default class PoketaleScene extends GameLevel {
   public update(elapsed: number): Scene {
     if (this.cutScene === null) {
       let contacts: number[] = []
-      //  this.props.forEach((prop, propIndex) => {
-      //    if (CollideHandler.collides(this.player, prop)) {
-      //      const contact = CollideHandler.getContactData(this.player, prop);
+       this.props.forEach((prop, propIndex) => {
+         if (CollideHandler.collides(this.player, prop)) {
+           const contact = CollideHandler.getContactData(this.player, prop);
 
         // //Checks if the instance of prop === DoodleEnemy.
         // //Then check if the player makes contact with a DoodleEnemy prop.
         // //If the player makes contact, the player dies.
-        //    if (prop instanceof PokeEnemy) {
-        //      this.props.splice(propIndex, 1);
-        //       const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
-        //       enemySound.volume = 0.5;
-        //       enemySound.play();
-        //    }
-        //   }
-        // }
+           if (prop instanceof PokeEnemy) {
+             console.log("You hit me!")
+             // Should call a startFight function
+
+             this.props.splice(propIndex, 1);
+           }
+          }
+        });
 
 
       this.player.move(this.canvas, contacts, elapsed)
