@@ -29,16 +29,21 @@ export default class ShopScene extends Scene {
             { name: 'Rode Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-red.png', cost: 400, id: 1 },
             { name: 'Gele Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-jello.png', cost: 400, id: 2 },
             { name: 'Oranje Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-orang.png', cost: 400, id: 3 },
-            { name: 'Pingre Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-pingre.png', cost: 400, id: 4 },
-            { name: 'Pjotter Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-pjott.png', cost: 400, id: 5 },
-            { name: 'Paarse Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-purp.png', cost: 400, id: 6 },
-            { name: 'Gras Groen', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-green.png', cost: 400, id: 7 },
-            { name: 'Stekelvarken Blauw', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-blue.png', cost: 400, id: 8 },
-            { name: 'Lonk', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-greenhat.png', cost: 800, id: 9 },
-            { name: 'Stijlvolle Bril', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-glasses.png', cost: 800, id: 10 },
-            { name: 'Katten Oren', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-cat.png', cost: 800, id: 11 },
-            { name: '24 Karaat Goud', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-goud.png', cost: 1000, id: 12 },
-            { name: 'Schaduwbot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-dark.png', cost: 1000, id: 13 },
+            { name: 'Paarse Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-pingre.png', cost: 400, id: 4 },
+            { name: 'Paarse Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-purp.png', cost: 400, id: 5 },
+            { name: 'Groene Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-green.png', cost: 400, id: 6 },
+            { name: 'Blauwe Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-blue.png', cost: 400, id: 7 },
+            { name: 'Dappere Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-pjott.png', cost: 800, id: 8 },
+            { name: 'Hoedjes Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-greenhat.png', cost: 800, id: 9 },
+            { name: 'Brillen Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-glasses.png', cost: 800, id: 10 },
+            { name: 'Katten Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-cat.png', cost: 800, id: 11 },
+            { name: 'Kikker Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-frog.png', cost: 1000, id: 12 },
+            { name: 'Alien Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-alien.png', cost: 1000, id: 13 },
+            { name: 'Schaakbord Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-schaakbord.png', cost: 1000, id: 14 },
+            { name: 'Gouden Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-goud.png', cost: 2000, id: 15 },
+            { name: 'Schaduw Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-dark.png', cost: 2000, id: 16 },
+            { name: 'Formele Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-formal.png', cost: 2000, id: 17 },
+            { name: 'Regenboog Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-rainbow.png', cost: 10000, id: 18 },
         ];
         this.items = this.items.filter((item) => {
             const skins = this.userData.getSkins().filter((skin) => skin.id === item.id);
@@ -101,9 +106,9 @@ export default class ShopScene extends Scene {
         this.shopItems = [];
         const shopItemWidth = canvas.width / 12;
         const shopItemHeight = canvas.height / 4;
-        const positions = GridGenerator.generateGrid(this.canvas.width / 2, this.canvas.height / 3, ShopScene.ITEMS_PER_PAGE, (canvas.height / 3), shopItemWidth, shopItemHeight, canvas.width / 200, canvas.height / 50);
-        let tempArray = [...this.items];
-        tempArray.splice(ShopScene.ITEMS_PER_PAGE * this.currentPage, ShopScene.ITEMS_PER_PAGE).forEach((item, itemIndex) => {
+        let tempArray = [...this.items].splice(ShopScene.ITEMS_PER_PAGE * this.currentPage, ShopScene.ITEMS_PER_PAGE);
+        const positions = GridGenerator.generateGrid(this.canvas.width / 2, this.canvas.height / 3, tempArray.length, (canvas.height / 3), shopItemWidth, shopItemHeight, canvas.width / 200, canvas.height / 50);
+        tempArray.forEach((item, itemIndex) => {
             this.shopItems.push(new ShopItem(positions[itemIndex].x - (shopItemWidth / 2), positions[itemIndex].y, shopItemWidth, shopItemHeight, item.name, item.src, item.cost, item.id));
         });
     }
