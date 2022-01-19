@@ -5,9 +5,10 @@ import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
 import HubScene from '../../Hub/HubScene.js';
 import SonNPC from './SonNPC.js';
+import GameInfo from '../../../GameInfo.js';
 
 export default class SonNPCCutscene extends CutScene {
-  
+
   private sonNPC: SonNPC;
 
   private textBox: TextBox;
@@ -29,7 +30,7 @@ export default class SonNPCCutscene extends CutScene {
     ]
 
 
-    this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
+    this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png')
   }
 
   public draw(): void {

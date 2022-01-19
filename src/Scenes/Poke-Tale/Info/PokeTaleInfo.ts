@@ -3,7 +3,7 @@ export default abstract class PokeTaleInfo {
 
   public static readonly PLAYER_X_SPEED: number = 9;
 
-  public static readonly WIN_SCORE: number = 30;
+  public static readonly WIN_SCORE: number = 10;
 
   public static readonly WIN_SOUND_VOLUME: number = 3/5;
 

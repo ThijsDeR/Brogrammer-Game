@@ -7,6 +7,7 @@ import BossInfo from '../../Boss-Fight/Info/BossInfo.js';
 import PokeTaleInfo from '../../Poke-Tale/Info/PokeTaleInfo.js';
 import TempleRunInfo from '../../Temple-Run/Info/TempleRunInfo.js';
 import PokeNPC from './BossNPC.js';
+import GameInfo from '../../../GameInfo.js';
 
 export default class BossNPCCutscene extends CutScene {
   private pokeNPC: PokeNPC;
@@ -38,13 +39,13 @@ export default class BossNPCCutscene extends CutScene {
       "Succes!"
     ]
 
-    if (this.userData.getNPCStoryProgress(BossInfo.BOSS_PROGRESS_OBJECT_NAME).finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences)
+    if (this.userData.getNPCStoryProgress(BossInfo.BOSS_PROGRESS_OBJECT_NAME).finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences, GameInfo.IMG_PATH + 'chatbox.png')
     else if (this.userData.getNPCStoryProgress(BossInfo.BOSS_PROGRESS_OBJECT_NAME).talkedTo === true) {
       this.pokeNPC.finishInteraction()
-      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences) 
-    }  
-    else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences)
-    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences)    
+      this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png')
+    }
+    else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png')
+    this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png')
   }
 
   public draw(): void {

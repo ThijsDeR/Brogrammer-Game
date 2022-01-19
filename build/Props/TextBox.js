@@ -1,4 +1,3 @@
-import GameInfo from '../GameInfo.js';
 import Scene from '../Scene.js';
 import ImageProp from './ImageProp.js';
 export default class TextBox {
@@ -11,7 +10,7 @@ export default class TextBox {
     yPos;
     width;
     height;
-    constructor(xPos, yPos, width, height, sentences) {
+    constructor(xPos, yPos, width, height, sentences, textBoxImage) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.width = width;
@@ -19,7 +18,7 @@ export default class TextBox {
         this.sentences = sentences;
         this.currentSentence = 0;
         this.sentenceLength = 0;
-        this.textBoxImage = new ImageProp(this.xPos, this.yPos, GameInfo.IMG_PATH + 'chatbox.png', this.width, this.height);
+        this.textBoxImage = new ImageProp(this.xPos, this.yPos, textBoxImage, this.width, this.height);
         this.nextSentenceDelay = 200;
     }
     draw(ctx) {

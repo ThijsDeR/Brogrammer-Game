@@ -8,7 +8,7 @@ export default abstract class CutScene {
   protected canvas: HTMLCanvasElement;
 
   protected ctx: CanvasRenderingContext2D;
-  
+
   protected userData: UserData
 
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {

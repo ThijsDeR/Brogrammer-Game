@@ -2,6 +2,7 @@ import CutScene from '../../../CutScene.js';
 import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
 import HubScene from '../../Hub/HubScene.js';
+import GameInfo from '../../../GameInfo.js';
 export default class SonNPCCutscene extends CutScene {
     sonNPC;
     textBox;
@@ -13,7 +14,7 @@ export default class SonNPCCutscene extends CutScene {
             "ik moest zelfs die vieze slimes opeten, ewwww",
             "laten we nu maar teruggaan"
         ];
-        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences);
+        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png');
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
