@@ -84,7 +84,7 @@ export default class ShopScene extends Scene {
           const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
           buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
           buttonSound.play();
-          this.nextScene = new ItemShopScene(this.canvas, this.userData, shopItem)
+          this.nextScene = new ItemShopScene(this.canvas, this.userData, shopItem, this.backgroundMusic)
         }
       })
 

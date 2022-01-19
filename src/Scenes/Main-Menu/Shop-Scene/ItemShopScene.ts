@@ -15,10 +15,14 @@ export default class ItemShopScene extends Scene {
 
   private nextScene: Scene;
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, item: ShopItem) {
+  private backgroundMusic: HTMLAudioElement;
+
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, item: ShopItem, backgroundMusic?: HTMLAudioElement) {
     super(canvas, userData)
 
     this.shopItem = item
+
+    this.backgroundMusic = backgroundMusic
 
     const buttonWidth = this.canvas.width / 8
     const buttonHeight = this.canvas.height / 20
@@ -35,7 +39,7 @@ export default class ItemShopScene extends Scene {
       this.buttons.forEach((button) => {
         if (button.isHovered({x: event.x, y: event.y})) {
           if (button.getId() === 'backBtn') {
-            this.nextScene = new ShopScene(this.canvas, this.userData)
+            this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic)
             const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
             buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
             buttonSound.play();
@@ -43,12 +47,12 @@ export default class ItemShopScene extends Scene {
 
           if (button.getId() === 'buy') {
             if (this.userData.getCoins() > this.shopItem.getCost()) {
-              const startSound = new Audio(GameInfo.SOUND_PATH + 'Start_button.wav')
+              const startSound = new Audio(GameInfo.SOUND_PATH + 'buy-sound.wav')
               startSound.volume = MenuInfo.SHOP_CLICK_VOLUME;
               startSound.play();
               this.userData.addSkin({src: this.shopItem.getImage().getImageSrc(), id: this.shopItem.getId()})
               this.userData.decreaseCoins(this.shopItem.getCost())
-              this.nextScene = new ShopScene(this.canvas, this.userData)
+              this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic)
             } else {
               const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3')
               wrongSound.volume = MenuInfo.SHOP_CLICK_VOLUME;

@@ -3,5 +3,5 @@ export default abstract class MenuInfo {
 
   public static readonly UI_CLICK_VOLUME: number = 1
 
-  public static readonly SHOP_CLICK_VOLUME: number = 1/2
+  public static readonly SHOP_CLICK_VOLUME: number = 1/3
 }
