@@ -34,7 +34,7 @@ export default class ItemShopScene extends Scene {
                             const startSound = new Audio(GameInfo.SOUND_PATH + 'buy-sound.wav');
                             startSound.volume = MenuInfo.SHOP_CLICK_VOLUME;
                             startSound.play();
-                            this.userData.addSkin({ src: this.shopItem.getImage().getImageSrc(), id: this.shopItem.getId() });
+                            this.userData.addSkin({ src: this.shopItem.getImage().getImageSrc(), id: this.shopItem.getId(), name: this.shopItem.getName() });
                             this.userData.decreaseCoins(this.shopItem.getCost());
                             this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
                         }

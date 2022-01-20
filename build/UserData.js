@@ -30,7 +30,7 @@ export default class UserData {
         }
         else {
             this.skins = [
-                { src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview.png', id: 0 }
+                { src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview.png', id: 0, name: 'Normale Robot' }
             ];
             localStorage.setItem(UserData.SKINS_OBJECT_NAME, JSON.stringify(this.skins));
         }

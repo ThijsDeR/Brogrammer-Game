@@ -3,11 +3,10 @@ import Game from "../../Game.js"
 import BossInfo from "./Info/BossInfo.js";
 import Scene from "../../Scene.js";
 import GameInfo from "../../GameInfo.js";
+import ImageProp from "../../Props/ImageProp.js";
 
 export default class BossProjectile {
-  private rectProp: RectProp;
-
-  private text: string;
+  private imageProp: ImageProp;
 
   private xPos: number;
 
@@ -35,8 +34,7 @@ export default class BossProjectile {
     this.width = width
     this.height = height
 
-    this.rectProp = new RectProp(xPos, yPos, width, height, 'green', 'fill')
-    this.text = BossInfo.BOSS_TEXTS[Game.randomNumber(0, BossInfo.BOSS_TEXTS.length - 1)]
+    this.imageProp = new ImageProp(xPos, yPos, BossInfo.PROJECTILE_IMAGE_SRC[Game.randomNumber(0, BossInfo.PROJECTILE_IMAGE_SRC.length - 1)] ,width, height)
 
     this.xVelocity = xVelocity * 4;
     this.yVelocity = yVelocity * 4; 
@@ -46,24 +44,12 @@ export default class BossProjectile {
     this.xPos += this.xVelocity * (elapsed * GameInfo.ELAPSED_PENALTY)
     this.yPos += this.yVelocity * (elapsed * GameInfo.ELAPSED_PENALTY)
 
-    this.rectProp.setXPos(this.xPos)
-    this.rectProp.setYPos(this.yPos)
+    this.imageProp.setXPos(this.xPos)
+    this.imageProp.setYPos(this.yPos)
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
-    this.rectProp.draw(ctx)
-
-    Scene.writeTextToCanvas(
-      ctx,
-      this.text,
-      this.xPos + (this.width / 2),
-      this.yPos + (this.height / 2),
-      this.height / 5,
-      'white',
-      'center',
-      'middle',
-      this.width
-    )
+    this.imageProp.draw(ctx)
   }
 
   public checkOutOfCanvas(canvas: HTMLCanvasElement): boolean {
@@ -76,7 +62,7 @@ export default class BossProjectile {
     return false
   }
 
-  public getRectProp(): RectProp {
-    return this.rectProp
+  public getImageProp(): ImageProp {
+    return this.imageProp
   }
 }

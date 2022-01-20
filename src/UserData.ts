@@ -16,7 +16,7 @@ export default class UserData {
 
   private questions: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}[];
 
-  private skins: {src: string, id: number}[];
+  private skins: {src: string, id: number, name: string}[];
 
   private currentSkin: number;
 
@@ -41,7 +41,7 @@ export default class UserData {
       this.skins = JSON.parse(localStorage.getItem(UserData.SKINS_OBJECT_NAME))
     } else {
       this.skins = [
-        {src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview.png', id: 0}
+        {src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview.png', id: 0, name: 'Normale Robot'}
       ]
       localStorage.setItem(UserData.SKINS_OBJECT_NAME, JSON.stringify(this.skins))
     }
@@ -113,7 +113,7 @@ export default class UserData {
     return this.questions;
   }
 
-  public addSkin(skin: {src: string, id: number}): void {
+  public addSkin(skin: {src: string, id: number, name: string}): void {
     this.skins.push(skin)
     this.skins.sort((firstEl, secondEl) => firstEl.id - secondEl.id)
     localStorage.setItem(UserData.SKINS_OBJECT_NAME, JSON.stringify(this.skins))
@@ -138,7 +138,7 @@ export default class UserData {
     return this.skins
   }
 
-  public getCurrentSkin(): {src: string, id: number} {
+  public getCurrentSkin(): {src: string, id: number, name: string} {
     return this.skins[this.currentSkin]
   }
 

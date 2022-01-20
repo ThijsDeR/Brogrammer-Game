@@ -149,6 +149,15 @@ export default class MenuScene extends Scene {
       this.canvas.height / 20,
       'white',
     )
+
+    Scene.writeTextToCanvas(
+      this.ctx,
+      `${this.userData.getCurrentSkin().name}`,
+      (this.canvas.width / 5) * 4 + (this.canvas.width / 12), 
+      this.canvas.height / 4 - (this.canvas.height / 12),
+      this.canvas.height / 20,
+      'white',
+    )
   }
 
   public processInput(): void {

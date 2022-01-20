@@ -5,12 +5,16 @@ import Player from "../../Player.js";
 import GameInfo from "../../GameInfo.js";
 import PlayerProjectile from "./PlayerProjectile.js";
 export default class BossPlayer extends Player {
-    dead;
+    health;
+    stamina;
     projectiles;
+    lastTimeSinceShot;
     constructor(xPos, yPos, width = undefined, height = undefined, userData) {
         super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height);
-        this.dead = false;
         this.projectiles = [];
+        this.health = BossInfo.PLAYER_HEALTH;
+        this.stamina = BossInfo.PLAYER_STAMINA;
+        this.lastTimeSinceShot = 0;
     }
     draw(ctx, offsetX, offsetY) {
         if (this.direction === 'left') {
@@ -60,8 +64,12 @@ export default class BossPlayer extends Player {
         this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
     }
     shootProjectile(mouseCoords) {
-        const tempTan = Math.atan2(mouseCoords.y - this.getMinYPos(), mouseCoords.x - this.getMinXPos());
-        this.projectiles.push(new PlayerProjectile(this.xPos, this.yPos, this.width / 2, this.height / 2, Math.cos(tempTan), Math.sin(tempTan)));
+        if (this.stamina >= 0) {
+            const tempTan = Math.atan2(mouseCoords.y - this.getMinYPos(), mouseCoords.x - this.getMinXPos());
+            this.projectiles.push(new PlayerProjectile(this.xPos, this.yPos, this.width / 2, this.height / 2, Math.cos(tempTan), Math.sin(tempTan)));
+            this.stamina -= 2;
+            this.lastTimeSinceShot = 0;
+        }
     }
     update(elapsed, canvas) {
         this.projectiles.forEach((projectile, projectileIndex) => {
@@ -69,6 +77,12 @@ export default class BossPlayer extends Player {
             if (projectile.checkOutOfCanvas(canvas))
                 this.projectiles.splice(projectileIndex, 1);
         });
+        this.lastTimeSinceShot += elapsed;
+        if (this.lastTimeSinceShot > BossInfo.PLAYER_STAMINA_RECOVERY_DELAY) {
+            if (this.stamina <= BossInfo.PLAYER_STAMINA) {
+                this.stamina += 0.01;
+            }
+        }
     }
     getProjectiles() {
         return this.projectiles;
@@ -76,10 +90,16 @@ export default class BossPlayer extends Player {
     removeProjectile(index) {
         this.projectiles.splice(index, 1);
     }
-    die() {
-        this.dead = true;
+    getHit() {
+        this.health -= 5;
+    }
+    getHealth() {
+        return this.health;
+    }
+    getStamina() {
+        return this.stamina;
     }
     isDead() {
-        return this.dead;
+        return this.health <= 0;
     }
 }

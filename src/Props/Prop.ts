@@ -97,4 +97,11 @@ export default abstract class Prop {
     this.yPos = yPos;
   }
 
+  public setWidth(width: number): void {
+    this.width = width;
+  }
+  
+  public setHeight(height: number): void {
+    this.height = height;
+  }
 }

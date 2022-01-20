@@ -6,10 +6,13 @@ import BossInfo from './Info/BossInfo.js';
 import BossPlayer from './BossPlayer.js';
 import Boss from './Boss.js';
 import CollideHandler from '../../CollideHandler.js';
+import RectProp from '../../Props/RectProp.js';
+import Text from '../../Props/Text.js';
 export default class BossScene extends GameLevel {
     player;
     boss;
-    score;
+    playerHealthBar;
+    playerStaminaBar;
     backgroundMusic;
     nextScene;
     cutScene;
@@ -18,7 +21,16 @@ export default class BossScene extends GameLevel {
         super(canvas, userData);
         this.player = new BossPlayer(this.canvas.width / 4, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         this.boss = new Boss((this.canvas.width / 2) - (this.canvas.width / 20), (this.canvas.height / 2) - (this.canvas.height / 10), (this.canvas.width / 10), (this.canvas.height / 5));
-        this.score = 0;
+        this.playerHealthBar = [
+            new RectProp(this.canvas.width / 100, this.canvas.height / 50, this.canvas.width / 5, this.canvas.height / 20, 'gray', 'fill'),
+            new RectProp(this.canvas.width / 100, this.canvas.height / 50, this.canvas.width / 5, this.canvas.height / 20, 'red', 'fill'),
+            new Text((this.canvas.width / 100) + (this.canvas.width / 10), this.canvas.height / 50 + (this.canvas.height / 40), this.canvas.width, this.canvas.height, 'Leven', 'white', this.canvas.height / 30, 'center', 'middle')
+        ];
+        this.playerStaminaBar = [
+            new RectProp(this.canvas.width - (this.canvas.width / 5) - (this.canvas.width / 100), this.canvas.height / 50, this.canvas.width / 5, this.canvas.height / 20, 'gray', 'fill'),
+            new RectProp(this.canvas.width - (this.canvas.width / 5) - (this.canvas.width / 100), this.canvas.height / 50, this.canvas.width / 5, this.canvas.height / 20, 'green', 'fill'),
+            new Text((this.canvas.width - (this.canvas.width / 100)) - (this.canvas.width / 10), this.canvas.height / 50 + (this.canvas.height / 40), this.canvas.width, this.canvas.height, 'Uithoudingsvermogen', 'white', this.canvas.height / 30, 'center', 'middle')
+        ];
         this.cutScene = null;
         this.nextScene = this;
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'CaveBackgroundMusic.mp3');
@@ -36,6 +48,12 @@ export default class BossScene extends GameLevel {
         this.ctx.drawImage(Game.loadNewImage(GameInfo.IMG_PATH + 'boss-fight-background.jpg'), 0, 0, this.canvas.width, this.canvas.height);
         this.player.draw(this.ctx);
         this.boss.draw(this.ctx);
+        this.playerHealthBar.forEach((bar) => {
+            bar.draw(this.ctx);
+        });
+        this.playerStaminaBar.forEach((bar) => {
+            bar.draw(this.ctx);
+        });
         if (this.cutScene !== null) {
             this.cutScene.draw();
         }
@@ -55,9 +73,10 @@ export default class BossScene extends GameLevel {
             this.player.update(elapsed, this.canvas);
             this.boss.update(elapsed, this.canvas);
             this.boss.shootProjectile(elapsed, this.player);
-            this.boss.getProjectiles().forEach((projectile) => {
-                if (CollideHandler.collides(this.player, projectile.getRectProp())) {
-                    this.player.die();
+            this.boss.getProjectiles().forEach((projectile, projectileIndex) => {
+                if (CollideHandler.collides(this.player, projectile.getImageProp())) {
+                    this.player.getHit();
+                    this.boss.removeProjectile(projectileIndex);
                 }
             });
             this.player.getProjectiles().forEach((projectile, projectileIndex) => {
@@ -66,6 +85,8 @@ export default class BossScene extends GameLevel {
                     this.player.removeProjectile(projectileIndex);
                 }
             });
+            this.playerHealthBar[1].setWidth((this.canvas.width / 5) * (this.player.getHealth() / BossInfo.PLAYER_HEALTH));
+            this.playerStaminaBar[1].setWidth((this.canvas.width / 5) * (this.player.getStamina() / BossInfo.PLAYER_STAMINA));
             if (this.player.isDead()) {
                 this.nextScene = new HubScene(this.canvas, this.userData);
                 this.canvas.removeEventListener('click', this.clickFunction);

@@ -33,4 +33,10 @@ export default class Prop {
     setYPos(yPos) {
         this.yPos = yPos;
     }
+    setWidth(width) {
+        this.width = width;
+    }
+    setHeight(height) {
+        this.height = height;
+    }
 }
