@@ -29,7 +29,7 @@ export default abstract class BossInfo {
 
   public static readonly PROJECTILE_DELAY_SPEED_UP: number = 5
 
-  public static readonly BOSS_HEALTH = 250;
+  public static readonly BOSS_HEALTH = 500;
 
   public static readonly PROJECTILE_IMAGE_SRC: string[] = [
     './assets/img/virus1.png',

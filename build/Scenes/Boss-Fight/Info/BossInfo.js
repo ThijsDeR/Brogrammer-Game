@@ -14,7 +14,7 @@ export default class BossInfo {
     static STARTING_PROJECTILE_DELAY = 1000;
     static MINIMUM_PROJECTILE_DELAY = 400;
     static PROJECTILE_DELAY_SPEED_UP = 5;
-    static BOSS_HEALTH = 250;
+    static BOSS_HEALTH = 500;
     static PROJECTILE_IMAGE_SRC = [
         './assets/img/virus1.png',
         './assets/img/virus2.png',
