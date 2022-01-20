@@ -51,7 +51,7 @@ export default class ShopScene extends Scene {
         });
         this.currentPage = 0;
         this.pages = Math.floor(this.items.length / ShopScene.ITEMS_PER_PAGE);
-        if (this.items.length % ShopScene.ITEMS_PER_PAGE !== 0)
+        if (this.items.length % ShopScene.ITEMS_PER_PAGE !== 0 || this.items.length === 0)
             this.pages += 1;
         this.generateShop(canvas);
         const clickFunction = (event) => {
