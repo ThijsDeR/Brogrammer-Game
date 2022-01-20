@@ -293,6 +293,7 @@ export default class DoodleScene extends GameLevel {
           winSound.volume = 0.6;
           winSound.play();
           this.userData.changeNPCStoryProgress({name: 'doodle', talkedTo: true, finished: true})
+          this.userData.increaseCoins(DoodleInfo.COMPLETE_SCORE_AWARD)
         } else {
           let optionalCutScene = this.cutScene.getOptionalScene()
           if (optionalCutScene) this.nextScene = optionalCutScene

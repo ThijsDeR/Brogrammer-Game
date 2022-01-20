@@ -34,5 +34,7 @@ export default abstract class TempleRunInfo {
 
   public static readonly WIN_SCORE: number = 20;
 
+  public static readonly COMPLETE_SCORE_AWARD: number = 100
+
   public static readonly TEMPLE_RUN_PROGRESS_OBJECT_NAME: string = 'templerun'
 }

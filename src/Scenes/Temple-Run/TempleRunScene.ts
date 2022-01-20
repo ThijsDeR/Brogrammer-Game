@@ -108,7 +108,7 @@ export default class TempleRunScene extends GameLevel {
         winSound.volume = TempleRunInfo.WIN_SOUND_VOLUME;
         winSound.play();
         this.userData.changeNPCStoryProgress({name: TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME, talkedTo: true, finished: true})
-        
+        this.userData.increaseCoins(TempleRunInfo.COMPLETE_SCORE_AWARD)
         this.nextScene = new HubScene(this.canvas, this.userData)
       }
 

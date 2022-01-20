@@ -149,6 +149,7 @@ export default class BossScene extends GameLevel {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
         winSound.volume = BossInfo.WIN_SOUND_VOLUME;
         winSound.play();
+        this.userData.increaseCoins(BossInfo.COMPLETE_SCORE_AWARD)
         this.cutScene = new BossFightEndCutscene(this.canvas, this.userData, this.boss.getImage())
       }
     } else {

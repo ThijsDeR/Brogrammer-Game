@@ -38,4 +38,6 @@ export default abstract class BossInfo {
     './assets/img/skulls.png',
     './assets/img/poop_emoji.png',
   ]
+
+  public static readonly COMPLETE_SCORE_AWARD: number = 200
 }
