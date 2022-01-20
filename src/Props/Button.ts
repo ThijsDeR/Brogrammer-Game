@@ -40,7 +40,7 @@ export default class Button extends RectProp{
       this.xPos + (this.width / 2),
       this.yPos + (this.height / 2),
       this.fontSize,
-      'white',
+      'black',
       'center',
       'middle',
       this.width,

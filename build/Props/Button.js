@@ -16,7 +16,7 @@ export default class Button extends RectProp {
     }
     draw(ctx) {
         super.draw(ctx);
-        Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.fontSize, 'white', 'center', 'middle', this.width);
+        Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.fontSize, 'black', 'center', 'middle', this.width);
     }
     isHovered(mouseCoords) {
         if (mouseCoords.x > this.getMinXPos()
