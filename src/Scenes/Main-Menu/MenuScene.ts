@@ -143,7 +143,7 @@ export default class MenuScene extends Scene {
     // Game title
     Scene.writeTextToCanvas(
       this.ctx,
-      'Het epische avontuur van Sam Sung',
+      'Het epische avontuur van Sam Suong',
       this.canvas.width / 2,
       this.canvas.height / 10,
       this.canvas.height / 20,

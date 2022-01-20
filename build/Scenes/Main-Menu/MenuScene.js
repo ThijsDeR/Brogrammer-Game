@@ -112,7 +112,7 @@ export default class MenuScene extends Scene {
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        Scene.writeTextToCanvas(this.ctx, 'Het epische avontuur van Sam Sung', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Het epische avontuur van Sam Suong', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
         Scene.writeTextToCanvas(this.ctx, `${this.userData.getCurrentSkin().name}`, (this.canvas.width / 5) * 4 + (this.canvas.width / 12), this.canvas.height / 4 - (this.canvas.height / 12), this.canvas.height / 20, 'white');
     }
     processInput() {

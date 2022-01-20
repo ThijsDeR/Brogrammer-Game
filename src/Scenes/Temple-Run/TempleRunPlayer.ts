@@ -39,8 +39,8 @@ export default class TempleRunPlayer extends Player {
    public processInput(): void {
     this.yVel = 0
     
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(TempleRunInfo.PLAYER_Y_SPEED) * (this.height / 200);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = TempleRunInfo.PLAYER_Y_SPEED * (this.height / 200);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)  || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) this.yVel = -(TempleRunInfo.PLAYER_Y_SPEED) * (this.height / 200);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)  || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) this.yVel = TempleRunInfo.PLAYER_Y_SPEED * (this.height / 200);
   }
 
   public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number): void {

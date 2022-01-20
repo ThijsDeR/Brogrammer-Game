@@ -24,9 +24,9 @@ export default class TempleRunPlayer extends Player {
     }
     processInput() {
         this.yVel = 0;
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
             this.yVel = -(TempleRunInfo.PLAYER_Y_SPEED) * (this.height / 200);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN))
             this.yVel = TempleRunInfo.PLAYER_Y_SPEED * (this.height / 200);
     }
     move(canvas, contacts, elapsed) {

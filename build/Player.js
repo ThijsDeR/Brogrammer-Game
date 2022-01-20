@@ -31,12 +31,12 @@ export default class Player extends ImageProp {
     processInput() {
         this.xVel = 0;
         if (!this.airborne) {
-            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))
+            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
                 this.yVel = -(GameInfo.PLAYER_Y_SPEED) * (this.height / 100);
         }
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT))
             this.xVel = -(GameInfo.PLAYER_X_SPEED) * (this.width / 100);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT))
             this.xVel = GameInfo.PLAYER_X_SPEED * (this.width / 100);
         if (this.xVel < 0)
             this.direction = 'left';

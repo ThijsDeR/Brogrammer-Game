@@ -38,16 +38,16 @@ export default class PokePlayer extends Player {
       public processInput(): void {
         this.yVel = 0;
 
-          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 200);
-          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 200);
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)  || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 200);
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)  || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 200);
 
-          this.xVel = 0;
+        this.xVel = 0;
 
-          if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 100);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 100);
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)  || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 100);
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)  || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 100);
           
-          if (this.xVel < 0) this.direction = 'left';
-          else if (this.xVel > 0) this.direction = 'right';
+        if (this.xVel < 0) this.direction = 'left';
+        else if (this.xVel > 0) this.direction = 'right';
 
       }
 

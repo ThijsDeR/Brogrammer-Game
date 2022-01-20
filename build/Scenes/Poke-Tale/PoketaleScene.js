@@ -37,7 +37,7 @@ export default class PoketaleScene extends GameLevel {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.drawImage(Game.loadNewImage(GameInfo.IMG_PATH + 'poketale_bg.png'), 0, 0, this.canvas.width, this.canvas.height);
         this.player.draw(this.ctx);
-        Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width * PokeTaleInfo.SCORE_TEXT_X_POS, this.canvas.height * PokeTaleInfo.SCORE_TEXT_Y_POS, this.canvas.height * PokeTaleInfo.SCORE_TEXT_FONT_SIZE, 'white');
+        Scene.writeTextToCanvas(this.ctx, `Score: ${this.score}`, this.canvas.width * PokeTaleInfo.SCORE_TEXT_X_POS, this.canvas.height * PokeTaleInfo.SCORE_TEXT_Y_POS, this.canvas.height * PokeTaleInfo.SCORE_TEXT_FONT_SIZE, 'black');
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
@@ -61,19 +61,19 @@ export default class PoketaleScene extends GameLevel {
                     const contact = CollideHandler.getContactData(this.player, prop);
                     if (prop instanceof PokeEnemy) {
                         this.cutScene = new BattleScene(this.canvas, this.userData, this.player, prop);
-                        console.log("Hit registered");
                         this.props.splice(propIndex, 1);
                     }
                 }
             });
             this.player.move(this.canvas, contacts, elapsed);
             if (this.player.isDead()) {
-                return new HubScene(this.canvas, this.userData);
+                this.nextScene = new HubScene(this.canvas, this.userData);
             }
             else if (this.score >= PokeTaleInfo.WIN_SCORE) {
                 const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
                 winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME;
                 winSound.play();
+                this.userData.changeNPCStoryProgress({ name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: true });
                 this.nextScene = new HubScene(this.canvas, this.userData);
             }
             if (this.player.isPausing()) {
@@ -86,6 +86,8 @@ export default class PoketaleScene extends GameLevel {
                 let optionalCutScene = this.cutScene.getOptionalScene();
                 if (optionalCutScene)
                     this.nextScene = optionalCutScene;
+                else if (this.cutScene instanceof BattleScene)
+                    this.score += this.cutScene.getPoints();
                 this.cutScene = null;
                 this.backgroundMusic.play();
             }

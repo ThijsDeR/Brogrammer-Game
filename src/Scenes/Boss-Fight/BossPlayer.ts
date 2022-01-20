@@ -55,13 +55,13 @@ export default class BossPlayer extends Player {
     public processInput(): void {
         this.yVel = 0;
         
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) this.yVel = -(BossInfo.PLAYER_Y_SPEED) * (this.height / 200);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)) this.yVel = BossInfo.PLAYER_Y_SPEED * (this.height / 200);
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) this.yVel = -(BossInfo.PLAYER_Y_SPEED) * (this.height / 200);
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) this.yVel = BossInfo.PLAYER_Y_SPEED * (this.height / 200);
 
         this.xVel = 0;
 
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)) this.xVel = -(BossInfo.PLAYER_X_SPEED) * (this.width / 100);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)) this.xVel = BossInfo.PLAYER_X_SPEED * (this.width / 100);
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) this.xVel = -(BossInfo.PLAYER_X_SPEED) * (this.width / 100);
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) this.xVel = BossInfo.PLAYER_X_SPEED * (this.width / 100);
 
         if (this.xVel < 0) this.direction = 'left';
         else if (this.xVel > 0) this.direction = 'right';
