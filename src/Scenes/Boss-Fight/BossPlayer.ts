@@ -5,6 +5,7 @@ import Player from "../../Player.js";
 import UserData from "../../UserData.js";
 import GameInfo from "../../GameInfo.js";
 import PlayerProjectile from "./PlayerProjectile.js";
+import Boss from "./Boss.js";
 
 export default class BossPlayer extends Player {
   private health: number;
@@ -12,6 +13,8 @@ export default class BossPlayer extends Player {
   private stamina: number;
 
   private projectiles: PlayerProjectile[]
+
+  private shouldShoot: boolean;
 
   private lastTimeSinceShot: number;
 
@@ -59,6 +62,9 @@ export default class BossPlayer extends Player {
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) this.yVel = BossInfo.PLAYER_Y_SPEED * (this.height / 200);
 
         this.xVel = 0;
+
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)) this.shouldShoot = true
+        else this.shouldShoot = false
 
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) this.xVel = -(BossInfo.PLAYER_X_SPEED) * (this.width / 100);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) this.xVel = BossInfo.PLAYER_X_SPEED * (this.width / 100);
@@ -115,6 +121,9 @@ export default class BossPlayer extends Player {
         if (this.stamina <= BossInfo.PLAYER_STAMINA) {
           this.stamina += BossInfo.PLAYER_STAMINA_RECOVERY
         }
+      }
+      if (this.shouldShoot && this.lastTimeSinceShot > BossInfo.PLAYER_SHOOTING_DELAY) {
+        this.shootProjectile({x: canvas.width / 2, y: canvas.height / 2})
       }
     }
 

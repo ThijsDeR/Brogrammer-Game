@@ -12,7 +12,9 @@ export default class BossFightEndCutscene extends CutScene {
         const sentences = [
             "Wow, je hebt me verslagen",
             "Ik wou nog zoveel chaos veroorzaken, maar dat kan nu niet meer",
-            "Adios"
+            "Ik dacht dat ik meer in huis had, maar blijkbaar niet",
+            "Gefeliciteerd met je overwinning",
+            "Ik ga er weer vandoor",
         ];
         this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png');
     }

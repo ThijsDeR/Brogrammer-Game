@@ -4,6 +4,8 @@ export default class PokeTaleInfo {
     static PLAYER_HEALTH = 100;
     static ENEMY_HEALTH = 50;
     static WIN_SCORE = 3;
+    static WIN_COIN_AMOUNT = 10;
+    static COMPLETE_SCORE_AWARD = 100;
     static WIN_SOUND_VOLUME = 3 / 5;
     static SCORE_TEXT_X_POS = 1 / 2;
     static SCORE_TEXT_Y_POS = 1 / 20;
@@ -22,7 +24,7 @@ export default class PokeTaleInfo {
         { prompt: 'Ghostleh is je belachelijk aan het maken.', moves: [
                 { move: 'Boos worden', correct: false },
                 { move: 'Bedanken', correct: false },
-                { move: 'laan', correct: false },
+                { move: 'Sla hem', correct: false },
                 { move: 'Negeren', correct: true }
             ],
             promptInfo: 'Door geen aandacht te geven haalt de pester hier geen plezier uit, waardoor hij stopt',

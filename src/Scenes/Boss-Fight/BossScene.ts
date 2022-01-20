@@ -80,13 +80,6 @@ export default class BossScene extends GameLevel {
     this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME
     this.backgroundMusic.loop = true
     this.backgroundMusic.play()
-
-    this.clickFunction = (event: MouseEvent) => {
-      console.log('shoot')
-      this.player.shootProjectile({x: event.x, y: event.y})
-    }
-
-    this.canvas.addEventListener('click', this.clickFunction)
   }
 
   public draw(): void {

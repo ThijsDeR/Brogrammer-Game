@@ -98,4 +98,5 @@ export default class DoodleInfo {
         },
     ];
     static DOODLE_PROGRESS_OBJECT_NAME = 'doodle';
+    static COMPLETE_SCORE_AWARD = 100;
 }
