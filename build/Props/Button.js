@@ -6,17 +6,19 @@ export default class Button extends RectProp {
     id;
     originalColor;
     hoverColor;
-    constructor(xPos, yPos, width, height, color, hoverColor, text, fontSize, id) {
+    textColor;
+    constructor(xPos, yPos, width, height, color, textColor, hoverColor, text, fontSize, id) {
         super(xPos, yPos, width, height, color, 'stroke');
         this.originalColor = color;
         this.text = text;
         this.fontSize = fontSize;
         this.id = id;
         this.hoverColor = hoverColor;
+        this.textColor = textColor;
     }
     draw(ctx) {
         super.draw(ctx);
-        Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.fontSize, 'black', 'center', 'middle', this.width);
+        Scene.writeTextToCanvas(ctx, this.text, this.xPos + (this.width / 2), this.yPos + (this.height / 2), this.fontSize, this.textColor, 'center', 'middle', this.width);
     }
     isHovered(mouseCoords) {
         if (mouseCoords.x > this.getMinXPos()

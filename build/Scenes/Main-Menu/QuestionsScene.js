@@ -12,7 +12,7 @@ export default class QuestionsScene extends Scene {
     backgroundMusic;
     constructor(canvas, userData, backgroundMusic) {
         super(canvas, userData);
-        this.props = [new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')];
+        this.props = [new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')];
         this.questions = this.userData.getQuestions();
         this.backgroundMusic = backgroundMusic;
         const questionButtonWidth = this.canvas.width / 15;
@@ -40,7 +40,7 @@ export default class QuestionsScene extends Scene {
         const positions = GridGenerator.generateGrid(this.canvas.width / 2, (this.canvas.height / 10) * 4, this.questions.length, (this.canvas.height - ((this.canvas.height / 10) * 4) - ((this.canvas.height / 10) * 2)), questionButtonWidth, questionButtonHeight, betweenQuestionArea, 0);
         let currentRow = 0;
         this.questions.forEach((question, questionIndex) => {
-            this.props.push(new Button(positions[questionIndex].x - (questionButtonWidth / 2), positions[questionIndex].y, questionButtonWidth, questionButtonHeight, 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
+            this.props.push(new Button(positions[questionIndex].x - (questionButtonWidth / 2), positions[questionIndex].y, questionButtonWidth, questionButtonHeight, 'white', 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
         });
         this.nextScene = this;
         const clickFunction = (event) => {

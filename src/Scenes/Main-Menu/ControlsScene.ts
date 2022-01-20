@@ -28,7 +28,7 @@ export default class ControlsScene extends Scene {
     super(canvas, userData)
 
     this.props = [
-      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
+      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
     ]
 
     this.cutScene = null

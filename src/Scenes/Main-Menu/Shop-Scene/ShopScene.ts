@@ -30,9 +30,9 @@ export default class ShopScene extends Scene {
     super(canvas, userData)
 
     this.buttons = [
-      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
-      new Button((this.canvas.width / 2) - (this.canvas.width / 12), (this.canvas.height / 10) * 9, this.canvas.width / 12, this.canvas.height / 10, 'white', 'red', '<', this.canvas.height / 12, 'decreaseShopPage'),
-      new Button((this.canvas.width / 2), (this.canvas.height / 10) * 9, this.canvas.width / 12, this.canvas.height / 10, 'white', 'red', '>', this.canvas.height / 12, 'increaseShopPage'),
+      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
+      new Button((this.canvas.width / 2) - (this.canvas.width / 12), (this.canvas.height / 10) * 9, this.canvas.width / 12, this.canvas.height / 10, 'white', 'white', 'red', '<', this.canvas.height / 12, 'decreaseShopPage'),
+      new Button((this.canvas.width / 2), (this.canvas.height / 10) * 9, this.canvas.width / 12, this.canvas.height / 10, 'white', 'white', 'red', '>', this.canvas.height / 12, 'increaseShopPage'),
     ]
     this.nextScene = this;
 

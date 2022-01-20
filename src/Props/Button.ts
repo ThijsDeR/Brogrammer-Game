@@ -12,12 +12,15 @@ export default class Button extends RectProp{
 
   private hoverColor: string;
 
+  private textColor: string;
+
   public constructor(
     xPos: number,
     yPos: number,
     width: number,
     height: number,
     color: string,
+    textColor: string,
     hoverColor: string,
     text: string,
     fontSize: number,
@@ -30,6 +33,7 @@ export default class Button extends RectProp{
     this.fontSize = fontSize
     this.id = id
     this.hoverColor = hoverColor
+    this.textColor = textColor
   }
 
   public draw(ctx: CanvasRenderingContext2D): void {
@@ -40,7 +44,7 @@ export default class Button extends RectProp{
       this.xPos + (this.width / 2),
       this.yPos + (this.height / 2),
       this.fontSize,
-      'black',
+      this.textColor,
       'center',
       'middle',
       this.width,

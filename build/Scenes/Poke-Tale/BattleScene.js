@@ -26,10 +26,10 @@ export default class BattleScene extends CutScene {
         this.player = player;
         this.enemy = enemy;
         this.props = [
-            new Button(canvas.width / 5 * 0.6 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'red', 'black', randomQuestion.moves[0].move, this.canvas.height / 30, '0'),
-            new Button((canvas.width / 5) * 3.1 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'purple', 'black', randomQuestion.moves[1].move, this.canvas.height / 30, '2'),
-            new Button((canvas.width / 5) * 0.6 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 7))) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'blue', 'black', randomQuestion.moves[2].move, this.canvas.height / 30, '1'),
-            new Button((canvas.width / 5) * 3.1 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 7))) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'green', 'black', randomQuestion.moves[3].move, this.canvas.height / 30, '3'),
+            new Button(canvas.width / 5 * 0.6 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'red', 'black', 'black', randomQuestion.moves[0].move, this.canvas.height / 30, '0'),
+            new Button((canvas.width / 5) * 3.1 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'purple', 'black', 'black', randomQuestion.moves[1].move, this.canvas.height / 30, '2'),
+            new Button((canvas.width / 5) * 0.6 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 7))) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'blue', 'black', 'black', randomQuestion.moves[2].move, this.canvas.height / 30, '1'),
+            new Button((canvas.width / 5) * 3.1 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 7))) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'green', 'black', 'black', randomQuestion.moves[3].move, this.canvas.height / 30, '3'),
             new Text(canvas.width / 2, chatBoxHeight * 2 - this.canvas.height / 10, canvas.width / 2, this.canvas.height, randomQuestion.prompt, 'black', this.canvas.height / 25)
         ];
         const questionClickFunction = (event) => {

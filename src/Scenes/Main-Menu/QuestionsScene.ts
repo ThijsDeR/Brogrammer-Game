@@ -20,7 +20,7 @@ export default class QuestionsScene extends Scene {
   public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
     super(canvas, userData)
 
-    this.props = [new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')];
+    this.props = [new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')];
 
     this.questions = this.userData.getQuestions();
 
@@ -62,7 +62,7 @@ export default class QuestionsScene extends Scene {
 
     let currentRow = 0
     this.questions.forEach((question, questionIndex) => {
-      this.props.push(new Button(positions[questionIndex].x - (questionButtonWidth / 2), positions[questionIndex].y, questionButtonWidth, questionButtonHeight, 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
+      this.props.push(new Button(positions[questionIndex].x - (questionButtonWidth / 2), positions[questionIndex].y, questionButtonWidth, questionButtonHeight, 'white', 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
     })
     
     this.nextScene = this

@@ -28,8 +28,8 @@ export default class ItemShopScene extends Scene {
     const buttonHeight = this.canvas.height / 20
 
     this.buttons = [
-      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
-      new Button(this.canvas.width / 2 - (buttonWidth / 2), (this.canvas.height / 3) * 2 + buttonHeight, buttonWidth, buttonHeight, 'green', 'blue', 'Kopen', this.canvas.width / 100, 'buy'),
+      new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn'),
+      new Button(this.canvas.width / 2 - (buttonWidth / 2), (this.canvas.height / 3) * 2 + buttonHeight, buttonWidth, buttonHeight, 'green', 'white', 'blue', 'Kopen', this.canvas.width / 100, 'buy'),
     ]
 
     this.nextScene = this

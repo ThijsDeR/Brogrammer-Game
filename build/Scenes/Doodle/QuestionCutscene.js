@@ -17,10 +17,10 @@ export default class QuestionCutscene extends CutScene {
         const chatBoxHeight = (canvas.height / 3);
         this.props = [
             new ImageProp(0, chatBoxHeight * 2, GameInfo.IMG_PATH + 'chatbox.png', canvas.width, chatBoxHeight),
-            new Button(canvas.width / 5 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 7, this.canvas.height / 5, 'red', 'white', randomQuestion.answers[0].answer, this.canvas.height / 30, '0'),
-            new Button((canvas.width / 5) * 2 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 7, this.canvas.height / 5, 'blue', 'white', randomQuestion.answers[1].answer, this.canvas.height / 30, '1'),
-            new Button((canvas.width / 5) * 3 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 7, this.canvas.height / 5, 'purple', 'white', randomQuestion.answers[2].answer, this.canvas.height / 30, '2'),
-            new Button((canvas.width / 5) * 4 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 7, this.canvas.height / 5, 'green', 'white', randomQuestion.answers[3].answer, this.canvas.height / 30, '3'),
+            new Button(canvas.width / 5 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 7, this.canvas.height / 5, 'red', 'white', 'white', randomQuestion.answers[0].answer, this.canvas.height / 30, '0'),
+            new Button((canvas.width / 5) * 2 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 7, this.canvas.height / 5, 'blue', 'white', 'white', randomQuestion.answers[1].answer, this.canvas.height / 30, '1'),
+            new Button((canvas.width / 5) * 3 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 7, this.canvas.height / 5, 'purple', 'white', 'white', randomQuestion.answers[2].answer, this.canvas.height / 30, '2'),
+            new Button((canvas.width / 5) * 4 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 7, this.canvas.height / 5, 'green', 'white', 'white', randomQuestion.answers[3].answer, this.canvas.height / 30, '3'),
             new Text(canvas.width / 2, chatBoxHeight * 2 - this.canvas.height / 10, canvas.width / 2, this.canvas.height, randomQuestion.question, 'white', this.canvas.height / 25),
         ];
         this.player = player;

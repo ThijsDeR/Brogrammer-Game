@@ -15,9 +15,9 @@ export default class MenuCutScene extends CutScene {
         const buttonHeight = (this.canvas.height / 6);
         const betweenButtonHeight = (this.canvas.height / 10);
         this.props = [
-            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight), buttonWidth, buttonHeight, 'white', 'blue', 'Verder', this.canvas.height / 20, 'verder'),
-            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'blue', 'Hub', this.canvas.height / 20, 'hub'),
-            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'blue', 'Menu', this.canvas.height / 20, 'menu'),
+            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight), buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Verder', this.canvas.height / 20, 'verder'),
+            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Hub', this.canvas.height / 20, 'hub'),
+            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Menu', this.canvas.height / 20, 'menu')
         ];
         this.completed = false;
         this.nextScene = null;
