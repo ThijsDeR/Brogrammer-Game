@@ -12,6 +12,7 @@ import Boss from './Boss.js';
 import CollideHandler from '../../CollideHandler.js';
 import RectProp from '../../Props/RectProp.js';
 import Text from '../../Props/Text.js';
+import BossFightEndCutscene from './BossFightEndCutscene.js';
 
 export default class BossScene extends GameLevel {
   private player: BossPlayer;
@@ -148,7 +149,7 @@ export default class BossScene extends GameLevel {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
         winSound.volume = BossInfo.WIN_SOUND_VOLUME;
         winSound.play();
-        this.nextScene = new HubScene(this.canvas, this.userData)
+        this.cutScene = new BossFightEndCutscene(this.canvas, this.userData, this.boss.getImage())
       }
     } else {
       const cutsceneDone = this.cutScene.update(elapsed)

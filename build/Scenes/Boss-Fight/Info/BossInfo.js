@@ -3,6 +3,8 @@ export default class BossInfo {
     static PLAYER_X_SPEED = 11;
     static PLAYER_HEALTH = 100;
     static PLAYER_STAMINA = 100;
+    static PLAYER_STAMINA_LOSS = 1;
+    static PLAYER_STAMINA_RECOVERY = 0.02;
     static PLAYER_STAMINA_RECOVERY_DELAY = 1000;
     static BACKGROUND_MUSIC_VOLUME = 1 / 5;
     static WIN_SOUND_VOLUME = 3 / 5;

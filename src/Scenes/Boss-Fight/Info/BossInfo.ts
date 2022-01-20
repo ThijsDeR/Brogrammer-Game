@@ -7,6 +7,10 @@ export default abstract class BossInfo {
   
   public static readonly PLAYER_STAMINA: number = 100;
 
+  public static readonly PLAYER_STAMINA_LOSS: number = 1;
+
+  public static readonly PLAYER_STAMINA_RECOVERY: number = 0.02
+
   public static readonly PLAYER_STAMINA_RECOVERY_DELAY: number = 1000;
 
   public static readonly BACKGROUND_MUSIC_VOLUME: number = 1/5;

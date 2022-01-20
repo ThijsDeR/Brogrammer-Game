@@ -42,6 +42,10 @@ export default class BossPlayer extends Player {
             this.xVel = -(BossInfo.PLAYER_X_SPEED) * (this.width / 100);
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D))
             this.xVel = BossInfo.PLAYER_X_SPEED * (this.width / 100);
+        if (this.xVel < 0)
+            this.direction = 'left';
+        else if (this.xVel > 0)
+            this.direction = 'right';
     }
     move(canvas, contacts, elapsed) {
         this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
@@ -67,7 +71,7 @@ export default class BossPlayer extends Player {
         if (this.stamina >= 0) {
             const tempTan = Math.atan2(mouseCoords.y - this.getMinYPos(), mouseCoords.x - this.getMinXPos());
             this.projectiles.push(new PlayerProjectile(this.xPos, this.yPos, this.width / 2, this.height / 2, Math.cos(tempTan), Math.sin(tempTan)));
-            this.stamina -= 2;
+            this.stamina -= BossInfo.PLAYER_STAMINA_LOSS;
             this.lastTimeSinceShot = 0;
         }
     }
@@ -80,7 +84,7 @@ export default class BossPlayer extends Player {
         this.lastTimeSinceShot += elapsed;
         if (this.lastTimeSinceShot > BossInfo.PLAYER_STAMINA_RECOVERY_DELAY) {
             if (this.stamina <= BossInfo.PLAYER_STAMINA) {
-                this.stamina += 0.01;
+                this.stamina += BossInfo.PLAYER_STAMINA_RECOVERY;
             }
         }
     }
