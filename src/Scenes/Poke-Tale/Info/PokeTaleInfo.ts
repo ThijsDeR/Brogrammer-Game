@@ -36,7 +36,7 @@ export default abstract class PokeTaleInfo {
     {prompt: 'Ghostleh is je belachelijk aan het maken.', moves: [
       {move: 'Boos worden', correct: false},
       {move: 'Bedanken', correct: false},
-      {move: 'laan', correct: false},
+      {move: 'Sla hem', correct: false},
       {move: 'Negeren', correct: true}],
       promptInfo: 'Door geen aandacht te geven haalt de pester hier geen plezier uit, waardoor hij stopt',
       id: 2
