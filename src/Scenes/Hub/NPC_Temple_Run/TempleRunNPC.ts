@@ -19,7 +19,7 @@ export default class TempleRunNPC extends HubNPC {
     userData: UserData,
     
   ) {
-    super(xpos, ypos, GameInfo.IMG_PATH + 'Temple-Run/opa.png', width, height, 'templerun', 'left', 'Grot Plotter')
+    super(xpos, ypos, GameInfo.IMG_PATH + 'Temple-Run/Opa.png', width, height, 'templerun', 'left', 'Grot Plotter')
     this.userData = userData
     this.cutScene = new TempleRunNPCCutscene(canvas, userData, this)
   }
