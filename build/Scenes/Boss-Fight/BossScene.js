@@ -9,6 +9,7 @@ import CollideHandler from '../../CollideHandler.js';
 import RectProp from '../../Props/RectProp.js';
 import Text from '../../Props/Text.js';
 import BossFightEndCutscene from './BossFightEndCutscene.js';
+import MenuCutScene from '../MenuCutScene.js';
 export default class BossScene extends GameLevel {
     player;
     boss;
@@ -34,7 +35,7 @@ export default class BossScene extends GameLevel {
         ];
         this.cutScene = null;
         this.nextScene = this;
-        this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'CaveBackgroundMusic.mp3');
+        this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'boss-music.mp3');
         this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME;
         this.backgroundMusic.loop = true;
         this.backgroundMusic.play();
@@ -83,6 +84,9 @@ export default class BossScene extends GameLevel {
             });
             this.playerHealthBar[1].setWidth((this.canvas.width / 5) * (this.player.getHealth() / BossInfo.PLAYER_HEALTH));
             this.playerStaminaBar[1].setWidth((this.canvas.width / 5) * (this.player.getStamina() / BossInfo.PLAYER_STAMINA));
+            if (this.player.isPausing()) {
+                this.cutScene = new MenuCutScene(this.canvas, this.userData);
+            }
             if (this.player.isDead()) {
                 this.nextScene = new HubScene(this.canvas, this.userData);
                 this.canvas.removeEventListener('click', this.clickFunction);
@@ -91,6 +95,8 @@ export default class BossScene extends GameLevel {
                 const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
                 winSound.volume = BossInfo.WIN_SOUND_VOLUME;
                 winSound.play();
+                this.backgroundMusic.pause();
+                this.backgroundMusic = null;
                 this.userData.increaseCoins(BossInfo.COMPLETE_SCORE_AWARD);
                 this.cutScene = new BossFightEndCutscene(this.canvas, this.userData, this.boss.getImage());
             }
@@ -102,12 +108,16 @@ export default class BossScene extends GameLevel {
                 if (optionalCutScene)
                     this.nextScene = optionalCutScene;
                 this.cutScene = null;
-                this.backgroundMusic.play();
+                if (this.backgroundMusic) {
+                    this.backgroundMusic.play();
+                }
             }
         }
         if (this.nextScene !== this) {
-            this.backgroundMusic.pause();
-            this.backgroundMusic = null;
+            if (this.backgroundMusic) {
+                this.backgroundMusic.pause();
+                this.backgroundMusic = null;
+            }
         }
         return this.nextScene;
     }

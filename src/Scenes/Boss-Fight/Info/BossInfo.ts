@@ -15,7 +15,7 @@ export default abstract class BossInfo {
 
   public static readonly PLAYER_SHOOTING_DELAY: number = 200
 
-  public static readonly BACKGROUND_MUSIC_VOLUME: number = 1/5;
+  public static readonly BACKGROUND_MUSIC_VOLUME: number = 1/8;
 
   public static readonly WIN_SOUND_VOLUME: number = 3/5;
   
