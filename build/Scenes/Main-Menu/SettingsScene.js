@@ -21,7 +21,7 @@ export default class SettingsScene extends Scene {
             new Slider((this.canvas.width / 2) - (buttonWidth / 2), (this.canvas.height / 3) + (buttonHeight + betweenButtonHeight), buttonWidth, buttonHeight, 'white', 'red', 'gray', this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME), 'Hoofd Geluid', 'white', 'masterSound'),
             new Slider((this.canvas.width / 2) - (buttonWidth / 2), (this.canvas.height / 3) + (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'red', 'gray', this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME), 'Muziek Geluid', 'white', 'musicSound'),
             new Slider((this.canvas.width / 2) - (buttonWidth / 2), (this.canvas.height / 3) + (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'red', 'gray', this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME), 'Menu Geluid', 'white', 'uiSound'),
-            new Button((this.canvas.width / 100), (this.canvas.height / 50), this.canvas.width / 20, this.canvas.height / 20, 'white', 'white', 'red', 'back', this.canvas.height / 50, 'backBtn')
+            new Button((this.canvas.width / 100), (this.canvas.height / 50), this.canvas.width / 20, this.canvas.height / 20, 'white', 'white', 'red', 'Terug', this.canvas.height / 50, 'backBtn')
         ];
         this.completed = false;
         const clickFunction = (event) => {
