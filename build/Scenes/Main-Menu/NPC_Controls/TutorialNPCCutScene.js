@@ -3,12 +3,12 @@ import KeyboardListener from '../../../KeyboardListener.js';
 import TextBox from '../../../Props/TextBox.js';
 import GameInfo from '../../../GameInfo.js';
 export default class TutorialNPCCutscene extends CutScene {
-    doodleNPC;
+    TurtorialNPC;
     textBox;
     endTextBox;
-    constructor(canvas, userData, doodleNPC) {
+    constructor(canvas, userData, TurtorialNPC) {
         super(canvas, userData);
-        this.doodleNPC = doodleNPC;
+        this.TurtorialNPC = TurtorialNPC;
         const sentences = [
             "Hey welkom! Fijn dat je er bent, druk op spatie om verder te gaan.",
             "Goed zo, Jij bent er al klaar voor zie ik.",
@@ -25,7 +25,7 @@ export default class TutorialNPCCutscene extends CutScene {
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(this.doodleNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height);
+        this.ctx.drawImage(this.TurtorialNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height);
         this.textBox.draw(this.ctx);
     }
     processInput() {
@@ -36,6 +36,7 @@ export default class TutorialNPCCutscene extends CutScene {
     update(elapsed) {
         this.textBox.advanceSentence(elapsed);
         if (this.textBox.isDone()) {
+            this.TurtorialNPC.finishInteraction();
             this.textBox = this.endTextBox;
             this.textBox.reset();
             return true;
