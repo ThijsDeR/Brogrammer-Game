@@ -30,7 +30,7 @@ export default class ShopScene extends Scene {
             { name: 'Gele Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-jello.png', cost: 400, id: 2 },
             { name: 'Oranje Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-orang.png', cost: 400, id: 3 },
             { name: 'Paarse Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-pingre.png', cost: 400, id: 4 },
-            { name: 'Paarse Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-purp.png', cost: 400, id: 5 },
+            { name: 'Donker Blauwe Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-purp.png', cost: 400, id: 5 },
             { name: 'Groene Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-green.png', cost: 400, id: 6 },
             { name: 'Blauwe Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-blue.png', cost: 400, id: 7 },
             { name: 'Dappere Robot', src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview-pjott.png', cost: 800, id: 8 },
