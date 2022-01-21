@@ -63,7 +63,7 @@ export default class TutorialNPCCutscene extends CutScene {
     return false
   }
 
-  public getOptionalScene(): Scene | null{
+  public getOptionalScene(): Scene | null {
     return null
   }
 

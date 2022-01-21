@@ -13,6 +13,7 @@ import CollideHandler from '../../CollideHandler.js';
 import RectProp from '../../Props/RectProp.js';
 import Text from '../../Props/Text.js';
 import BossFightEndCutscene from './BossFightEndCutscene.js';
+import MenuCutScene from '../MenuCutScene.js';
 
 export default class BossScene extends GameLevel {
   private player: BossPlayer;
@@ -134,6 +135,10 @@ export default class BossScene extends GameLevel {
       this.playerHealthBar[1].setWidth((this.canvas.width / 5) * (this.player.getHealth() / BossInfo.PLAYER_HEALTH))
       this.playerStaminaBar[1].setWidth((this.canvas.width / 5) * (this.player.getStamina() / BossInfo.PLAYER_STAMINA))
 
+      if (this.player.isPausing()) {
+        this.cutScene = new MenuCutScene(this.canvas, this.userData)
+      }
+
       if (this.player.isDead()) {
         this.nextScene = new HubScene(this.canvas, this.userData)
         this.canvas.removeEventListener('click', this.clickFunction)
@@ -153,6 +158,9 @@ export default class BossScene extends GameLevel {
         let optionalCutScene = this.cutScene.getOptionalScene()
         if (optionalCutScene) this.nextScene = optionalCutScene
         this.cutScene = null;
+        if (this.backgroundMusic) {
+          this.backgroundMusic.play()
+        }
       }
     }
     if (this.nextScene !== this) {
