@@ -5,11 +5,21 @@ export default abstract class DoodleInfo {
   
     public static readonly GRAVITY_CONSTANT: number = 0.098;
   
-    public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY: number = 2
+    public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY: number = 2;
 
     public static readonly LEVEL_YPOS_FINISH: number = -50;
 
-    public static readonly CLOUD_DISSAPEAR: number = 1/500
+    public static readonly CLOUD_DISSAPEAR: number = 1/500;
+
+    public static readonly CORRECT_SOUND_VOLUME: number = 3/5;
+
+    public static readonly WRONG_SOUND_VOLUME: number = 4/5;
+
+    public static readonly WIN_SOUND_VOLUME: number = 3/5;
+
+    public static readonly HIT_ENEMY_SOUND_VOLUME: number = 1/2;
+
+    public static readonly CLOUD_JUMP_SOUND_VOLUME: number = 3/10;
 
     public static readonly QUESTIONS: {question: string, answers: {answer: string, correct: boolean}[], questionInfo: string, id: number}[] = [
       {question: 'Wat is de sterkste pincode?', answers: [

@@ -7,6 +7,9 @@ export default class PokeTaleInfo {
     static WIN_COIN_AMOUNT = 10;
     static COMPLETE_SCORE_AWARD = 100;
     static WIN_SOUND_VOLUME = 3 / 5;
+    static BACKGROUND_MUSIC_VOLUME = 1 / 20;
+    static CORRECT_SOUND_VOLUME = 3 / 5;
+    static WRONG_SOUND_VOLUME = 4 / 5;
     static SCORE_TEXT_X_POS = 1 / 2;
     static SCORE_TEXT_Y_POS = 1 / 20;
     static SCORE_TEXT_FONT_SIZE = 1 / 50;

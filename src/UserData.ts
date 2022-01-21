@@ -2,15 +2,23 @@ import GameInfo from "./GameInfo.js";
 
 export default class UserData {
 
-  private static readonly COIN_OBJECT_NAME: string = 'coins';
+  public static readonly COIN_OBJECT_NAME: string = 'coins';
 
-  private static readonly QUESTIONS_OBJECT_NAME: string = 'questions'
+  public static readonly QUESTIONS_OBJECT_NAME: string = 'questions'
 
-  private static readonly SKINS_OBJECT_NAME: string = 'skins'
+  public static readonly SKINS_OBJECT_NAME: string = 'skins'
 
-  private static readonly CURRENT_SKIN_OBJECT_NAME: string = 'current_skin'
+  public static readonly CURRENT_SKIN_OBJECT_NAME: string = 'current_skin'
 
-  private static readonly STORY_PROGRESS_OBJECT_NAME: string = 'story_progress'
+  public static readonly STORY_PROGRESS_OBJECT_NAME: string = 'story_progress'
+
+  public static readonly MASTER_SOUND_OBJECT_NAME: string = 'master_sound'
+
+  public static readonly MUSIC_SOUND_OBJECT_NAME: string = 'music_sound'
+
+  public static readonly UI_SOUND_OBJECT_NAME: string = 'ui_sound'
+
+  public static readonly SOUND_OBJECT_NAME: string = 'sound'
 
   private coins: number;
 
@@ -21,6 +29,8 @@ export default class UserData {
   private currentSkin: number;
 
   private storyProgress: {NPCs: {name: string, talkedTo: boolean, finished: boolean}[]}
+
+  private sounds: {name: string, procent: number}[]
   
   public constructor() {
     if (localStorage.getItem(UserData.COIN_OBJECT_NAME)) {
@@ -58,6 +68,13 @@ export default class UserData {
     } else {
       this.storyProgress = {NPCs: []}
       localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress))
+    }
+
+    if (localStorage.getItem(UserData.SOUND_OBJECT_NAME)) {
+      this.sounds = JSON.parse(localStorage.getItem(UserData.SOUND_OBJECT_NAME))
+    } else {
+      this.sounds = []
+      localStorage.setItem(UserData.SOUND_OBJECT_NAME, JSON.stringify(this.sounds))
     }
 
 
@@ -161,5 +178,21 @@ export default class UserData {
     newNPCArray.push(NPCStoryProgress)
     this.storyProgress.NPCs = newNPCArray
     localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress))
+  }
+
+  public getSoundProcent(name: string): number {
+    const soundData = this.sounds.filter((sound) => sound.name === name)[0]
+    if (soundData) return soundData.procent
+    else {
+      this.changeSoundProcent(name, 100)
+      return 100
+    }
+  }
+
+  public changeSoundProcent(name: string, procent: number): void {
+    const newSoundArray = this.sounds.filter((sound) => sound.name !== name)
+    newSoundArray.push({name: name, procent: procent})
+    this.sounds = newSoundArray
+    localStorage.setItem(UserData.SOUND_OBJECT_NAME, JSON.stringify(this.sounds))
   }
 }

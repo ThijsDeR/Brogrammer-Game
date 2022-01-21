@@ -1,6 +1,7 @@
 import GameInfo from "../../../GameInfo.js";
 import Button from "../../../Props/Button.js";
 import Scene from "../../../Scene.js";
+import UserData from "../../../UserData.js";
 import MenuInfo from "../Info/MenuInfo.js";
 import ShopScene from "./ShopScene.js";
 export default class ItemShopScene extends Scene {
@@ -26,13 +27,13 @@ export default class ItemShopScene extends Scene {
                     if (button.getId() === 'backBtn') {
                         this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
                         const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+                        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                         buttonSound.play();
                     }
                     if (button.getId() === 'buy') {
                         if (this.userData.getCoins() > this.shopItem.getCost()) {
                             const startSound = new Audio(GameInfo.SOUND_PATH + 'buy-sound.wav');
-                            startSound.volume = MenuInfo.SHOP_CLICK_VOLUME;
+                            startSound.volume = MenuInfo.SHOP_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                             startSound.play();
                             this.userData.addSkin({ src: this.shopItem.getImage().getImageSrc(), id: this.shopItem.getId(), name: this.shopItem.getName() });
                             this.userData.decreaseCoins(this.shopItem.getCost());
@@ -40,7 +41,7 @@ export default class ItemShopScene extends Scene {
                         }
                         else {
                             const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
-                            wrongSound.volume = MenuInfo.SHOP_CLICK_VOLUME;
+                            wrongSound.volume = MenuInfo.SHOP_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                             wrongSound.play();
                         }
                     }

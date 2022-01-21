@@ -2,6 +2,7 @@ import Game from '../../Game.js';
 import GameInfo from '../../GameInfo.js';
 import GameLevel from '../../GameLevel.js';
 import Scene from '../../Scene.js';
+import UserData from '../../UserData.js';
 import HubScene from '../Hub/HubScene.js';
 import PokeTaleInfo from './Info/PokeTaleInfo.js';
 import PokePlayer from './PokePlayer.js';
@@ -30,7 +31,7 @@ export default class PoketaleScene extends GameLevel {
         this.nextScene = this;
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'PokeTale_bg.wav');
         this.backgroundMusic.loop = true;
-        this.backgroundMusic.volume = 0.05;
+        this.backgroundMusic.volume = PokeTaleInfo.BACKGROUND_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
         this.backgroundMusic.play();
     }
     draw() {
@@ -71,7 +72,7 @@ export default class PoketaleScene extends GameLevel {
             }
             else if (this.score >= PokeTaleInfo.WIN_SCORE) {
                 const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
-                winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME;
+                winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
                 winSound.play();
                 this.userData.changeNPCStoryProgress({ name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: true });
                 this.userData.increaseCoins(PokeTaleInfo.COMPLETE_SCORE_AWARD);

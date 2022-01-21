@@ -78,7 +78,7 @@ export default class BossScene extends GameLevel {
     this.nextScene = this
     
     this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'boss-music.mp3')
-    this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME
+    this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100)
     this.backgroundMusic.loop = true
     this.backgroundMusic.play()
   }
@@ -145,7 +145,7 @@ export default class BossScene extends GameLevel {
       }
       else if (this.boss.isDead()) {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
-        winSound.volume = BossInfo.WIN_SOUND_VOLUME;
+        winSound.volume = BossInfo.WIN_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
         winSound.play();
         this.backgroundMusic.pause();
         this.backgroundMusic = null

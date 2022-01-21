@@ -15,6 +15,12 @@ export default abstract class PokeTaleInfo {
 
   public static readonly WIN_SOUND_VOLUME: number = 3/5;
 
+  public static readonly BACKGROUND_MUSIC_VOLUME: number = 1/20;
+
+  public static readonly CORRECT_SOUND_VOLUME: number = 3/5;
+
+  public static readonly WRONG_SOUND_VOLUME: number = 4/5;
+
   // Text
   public static readonly SCORE_TEXT_X_POS: number = 1/2 // width
 

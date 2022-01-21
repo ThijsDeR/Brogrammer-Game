@@ -2,6 +2,7 @@ import CutScene from '../../CutScene.js';
 import Game from '../../Game.js';
 import Button from '../../Props/Button.js';
 import ImageProp from '../../Props/ImageProp.js';
+import UserData from '../../UserData.js';
 import Text from '../../Props/Text.js';
 import GameInfo from '../../GameInfo.js';
 import DoodleInfo from './Info/DoodleInfo.js';
@@ -43,12 +44,12 @@ export default class QuestionCutscene extends CutScene {
             if (this.completed) {
                 if (this.player.isDead()) {
                     const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
-                    wrongSound.volume = 0.8;
+                    wrongSound.volume = DoodleInfo.WRONG_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                     wrongSound.play();
                 }
                 else {
                     const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
-                    correctSound.volume = 0.6;
+                    correctSound.volume = DoodleInfo.CORRECT_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                     correctSound.play();
                 }
                 this.canvas.removeEventListener('click', questionClickFunction);

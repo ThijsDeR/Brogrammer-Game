@@ -68,11 +68,11 @@ export default class QuestionCutscene extends CutScene {
 
         if (this.player.isDead()){
           const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3')
-          wrongSound.volume = 0.8;
+          wrongSound.volume = DoodleInfo.WRONG_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
           wrongSound.play();
         } else {
           const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
-          correctSound.volume = 0.6;
+          correctSound.volume = DoodleInfo.CORRECT_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
           correctSound.play();
         }
 

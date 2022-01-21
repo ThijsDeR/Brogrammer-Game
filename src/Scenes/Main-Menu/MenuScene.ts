@@ -10,6 +10,8 @@ import QuestionsScene from './QuestionsScene.js';
 import GridGenerator from '../../GridGenerator.js';
 import ShopScene from './Shop-Scene/ShopScene.js';
 import MenuInfo from './Info/MenuInfo.js';
+import CutScene from '../../CutScene.js';
+import SettingsScene from './SettingsScene.js';
 
 export default class MenuScene extends Scene {
   private props: Prop[];
@@ -21,6 +23,8 @@ export default class MenuScene extends Scene {
   private backgroundMusic: HTMLAudioElement;
 
   private isPlaying: boolean;
+
+  private cutScene: CutScene | null
 
   public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlaying?: boolean, backgroundMusic?: HTMLAudioElement| null) {
     super(canvas, userData)
@@ -48,13 +52,15 @@ export default class MenuScene extends Scene {
       new Button(positions[0].x - (buttonWidth / 2), positions[0].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Start!', this.canvas.height / 20, 'startBtn'),
       new Button(positions[1].x - (buttonWidth / 2), positions[1].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Vragen', this.canvas.height / 20, 'mistakes'),
       new Button(positions[2].x - (buttonWidth / 2), positions[2].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Besturing', this.canvas.height / 20, 'controls'),
-      new Button(positions[3].x - (buttonWidth / 2), positions[3].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Winkel', this.canvas.height / 20, 'shop')
+      new Button(positions[3].x - (buttonWidth / 2), positions[3].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Winkel', this.canvas.height / 20, 'shop'),
+      new Button((this.canvas.width / 100), (this.canvas.height / 50), this.canvas.width / 15, this.canvas.height / 20, 'white', 'white', 'red', 'Instellingen', this.canvas.height / 50, 'settings')
 
     ]
 
     this.isPlaying = isPlaying ? true : false;
 
     this.nextScene = this;
+    this.cutScene = null
 
     const clickFunction = (event: MouseEvent) => {
       let originalNextScene = this.nextScene
@@ -62,43 +68,29 @@ export default class MenuScene extends Scene {
         if (prop instanceof Button) {
           if (prop.isHovered({x: event.x, y: event.y})) {
             if (prop.getId() === 'startBtn') {
-              const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
-              buttonSound.volume = 1;
-              buttonSound.play();
               if (this.backgroundMusic) {
                 this.backgroundMusic.pause()
                 this.backgroundMusic = null
               }
               this.nextScene = new HubScene(this.canvas, this.userData);
             }else if (prop.getId() === 'controls') {
-              const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
-              buttonSound.volume = 1;
-              buttonSound.play();
               this.nextScene = new ControlsScene(this.canvas, this.userData, this.backgroundMusic);
             }else if (prop.getId() === 'mistakes') {
-              const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
-              buttonSound.volume = 1;
-              buttonSound.play();
               this.nextScene = new QuestionsScene(this.canvas, this.userData, this.backgroundMusic);
             } else if (prop.getId() === 'shop') {
-              const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
-              buttonSound.volume = 1;
-              buttonSound.play();
               this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
             } else if (prop.getId() === 'decreaseCurrentSkin') {
-              const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
-              buttonSound.volume = 1;
-              buttonSound.play();
               this.userData.decreaseCurrentSkin()
               this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2)
             } else if (prop.getId() === 'increaseCurrentSkin') {
-              const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
-              buttonSound.volume = 1;
-              buttonSound.play();
               this.userData.increaseCurrentSkin()
               this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2)
-
+            } else if (prop.getId() === 'settings') {
+              this.nextScene = new SettingsScene(this.canvas, this.userData, this.backgroundMusic, this.isPlaying)
             }
+            const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
+            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+            buttonSound.play();
           }
         }
       })
@@ -119,7 +111,7 @@ export default class MenuScene extends Scene {
       if (this.isPlaying === false) {
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'menu-music.wav');
         this.backgroundMusic.loop = true;
-        this.backgroundMusic.volume = 0.1
+        this.backgroundMusic.volume = MenuInfo.MENU_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
         this.backgroundMusic.play();
         this.isPlaying = true;
       } else {

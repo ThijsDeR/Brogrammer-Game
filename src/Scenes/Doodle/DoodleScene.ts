@@ -245,14 +245,14 @@ export default class DoodleScene extends GameLevel {
             this.player.die();
             this.props.splice(propIndex, 1);
             const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
-            enemySound.volume = 0.5;
+            enemySound.volume = DoodleInfo.HIT_ENEMY_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
             enemySound.play();
           }
 
           if (prop instanceof FallLine) {
             this.player.die();
             const enemySound = new Audio(GameInfo.SOUND_PATH + 'HitEnemy.wav')
-            enemySound.volume = 0.5;
+            enemySound.volume = DoodleInfo.HIT_ENEMY_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
             enemySound.play();
           }
 
@@ -290,7 +290,7 @@ export default class DoodleScene extends GameLevel {
         if (this.cutScene instanceof SonNPCCutscene) {
           this.nextScene = this.cutScene.getOptionalScene()
           const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
-          winSound.volume = 0.6;
+          winSound.volume = DoodleInfo.WIN_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
           winSound.play();
           this.userData.changeNPCStoryProgress({name: 'doodle', talkedTo: true, finished: true})
           this.userData.increaseCoins(DoodleInfo.COMPLETE_SCORE_AWARD)

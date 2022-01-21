@@ -2,6 +2,7 @@ import Button from '../../Props/Button.js';
 import GameInfo from '../../GameInfo.js';
 import CollideHandler from '../../CollideHandler.js';
 import Scene from '../../Scene.js';
+import UserData from '../../UserData.js';
 import MenuScene from './MenuScene.js';
 import TutorialNPC from './NPC_Controls/TutorialNPC.js';
 import HubPlayer from '../Hub/HubPlayer.js';
@@ -40,7 +41,7 @@ export default class ControlsScene extends Scene {
             });
             if (originalNextScene !== this.nextScene) {
                 const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                 buttonSound.play();
                 this.canvas.removeEventListener('click', clickFunction);
                 this.canvas.removeEventListener('mousemove', hoverFunction);

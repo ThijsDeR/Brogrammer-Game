@@ -2,6 +2,7 @@ import CollideHandler from '../../CollideHandler.js';
 import GameLevel from '../../GameLevel.js';
 import Scene from '../../Scene.js';
 import SceneSelector from '../../SceneSelector.js';
+import UserData from '../../UserData.js';
 import HubPlayer from './HubPlayer.js';
 import Game from '../../Game.js';
 import DoodleNPC from './NPC_Doodle/DoodleNPC.js';
@@ -12,6 +13,7 @@ import GameInfo from '../../GameInfo.js';
 import PokeTaleInfo from '../Poke-Tale/Info/PokeTaleInfo.js';
 import Platform from '../../Props/Platform.js';
 import BossNPC from './NPC_Boss/BossNPC.js';
+import HubInfo from './Info/HubInfo.js';
 export default class HubScene extends GameLevel {
     player;
     props;
@@ -33,7 +35,7 @@ export default class HubScene extends GameLevel {
         if (this.isPlayingHub === false) {
             this.backgroundMusicHub = new Audio(GameInfo.SOUND_PATH + 'hub-music.mp3');
             this.backgroundMusicHub.loop = true;
-            this.backgroundMusicHub.volume = 0.1;
+            this.backgroundMusicHub.volume = HubInfo.BACKGROUND_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
             this.backgroundMusicHub.play();
             this.isPlayingHub = true;
         }

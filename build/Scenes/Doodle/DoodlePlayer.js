@@ -2,12 +2,15 @@ import CollideHandler from '../../CollideHandler.js';
 import GameInfo from '../../GameInfo.js';
 import KeyboardListener from '../../KeyboardListener.js';
 import Player from '../../Player.js';
+import UserData from '../../UserData.js';
 import DoodleInfo from './Info/DoodleInfo.js';
 export default class DoodlePlayer extends Player {
     dead;
+    userData;
     constructor(xPos, yPos, width = undefined, height = undefined, userData) {
         super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height);
         this.dead = false;
+        this.userData = userData;
     }
     draw(ctx, offsetX, offsetY) {
         if (this.direction === 'left') {
@@ -58,7 +61,7 @@ export default class DoodlePlayer extends Player {
                 this.airborne = true;
                 this.yVel = -(DoodleInfo.PLAYER_Y_SPEED) * (this.height / 100);
                 const jumpSound = new Audio(GameInfo.SOUND_PATH + 'JumpCloud.wav');
-                jumpSound.volume = 0.3;
+                jumpSound.volume = DoodleInfo.CLOUD_JUMP_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
                 jumpSound.play();
             }
         }

@@ -24,7 +24,7 @@ export default class TutorialNPCCutscene extends CutScene {
     this.tutorialNPC = tutorialNPC
 
     const sentences = [
-      "Hey welkom! Fijn dat je er bent, druk op spatie om verder te gaan.",
+      "Hey welkom! Fijn dat je er bent, druk op E om verder te gaan.",
       "Goed zo, Jij bent er al klaar voor zie ik.",
       "Dan zit mijn taak er weer op.",
       "Heel veel succes!"

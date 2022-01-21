@@ -2,6 +2,7 @@ import GameInfo from "../../../GameInfo.js";
 import GridGenerator from "../../../GridGenerator.js";
 import Button from "../../../Props/Button.js";
 import Scene from "../../../Scene.js";
+import UserData from "../../../UserData.js";
 import MenuInfo from "../Info/MenuInfo.js";
 import MenuScene from "../MenuScene.js";
 import ItemShopScene from "./ItemShopScene.js";
@@ -59,7 +60,7 @@ export default class ShopScene extends Scene {
             this.shopItems.forEach((shopItem) => {
                 if (shopItem.isHovered({ x: event.x, y: event.y })) {
                     const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                    buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+                    buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                     buttonSound.play();
                     this.nextScene = new ItemShopScene(this.canvas, this.userData, shopItem, this.backgroundMusic);
                 }
@@ -67,7 +68,7 @@ export default class ShopScene extends Scene {
             this.buttons.forEach((button) => {
                 if (button.isHovered({ x: event.x, y: event.y })) {
                     const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                    buttonSound.volume = MenuInfo.UI_CLICK_VOLUME;
+                    buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                     buttonSound.play();
                     if (button.getId() === 'backBtn') {
                         this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);

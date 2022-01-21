@@ -4,6 +4,7 @@ import GameInfo from "../../GameInfo.js";
 import GameLevel from "../../GameLevel.js";
 import Platform from "../../Props/Platform.js";
 import Scene from '../../Scene.js';
+import UserData from "../../UserData.js";
 import HubScene from "../Hub/HubScene.js";
 import MenuCutScene from "../MenuCutScene.js";
 import CorrectProp from "./CorrectProp.js";
@@ -27,7 +28,7 @@ export default class TempleRunScene extends GameLevel {
         this.nextScene = this;
         this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'CaveBackgroundMusic.mp3');
         this.backgroundMusic.loop = true;
-        this.backgroundMusic.volume = TempleRunInfo.BACKGROUND_MUSIC_VOLUME;
+        this.backgroundMusic.volume = (TempleRunInfo.BACKGROUND_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100));
         this.backgroundMusic.play();
     }
     newQuestion() {
@@ -69,14 +70,15 @@ export default class TempleRunScene extends GameLevel {
                     else if (prop instanceof DeadProp) {
                         this.player.die();
                         const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
-                        wrongSound.volume = TempleRunInfo.WRONG_SOUND_VOLUME;
+                        wrongSound.volume = TempleRunInfo.WRONG_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                         wrongSound.play();
                     }
                     else if (prop instanceof CorrectProp) {
                         this.userData.increaseCoins(TempleRunInfo.WIN_COIN_AMOUNT);
                         this.score += 1;
                         const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
-                        correctSound.volume = TempleRunInfo.CORRECT_SOUND_VOLUME;
+                        correctSound.volume = TempleRunInfo.CORRECT_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+                        ;
                         correctSound.play();
                         this.newQuestion();
                     }
@@ -88,7 +90,7 @@ export default class TempleRunScene extends GameLevel {
                 this.nextScene = new HubScene(this.canvas, this.userData);
             else if (this.score >= TempleRunInfo.WIN_SCORE) {
                 const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
-                winSound.volume = TempleRunInfo.WIN_SOUND_VOLUME;
+                winSound.volume = TempleRunInfo.WIN_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
                 winSound.play();
                 this.userData.changeNPCStoryProgress({ name: TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME, talkedTo: true, finished: true });
                 this.userData.increaseCoins(TempleRunInfo.COMPLETE_SCORE_AWARD);

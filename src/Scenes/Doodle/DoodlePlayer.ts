@@ -8,6 +8,8 @@ import DoodleInfo from './Info/DoodleInfo.js';
 export default class DoodlePlayer extends Player {
   private dead: boolean;
 
+  private userData: UserData;
+
   public constructor(
     xPos: number,
     yPos: number,
@@ -18,6 +20,7 @@ export default class DoodlePlayer extends Player {
     super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height)
 
     this.dead = false;
+    this.userData = userData
   }
 
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
@@ -79,7 +82,7 @@ export default class DoodlePlayer extends Player {
 
         // sound when hitting the clouds
         const jumpSound = new Audio(GameInfo.SOUND_PATH + 'JumpCloud.wav');
-        jumpSound.volume = 0.3
+        jumpSound.volume = DoodleInfo.CLOUD_JUMP_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
         jumpSound.play();
       }
       

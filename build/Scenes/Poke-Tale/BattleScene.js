@@ -1,6 +1,7 @@
 import CutScene from "../../CutScene.js";
 import KeyboardListener from "../../KeyboardListener.js";
 import Text from '../../Props/Text.js';
+import UserData from "../../UserData.js";
 import GameInfo from '../../GameInfo.js';
 import Game from "../../Game.js";
 import Button from "../../Props/Button.js";
@@ -49,14 +50,14 @@ export default class BattleScene extends CutScene {
                             if (Number(prop.getId()) === i) {
                                 if (question.moves[i].correct) {
                                     const correctSound = new Audio(GameInfo.SOUND_PATH + 'Correct.wav');
-                                    correctSound.volume = 0.6;
+                                    correctSound.volume = PokeTaleInfo.CORRECT_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                                     correctSound.play();
                                     this.enemyHealth -= 10;
                                     this.enemyHealthBar[1].setWidth((this.canvas.width / 4) * (this.enemyHealth / PokeTaleInfo.ENEMY_HEALTH));
                                 }
                                 else {
                                     const wrongSound = new Audio(GameInfo.SOUND_PATH + 'Wrong.mp3');
-                                    wrongSound.volume = 0.8;
+                                    wrongSound.volume = PokeTaleInfo.WRONG_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                                     wrongSound.play();
                                     this.playerHealth -= 10;
                                     this.playerHealthBar[1].setWidth((this.canvas.width / 4) * (this.playerHealth / PokeTaleInfo.PLAYER_HEALTH));

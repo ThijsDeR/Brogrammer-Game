@@ -5,11 +5,16 @@ export default class UserData {
     static SKINS_OBJECT_NAME = 'skins';
     static CURRENT_SKIN_OBJECT_NAME = 'current_skin';
     static STORY_PROGRESS_OBJECT_NAME = 'story_progress';
+    static MASTER_SOUND_OBJECT_NAME = 'master_sound';
+    static MUSIC_SOUND_OBJECT_NAME = 'music_sound';
+    static UI_SOUND_OBJECT_NAME = 'ui_sound';
+    static SOUND_OBJECT_NAME = 'sound';
     coins;
     questions;
     skins;
     currentSkin;
     storyProgress;
+    sounds;
     constructor() {
         if (localStorage.getItem(UserData.COIN_OBJECT_NAME)) {
             this.coins = Number(localStorage.getItem(UserData.COIN_OBJECT_NAME));
@@ -47,6 +52,13 @@ export default class UserData {
         else {
             this.storyProgress = { NPCs: [] };
             localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
+        }
+        if (localStorage.getItem(UserData.SOUND_OBJECT_NAME)) {
+            this.sounds = JSON.parse(localStorage.getItem(UserData.SOUND_OBJECT_NAME));
+        }
+        else {
+            this.sounds = [];
+            localStorage.setItem(UserData.SOUND_OBJECT_NAME, JSON.stringify(this.sounds));
         }
     }
     getCoins() {
@@ -118,5 +130,20 @@ export default class UserData {
         newNPCArray.push(NPCStoryProgress);
         this.storyProgress.NPCs = newNPCArray;
         localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
+    }
+    getSoundProcent(name) {
+        const soundData = this.sounds.filter((sound) => sound.name === name)[0];
+        if (soundData)
+            return soundData.procent;
+        else {
+            this.changeSoundProcent(name, 100);
+            return 100;
+        }
+    }
+    changeSoundProcent(name, procent) {
+        const newSoundArray = this.sounds.filter((sound) => sound.name !== name);
+        newSoundArray.push({ name: name, procent: procent });
+        this.sounds = newSoundArray;
+        localStorage.setItem(UserData.SOUND_OBJECT_NAME, JSON.stringify(this.sounds));
     }
 }
