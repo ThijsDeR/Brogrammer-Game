@@ -8,7 +8,7 @@ import GameInfo from '../../../GameInfo.js';
 
 
 export default class TutorialNPCCutscene extends CutScene {
-  private TurtorialNPC: TutorialNPC;
+  private tutorialNPCNPC: TutorialNPC;
 
   private textBox: TextBox;
 
@@ -17,11 +17,11 @@ export default class TutorialNPCCutscene extends CutScene {
   public constructor(
     canvas: HTMLCanvasElement,
     userData: UserData,
-    TurtorialNPC: TutorialNPC,
+    tutorialNPCNPC: TutorialNPC,
   ) {
     super(canvas, userData)
 
-    this.TurtorialNPC = TurtorialNPC
+    this.tutorialNPCNPC = tutorialNPCNPC
 
     const sentences = [
       "Hey welkom! Fijn dat je er bent, druk op spatie om verder te gaan.",
@@ -42,7 +42,7 @@ export default class TutorialNPCCutscene extends CutScene {
   public draw(): void {
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height)
-    this.ctx.drawImage(this.TurtorialNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height)
+    this.ctx.drawImage(this.tutorialNPCNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height)
     this.textBox.draw(this.ctx)
   }
 
@@ -55,7 +55,7 @@ export default class TutorialNPCCutscene extends CutScene {
   public update(elapsed: number): boolean {
    this.textBox.advanceSentence(elapsed)
     if (this.textBox.isDone()) {
-      this.TurtorialNPC.finishInteraction()
+      this.tutorialNPCNPC.finishInteraction()
       this.textBox = this.endTextBox
       this.textBox.reset()
       return true

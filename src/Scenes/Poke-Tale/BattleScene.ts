@@ -8,15 +8,11 @@ import PokeEnemy from "./PokeEnemy.js";
 import PokePlayer from "./PokePlayer.js";
 import GameInfo from '../../GameInfo.js';
 import Game from "../../Game.js";
-import DoodleInfo from "../Doodle/Info/DoodleInfo.js";
 import Button from "../../Props/Button.js";
 import Prop from "../../Props/Prop.js";
 import PokeTaleInfo from "./Info/PokeTaleInfo.js";
-import HubScene from "../Hub/HubScene.js";
 import ImageProp from "../../Props/ImageProp.js";
 import RectProp from "../../Props/RectProp.js";
-import PoketaleScene from "./PoketaleScene.js";
-
 
 export default class BattleScene extends CutScene{
 // no movement needed, just draw the enemy and the player. give them 4 options and if they choose correct one. score goes up by one
@@ -35,8 +31,6 @@ export default class BattleScene extends CutScene{
 
   private textBox: TextBox;
 
-  private promptBox: TextBox;
-
   private props: Prop[];
   
   private prompt: number;
@@ -54,9 +48,6 @@ export default class BattleScene extends CutScene{
     enemy: PokeEnemy,
   ) {
     super(canvas, userData)
-    const sentences = [
-      "Je bent een wilde Gostleh tegengekomen!",
-    ]
 
     this.player = player
     this.playerHealth = PokeTaleInfo.PLAYER_HEALTH

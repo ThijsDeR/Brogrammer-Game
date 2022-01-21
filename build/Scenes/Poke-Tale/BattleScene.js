@@ -15,7 +15,6 @@ export default class BattleScene extends CutScene {
     enemyHealth;
     enemyHealthBar;
     textBox;
-    promptBox;
     props;
     prompt;
     completed;
@@ -23,9 +22,6 @@ export default class BattleScene extends CutScene {
     points;
     constructor(canvas, userData, player, enemy) {
         super(canvas, userData);
-        const sentences = [
-            "Je bent een wilde Gostleh tegengekomen!",
-        ];
         this.player = player;
         this.playerHealth = PokeTaleInfo.PLAYER_HEALTH;
         this.enemy = enemy;
