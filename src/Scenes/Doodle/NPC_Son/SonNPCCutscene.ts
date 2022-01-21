@@ -26,7 +26,7 @@ export default class SonNPCCutscene extends CutScene {
     const sentences = [
       "Oh dankjewel, ik ben hier al zo lang.",
       "Ik moest zelfs die vieze slimes opeten, ewwww.",
-      "Laten we nu maar teruggaan"
+      "Laten we nu maar teruggaan."
     ]
 
 
