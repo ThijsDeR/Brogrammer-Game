@@ -24,9 +24,9 @@ export default class SonNPCCutscene extends CutScene {
     this.sonNPC = sonNPC
 
     const sentences = [
-      "Oh dankjewel, ik ben hier al zo lang",
-      "ik moest zelfs die vieze slimes opeten, ewwww",
-      "laten we nu maar teruggaan"
+      "Oh dankjewel, ik ben hier al zo lang.",
+      "Ik moest zelfs die vieze slimes opeten, ewwww.",
+      "Laten we nu maar teruggaan."
     ]
 
 

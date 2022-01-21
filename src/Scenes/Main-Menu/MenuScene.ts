@@ -9,6 +9,7 @@ import ImageProp from '../../Props/ImageProp.js';
 import QuestionsScene from './QuestionsScene.js';
 import GridGenerator from '../../GridGenerator.js';
 import ShopScene from './Shop-Scene/ShopScene.js';
+import MenuInfo from './Info/MenuInfo.js';
 
 export default class MenuScene extends Scene {
   private props: Prop[];
@@ -133,7 +134,7 @@ export default class MenuScene extends Scene {
   }
 
   public draw(): void {
-    this.ctx.fillStyle = "#2E5984";
+    this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
     this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
 
     this.robotImage.draw(this.ctx)

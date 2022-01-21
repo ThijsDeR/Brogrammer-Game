@@ -98,6 +98,7 @@ export default class ControlsScene extends Scene {
                 }
             });
             this.NPCs.forEach((NPC) => {
+                NPC.removeDelay(elapsed);
                 if (CollideHandler.collides(this.player, NPC)) {
                     if (this.player.isInteracting()) {
                         console.log('git commit arson');
