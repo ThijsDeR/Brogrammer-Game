@@ -6,7 +6,6 @@ import HubInfo from './Info/HubInfo.js';
 export default class HubPlayer extends Player {
     goingThroughPlatform;
     constructor(xPos, yPos, width = undefined, height = undefined, userData) {
-        console.log(`${userData.getCurrentSkin().src}`);
         super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height);
     }
     processInput() {

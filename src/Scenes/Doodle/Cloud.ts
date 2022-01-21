@@ -29,7 +29,6 @@ export default class Cloud extends ImageProp {
 
   public makeDisappear(elapsed: number): void {
     if (this.isDisappearing) {
-      console.log(this.opacity)
       if (this.opacity >= 0.1) {
         this.opacity -= DoodleInfo.CLOUD_DISSAPEAR * (elapsed * GameInfo.ELAPSED_PENALTY)
       }

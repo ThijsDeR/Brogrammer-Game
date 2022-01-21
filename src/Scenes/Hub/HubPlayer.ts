@@ -16,7 +16,6 @@ export default class HubPlayer extends Player {
     height: number | undefined = undefined,
     userData: UserData,
   ) {
-    console.log(`${userData.getCurrentSkin().src}`)
     super(xPos, yPos, `${userData.getCurrentSkin().src}`, width, height)
   }
 

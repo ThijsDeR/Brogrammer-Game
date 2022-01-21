@@ -149,7 +149,6 @@ export default class ControlsScene extends Scene {
    */
     public update = (elapsed: number): Scene => {
       let nextScene: Scene = this
-      // console.log(this.cutScene)
       if (this.cutScene === null) {
         let contacts: number[] = []
 
@@ -170,7 +169,6 @@ export default class ControlsScene extends Scene {
           NPC.removeDelay(elapsed)
           if (CollideHandler.collides(this.player, NPC)) {
             if (this.player.isInteracting()) {
-              console.log('git commit arson')
               this.cutScene = NPC.interact()
             }
           }
