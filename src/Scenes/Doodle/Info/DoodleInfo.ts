@@ -7,7 +7,7 @@ export default abstract class DoodleInfo {
   
     public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY: number = 2;
 
-    public static readonly LEVEL_YPOS_FINISH: number = -50;
+    public static readonly LEVEL_YPOS_FINISH: number = -25;
 
     public static readonly CLOUD_DISSAPEAR: number = 1/500;
 

@@ -3,7 +3,7 @@ export default class DoodleInfo {
     static PLAYER_X_SPEED = 9;
     static GRAVITY_CONSTANT = 0.098;
     static PLAYER_AIRBORNE_X_SPEED_PENTALTY = 2;
-    static LEVEL_YPOS_FINISH = -50;
+    static LEVEL_YPOS_FINISH = -25;
     static CLOUD_DISSAPEAR = 1 / 500;
     static CORRECT_SOUND_VOLUME = 3 / 5;
     static WRONG_SOUND_VOLUME = 4 / 5;
