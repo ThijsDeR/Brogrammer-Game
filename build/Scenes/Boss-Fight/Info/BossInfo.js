@@ -6,6 +6,7 @@ export default class BossInfo {
     static PLAYER_STAMINA_LOSS = 1;
     static PLAYER_STAMINA_RECOVERY = 0.02;
     static PLAYER_STAMINA_RECOVERY_DELAY = 1000;
+    static PLAYER_SHOOTING_DELAY = 200;
     static BACKGROUND_MUSIC_VOLUME = 1 / 5;
     static WIN_SOUND_VOLUME = 3 / 5;
     static BOSS_PROGRESS_OBJECT_NAME = 'boss';
@@ -23,4 +24,5 @@ export default class BossInfo {
         './assets/img/skulls.png',
         './assets/img/poop_emoji.png',
     ];
+    static COMPLETE_SCORE_AWARD = 200;
 }

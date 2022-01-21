@@ -13,6 +13,8 @@ export default abstract class BossInfo {
 
   public static readonly PLAYER_STAMINA_RECOVERY_DELAY: number = 1000;
 
+  public static readonly PLAYER_SHOOTING_DELAY: number = 200
+
   public static readonly BACKGROUND_MUSIC_VOLUME: number = 1/5;
 
   public static readonly WIN_SOUND_VOLUME: number = 3/5;
@@ -38,4 +40,6 @@ export default abstract class BossInfo {
     './assets/img/skulls.png',
     './assets/img/poop_emoji.png',
   ]
+
+  public static readonly COMPLETE_SCORE_AWARD: number = 200
 }

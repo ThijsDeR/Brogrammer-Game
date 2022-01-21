@@ -78,7 +78,7 @@ export default class BattleScene extends CutScene {
                     this.completed = true;
                 }
                 else if (this.enemyHealth <= 0) {
-                    this;
+                    this.userData.increaseCoins(PokeTaleInfo.WIN_COIN_AMOUNT);
                     this.completed = true;
                 }
             }

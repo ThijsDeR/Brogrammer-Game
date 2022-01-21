@@ -14,5 +14,6 @@ export default class TempleRunInfo {
     static WIN_SOUND_VOLUME = 3 / 5;
     static WIN_COIN_AMOUNT = 10;
     static WIN_SCORE = 20;
+    static COMPLETE_SCORE_AWARD = 100;
     static TEMPLE_RUN_PROGRESS_OBJECT_NAME = 'templerun';
 }

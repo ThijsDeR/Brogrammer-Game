@@ -13,10 +13,17 @@ export default class BossNPCCutscene extends CutScene {
         super(canvas, userData);
         this.bossNPC = bossNPC;
         const sentences = [
-            "go boss"
+            "Welkom bij het laatste level",
+            "Hier zal je de eindbaas AI Foon tegenkomen",
+            "Om haar te verslaan moet je haar blokkeren met spatie",
+            "Hierdoor schiet je allemaal blokkeerders",
+            "Pas op dat je stamina niet op gaat, want dan schiet je trager",
+            "Het beste is dan om heel even te wachten met schieten totdat je groene balkje weer vol is",
+            "Als je geraakt wordt door haar, verlies je levens. Pas op dat je er niet te veel verliest!",
+            "Heel veel succes",
         ];
         const endSentences = [
-            "ga"
+            "Het portaal is al open hoor",
         ];
         const doneSentences = [
             "Oh, ben je hier alweer?",

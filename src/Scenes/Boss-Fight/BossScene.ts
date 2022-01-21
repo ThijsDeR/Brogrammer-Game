@@ -80,13 +80,6 @@ export default class BossScene extends GameLevel {
     this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME
     this.backgroundMusic.loop = true
     this.backgroundMusic.play()
-
-    this.clickFunction = (event: MouseEvent) => {
-      console.log('shoot')
-      this.player.shootProjectile({x: event.x, y: event.y})
-    }
-
-    this.canvas.addEventListener('click', this.clickFunction)
   }
 
   public draw(): void {
@@ -149,6 +142,7 @@ export default class BossScene extends GameLevel {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
         winSound.volume = BossInfo.WIN_SOUND_VOLUME;
         winSound.play();
+        this.userData.increaseCoins(BossInfo.COMPLETE_SCORE_AWARD)
         this.cutScene = new BossFightEndCutscene(this.canvas, this.userData, this.boss.getImage())
       }
     } else {

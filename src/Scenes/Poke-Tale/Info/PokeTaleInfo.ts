@@ -9,6 +9,10 @@ export default abstract class PokeTaleInfo {
 
   public static readonly WIN_SCORE: number = 3;
 
+  public static readonly WIN_COIN_AMOUNT: number = 10;
+
+  public static readonly COMPLETE_SCORE_AWARD: number = 100;
+
   public static readonly WIN_SOUND_VOLUME: number = 3/5;
 
   // Text

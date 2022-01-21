@@ -64,8 +64,10 @@ export default class MenuScene extends Scene {
               const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
               buttonSound.volume = 1;
               buttonSound.play();
-              this.backgroundMusic.pause()
-              this.backgroundMusic = null
+              if (this.backgroundMusic) {
+                this.backgroundMusic.pause()
+                this.backgroundMusic = null
+              }
               this.nextScene = new HubScene(this.canvas, this.userData);
             }else if (prop.getId() === 'controls') {
               const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')

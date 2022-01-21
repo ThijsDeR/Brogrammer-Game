@@ -94,5 +94,7 @@ export default abstract class DoodleInfo {
       },
     ]
 
-    public static readonly DOODLE_PROGRESS_OBJECT_NAME: string = 'doodle'
+    public static readonly DOODLE_PROGRESS_OBJECT_NAME: string = 'doodle';
+
+    public static readonly COMPLETE_SCORE_AWARD: number = 100
   }

@@ -74,6 +74,7 @@ export default class PoketaleScene extends GameLevel {
                 winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME;
                 winSound.play();
                 this.userData.changeNPCStoryProgress({ name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: true });
+                this.userData.increaseCoins(PokeTaleInfo.COMPLETE_SCORE_AWARD);
                 this.nextScene = new HubScene(this.canvas, this.userData);
             }
             if (this.player.isPausing()) {
