@@ -76,7 +76,7 @@ export default class BossScene extends GameLevel {
     this.cutScene = null
     this.nextScene = this
     
-    this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'CaveBackgroundMusic.mp3')
+    this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'boss-music.mp3')
     this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME
     this.backgroundMusic.loop = true
     this.backgroundMusic.play()
@@ -142,6 +142,8 @@ export default class BossScene extends GameLevel {
         const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
         winSound.volume = BossInfo.WIN_SOUND_VOLUME;
         winSound.play();
+        this.backgroundMusic.pause();
+        this.backgroundMusic = null
         this.userData.increaseCoins(BossInfo.COMPLETE_SCORE_AWARD)
         this.cutScene = new BossFightEndCutscene(this.canvas, this.userData, this.boss.getImage())
       }
@@ -151,12 +153,13 @@ export default class BossScene extends GameLevel {
         let optionalCutScene = this.cutScene.getOptionalScene()
         if (optionalCutScene) this.nextScene = optionalCutScene
         this.cutScene = null;
-        this.backgroundMusic.play()
       }
     }
     if (this.nextScene !== this) {
-      this.backgroundMusic.pause();
-      this.backgroundMusic = null
+      if (this.backgroundMusic) {
+        this.backgroundMusic.pause();
+        this.backgroundMusic = null
+      }
     }
     return this.nextScene
   }
