@@ -26,7 +26,7 @@ export default class HubPlayer extends Player {
       if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) this.yVel = -(HubInfo.PLAYER_Y_SPEED) * (this.height / 100);
     }
 
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)  || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) this.goingThroughPlatform = true
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) this.goingThroughPlatform = true
     else this.goingThroughPlatform = false
 
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) this.xVel = -(HubInfo.PLAYER_X_SPEED) * (this.width / 100);
