@@ -12,7 +12,7 @@
  *
  * @author BugSlayer
  */
- export default class KeyboardListener {
+export default class KeyboardListener {
   // Some convenient key codes already defined here. If you need a specific
   // keycode, see:https://keycode.info/
   public static readonly KEY_ENTER = 13;

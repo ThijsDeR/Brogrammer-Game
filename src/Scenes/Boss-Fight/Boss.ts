@@ -1,16 +1,14 @@
-import GameInfo from "../../GameInfo.js";
-import ImageProp from "../../Props/ImageProp.js";
-import Prop from "../../Props/Prop.js";
-import RectProp from "../../Props/RectProp.js";
-import Scene from "../../Scene.js";
-import BossPlayer from "./BossPlayer.js";
-import BossProjectile from "./BossProjectile.js";
-import BossInfo from "./Info/BossInfo.js";
+import GameInfo from '../../GameInfo.js';
+import ImageProp from '../../Props/ImageProp.js';
+import RectProp from '../../Props/RectProp.js';
+import BossPlayer from './BossPlayer.js';
+import BossProjectile from './BossProjectile.js';
+import BossInfo from './Info/BossInfo.js';
 
 export default class Boss extends ImageProp {
   private health: number;
 
-  private healthBar: [RectProp, RectProp]
+  private healthBar: [RectProp, RectProp];
 
   private projectiles: BossProjectile[];
 
@@ -20,96 +18,201 @@ export default class Boss extends ImageProp {
 
   private projectileDelay: number;
 
+  /**
+   * Initialize Boss
+   *
+   * @param xPos xpos
+   * @param yPos ypos
+   * @param width width
+   * @param height height
+   */
   public constructor(
-    xPos: number, 
-    yPos: number, 
-    width: number | undefined = undefined, 
+    xPos: number,
+    yPos: number,
+    width: number | undefined = undefined,
     height: number | undefined = undefined,
   ) {
-    super(xPos, yPos, GameInfo.IMG_PATH + 'sephiroth.png', width, height)
+    super(xPos, yPos, `${GameInfo.IMG_PATH}sephiroth.png`, width, height);
 
-    this.health = BossInfo.BOSS_HEALTH
+    this.health = BossInfo.BOSS_HEALTH;
 
     this.healthBar = [
       new RectProp(this.xPos, this.yPos - (this.height / 2), this.width, this.height / 4, 'gray', 'fill'),
       new RectProp(this.xPos, this.yPos - (this.height / 2), this.width, this.height / 4, 'red', 'fill'),
-    ]
+    ];
 
-    this.projectiles = []
+    this.projectiles = [];
 
     this.lastProjectileTime = 0;
 
-    this.lastScattershotTime = BossInfo.SCATTER_SHOT_DELAY / 2
+    this.lastScattershotTime = BossInfo.SCATTER_SHOT_DELAY / 2;
 
-    this.projectileDelay = BossInfo.STARTING_PROJECTILE_DELAY
+    this.projectileDelay = BossInfo.STARTING_PROJECTILE_DELAY;
   }
 
-  public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
-    super.draw(ctx)
+  /**
+   * draw the boss to the canvas
+   *
+   * @param ctx the canvas rendering context
+   */
+  public draw(ctx: CanvasRenderingContext2D): void {
+    super.draw(ctx);
     this.healthBar.forEach((bar) => {
-      bar.draw(ctx)
-    })
+      bar.draw(ctx);
+    });
 
     this.projectiles.forEach((projectile) => {
-      projectile.draw(ctx)
-    })
+      projectile.draw(ctx);
+    });
   }
 
-  public update(elapsed: number, canvas: HTMLCanvasElement) {
+  /**
+   * Update the boss
+   *
+   * @param elapsed time elapsed since last frame
+   * @param canvas the canvas
+   */
+  public update(elapsed: number, canvas: HTMLCanvasElement): void {
     this.projectiles.forEach((projectile, projectileIndex) => {
-      projectile.move(elapsed)
-      if (projectile.checkOutOfCanvas(canvas)) this.projectiles.splice(projectileIndex, 1)
-    })
+      projectile.move(elapsed);
+      if (projectile.checkOutOfCanvas(canvas)) this.projectiles.splice(projectileIndex, 1);
+    });
 
-    this.healthBar[1].setWidth(this.width * (this.health / BossInfo.BOSS_HEALTH))
+    this.healthBar[1].setWidth(this.width * (this.health / BossInfo.BOSS_HEALTH));
   }
 
+  /**
+   * Shoot a projectile
+   *
+   * @param elapsed time elapsed since last frame
+   * @param player the player
+   */
   public shootProjectile(elapsed: number, player: BossPlayer): void {
     const tempTan = Math.atan2(
       player.getMinYPos() - this.getMinYPos(),
-      player.getMinXPos() - this.getMinXPos()
-    )
+      player.getMinXPos() - this.getMinXPos(),
+    );
     if (this.lastProjectileTime > this.projectileDelay) {
-      this.projectiles.push(new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, Math.cos(tempTan), Math.sin(tempTan)))
-      this.lastProjectileTime = elapsed
+      this.projectiles.push(
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4, this.height / 4,
+          Math.cos(tempTan),
+          Math.sin(tempTan),
+        ),
+      );
+      this.lastProjectileTime = elapsed;
       if (this.projectileDelay > BossInfo.MINIMUM_PROJECTILE_DELAY) {
-        this.projectileDelay -= BossInfo.PROJECTILE_DELAY_SPEED_UP
+        this.projectileDelay -= BossInfo.PROJECTILE_DELAY_SPEED_UP;
       }
     } else {
-      this.lastProjectileTime += elapsed
+      this.lastProjectileTime += elapsed;
     }
 
     if (this.lastScattershotTime > BossInfo.SCATTER_SHOT_DELAY) {
       this.projectiles.push(...[
-        new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, 0, -0.2),
-        new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, 0.1, -0.1),
-        new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, 0.2, 0),
-        new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, 0.1, 0.1),
-        new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, 0, 0.2),
-        new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, -0.1, 0.1),
-        new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, -0.2, 0),
-        new BossProjectile(this.xPos + (this.width / 2) - (this.width / 8), this.yPos + (this.height / 2) - (this.height / 8), this.width / 4, this.height / 4, -0.1, -0.1),
-      ])
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4,
+          this.height / 4,
+          0,
+          -0.2,
+        ),
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4,
+          this.height / 4,
+          0.1,
+          -0.1,
+        ),
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4,
+          this.height / 4,
+          0.2,
+          0,
+        ),
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4,
+          this.height / 4,
+          0.1,
+          0.1,
+        ),
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4,
+          this.height / 4,
+          0,
+          0.2,
+        ),
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4,
+          this.height / 4,
+          -0.1,
+          0.1,
+        ),
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4,
+          this.height / 4,
+          -0.2,
+          0,
+        ),
+        new BossProjectile(
+          this.xPos + (this.width / 2) - (this.width / 8),
+          this.yPos + (this.height / 2) - (this.height / 8),
+          this.width / 4,
+          this.height / 4,
+          -0.1,
+          -0.1,
+        ),
+      ]);
 
-      this.lastScattershotTime = elapsed
-    } else {
-      this.lastScattershotTime += elapsed
-    }
+      this.lastScattershotTime = elapsed;
+    } else this.lastScattershotTime += elapsed;
   }
 
+  /**
+   * hit the boss
+   */
   public getHit(): void {
-    this.health -= 1
+    this.health -= 1;
   }
 
+  /**
+   * check if boss is dead
+   *
+   * @returns boolean
+   */
   public isDead(): boolean {
-    return this.health <= 0
+    return this.health <= 0;
   }
 
+  /**
+   * Getter for the projectiles
+   *
+   * @returns projectiles
+   */
   public getProjectiles(): BossProjectile[] {
-    return this.projectiles
+    return this.projectiles;
   }
 
+  /**
+   * Remove a projectile
+   *
+   * @param index projectile index
+   */
   public removeProjectile(index: number): void {
-    this.projectiles.splice(index, 1)
+    this.projectiles.splice(index, 1);
   }
 }

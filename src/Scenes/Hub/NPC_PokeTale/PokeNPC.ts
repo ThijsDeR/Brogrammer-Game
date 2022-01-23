@@ -10,27 +10,41 @@ export default class PokeNPC extends HubNPC {
 
   private userData: UserData;
 
+  /**
+   * @param xpos
+   * @param ypos
+   * @param width
+   * @param height
+   * @param canvas
+   * @param userData
+   */
   public constructor(
-    xpos: number, 
+    xpos: number,
     ypos: number,
-    width: number | undefined = undefined, 
+    width: number | undefined = undefined,
     height: number | undefined = undefined,
     canvas: HTMLCanvasElement,
     userData: UserData,
-    
+
   ) {
-    super(xpos, ypos, GameInfo.IMG_PATH + 'Ash.png', width, height, 'poketale','right', 'Poketale')
-    this.userData = userData
-    this.cutScene = new PokeNPCCutscene(canvas, userData, this)
+    super(xpos, ypos, `${GameInfo.IMG_PATH}Ash.png`, width, height, 'poketale', 'right', 'Poketale');
+    this.userData = userData;
+    this.cutScene = new PokeNPCCutscene(canvas, userData, this);
   }
 
+  /**
+   *
+   */
   public interact(): CutScene | null {
-    if (this.talkingDelay < 0) return this.cutScene
-    else return null
+    if (this.talkingDelay < 0) return this.cutScene;
+    return null;
   }
 
+  /**
+   *
+   */
   public finishInteraction(): void {
-    if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished === true) this.teleporter.activate()
-    this.talkingDelay = 1000
+    if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished === true) this.teleporter.activate();
+    this.talkingDelay = 1000;
   }
 }

@@ -7,9 +7,9 @@ export default abstract class GameInfo {
 
   public static readonly PLAYER_AIRBORNE_X_SPEED_PENTALTY: number = 2;
 
-  public static readonly ELAPSED_PENALTY: number = 1/10
+  public static readonly ELAPSED_PENALTY: number = 1 / 10;
 
-  public static readonly IMG_PATH: string = './assets/img/'
+  public static readonly IMG_PATH: string = './assets/img/';
 
   public static readonly SOUND_PATH: string = './assets/Sound/';
 }

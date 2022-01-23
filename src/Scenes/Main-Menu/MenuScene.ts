@@ -24,15 +24,21 @@ export default class MenuScene extends Scene {
 
   private isPlaying: boolean;
 
-  private cutScene: CutScene | null
+  private cutScene: CutScene | null;
 
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlaying?: boolean, backgroundMusic?: HTMLAudioElement| null) {
-    super(canvas, userData)
+  /**
+   * @param canvas
+   * @param userData
+   * @param isPlaying
+   * @param backgroundMusic
+   */
+  public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlaying?: boolean, backgroundMusic?: HTMLAudioElement | null) {
+    super(canvas, userData);
 
-    const buttonWidth = (this.canvas.width / 4)
-    const buttonHeight = (this.canvas.height / 6)
-    const betweenButtonWidth = (this.canvas.width / 25)
-    const betweenButtonHeight = (this.canvas.height / 8)
+    const buttonWidth = (this.canvas.width / 4);
+    const buttonHeight = (this.canvas.height / 6);
+    const betweenButtonWidth = (this.canvas.width / 25);
+    const betweenButtonHeight = (this.canvas.height / 8);
 
     const positions = GridGenerator.generateGrid(
       this.canvas.width / 3,
@@ -42,9 +48,9 @@ export default class MenuScene extends Scene {
       buttonWidth,
       buttonHeight,
       betweenButtonWidth,
-      betweenButtonHeight
-    )
-    this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2)
+      betweenButtonHeight,
+    );
+    this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2);
 
     this.props = [
       new Button((this.canvas.width / 5) * 4, (this.canvas.height / 4) + (this.canvas.height / 2), this.canvas.width / 12, this.canvas.height / 10, 'white', 'white', 'red', '<', this.canvas.height / 12, 'decreaseCurrentSkin'),
@@ -53,87 +59,86 @@ export default class MenuScene extends Scene {
       new Button(positions[1].x - (buttonWidth / 2), positions[1].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Vragen', this.canvas.height / 20, 'mistakes'),
       new Button(positions[2].x - (buttonWidth / 2), positions[2].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Besturing', this.canvas.height / 20, 'controls'),
       new Button(positions[3].x - (buttonWidth / 2), positions[3].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Winkel', this.canvas.height / 20, 'shop'),
-      new Button((this.canvas.width / 100), (this.canvas.height / 50), this.canvas.width / 15, this.canvas.height / 20, 'white', 'white', 'red', 'Instellingen', this.canvas.height / 50, 'settings')
+      new Button((this.canvas.width / 100), (this.canvas.height / 50), this.canvas.width / 15, this.canvas.height / 20, 'white', 'white', 'red', 'Instellingen', this.canvas.height / 50, 'settings'),
 
-    ]
+    ];
 
-    this.isPlaying = isPlaying ? true : false;
+    this.isPlaying = !!isPlaying;
 
     this.nextScene = this;
-    this.cutScene = null
+    this.cutScene = null;
 
     const clickFunction = (event: MouseEvent) => {
-      let originalNextScene = this.nextScene
+      const originalNextScene = this.nextScene;
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
-          if (prop.isHovered({x: event.x, y: event.y})) {
+          if (prop.isHovered({ x: event.x, y: event.y })) {
             if (prop.getId() === 'startBtn') {
               if (this.backgroundMusic) {
-                this.backgroundMusic.pause()
-                this.backgroundMusic = null
+                this.backgroundMusic.pause();
+                this.backgroundMusic = null;
               }
               this.nextScene = new HubScene(this.canvas, this.userData);
-            }else if (prop.getId() === 'controls') {
+            } else if (prop.getId() === 'controls') {
               this.nextScene = new ControlsScene(this.canvas, this.userData, this.backgroundMusic);
-            }else if (prop.getId() === 'mistakes') {
+            } else if (prop.getId() === 'mistakes') {
               this.nextScene = new QuestionsScene(this.canvas, this.userData, this.backgroundMusic);
             } else if (prop.getId() === 'shop') {
               this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
             } else if (prop.getId() === 'decreaseCurrentSkin') {
-              this.userData.decreaseCurrentSkin()
-              this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2)
+              this.userData.decreaseCurrentSkin();
+              this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2);
             } else if (prop.getId() === 'increaseCurrentSkin') {
-              this.userData.increaseCurrentSkin()
-              this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2)
+              this.userData.increaseCurrentSkin();
+              this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2);
             } else if (prop.getId() === 'settings') {
-              this.nextScene = new SettingsScene(this.canvas, this.userData, this.backgroundMusic, this.isPlaying)
+              this.nextScene = new SettingsScene(this.canvas, this.userData, this.backgroundMusic, this.isPlaying);
             }
-            const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav')
+            const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
             buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
             buttonSound.play();
           }
         }
-      })
+      });
 
       if (originalNextScene !== this.nextScene) {
-        this.canvas.removeEventListener('click', clickFunction)
-        this.canvas.removeEventListener('mousemove', hoverFunction)
+        this.canvas.removeEventListener('click', clickFunction);
+        this.canvas.removeEventListener('mousemove', hoverFunction);
       }
-    }
+    };
 
     const hoverFunction = (event: MouseEvent) => {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
-          prop.doHover({x: event.x, y: event.y})
+          prop.doHover({ x: event.x, y: event.y });
         }
-      }) 
-      
+      });
+
       if (this.isPlaying === false) {
-        this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'menu-music.wav');
+        this.backgroundMusic = new Audio(`${GameInfo.SOUND_PATH}menu-music.wav`);
         this.backgroundMusic.loop = true;
         this.backgroundMusic.volume = MenuInfo.MENU_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
         this.backgroundMusic.play();
         this.isPlaying = true;
-      } else {
-        if (backgroundMusic !== undefined) this.backgroundMusic = backgroundMusic;
-      }
-      
-      
-    }
+      } else if (backgroundMusic !== undefined) this.backgroundMusic = backgroundMusic;
+    };
 
-    this.canvas.addEventListener('click', clickFunction)
-    this.canvas.addEventListener('mousemove', hoverFunction)
+    this.canvas.addEventListener('click', clickFunction);
+    this.canvas.addEventListener('mousemove', hoverFunction);
   }
 
+  /**
+   *
+   */
   public draw(): void {
     this.ctx.fillStyle = MenuInfo.BACKGROUND_COLOR;
-    this.ctx.fillRect(0,0, this.canvas.width, this.canvas.height);
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    this.robotImage.draw(this.ctx)
+    this.robotImage.draw(this.ctx);
 
     this.props.forEach((prop) => {
-      prop.draw(this.ctx)
-    })
+      prop.draw(this.ctx);
+    });
 
     // Game title
     Scene.writeTextToCanvas(
@@ -143,23 +148,24 @@ export default class MenuScene extends Scene {
       this.canvas.height / 10,
       this.canvas.height / 20,
       'white',
-    )
+    );
 
     Scene.writeTextToCanvas(
       this.ctx,
       `${this.userData.getCurrentSkin().name}`,
-      (this.canvas.width / 5) * 4 + (this.canvas.width / 12), 
+      (this.canvas.width / 5) * 4 + (this.canvas.width / 12),
       this.canvas.height / 4 - (this.canvas.height / 12),
       this.canvas.height / 20,
       'white',
-    )
+    );
   }
 
+  /**
+   *
+   */
   public processInput(): void {
 
   }
 
-  public update = (elapsed: number): Scene => {
-    return this.nextScene
-  }
+  public update = (elapsed: number): Scene => this.nextScene;
 }

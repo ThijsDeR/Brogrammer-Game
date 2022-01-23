@@ -1,4 +1,3 @@
-
 import CutScene from '../../../CutScene.js';
 import GameInfo from '../../../GameInfo.js';
 import NPC from '../../../Props/NPC.js';
@@ -10,6 +9,15 @@ export default class TutorialNPC extends NPC {
   private cutScene: TutorialNPCCutscene;
 
   protected name: string;
+
+  /**
+   * @param xpos
+   * @param ypos
+   * @param width
+   * @param height
+   * @param canvas
+   * @param userData
+   */
   public constructor(
     xpos: number,
     ypos: number,
@@ -19,23 +27,34 @@ export default class TutorialNPC extends NPC {
     userData: UserData,
 
   ) {
-    super(xpos, ypos, GameInfo.IMG_PATH + 'sephiroth.png', width, height)
+    super(xpos, ypos, `${GameInfo.IMG_PATH}sephiroth.png`, width, height);
 
-    this.cutScene = new TutorialNPCCutscene(canvas, userData, this)
-    this.name = 'Instructie'
+    this.cutScene = new TutorialNPCCutscene(canvas, userData, this);
+    this.name = 'Instructie';
   }
 
+  /**
+   * @param ctx
+   * @param offsetX
+   * @param offsetY
+   */
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
-    super.draw(ctx, offsetX, offsetY)
-    Scene.writeTextToCanvas(ctx, this.name, this.xPos + (this.width / 2), this.yPos - 20, this.height / 4, 'white')
+    super.draw(ctx, offsetX, offsetY);
+    Scene.writeTextToCanvas(ctx, this.name, this.xPos + (this.width / 2), this.yPos - 20, this.height / 4, 'white');
   }
 
+  /**
+   *
+   */
   public interact(): CutScene | null {
-    if (this.talkingDelay < 0) return this.cutScene
-    else return null
+    if (this.talkingDelay < 0) return this.cutScene;
+    return null;
   }
 
+  /**
+   *
+   */
   public finishInteraction(): void {
-    this.talkingDelay = 1000
+    this.talkingDelay = 1000;
   }
 }

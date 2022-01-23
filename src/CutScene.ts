@@ -3,23 +3,27 @@ import Scene from './Scene.js';
 import UserData from './UserData.js';
 
 export default abstract class CutScene {
-  protected keyboardListener: KeyboardListener
+  protected keyboardListener: KeyboardListener;
 
   protected canvas: HTMLCanvasElement;
 
   protected ctx: CanvasRenderingContext2D;
 
-  protected userData: UserData
+  protected userData: UserData;
 
+  /**
+   * @param canvas
+   * @param userData
+   */
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     this.canvas = canvas;
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
     this.ctx = this.canvas.getContext('2d');
 
-    this.userData = userData
+    this.userData = userData;
 
-    this.keyboardListener = new KeyboardListener()
+    this.keyboardListener = new KeyboardListener();
   }
 
   /**
@@ -28,8 +32,8 @@ export default abstract class CutScene {
   public abstract draw(): void;
 
   /**
-  * processing the input of the scene
-  */
+   * processing the input of the scene
+   */
   public abstract processInput(): void;
 
   /**
@@ -37,5 +41,5 @@ export default abstract class CutScene {
    */
   public abstract update(elapsed: number): boolean;
 
-  public abstract getOptionalScene(): Scene | null
+  public abstract getOptionalScene(): Scene | null;
 }

@@ -2,7 +2,6 @@ import GameSceneHandler from './GameSceneHandler.js';
 import UserData from './UserData.js';
 
 export default class Game {
-
   private sceneHandler: GameSceneHandler;
 
   private canvas: HTMLCanvasElement;
@@ -49,21 +48,23 @@ export default class Game {
    * l
    *
    * @param src l
+   * @param width
+   * @param height
    * @returns l
    */
   public static loadNewImage(
-    src: string, 
-    width: number | undefined = undefined, 
-    height: number | undefined = undefined
+    src: string,
+    width: number | undefined = undefined,
+    height: number | undefined = undefined,
   ): HTMLImageElement {
     const img = new Image();
     img.src = src;
-    if (width) img.width = width
-    if (height) img.height = height
+    if (width) img.width = width;
+    if (height) img.height = height;
     return img;
   }
 
-    /**
+  /**
    * Generates a random integer number between min and max
    *
    * NOTE: this is a 'static' method. This means that this method must be called like
@@ -73,7 +74,7 @@ export default class Game {
    * @param max - maximal time
    * @returns a random integer number between min and max
    */
-    public static randomNumber(min: number, max: number): number {
-      return Math.round(Math.random() * (max - min) + min);
-    }
+  public static randomNumber(min: number, max: number): number {
+    return Math.round(Math.random() * (max - min) + min);
   }
+}

@@ -9,27 +9,41 @@ export default class DoodleNPC extends HubNPC {
 
   private userData: UserData;
 
+  /**
+   * @param xpos
+   * @param ypos
+   * @param width
+   * @param height
+   * @param canvas
+   * @param userData
+   */
   public constructor(
-    xpos: number, 
+    xpos: number,
     ypos: number,
-    width: number | undefined = undefined, 
+    width: number | undefined = undefined,
     height: number | undefined = undefined,
     canvas: HTMLCanvasElement,
     userData: UserData,
-    
+
   ) {
-    super(xpos, ypos, GameInfo.IMG_PATH + 'dad.png', width, height, 'doodle','right', 'Wolkentrap')
+    super(xpos, ypos, `${GameInfo.IMG_PATH}dad.png`, width, height, 'doodle', 'right', 'Wolkentrap');
     this.userData = userData;
-    this.cutScene = new DoodleNPCCutscene(canvas, userData, this)
+    this.cutScene = new DoodleNPCCutscene(canvas, userData, this);
   }
 
+  /**
+   *
+   */
   public interact(): CutScene | null {
-    if (this.talkingDelay < 0) return this.cutScene
-    else return null
+    if (this.talkingDelay < 0) return this.cutScene;
+    return null;
   }
 
+  /**
+   *
+   */
   public finishInteraction(): void {
-    this.teleporter.activate()
-    this.talkingDelay = 1000
+    this.teleporter.activate();
+    this.talkingDelay = 1000;
   }
 }

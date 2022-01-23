@@ -12,8 +12,7 @@ export default class CollideHandler {
 
   public static readonly RIGHT_CONTACT: number = 4;
 
-  public static readonly CORNER_CONTACT: number = 5
-
+  public static readonly CORNER_CONTACT: number = 5;
 
   /**
    * Check if two props collide
@@ -33,6 +32,10 @@ export default class CollideHandler {
     } return false;
   }
 
+  /**
+   * @param object1
+   * @param object2
+   */
   public static getContactData(object1: Prop, object2: Prop): number {
     let contact: number = CollideHandler.NO_CONTACT;
 
@@ -41,31 +44,34 @@ export default class CollideHandler {
     const object2MidX = object2.getMinXPos() + (object2.getWidth() / 2);
     const object2MidY = object2.getMinYPos() + (object2.getHeight() / 2);
 
-    const dx = object1MidX - object2MidX
-    const dy = object1MidY - object2MidY
+    const dx = object1MidX - object2MidX;
+    const dy = object1MidY - object2MidY;
 
-    const width = (object1.getWidth() + object2.getWidth()) / 2
-    const height = (object1.getHeight() + object2.getHeight()) / 2
+    const width = (object1.getWidth() + object2.getWidth()) / 2;
+    const height = (object1.getHeight() + object2.getHeight()) / 2;
 
     const crossWidth = width * dy;
     const crossHeight = height * dx;
 
     if (Math.abs(dx) <= width && Math.abs(dy) <= height) {
       if (crossWidth > crossHeight) {
-        contact = (crossWidth > (-crossHeight)) ? CollideHandler.BOTTOM_CONTACT : CollideHandler.LEFT_CONTACT
+        contact = (crossWidth > (-crossHeight)) ? CollideHandler.BOTTOM_CONTACT : CollideHandler.LEFT_CONTACT;
       } else {
-        contact = (crossWidth > (-crossHeight)) ? CollideHandler.RIGHT_CONTACT : CollideHandler.TOP_CONTACT
+        contact = (crossWidth > (-crossHeight)) ? CollideHandler.RIGHT_CONTACT : CollideHandler.TOP_CONTACT;
       }
     }
     return contact;
   }
 
+  /**
+   * @param object1
+   * @param object2
+   */
   public static getVerticalContactData(object1: Prop, object2: Prop): number {
-
     const object1MidY = object1.getMinYPos() + (object1.getHeight() / 2);
     const object2MidY = object2.getMinYPos() + (object2.getHeight() / 2);
 
-    if (object1MidY > object2MidY) return CollideHandler.BOTTOM_CONTACT
-    else return CollideHandler.TOP_CONTACT
+    if (object1MidY > object2MidY) return CollideHandler.BOTTOM_CONTACT;
+    return CollideHandler.TOP_CONTACT;
   }
 }

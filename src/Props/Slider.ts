@@ -20,6 +20,7 @@ export default class Slider extends RectProp {
 
   /**
    * Initialize Slider
+   *
    * @param xPos xpos
    * @param yPos ypos
    * @param width width
@@ -79,40 +80,63 @@ export default class Slider extends RectProp {
   }
 
   /**
-   * Getter for if the slider is hovered
-   * @param mouseCoords 
-   * @param mouseCoords.x
-   * @param mouseCoords.y
-   * @returns 
+   * Check if button is hovered
+   *
+   * @param mouseCoords object of x and y coordinates
+   * @param mouseCoords.x the x coordinate
+   * @param mouseCoords.y the y coordinate
+   * @returns boolean
    */
-  public isHovered(mouseCoords: {x: number, y: number}): boolean {
+  public isHovered(mouseCoords: { x: number, y: number }): boolean {
     if (
       mouseCoords.x > this.getMinXPos()
       && mouseCoords.x < this.getMaxXPos()
       && mouseCoords.y > this.getMinYPos()
       && mouseCoords.y < this.getMaxYPos()
-    ) return true
-    return false
+    ) return true;
+    return false;
   }
 
-  public getProcentAmount(): number {
-    return Math.round(this.position)
-  } 
-
-  public changePosition(mouseCoords: {x: number, y: number}): void {
-    this.position = Math.round(((mouseCoords.x - this.xPos) / this.width) * 100)
-    if (this.position > 100) this.position = 100
-    else if (this.position < 0) this.position = 0
+  /**
+   * Getter for position
+   *
+   * @returns position
+   */
+  public getPosition(): number {
+    return Math.round(this.position);
   }
 
+  /**
+   * Setter for position
+   *
+   * @param mouseCoords object of x and y coordinates
+   * @param mouseCoords.x the x coordinate
+   * @param mouseCoords.y the y coordinate
+   */
+  public changePosition(mouseCoords: { x: number, y: number }): void {
+    this.position = Math.round(((mouseCoords.x - this.xPos) / this.width) * 100);
+    if (this.position > 100) this.position = 100;
+    else if (this.position < 0) this.position = 0;
+  }
+
+  /**
+   * Getter for id
+   *
+   * @returns id
+   */
   public getId(): string {
-    return this.id
+    return this.id;
   }
 
-  public doHover(mouseCoords: {x: number, y: number}): void {
-    if (this.isHovered(mouseCoords)) {
-      this.color = this.hoverColor;
-    }
-    else this.color = this.originalColor
+  /**
+   * Change button color if hovered
+   *
+   * @param mouseCoords object of x and y coordinates
+   * @param mouseCoords.x the x coordinate
+   * @param mouseCoords.y the y coordinate
+   */
+  public doHover(mouseCoords: { x: number, y: number }): void {
+    if (this.isHovered(mouseCoords)) this.color = this.hoverColor;
+    else this.color = this.originalColor;
   }
 }
