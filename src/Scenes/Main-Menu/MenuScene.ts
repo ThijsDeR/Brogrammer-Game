@@ -95,43 +95,55 @@ export default class MenuScene extends Scene {
 
     const clickFunction = (event: MouseEvent) => {
       const originalNextScene = this.nextScene;
-      this.props.forEach((prop) => {
-        if (prop instanceof Button) {
-          if (prop.isHovered({ x: event.x, y: event.y })) {
-            if (prop.getId() === 'startBtn') {
-              if (this.backgroundMusic) {
-                this.backgroundMusic.pause();
-                this.backgroundMusic = null;
+      try {
+        this.props.forEach((prop) => {
+          if (prop instanceof Button) {
+            if (prop.isHovered({ x: event.x, y: event.y })) {
+              if (prop.getId() === 'startBtn') {
+                if (this.backgroundMusic) {
+                  this.backgroundMusic.pause();
+                  this.backgroundMusic = null;
+                }
+                this.nextScene = new HubScene(this.canvas, this.userData);
+              } else if (prop.getId() === 'controls') {
+                this.nextScene = new ControlsScene(
+                  this.canvas,
+                  this.userData,
+                  this.backgroundMusic,
+                );
+              } else if (prop.getId() === 'mistakes') {
+                this.nextScene = new QuestionsScene(
+                  this.canvas,
+                  this.userData,
+                  this.backgroundMusic,
+                );
+              } else if (prop.getId() === 'shop') {
+                this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
+              } else if (prop.getId() === 'decreaseCurrentSkin') {
+                this.userData.decreaseCurrentSkin();
+                this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2);
+              } else if (prop.getId() === 'increaseCurrentSkin') {
+                this.userData.increaseCurrentSkin();
+                this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2);
+              } else if (prop.getId() === 'settings') {
+                this.nextScene = new SettingsScene(
+                  this.canvas,
+                  this.userData,
+                  this.backgroundMusic,
+                  this.isPlaying,
+                );
               }
-              this.nextScene = new HubScene(this.canvas, this.userData);
-            } else if (prop.getId() === 'controls') {
-              this.nextScene = new ControlsScene(this.canvas, this.userData, this.backgroundMusic);
-            } else if (prop.getId() === 'mistakes') {
-              this.nextScene = new QuestionsScene(this.canvas, this.userData, this.backgroundMusic);
-            } else if (prop.getId() === 'shop') {
-              this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
-            } else if (prop.getId() === 'decreaseCurrentSkin') {
-              this.userData.decreaseCurrentSkin();
-              this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2);
-            } else if (prop.getId() === 'increaseCurrentSkin') {
-              this.userData.increaseCurrentSkin();
-              this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2);
-            } else if (prop.getId() === 'settings') {
-              this.nextScene = new SettingsScene(
-                this.canvas,
-                this.userData,
-                this.backgroundMusic,
-                this.isPlaying,
-              );
+              const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
+              buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+                * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+              buttonSound.play();
             }
-            const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
-              * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
-              * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
-            buttonSound.play();
           }
-        }
-      });
+        });
+      } catch {
+        this.userData.reset();
+      }
 
       if (originalNextScene !== this.nextScene) {
         this.canvas.removeEventListener('click', clickFunction);

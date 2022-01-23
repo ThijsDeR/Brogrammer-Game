@@ -142,4 +142,20 @@ export default class UserData {
         this.sounds = newSoundArray;
         localStorage.setItem(UserData.SOUND_OBJECT_NAME, JSON.stringify(this.sounds));
     }
+    reset() {
+        this.coins = 0;
+        localStorage.setItem(UserData.COIN_OBJECT_NAME, `${this.coins}`);
+        this.questions = [];
+        localStorage.setItem(UserData.QUESTIONS_OBJECT_NAME, JSON.stringify(this.questions));
+        this.skins = [
+            { src: `${GameInfo.IMG_PATH}Sam_Suong/robot-preview.png`, id: 0, name: 'Normale Robot' },
+        ];
+        localStorage.setItem(UserData.SKINS_OBJECT_NAME, JSON.stringify(this.skins));
+        this.currentSkin = 0;
+        localStorage.setItem(UserData.CURRENT_SKIN_OBJECT_NAME, `${this.currentSkin}`);
+        this.storyProgress = { nPCs: [] };
+        localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
+        this.sounds = [];
+        localStorage.setItem(UserData.SOUND_OBJECT_NAME, JSON.stringify(this.sounds));
+    }
 }
