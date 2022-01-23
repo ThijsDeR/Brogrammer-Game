@@ -4,7 +4,7 @@ export default class GridGenerator {
         const xPositions = [];
         let amountPerRow = 0;
         let itemsHeight = (itemHeight + paddingY);
-        let i = 0;
+        const i = 0;
         let onNextRow = false;
         while (i < itemAmount && !onNextRow) {
             amountPerRow += 1;
@@ -19,25 +19,25 @@ export default class GridGenerator {
         if (itemAmount % amountPerRow !== 0)
             rowAmount += 1;
         if (rowAmount % 2 === 0) {
-            for (let i = rowAmount / 2; i > 0; i--) {
-                xPositions.push(xPos - (itemWidth * i) - (paddingX * i) + (itemWidth / 2));
+            for (let a = rowAmount / 2; a > 0; a--) {
+                xPositions.push(xPos - (itemWidth * a) - (paddingX * a) + (itemWidth / 2));
             }
-            for (let i = 0; i < (rowAmount / 2); i++) {
-                xPositions.push(xPos + (itemWidth * (i + 1)) + (paddingX * (i + 1)) - (itemWidth / 2));
+            for (let b = 0; b < (rowAmount / 2); b++) {
+                xPositions.push(xPos + (itemWidth * (b + 1)) + (paddingX * (b + 1)) - (itemWidth / 2));
             }
         }
         else {
-            for (let i = (rowAmount - 1) / 2; i > 0; i--) {
-                xPositions.push(xPos - (itemWidth * i) - (paddingX * i));
+            for (let c = (rowAmount - 1) / 2; c > 0; c--) {
+                xPositions.push(xPos - (itemWidth * c) - (paddingX * c));
             }
             xPositions.push(xPos);
-            for (let i = 0; i < (rowAmount - 1) / 2; i++) {
-                xPositions.push(xPos + (itemWidth * (i + 1)) + (paddingX * (i + 1)));
+            for (let d = 0; d < (rowAmount - 1) / 2; d++) {
+                xPositions.push(xPos + (itemWidth * (d + 1)) + (paddingX * (d + 1)));
             }
         }
         xPositions.forEach((xPosition) => {
-            for (let i = 0; i < amountPerRow; i++) {
-                positions.push({ x: xPosition, y: yPos + ((itemHeight + paddingY) * i) });
+            for (let e = 0; e < amountPerRow; e++) {
+                positions.push({ x: xPosition, y: yPos + ((itemHeight + paddingY) * e) });
             }
         });
         return positions;

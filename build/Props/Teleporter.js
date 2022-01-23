@@ -4,7 +4,7 @@ export default class Teleporter extends ImageProp {
     destinationScene;
     activated;
     constructor(xPos, yPos, width = undefined, height = undefined, scene) {
-        super(xPos, yPos, GameInfo.IMG_PATH + 'Portal.png', width, height);
+        super(xPos, yPos, `${GameInfo.IMG_PATH}Portal.png`, width, height);
         this.destinationScene = scene;
         this.activated = false;
     }

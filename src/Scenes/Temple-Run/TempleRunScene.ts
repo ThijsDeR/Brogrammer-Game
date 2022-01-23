@@ -128,7 +128,7 @@ export default class TempleRunScene extends GameLevel {
           }
         }
       });
-      this.player.speed_up();
+      this.player.speedUp();
       this.player.move(this.canvas, contacts, elapsed);
       if (this.player.isDead()) this.nextScene = new HubScene(this.canvas, this.userData);
       else if (this.score >= TempleRunInfo.WIN_SCORE) {

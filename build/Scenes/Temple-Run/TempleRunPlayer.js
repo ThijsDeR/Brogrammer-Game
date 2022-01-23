@@ -24,10 +24,14 @@ export default class TempleRunPlayer extends Player {
     }
     processInput() {
         this.yVel = 0;
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
             this.yVel = -(TempleRunInfo.PLAYER_Y_SPEED) * (this.height / 200);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN))
+        }
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
             this.yVel = TempleRunInfo.PLAYER_Y_SPEED * (this.height / 200);
+        }
     }
     move(canvas, contacts, elapsed) {
         this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
@@ -36,14 +40,16 @@ export default class TempleRunPlayer extends Player {
             if (this.yPos + this.yVel < 0)
                 this.yPos = 0;
         }
-        if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
+        if (contacts.includes(CollideHandler.TOP_CONTACT)
+            || this.yPos + this.yVel + this.img.height > canvas.height) {
             this.yVel = 0;
-            if (this.yPos + this.yVel + this.img.height > canvas.height)
+            if (this.yPos + this.yVel + this.img.height > canvas.height) {
                 this.yPos = canvas.height - this.img.height;
+            }
         }
         this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
     }
-    speed_up() {
+    speedUp() {
         this.xVel += TempleRunInfo.PLAYER_SPEED_UP * (this.width / 100);
     }
     die() {

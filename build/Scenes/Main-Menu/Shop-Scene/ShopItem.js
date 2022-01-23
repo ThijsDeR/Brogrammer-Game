@@ -1,5 +1,5 @@
-import Button from "../../../Props/Button.js";
-import ImageProp from "../../../Props/ImageProp.js";
+import Button from '../../../Props/Button.js';
+import ImageProp from '../../../Props/ImageProp.js';
 export default class ShopItem {
     img;
     button;
@@ -39,7 +39,10 @@ export default class ShopItem {
     }
     doHover(mouseCoords) {
         if (this.isHovered(mouseCoords)) {
-            this.button.doHover({ x: this.button.getMinXPos() + (this.button.getWidth() / 2), y: this.button.getMinYPos() + (this.button.getHeight() / 2) });
+            this.button.doHover({
+                x: this.button.getMinXPos() + (this.button.getWidth() / 2),
+                y: this.button.getMinYPos() + (this.button.getHeight() / 2),
+            });
         }
         else {
             this.button.doHover(mouseCoords);

@@ -23,54 +23,60 @@ export default class QuestionsScene extends Scene {
         const amount = Math.floor((questionButtonHeight * this.questions.length) / (this.canvas.height - ((this.canvas.height / 10) * 4) - ((this.canvas.height / 10) * 2))) + 1;
         if (amount % 2 === 0) {
             for (let i = amount / 2; i > 0; i--) {
-                xPositions.push((this.canvas.width / 2) - (questionButtonWidth * i) - (betweenQuestionArea * i) + (questionButtonWidth / 2));
+                xPositions.push((this.canvas.width / 2) - (questionButtonWidth * i)
+                    - (betweenQuestionArea * i) + (questionButtonWidth / 2));
             }
             for (let i = 0; i < (amount / 2); i++) {
-                xPositions.push((this.canvas.width / 2) + (questionButtonWidth * (i + 1)) + (betweenQuestionArea * (i + 1)) - (questionButtonWidth / 2));
+                xPositions.push((this.canvas.width / 2) + (questionButtonWidth * (i + 1))
+                    + (betweenQuestionArea * (i + 1)) - (questionButtonWidth / 2));
             }
         }
         else {
             for (let i = (amount - 1) / 2; i > 0; i--) {
-                xPositions.push((this.canvas.width / 2) - (questionButtonWidth * i) - (betweenQuestionArea * i));
+                xPositions.push((this.canvas.width / 2) - (questionButtonWidth * i)
+                    - (betweenQuestionArea * i));
             }
             xPositions.push((this.canvas.width / 2));
             for (let i = 0; i < (amount - 1) / 2; i++) {
-                xPositions.push((this.canvas.width / 2) + (questionButtonWidth * (i + 1)) + (betweenQuestionArea * (i + 1)));
+                xPositions.push((this.canvas.width / 2) + (questionButtonWidth * (i + 1))
+                    + (betweenQuestionArea * (i + 1)));
             }
         }
         const positions = GridGenerator.generateGrid(this.canvas.width / 2, (this.canvas.height / 10) * 4, this.questions.length, (this.canvas.height - ((this.canvas.height / 10) * 4) - ((this.canvas.height / 10) * 2)), questionButtonWidth, questionButtonHeight, betweenQuestionArea, 0);
-        let currentRow = 0;
         this.questions.forEach((question, questionIndex) => {
             this.props.push(new Button(positions[questionIndex].x - (questionButtonWidth / 2), positions[questionIndex].y, questionButtonWidth, questionButtonHeight, 'white', 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
         });
         this.nextScene = this;
-        const clickFunction = (event) => {
-            let originalNextScene = this.nextScene;
-            this.props.forEach((prop) => {
-                if (prop instanceof Button) {
-                    if (prop.isHovered({ x: event.x, y: event.y })) {
-                        if (prop.getId() === 'backBtn') {
-                            this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
-                        }
-                        else
-                            this.nextScene = new QuestionScene(this.canvas, this.userData, this.questions[Number(prop.getId())]);
-                    }
-                }
-            });
-            if (originalNextScene !== this.nextScene) {
-                const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
-                buttonSound.play();
-                this.canvas.removeEventListener('click', clickFunction);
-                this.canvas.removeEventListener('mousemove', hoverFunction);
-            }
-        };
         const hoverFunction = (event) => {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
                     prop.doHover({ x: event.x, y: event.y });
                 }
             });
+        };
+        const clickFunction = (event) => {
+            const originalNextScene = this.nextScene;
+            this.props.forEach((prop) => {
+                if (prop instanceof Button) {
+                    if (prop.isHovered({ x: event.x, y: event.y })) {
+                        if (prop.getId() === 'backBtn') {
+                            this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
+                        }
+                        else {
+                            this.nextScene = new QuestionScene(this.canvas, this.userData, this.questions[Number(prop.getId())]);
+                        }
+                    }
+                }
+            });
+            if (originalNextScene !== this.nextScene) {
+                const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
+                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+                    * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                    * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+                buttonSound.play();
+                this.canvas.removeEventListener('click', clickFunction);
+                this.canvas.removeEventListener('mousemove', hoverFunction);
+            }
         };
         this.canvas.addEventListener('click', clickFunction);
         this.canvas.addEventListener('mousemove', hoverFunction);
@@ -83,11 +89,9 @@ export default class QuestionsScene extends Scene {
         });
         this.userData.getQuestions();
         Scene.writeTextToCanvas(this.ctx, 'Vragen', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
-        Scene.writeTextToCanvas(this.ctx, `Hier zijn de antwoorden voor de vragen die je hebt beantwoord`, this.canvas.width / 2, this.canvas.height / 4, this.canvas.height / 25, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Hier zijn de antwoorden voor de vragen die je hebt beantwoord', this.canvas.width / 2, this.canvas.height / 4, this.canvas.height / 25, 'white');
     }
     processInput() {
     }
-    update = (elapsed) => {
-        return this.nextScene;
-    };
+    update = (elapsed) => this.nextScene;
 }

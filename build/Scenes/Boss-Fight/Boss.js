@@ -1,8 +1,8 @@
-import GameInfo from "../../GameInfo.js";
-import ImageProp from "../../Props/ImageProp.js";
-import RectProp from "../../Props/RectProp.js";
-import BossProjectile from "./BossProjectile.js";
-import BossInfo from "./Info/BossInfo.js";
+import GameInfo from '../../GameInfo.js';
+import ImageProp from '../../Props/ImageProp.js';
+import RectProp from '../../Props/RectProp.js';
+import BossProjectile from './BossProjectile.js';
+import BossInfo from './Info/BossInfo.js';
 export default class Boss extends ImageProp {
     health;
     healthBar;
@@ -11,7 +11,7 @@ export default class Boss extends ImageProp {
     lastProjectileTime;
     projectileDelay;
     constructor(xPos, yPos, width = undefined, height = undefined) {
-        super(xPos, yPos, GameInfo.IMG_PATH + 'sephiroth.png', width, height);
+        super(xPos, yPos, `${GameInfo.IMG_PATH}sephiroth.png`, width, height);
         this.health = BossInfo.BOSS_HEALTH;
         this.healthBar = [
             new RectProp(this.xPos, this.yPos - (this.height / 2), this.width, this.height / 4, 'gray', 'fill'),
@@ -22,7 +22,7 @@ export default class Boss extends ImageProp {
         this.lastScattershotTime = BossInfo.SCATTER_SHOT_DELAY / 2;
         this.projectileDelay = BossInfo.STARTING_PROJECTILE_DELAY;
     }
-    draw(ctx, offsetX, offsetY) {
+    draw(ctx) {
         super.draw(ctx);
         this.healthBar.forEach((bar) => {
             bar.draw(ctx);
@@ -64,9 +64,8 @@ export default class Boss extends ImageProp {
             ]);
             this.lastScattershotTime = elapsed;
         }
-        else {
+        else
             this.lastScattershotTime += elapsed;
-        }
     }
     getHit() {
         this.health -= 1;

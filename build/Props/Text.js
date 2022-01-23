@@ -1,5 +1,5 @@
-import Scene from "../Scene.js";
-import Prop from "./Prop.js";
+import Scene from '../Scene.js';
+import Prop from './Prop.js';
 export default class Text extends Prop {
     text;
     color;

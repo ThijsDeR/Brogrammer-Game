@@ -1,9 +1,9 @@
-import CollideHandler from "../../CollideHandler.js";
-import BossInfo from "./Info/BossInfo.js";
-import KeyboardListener from "../../KeyboardListener.js";
-import Player from "../../Player.js";
-import GameInfo from "../../GameInfo.js";
-import PlayerProjectile from "./PlayerProjectile.js";
+import CollideHandler from '../../CollideHandler.js';
+import BossInfo from './Info/BossInfo.js';
+import KeyboardListener from '../../KeyboardListener.js';
+import Player from '../../Player.js';
+import GameInfo from '../../GameInfo.js';
+import PlayerProjectile from './PlayerProjectile.js';
 export default class BossPlayer extends Player {
     health;
     stamina;
@@ -17,7 +17,7 @@ export default class BossPlayer extends Player {
         this.stamina = BossInfo.PLAYER_STAMINA;
         this.lastTimeSinceShot = 0;
     }
-    draw(ctx, offsetX, offsetY) {
+    draw(ctx) {
         if (this.direction === 'left') {
             ctx.save();
             ctx.translate(this.xPos + this.width, 0);
@@ -34,18 +34,22 @@ export default class BossPlayer extends Player {
     }
     processInput() {
         this.yVel = 0;
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
             this.yVel = -(BossInfo.PLAYER_Y_SPEED) * (this.height / 200);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN))
             this.yVel = BossInfo.PLAYER_Y_SPEED * (this.height / 200);
         this.xVel = 0;
         if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE))
             this.shouldShoot = true;
         else
             this.shouldShoot = false;
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT))
             this.xVel = -(BossInfo.PLAYER_X_SPEED) * (this.width / 100);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT))
             this.xVel = BossInfo.PLAYER_X_SPEED * (this.width / 100);
         if (this.xVel < 0)
             this.direction = 'left';
@@ -65,7 +69,8 @@ export default class BossPlayer extends Player {
             if (this.yPos + this.yVel < 0)
                 this.yPos = 0;
         }
-        if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
+        if (contacts.includes(CollideHandler.TOP_CONTACT)
+            || this.yPos + this.yVel + this.img.height > canvas.height) {
             this.yVel = 0;
             if (this.yPos + this.yVel + this.img.height > canvas.height)
                 this.yPos = canvas.height - this.img.height;

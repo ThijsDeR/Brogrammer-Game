@@ -6,21 +6,23 @@ export default class TutorialNPCCutscene extends CutScene {
     tutorialNPC;
     textBox;
     endTextBox;
+    nextScene;
     constructor(canvas, userData, tutorialNPC) {
         super(canvas, userData);
         this.tutorialNPC = tutorialNPC;
         const sentences = [
-            "Hey welkom! Fijn dat je er bent, druk op E om verder te gaan.",
-            "Goed zo, Jij bent er al klaar voor zie ik.",
-            "Dan zit mijn taak er weer op.",
-            "Heel veel succes!"
+            'Hey welkom! Fijn dat je er bent, druk op E om verder te gaan.',
+            'Goed zo, Jij bent er al klaar voor zie ik.',
+            'Dan zit mijn taak er weer op.',
+            'Heel veel succes!',
         ];
         const endSentences = [
-            "Je mag gaan beginnen hoor...",
-            "Start het spel en praat met de andere NPC'S om een level in te gaan"
+            'Je mag gaan beginnen hoor...',
+            "Start het spel en praat met de andere NPC'S om een level in te gaan",
         ];
-        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png');
-        this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, GameInfo.IMG_PATH + 'chatbox.png');
+        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, `${GameInfo.IMG_PATH}chatbox.png`);
+        this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
+        this.nextScene = null;
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -44,6 +46,6 @@ export default class TutorialNPCCutscene extends CutScene {
         return false;
     }
     getOptionalScene() {
-        return null;
+        return this.nextScene;
     }
 }

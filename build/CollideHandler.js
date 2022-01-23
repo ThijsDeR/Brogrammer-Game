@@ -28,10 +28,12 @@ export default class CollideHandler {
         const crossHeight = height * dx;
         if (Math.abs(dx) <= width && Math.abs(dy) <= height) {
             if (crossWidth > crossHeight) {
-                contact = (crossWidth > (-crossHeight)) ? CollideHandler.BOTTOM_CONTACT : CollideHandler.LEFT_CONTACT;
+                contact = (crossWidth > (-crossHeight))
+                    ? CollideHandler.BOTTOM_CONTACT : CollideHandler.LEFT_CONTACT;
             }
             else {
-                contact = (crossWidth > (-crossHeight)) ? CollideHandler.RIGHT_CONTACT : CollideHandler.TOP_CONTACT;
+                contact = (crossWidth > (-crossHeight))
+                    ? CollideHandler.RIGHT_CONTACT : CollideHandler.TOP_CONTACT;
             }
         }
         return contact;
@@ -41,7 +43,6 @@ export default class CollideHandler {
         const object2MidY = object2.getMinYPos() + (object2.getHeight() / 2);
         if (object1MidY > object2MidY)
             return CollideHandler.BOTTOM_CONTACT;
-        else
-            return CollideHandler.TOP_CONTACT;
+        return CollideHandler.TOP_CONTACT;
     }
 }

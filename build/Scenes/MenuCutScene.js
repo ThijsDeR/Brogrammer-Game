@@ -1,8 +1,8 @@
-import CutScene from "../CutScene.js";
-import Button from "../Props/Button.js";
-import Scene from "../Scene.js";
-import HubScene from "./Hub/HubScene.js";
-import MenuScene from "./Main-Menu/MenuScene.js";
+import CutScene from '../CutScene.js';
+import Button from '../Props/Button.js';
+import Scene from '../Scene.js';
+import HubScene from './Hub/HubScene.js';
+import MenuScene from './Main-Menu/MenuScene.js';
 export default class MenuCutScene extends CutScene {
     props;
     completed;
@@ -17,10 +17,17 @@ export default class MenuCutScene extends CutScene {
         this.props = [
             new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight), buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Verder', this.canvas.height / 20, 'verder'),
             new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 2, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Hub', this.canvas.height / 20, 'hub'),
-            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Menu', this.canvas.height / 20, 'menu')
+            new Button((this.canvas.width / 2) - (buttonWidth / 2), (buttonHeight + betweenButtonHeight) * 3, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Menu', this.canvas.height / 20, 'menu'),
         ];
         this.completed = false;
         this.nextScene = null;
+        const hoverFunction = (event) => {
+            this.props.forEach((prop) => {
+                if (prop instanceof Button) {
+                    prop.doHover({ x: event.x, y: event.y });
+                }
+            });
+        };
         const clickFunction = (event) => {
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
@@ -40,18 +47,11 @@ export default class MenuCutScene extends CutScene {
                 this.canvas.removeEventListener('mousemove', hoverFunction);
             }
         };
-        const hoverFunction = (event) => {
-            this.props.forEach((prop) => {
-                if (prop instanceof Button) {
-                    prop.doHover({ x: event.x, y: event.y });
-                }
-            });
-        };
         this.canvas.addEventListener('click', clickFunction);
         this.canvas.addEventListener('mousemove', hoverFunction);
     }
     draw() {
-        this.ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
+        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.8)';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
@@ -60,9 +60,7 @@ export default class MenuCutScene extends CutScene {
     }
     processInput() {
     }
-    update = (elapsed) => {
-        return this.completed;
-    };
+    update = (elapsed) => this.completed;
     getOptionalScene() {
         return this.nextScene;
     }

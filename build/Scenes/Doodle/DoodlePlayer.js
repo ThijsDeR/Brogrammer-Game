@@ -27,12 +27,15 @@ export default class DoodlePlayer extends Player {
     processInput() {
         this.xVel = 0;
         if (!this.airborne) {
-            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
+            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)
+                || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
                 this.yVel = -(DoodleInfo.PLAYER_Y_SPEED) * (this.height / 100);
         }
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT))
             this.xVel = -(DoodleInfo.PLAYER_X_SPEED) * (this.width / 100);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT))
             this.xVel = DoodleInfo.PLAYER_X_SPEED * (this.width / 100);
         if (this.xVel < 0)
             this.direction = 'left';
@@ -50,7 +53,9 @@ export default class DoodlePlayer extends Player {
         const flying = () => {
             this.airborne = true;
             this.yPos += this.yVel * (elapsed * GameInfo.ELAPSED_PENALTY);
-            this.yVel += DoodleInfo.GRAVITY_CONSTANT * (elapsed * GameInfo.ELAPSED_PENALTY) * (this.height / 100);
+            this.yVel += DoodleInfo.GRAVITY_CONSTANT
+                * (elapsed * GameInfo.ELAPSED_PENALTY)
+                * (this.height / 100);
         };
         if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)) {
             if (onPlatform) {
@@ -60,8 +65,10 @@ export default class DoodlePlayer extends Player {
             else {
                 this.airborne = true;
                 this.yVel = -(DoodleInfo.PLAYER_Y_SPEED) * (this.height / 100);
-                const jumpSound = new Audio(GameInfo.SOUND_PATH + 'JumpCloud.wav');
-                jumpSound.volume = DoodleInfo.CLOUD_JUMP_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+                const jumpSound = new Audio(`${GameInfo.SOUND_PATH}JumpCloud.wav`);
+                jumpSound.volume = DoodleInfo.CLOUD_JUMP_SOUND_VOLUME
+                    * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                    * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
                 jumpSound.play();
             }
         }

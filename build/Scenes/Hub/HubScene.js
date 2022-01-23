@@ -17,7 +17,7 @@ import HubInfo from './Info/HubInfo.js';
 export default class HubScene extends GameLevel {
     player;
     props;
-    NPCs;
+    nPCs;
     nextScene;
     cutScene;
     backgroundMusicHub;
@@ -31,26 +31,26 @@ export default class HubScene extends GameLevel {
             new Platform((this.canvas.width / 5) * 4, platformHeight * 2, this.canvas.width / 5, this.canvas.height / 20),
             new Platform((this.canvas.width / 5) * 4, platformHeight * 4, this.canvas.width / 5, this.canvas.height / 20),
         ];
-        this.isPlayingHub = isPlayingHub ? true : false;
+        this.isPlayingHub = !!isPlayingHub;
         if (this.isPlayingHub === false) {
-            this.backgroundMusicHub = new Audio(GameInfo.SOUND_PATH + 'hub-music.mp3');
+            this.backgroundMusicHub = new Audio(`${GameInfo.SOUND_PATH}hub-music.mp3`);
             this.backgroundMusicHub.loop = true;
-            this.backgroundMusicHub.volume = HubInfo.BACKGROUND_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+            this.backgroundMusicHub.volume = HubInfo.BACKGROUND_MUSIC_VOLUME
+                * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
             this.backgroundMusicHub.play();
             this.isPlayingHub = true;
         }
-        else {
-            if (backgroundMusicHub !== undefined)
-                this.backgroundMusicHub = backgroundMusicHub;
-        }
-        this.NPCs = [
+        else if (backgroundMusicHub !== undefined)
+            this.backgroundMusicHub = backgroundMusicHub;
+        this.nPCs = [
             new TempleRunNPC(this.canvas.width / 7, (platformHeight * 4) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
             new DoodleNPC((canvas.width / 20) * 16, ((platformHeight * 4) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
             new PokeNPC((canvas.width / 20) * 16, ((platformHeight * 2) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
         ];
         if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished) {
             this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), ((this.canvas.height / 3) * 2), this.canvas.width / 5, this.canvas.height / 20));
-            this.NPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), ((this.canvas.height / 3) * 2) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData));
+            this.nPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), ((this.canvas.height / 3) * 2) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData));
         }
         this.player = new HubPlayer(this.canvas.width / 2, (this.canvas.height / 5) * 4, this.canvas.width / 25, this.canvas.height / 8, this.userData);
         this.cutScene = null;
@@ -58,12 +58,12 @@ export default class HubScene extends GameLevel {
     }
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(Game.loadNewImage(GameInfo.IMG_PATH + 'background.jpg'), 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(Game.loadNewImage(`${GameInfo.IMG_PATH}background.jpg`), 0, 0, this.canvas.width, this.canvas.height);
         this.props.forEach((prop) => {
             prop.draw(this.ctx);
         });
-        this.NPCs.forEach((NPC) => {
-            NPC.draw(this.ctx);
+        this.nPCs.forEach((nPC) => {
+            nPC.draw(this.ctx);
         });
         this.player.draw(this.ctx);
         Scene.writeTextToCanvas(this.ctx, `Munten: ${this.userData.getCoins()}`, this.canvas.width / 2, this.canvas.height / 20, this.canvas.height / 25, 'white', 'center', 'middle');
@@ -81,7 +81,7 @@ export default class HubScene extends GameLevel {
     }
     update = (elapsed) => {
         if (this.cutScene === null) {
-            let contacts = [];
+            const contacts = [];
             this.props.forEach((prop) => {
                 if (CollideHandler.collides(this.player, prop)) {
                     if (!this.player.isGoingThroughPlatform()) {
@@ -93,17 +93,17 @@ export default class HubScene extends GameLevel {
                     }
                 }
             });
-            this.NPCs.forEach((NPC) => {
-                if (CollideHandler.collides(this.player, NPC)) {
+            this.nPCs.forEach((nPC) => {
+                if (CollideHandler.collides(this.player, nPC)) {
                     if (this.player.isInteracting()) {
-                        this.cutScene = NPC.interact();
+                        this.cutScene = nPC.interact();
                     }
                 }
-                NPC.removeDelay(elapsed);
-                const NPCTeleporter = NPC.getTeleporter();
-                if (CollideHandler.collides(this.player, NPCTeleporter)) {
-                    if (NPCTeleporter.isActivated()) {
-                        this.nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData);
+                nPC.removeDelay(elapsed);
+                const nPCTeleporter = nPC.getTeleporter();
+                if (CollideHandler.collides(this.player, nPCTeleporter)) {
+                    if (nPCTeleporter.isActivated()) {
+                        this.nextScene = SceneSelector.getClassFromString(nPCTeleporter.getDestinationScene(), this.canvas, this.userData);
                     }
                 }
             });
@@ -115,12 +115,11 @@ export default class HubScene extends GameLevel {
         else {
             const cutsceneDone = this.cutScene.update(elapsed);
             if (cutsceneDone) {
-                let optionalCutScene = this.cutScene.getOptionalScene();
+                const optionalCutScene = this.cutScene.getOptionalScene();
                 if (optionalCutScene)
                     this.nextScene = optionalCutScene;
                 this.cutScene = null;
             }
-            ;
         }
         if (this.nextScene !== this && !(this.nextScene instanceof HubScene)) {
             this.backgroundMusicHub.pause();

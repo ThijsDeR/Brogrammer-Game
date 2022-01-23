@@ -6,15 +6,14 @@ export default class PokeNPC extends HubNPC {
     cutScene;
     userData;
     constructor(xpos, ypos, width = undefined, height = undefined, canvas, userData) {
-        super(xpos, ypos, GameInfo.IMG_PATH + 'Ash.png', width, height, 'poketale', 'right', 'Poketale');
+        super(xpos, ypos, `${GameInfo.IMG_PATH}Ash.png`, width, height, 'poketale', 'right', 'Poketale');
         this.userData = userData;
         this.cutScene = new PokeNPCCutscene(canvas, userData, this);
     }
     interact() {
         if (this.talkingDelay < 0)
             return this.cutScene;
-        else
-            return null;
+        return null;
     }
     finishInteraction() {
         if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished === true)

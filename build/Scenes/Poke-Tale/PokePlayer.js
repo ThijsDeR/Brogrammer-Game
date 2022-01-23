@@ -1,8 +1,8 @@
-import CollideHandler from "../../CollideHandler.js";
-import PokeTaleInfo from "./Info/PokeTaleInfo.js";
-import KeyboardListener from "../../KeyboardListener.js";
-import Player from "../../Player.js";
-import GameInfo from "../../GameInfo.js";
+import CollideHandler from '../../CollideHandler.js';
+import PokeTaleInfo from './Info/PokeTaleInfo.js';
+import KeyboardListener from '../../KeyboardListener.js';
+import Player from '../../Player.js';
+import GameInfo from '../../GameInfo.js';
 export default class PokePlayer extends Player {
     dead;
     constructor(xPos, yPos, width = undefined, height = undefined, userData) {

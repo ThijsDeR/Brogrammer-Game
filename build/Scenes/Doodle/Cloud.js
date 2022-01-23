@@ -5,7 +5,7 @@ export default class Cloud extends ImageProp {
     opacity;
     isDisappearing;
     constructor(xPos, yPos, width = undefined, height = undefined) {
-        super(xPos, yPos, GameInfo.IMG_PATH + 'cloud.png', width, height);
+        super(xPos, yPos, `${GameInfo.IMG_PATH}cloud.png`, width, height);
         this.opacity = 1;
         this.isDisappearing = false;
     }

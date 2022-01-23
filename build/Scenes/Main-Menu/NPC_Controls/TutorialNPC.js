@@ -6,7 +6,7 @@ export default class TutorialNPC extends NPC {
     cutScene;
     name;
     constructor(xpos, ypos, width = undefined, height = undefined, canvas, userData) {
-        super(xpos, ypos, GameInfo.IMG_PATH + 'sephiroth.png', width, height);
+        super(xpos, ypos, `${GameInfo.IMG_PATH}sephiroth.png`, width, height);
         this.cutScene = new TutorialNPCCutscene(canvas, userData, this);
         this.name = 'Instructie';
     }
@@ -17,8 +17,7 @@ export default class TutorialNPC extends NPC {
     interact() {
         if (this.talkingDelay < 0)
             return this.cutScene;
-        else
-            return null;
+        return null;
     }
     finishInteraction() {
         this.talkingDelay = 1000;

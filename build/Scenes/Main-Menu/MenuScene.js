@@ -32,13 +32,31 @@ export default class MenuScene extends Scene {
             new Button(positions[1].x - (buttonWidth / 2), positions[1].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Vragen', this.canvas.height / 20, 'mistakes'),
             new Button(positions[2].x - (buttonWidth / 2), positions[2].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Besturing', this.canvas.height / 20, 'controls'),
             new Button(positions[3].x - (buttonWidth / 2), positions[3].y, buttonWidth, buttonHeight, 'white', 'white', 'blue', 'Winkel', this.canvas.height / 20, 'shop'),
-            new Button((this.canvas.width / 100), (this.canvas.height / 50), this.canvas.width / 15, this.canvas.height / 20, 'white', 'white', 'red', 'Instellingen', this.canvas.height / 50, 'settings')
+            new Button((this.canvas.width / 100), (this.canvas.height / 50), this.canvas.width / 15, this.canvas.height / 20, 'white', 'white', 'red', 'Instellingen', this.canvas.height / 50, 'settings'),
         ];
-        this.isPlaying = isPlaying ? true : false;
+        this.isPlaying = !!isPlaying;
         this.nextScene = this;
         this.cutScene = null;
+        const hoverFunction = (event) => {
+            this.props.forEach((prop) => {
+                if (prop instanceof Button) {
+                    prop.doHover({ x: event.x, y: event.y });
+                }
+            });
+            if (this.isPlaying === false) {
+                this.backgroundMusic = new Audio(`${GameInfo.SOUND_PATH}menu-music.wav`);
+                this.backgroundMusic.loop = true;
+                this.backgroundMusic.volume = MenuInfo.MENU_MUSIC_VOLUME
+                    * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                    * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+                this.backgroundMusic.play();
+                this.isPlaying = true;
+            }
+            else if (backgroundMusic !== undefined)
+                this.backgroundMusic = backgroundMusic;
+        };
         const clickFunction = (event) => {
-            let originalNextScene = this.nextScene;
+            const originalNextScene = this.nextScene;
             this.props.forEach((prop) => {
                 if (prop instanceof Button) {
                     if (prop.isHovered({ x: event.x, y: event.y })) {
@@ -69,8 +87,10 @@ export default class MenuScene extends Scene {
                         else if (prop.getId() === 'settings') {
                             this.nextScene = new SettingsScene(this.canvas, this.userData, this.backgroundMusic, this.isPlaying);
                         }
-                        const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+                        const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
+                        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+                            * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                            * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                         buttonSound.play();
                     }
                 }
@@ -78,24 +98,6 @@ export default class MenuScene extends Scene {
             if (originalNextScene !== this.nextScene) {
                 this.canvas.removeEventListener('click', clickFunction);
                 this.canvas.removeEventListener('mousemove', hoverFunction);
-            }
-        };
-        const hoverFunction = (event) => {
-            this.props.forEach((prop) => {
-                if (prop instanceof Button) {
-                    prop.doHover({ x: event.x, y: event.y });
-                }
-            });
-            if (this.isPlaying === false) {
-                this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'menu-music.wav');
-                this.backgroundMusic.loop = true;
-                this.backgroundMusic.volume = MenuInfo.MENU_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
-                this.backgroundMusic.play();
-                this.isPlaying = true;
-            }
-            else {
-                if (backgroundMusic !== undefined)
-                    this.backgroundMusic = backgroundMusic;
             }
         };
         this.canvas.addEventListener('click', clickFunction);
@@ -113,7 +115,5 @@ export default class MenuScene extends Scene {
     }
     processInput() {
     }
-    update = (elapsed) => {
-        return this.nextScene;
-    };
+    update = (elapsed) => this.nextScene;
 }

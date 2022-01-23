@@ -146,7 +146,7 @@ export default class ControlsScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Klik op A en D om naar links en rechts te bewegen',
+      'Klik op A en D of linker en rechter pijltje om naar links en rechts te bewegen',
       this.canvas.width / 2,
       this.canvas.height / 4,
       this.canvas.height / 25,
@@ -155,11 +155,14 @@ export default class ControlsScene extends Scene {
 
     Scene.writeTextToCanvas(
       this.ctx,
-      'Klik op spatie om te springen en op S om door platforms te vallen.',
+      'Klik op spatie of pijltje omhoog om te springen en op S of pijltje omlaag om door platforms te vallen.',
       this.canvas.width / 2,
       (this.canvas.height / 20) * 6,
       this.canvas.height / 25,
       'white',
+      'center',
+      'middle',
+      this.canvas.width / 2,
     );
 
     Scene.writeTextToCanvas(

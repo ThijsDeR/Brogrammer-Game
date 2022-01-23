@@ -33,7 +33,7 @@ export default class Slider extends RectProp {
             return true;
         return false;
     }
-    getProcentAmount() {
+    getPosition() {
         return Math.round(this.position);
     }
     changePosition(mouseCoords) {
@@ -47,9 +47,8 @@ export default class Slider extends RectProp {
         return this.id;
     }
     doHover(mouseCoords) {
-        if (this.isHovered(mouseCoords)) {
+        if (this.isHovered(mouseCoords))
             this.color = this.hoverColor;
-        }
         else
             this.color = this.originalColor;
     }

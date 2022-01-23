@@ -11,16 +11,20 @@ export default class HubPlayer extends Player {
     processInput() {
         this.xVel = 0;
         if (!this.airborne) {
-            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
+            if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)
+                || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP))
                 this.yVel = -(HubInfo.PLAYER_Y_SPEED) * (this.height / 100);
         }
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN))
             this.goingThroughPlatform = true;
         else
             this.goingThroughPlatform = false;
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT))
             this.xVel = -(HubInfo.PLAYER_X_SPEED) * (this.width / 100);
-        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT))
+        if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)
+            || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT))
             this.xVel = HubInfo.PLAYER_X_SPEED * (this.width / 100);
         if (this.xVel < 0)
             this.direction = 'left';
@@ -41,18 +45,18 @@ export default class HubPlayer extends Player {
                 this.xVel = 0;
             }
         }
+        else if (!(this.xPos + xVel + this.img.width > canvas.width)) {
+            this.xPos += xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
+        }
         else {
-            if (!(this.xPos + xVel + this.img.width > canvas.width)) {
-                this.xPos += xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
-            }
-            else {
-                this.xVel = 0;
-            }
+            this.xVel = 0;
         }
         const flying = () => {
             this.airborne = true;
             this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
-            this.yVel += GameInfo.GRAVITY_CONSTANT * 2 * (elapsed * GameInfo.ELAPSED_PENALTY) * (this.height / 100);
+            this.yVel += GameInfo.GRAVITY_CONSTANT
+                * 2 * (elapsed * GameInfo.ELAPSED_PENALTY)
+                * (this.height / 100);
         };
         let shouldBeFlying = true;
         if (this.yPos + this.yVel < 0) {
@@ -62,11 +66,13 @@ export default class HubPlayer extends Player {
             if (this.yPos + this.yVel < 0)
                 this.yPos = 0;
         }
-        if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0) || this.yPos + this.yVel + this.img.height > canvas.height) {
+        if ((contacts.includes(CollideHandler.TOP_CONTACT) && this.yVel > 0)
+            || this.yPos + this.yVel + this.img.height > canvas.height) {
             this.airborne = false;
             this.yVel = 0;
             shouldBeFlying = false;
-            if (this.yPos + this.yVel + this.img.height > canvas.height)
+            if (this.yPos + this.yVel + this.img.height
+                > canvas.height)
                 this.yPos = canvas.height - this.img.height;
         }
         if (shouldBeFlying)

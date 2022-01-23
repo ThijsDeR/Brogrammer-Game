@@ -19,12 +19,12 @@ export default class Scene {
         const yPositions = [];
         const lines = [];
         for (let i = 0; i < words.length; i++) {
-            const tempLine = line + words[i] + ' ';
+            const tempLine = `${line + words[i]} `;
             const metrics = ctx.measureText(tempLine);
             const tempWidth = metrics.width;
             if (tempWidth > maxWidth && i > 0) {
                 lines.push(line);
-                line = words[i] + ' ';
+                line = `${words[i]} `;
             }
             else {
                 line = tempLine;

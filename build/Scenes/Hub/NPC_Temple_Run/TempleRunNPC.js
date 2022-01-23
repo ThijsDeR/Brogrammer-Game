@@ -6,15 +6,14 @@ export default class TempleRunNPC extends HubNPC {
     cutScene;
     userData;
     constructor(xpos, ypos, width = undefined, height = undefined, canvas, userData) {
-        super(xpos, ypos, GameInfo.IMG_PATH + 'Temple-Run/Opa.png', width, height, 'templerun', 'left', 'Grot Plotter');
+        super(xpos, ypos, `${GameInfo.IMG_PATH}Temple-Run/Opa.png`, width, height, 'templerun', 'left', 'Grot Plotter');
         this.userData = userData;
         this.cutScene = new TempleRunNPCCutscene(canvas, userData, this);
     }
     interact() {
         if (this.talkingDelay < 0)
             return this.cutScene;
-        else
-            return null;
+        return null;
     }
     finishInteraction() {
         if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished === true)

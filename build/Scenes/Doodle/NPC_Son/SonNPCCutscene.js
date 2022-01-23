@@ -10,11 +10,11 @@ export default class SonNPCCutscene extends CutScene {
         super(canvas, userData);
         this.sonNPC = sonNPC;
         const sentences = [
-            "Oh dankjewel, ik ben hier al zo lang.",
-            "Ik moest zelfs die vieze slimes opeten, ewwww.",
-            "Laten we nu maar teruggaan."
+            'Oh dankjewel, ik ben hier al zo lang.',
+            'Ik moest zelfs die vieze slimes opeten, ewwww.',
+            'Laten we nu maar teruggaan.',
         ];
-        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png');
+        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, `${GameInfo.IMG_PATH}chatbox.png`);
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';

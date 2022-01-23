@@ -27,23 +27,25 @@ export default class BossScene extends GameLevel {
         this.playerHealthBar = [
             new RectProp(this.canvas.width / 100, this.canvas.height / 50, this.canvas.width / 5, this.canvas.height / 20, 'gray', 'fill'),
             new RectProp(this.canvas.width / 100, this.canvas.height / 50, this.canvas.width / 5, this.canvas.height / 20, 'red', 'fill'),
-            new Text((this.canvas.width / 100) + (this.canvas.width / 10), this.canvas.height / 50 + (this.canvas.height / 40), this.canvas.width, this.canvas.height, 'Leven', 'white', this.canvas.height / 30, 'center', 'middle')
+            new Text((this.canvas.width / 100) + (this.canvas.width / 10), this.canvas.height / 50 + (this.canvas.height / 40), this.canvas.width, this.canvas.height, 'Leven', 'white', this.canvas.height / 30, 'center', 'middle'),
         ];
         this.playerStaminaBar = [
             new RectProp(this.canvas.width - (this.canvas.width / 5) - (this.canvas.width / 100), this.canvas.height / 50, this.canvas.width / 5, this.canvas.height / 20, 'gray', 'fill'),
             new RectProp(this.canvas.width - (this.canvas.width / 5) - (this.canvas.width / 100), this.canvas.height / 50, this.canvas.width / 5, this.canvas.height / 20, 'green', 'fill'),
-            new Text((this.canvas.width - (this.canvas.width / 100)) - (this.canvas.width / 10), this.canvas.height / 50 + (this.canvas.height / 40), this.canvas.width, this.canvas.height, 'Uithoudingsvermogen', 'white', this.canvas.height / 30, 'center', 'middle')
+            new Text((this.canvas.width - (this.canvas.width / 100)) - (this.canvas.width / 10), this.canvas.height / 50 + (this.canvas.height / 40), this.canvas.width, this.canvas.height, 'Uithoudingsvermogen', 'white', this.canvas.height / 30, 'center', 'middle'),
         ];
         this.cutScene = null;
         this.nextScene = this;
-        this.backgroundMusic = new Audio(GameInfo.SOUND_PATH + 'boss-music.mp3');
-        this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+        this.backgroundMusic = new Audio(`${GameInfo.SOUND_PATH}boss-music.mp3`);
+        this.backgroundMusic.volume = BossInfo.BACKGROUND_MUSIC_VOLUME
+            * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+            * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
         this.backgroundMusic.loop = true;
         this.backgroundMusic.play();
     }
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.drawImage(Game.loadNewImage(GameInfo.IMG_PATH + 'boss-fight-background.jpg'), 0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.drawImage(Game.loadNewImage(`${GameInfo.IMG_PATH}boss-fight-background.jpg`), 0, 0, this.canvas.width, this.canvas.height);
         this.player.draw(this.ctx);
         this.boss.draw(this.ctx);
         this.playerHealthBar.forEach((bar) => {
@@ -66,19 +68,19 @@ export default class BossScene extends GameLevel {
     }
     update(elapsed) {
         if (this.cutScene === null) {
-            let contacts = [];
+            const contacts = [];
             this.player.move(this.canvas, contacts, elapsed);
             this.player.update(elapsed, this.canvas);
             this.boss.update(elapsed, this.canvas);
             this.boss.shootProjectile(elapsed, this.player);
             this.boss.getProjectiles().forEach((projectile, projectileIndex) => {
-                if (CollideHandler.collides(this.player, projectile.getImageProp())) {
+                if (CollideHandler.collides(this.player, projectile)) {
                     this.player.getHit();
                     this.boss.removeProjectile(projectileIndex);
                 }
             });
             this.player.getProjectiles().forEach((projectile, projectileIndex) => {
-                if (CollideHandler.collides(this.boss, projectile.getImage())) {
+                if (CollideHandler.collides(this.boss, projectile)) {
                     this.boss.getHit();
                     this.player.removeProjectile(projectileIndex);
                 }
@@ -93,8 +95,10 @@ export default class BossScene extends GameLevel {
                 this.canvas.removeEventListener('click', this.clickFunction);
             }
             else if (this.boss.isDead()) {
-                const winSound = new Audio(GameInfo.SOUND_PATH + 'Win.mp3');
-                winSound.volume = BossInfo.WIN_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+                const winSound = new Audio(`${GameInfo.SOUND_PATH}Win.mp3`);
+                winSound.volume = BossInfo.WIN_SOUND_VOLUME
+                    * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                    * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
                 winSound.play();
                 this.backgroundMusic.pause();
                 this.backgroundMusic = null;
@@ -105,7 +109,7 @@ export default class BossScene extends GameLevel {
         else {
             const cutsceneDone = this.cutScene.update(elapsed);
             if (cutsceneDone) {
-                let optionalCutScene = this.cutScene.getOptionalScene();
+                const optionalCutScene = this.cutScene.getOptionalScene();
                 if (optionalCutScene)
                     this.nextScene = optionalCutScene;
                 this.cutScene = null;

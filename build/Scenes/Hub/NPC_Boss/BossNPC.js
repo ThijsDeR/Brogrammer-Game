@@ -6,15 +6,14 @@ export default class BossNPC extends HubNPC {
     cutScene;
     userData;
     constructor(xpos, ypos, width = undefined, height = undefined, canvas, userData) {
-        super(xpos, ypos, GameInfo.IMG_PATH + 'sephiroth.png', width, height, 'boss', 'right', 'EindBaas');
+        super(xpos, ypos, `${GameInfo.IMG_PATH}sephiroth.png`, width, height, 'boss', 'right', 'EindBaas');
         this.userData = userData;
         this.cutScene = new BossNPCCutscene(canvas, userData, this);
     }
     interact() {
         if (this.talkingDelay < 0)
             return this.cutScene;
-        else
-            return null;
+        return null;
     }
     finishInteraction() {
         if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished === true)

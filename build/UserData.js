@@ -50,7 +50,7 @@ export default class UserData {
             this.storyProgress = JSON.parse(localStorage.getItem(UserData.STORY_PROGRESS_OBJECT_NAME));
         }
         else {
-            this.storyProgress = { NPCs: [] };
+            this.storyProgress = { nPCs: [] };
             localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
         }
         if (localStorage.getItem(UserData.SOUND_OBJECT_NAME)) {
@@ -117,16 +117,16 @@ export default class UserData {
         return this.storyProgress;
     }
     getNPCStoryProgress(name) {
-        const NPCData = this.storyProgress.NPCs.filter((NPC) => NPC.name === name)[0];
-        if (NPCData)
-            return NPCData;
+        const nPCData = this.storyProgress.nPCs.filter((nPC) => nPC.name === name)[0];
+        if (nPCData)
+            return nPCData;
         this.changeNPCStoryProgress({ name, talkedTo: false, finished: false });
         return { name, talkedTo: false, finished: false };
     }
-    changeNPCStoryProgress(NPCStoryProgress) {
-        const newNPCArray = this.storyProgress.NPCs.filter((NPC) => NPC.name !== NPCStoryProgress.name);
-        newNPCArray.push(NPCStoryProgress);
-        this.storyProgress.NPCs = newNPCArray;
+    changeNPCStoryProgress(nPCStoryProgress) {
+        const newNPCArray = this.storyProgress.nPCs.filter((nPC) => nPC.name !== nPCStoryProgress.name);
+        newNPCArray.push(nPCStoryProgress);
+        this.storyProgress.nPCs = newNPCArray;
         localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
     }
     getSoundProcent(name) {

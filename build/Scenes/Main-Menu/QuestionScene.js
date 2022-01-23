@@ -1,9 +1,9 @@
-import GameInfo from "../../GameInfo.js";
-import Button from "../../Props/Button.js";
-import Scene from "../../Scene.js";
-import UserData from "../../UserData.js";
-import MenuInfo from "./Info/MenuInfo.js";
-import MistakeScene from "./QuestionsScene.js";
+import GameInfo from '../../GameInfo.js';
+import Button from '../../Props/Button.js';
+import Scene from '../../Scene.js';
+import UserData from '../../UserData.js';
+import MenuInfo from './Info/MenuInfo.js';
+import MistakeScene from './QuestionsScene.js';
 export default class QuestionScene extends Scene {
     question;
     backButton;
@@ -13,11 +13,16 @@ export default class QuestionScene extends Scene {
         this.question = question;
         this.backButton = new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn');
         this.nextScene = this;
+        const hoverFunction = (event) => {
+            this.backButton.doHover({ x: event.x, y: event.y });
+        };
         const clickFunction = (event) => {
-            let originalNextScene = this.nextScene;
+            const originalNextScene = this.nextScene;
             if (this.backButton.isHovered({ x: event.x, y: event.y })) {
-                const buttonSound = new Audio(GameInfo.SOUND_PATH + 'UI_click.wav');
-                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+                const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
+                buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+                    * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                    * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
                 buttonSound.play();
                 this.nextScene = new MistakeScene(this.canvas, this.userData);
             }
@@ -25,9 +30,6 @@ export default class QuestionScene extends Scene {
                 this.canvas.removeEventListener('click', clickFunction);
                 this.canvas.removeEventListener('mousemove', hoverFunction);
             }
-        };
-        const hoverFunction = (event) => {
-            this.backButton.doHover({ x: event.x, y: event.y });
         };
         this.canvas.addEventListener('click', clickFunction);
         this.canvas.addEventListener('mousemove', hoverFunction);

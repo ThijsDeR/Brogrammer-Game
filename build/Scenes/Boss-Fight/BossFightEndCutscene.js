@@ -1,8 +1,8 @@
-import CutScene from "../../CutScene.js";
-import GameInfo from "../../GameInfo.js";
-import KeyboardListener from "../../KeyboardListener.js";
-import TextBox from "../../Props/TextBox.js";
-import HubScene from "../Hub/HubScene.js";
+import CutScene from '../../CutScene.js';
+import GameInfo from '../../GameInfo.js';
+import KeyboardListener from '../../KeyboardListener.js';
+import TextBox from '../../Props/TextBox.js';
+import HubScene from '../Hub/HubScene.js';
 export default class BossFightEndCutscene extends CutScene {
     textBox;
     bossImage;
@@ -10,13 +10,13 @@ export default class BossFightEndCutscene extends CutScene {
         super(canvas, userData);
         this.bossImage = bossImage;
         const sentences = [
-            "Wow, je hebt me verslagen",
-            "Ik wou nog zoveel chaos veroorzaken, maar dat kan nu niet meer",
-            "Ik dacht dat ik meer in huis had, maar blijkbaar niet",
-            "Gefeliciteerd met je overwinning",
-            "Ik ga er weer vandoor",
+            'Wow, je hebt me verslagen',
+            'Ik wou nog zoveel chaos veroorzaken, maar dat kan nu niet meer',
+            'Ik dacht dat ik meer in huis had, maar blijkbaar niet',
+            'Gefeliciteerd met je overwinning',
+            'Ik ga er weer vandoor',
         ];
-        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, GameInfo.IMG_PATH + 'chatbox.png');
+        this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, `${GameInfo.IMG_PATH}chatbox.png`);
     }
     draw() {
         this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
