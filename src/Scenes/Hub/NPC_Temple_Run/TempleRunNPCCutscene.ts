@@ -15,10 +15,14 @@ export default class TempleRunNPCCutscene extends CutScene {
 
   private endTextBox: TextBox;
 
+  private nextScene: Scene | null;
+
   /**
-   * @param canvas
-   * @param userData
-   * @param templeRunNPC
+   * Initialize TempleRunNPCCutscene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param templeRunNPC templeRunNPC
    */
   public constructor(
     canvas: HTMLCanvasElement,
@@ -68,6 +72,8 @@ export default class TempleRunNPCCutscene extends CutScene {
       this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
     } else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, `${GameInfo.IMG_PATH}chatbox.png`);
     this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
+
+    this.nextScene = null;
   }
 
   /**
@@ -76,7 +82,13 @@ export default class TempleRunNPCCutscene extends CutScene {
   public draw(): void {
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.drawImage(this.templeRunNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height);
+    this.ctx.drawImage(
+      this.templeRunNPC.getImage(),
+      0,
+      0,
+      this.canvas.width / 4,
+      this.canvas.height,
+    );
     this.textBox.draw(this.ctx);
   }
 
@@ -90,16 +102,27 @@ export default class TempleRunNPCCutscene extends CutScene {
   }
 
   /**
-   * @param elapsed
+   * update the cutscene
+   *
+   * @param elapsed the time elapsed since last frame
+   * @returns boolean
    */
   public update(elapsed: number): boolean {
     this.textBox.advanceSentence(elapsed);
     if (this.textBox.isDone()) {
       this.templeRunNPC.finishInteraction();
-      const originalData = this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME);
+      const originalData = this.userData.getNPCStoryProgress(
+        TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME,
+      );
       if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished) {
         this.textBox = this.endTextBox;
-        this.userData.changeNPCStoryProgress({ name: TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME, talkedTo: true, finished: originalData.finished });
+        this.userData.changeNPCStoryProgress(
+          {
+            name: TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME,
+            talkedTo: true,
+            finished: originalData.finished,
+          },
+        );
       }
       this.textBox.reset();
       return true;
@@ -108,9 +131,11 @@ export default class TempleRunNPCCutscene extends CutScene {
   }
 
   /**
+   * Getter for optional scene
    *
+   * @returns optional scene
    */
   public getOptionalScene(): Scene | null {
-    return null;
+    return this.nextScene;
   }
 }

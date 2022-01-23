@@ -117,9 +117,9 @@ export default class QuestionCutscene extends CutScene {
   /**
    * process the input of the cutscene
    */
+  // eslint-disable-next-line class-methods-use-this
   public processInput(): void {
-    this.completed = !this.completed;
-    this.completed = !this.completed;
+
   }
 
   /**

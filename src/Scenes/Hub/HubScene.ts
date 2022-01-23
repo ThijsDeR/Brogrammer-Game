@@ -1,6 +1,5 @@
 import CollideHandler from '../../CollideHandler.js';
 import GameLevel from '../../GameLevel.js';
-import ImageProp from '../../Props/ImageProp.js';
 import Prop from '../../Props/Prop.js';
 import Scene from '../../Scene.js';
 import SceneSelector from '../../SceneSelector.js';
@@ -24,7 +23,7 @@ export default class HubScene extends GameLevel {
 
   private props: Prop[];
 
-  private NPCs: HubNPC[];
+  private nPCs: HubNPC[];
 
   private nextScene: Scene | null;
 
@@ -35,12 +34,19 @@ export default class HubScene extends GameLevel {
   private isPlayingHub: boolean;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param isPlayingHub
-   * @param backgroundMusicHub
+   * Initialize HubScene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param isPlayingHub music hub is playing
+   * @param backgroundMusicHub background hub music
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlayingHub?: boolean, backgroundMusicHub?: HTMLAudioElement | null) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    isPlayingHub?: boolean,
+    backgroundMusicHub?: HTMLAudioElement | null,
+  ) {
     super(canvas, userData);
 
     const platformHeight = (this.canvas.height / 5);
@@ -48,18 +54,36 @@ export default class HubScene extends GameLevel {
     this.props = [
       // Portal platforms
       // Left top
-      new Platform(0, platformHeight * 2, this.canvas.width / 5, this.canvas.height / 20),
-      // new Teleporter(0, (this.canvas.height / 4) - 150, this.canvas.width / 10, 200, 'hub'),
+      new Platform(
+        0,
+        platformHeight * 2,
+        this.canvas.width / 5,
+        this.canvas.height / 20,
+      ),
 
       // Left bottom
-      new Platform(0, platformHeight * 4, this.canvas.width / 5, this.canvas.height / 20),
-      // new Teleporter(0, ((this.canvas.height / 4) * 3 - 200), this.canvas.width / 10, 200, 'menu'),
+      new Platform(
+        0,
+        platformHeight * 4,
+        this.canvas.width / 5,
+        this.canvas.height / 20,
+      ),
 
       // Right top
-      new Platform((this.canvas.width / 5) * 4, platformHeight * 2, this.canvas.width / 5, this.canvas.height / 20),
+      new Platform(
+        (this.canvas.width / 5) * 4,
+        platformHeight * 2,
+        this.canvas.width / 5,
+        this.canvas.height / 20,
+      ),
 
       // Right bottom
-      new Platform((this.canvas.width / 5) * 4, platformHeight * 4, this.canvas.width / 5, this.canvas.height / 20),
+      new Platform(
+        (this.canvas.width / 5) * 4,
+        platformHeight * 4,
+        this.canvas.width / 5,
+        this.canvas.height / 20,
+      ),
     ];
 
     this.isPlayingHub = !!isPlayingHub;
@@ -68,23 +92,67 @@ export default class HubScene extends GameLevel {
     if (this.isPlayingHub === false) {
       this.backgroundMusicHub = new Audio(`${GameInfo.SOUND_PATH}hub-music.mp3`);
       this.backgroundMusicHub.loop = true;
-      this.backgroundMusicHub.volume = HubInfo.BACKGROUND_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+      this.backgroundMusicHub.volume = HubInfo.BACKGROUND_MUSIC_VOLUME
+      * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+      * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
       this.backgroundMusicHub.play();
       this.isPlayingHub = true;
     } else if (backgroundMusicHub !== undefined) this.backgroundMusicHub = backgroundMusicHub;
 
-    this.NPCs = [
-      new TempleRunNPC(this.canvas.width / 7, (platformHeight * 4) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
-      new DoodleNPC((canvas.width / 20) * 16, ((platformHeight * 4) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
-      new PokeNPC((canvas.width / 20) * 16, ((platformHeight * 2) - (this.canvas.height / 10)), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData),
+    this.nPCs = [
+      new TempleRunNPC(
+        this.canvas.width / 7,
+        (platformHeight * 4) - (this.canvas.height / 10),
+        canvas.width / 20,
+        (this.canvas.height / 10),
+        this.canvas,
+        this.userData,
+      ),
+      new DoodleNPC(
+        (canvas.width / 20) * 16,
+        ((platformHeight * 4) - (this.canvas.height / 10)),
+        canvas.width / 20,
+        (this.canvas.height / 10),
+        this.canvas,
+        this.userData,
+      ),
+      new PokeNPC(
+        (canvas.width / 20) * 16,
+        ((platformHeight * 2) - (this.canvas.height / 10)),
+        canvas.width / 20,
+        (this.canvas.height / 10),
+        this.canvas,
+        this.userData,
+      ),
     ];
 
     if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished) {
-      this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), ((this.canvas.height / 3) * 2), this.canvas.width / 5, this.canvas.height / 20));
-      this.NPCs.push(new BossNPC((this.canvas.width / 2) - (canvas.width / 10), ((this.canvas.height / 3) * 2) - (this.canvas.height / 10), canvas.width / 20, (this.canvas.height / 10), this.canvas, this.userData));
+      this.props.push(
+        new Platform(
+          (this.canvas.width / 2) - (this.canvas.width / 10),
+          ((this.canvas.height / 3) * 2),
+          this.canvas.width / 5,
+          this.canvas.height / 20,
+        ),
+      );
+      this.nPCs.push(
+        new BossNPC(
+          (this.canvas.width / 2) - (canvas.width / 10),
+          ((this.canvas.height / 3) * 2) - (this.canvas.height / 10),
+          canvas.width / 20,
+          (this.canvas.height / 10),
+          this.canvas, this.userData,
+        ),
+      );
     }
 
-    this.player = new HubPlayer(this.canvas.width / 2, (this.canvas.height / 5) * 4, this.canvas.width / 25, this.canvas.height / 8, this.userData);
+    this.player = new HubPlayer(
+      this.canvas.width / 2,
+      (this.canvas.height / 5) * 4,
+      this.canvas.width / 25,
+      this.canvas.height / 8,
+      this.userData,
+    );
 
     this.cutScene = null;
     this.nextScene = this;
@@ -100,8 +168,8 @@ export default class HubScene extends GameLevel {
       prop.draw(this.ctx);
     });
 
-    this.NPCs.forEach((NPC) => {
-      NPC.draw(this.ctx);
+    this.nPCs.forEach((nPC) => {
+      nPC.draw(this.ctx);
     });
     this.player.draw(this.ctx);
 
@@ -136,7 +204,7 @@ export default class HubScene extends GameLevel {
   /**
    * update the scene
    *
-   * @param elapsed
+   * @param elapsed the time elapsed since last frame
    * @returns Next Scene
    */
   public update = (elapsed: number): Scene => {
@@ -159,17 +227,21 @@ export default class HubScene extends GameLevel {
         }
       });
 
-      this.NPCs.forEach((NPC) => {
-        if (CollideHandler.collides(this.player, NPC)) {
+      this.nPCs.forEach((nPC) => {
+        if (CollideHandler.collides(this.player, nPC)) {
           if (this.player.isInteracting()) {
-            this.cutScene = NPC.interact();
+            this.cutScene = nPC.interact();
           }
         }
-        NPC.removeDelay(elapsed);
-        const NPCTeleporter = NPC.getTeleporter();
-        if (CollideHandler.collides(this.player, NPCTeleporter)) {
-          if (NPCTeleporter.isActivated()) {
-            this.nextScene = SceneSelector.getClassFromString(NPCTeleporter.getDestinationScene(), this.canvas, this.userData);
+        nPC.removeDelay(elapsed);
+        const nPCTeleporter = nPC.getTeleporter();
+        if (CollideHandler.collides(this.player, nPCTeleporter)) {
+          if (nPCTeleporter.isActivated()) {
+            this.nextScene = SceneSelector.getClassFromString(
+              nPCTeleporter.getDestinationScene(),
+              this.canvas,
+              this.userData,
+            );
           }
         }
       });

@@ -102,6 +102,7 @@ export default class MenuCutScene extends CutScene {
   /**
    * Method that processes the input of the user
    */
+  // eslint-disable-next-line class-methods-use-this
   public processInput(): void {
 
   }
@@ -110,12 +111,15 @@ export default class MenuCutScene extends CutScene {
    * Method that updates the canvas
    *
    * @param elapsed time elapsed
-   * @returns
+   * @returns boolean
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public update = (elapsed: number): boolean => this.completed;
 
   /**
    * Method that get an optional scene
+   *
+   * @returns optional scene
    */
   public getOptionalScene(): Scene | null {
     return this.nextScene;

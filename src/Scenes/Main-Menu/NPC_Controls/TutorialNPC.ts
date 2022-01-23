@@ -11,12 +11,14 @@ export default class TutorialNPC extends NPC {
   protected name: string;
 
   /**
-   * @param xpos
-   * @param ypos
-   * @param width
-   * @param height
-   * @param canvas
-   * @param userData
+   * Initialize TutorialNPC
+   *
+   * @param xpos xpos
+   * @param ypos ypos
+   * @param width width
+   * @param height height
+   * @param canvas the game canvas
+   * @param userData user data
    */
   public constructor(
     xpos: number,
@@ -34,9 +36,11 @@ export default class TutorialNPC extends NPC {
   }
 
   /**
-   * @param ctx
-   * @param offsetX
-   * @param offsetY
+   * draw the tutorial npc
+   *
+   * @param ctx the canvas rendering context
+   * @param offsetX offsetx
+   * @param offsetY offsety
    */
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
     super.draw(ctx, offsetX, offsetY);
@@ -44,7 +48,9 @@ export default class TutorialNPC extends NPC {
   }
 
   /**
+   * interaction function
    *
+   * @returns cutscene
    */
   public interact(): CutScene | null {
     if (this.talkingDelay < 0) return this.cutScene;

@@ -59,7 +59,8 @@ export default class SonNPC extends NPC {
   /**
    * Function that is called after the interaction is finished
    */
+  // eslint-disable-next-line class-methods-use-this
   public finishInteraction(): void {
-    this.talkingDelay = 0;
+
   }
 }

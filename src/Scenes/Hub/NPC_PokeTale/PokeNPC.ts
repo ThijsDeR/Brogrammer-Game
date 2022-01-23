@@ -11,12 +11,14 @@ export default class PokeNPC extends HubNPC {
   private userData: UserData;
 
   /**
-   * @param xpos
-   * @param ypos
-   * @param width
-   * @param height
-   * @param canvas
-   * @param userData
+   * Initialize PokeNPC
+   *
+   * @param xpos xpos
+   * @param ypos ypos
+   * @param width width
+   * @param height height
+   * @param canvas the game canvas
+   * @param userData user data
    */
   public constructor(
     xpos: number,
@@ -33,7 +35,9 @@ export default class PokeNPC extends HubNPC {
   }
 
   /**
+   * interact function
    *
+   * @returns cutscene
    */
   public interact(): CutScene | null {
     if (this.talkingDelay < 0) return this.cutScene;
@@ -41,10 +45,13 @@ export default class PokeNPC extends HubNPC {
   }
 
   /**
-   *
+   * the function after the interaction
    */
   public finishInteraction(): void {
-    if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished === true) this.teleporter.activate();
+    if (
+      this.userData.getNPCStoryProgress(
+        TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME,
+      ).finished === true) this.teleporter.activate();
     this.talkingDelay = 1000;
   }
 }

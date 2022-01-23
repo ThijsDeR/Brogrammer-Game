@@ -15,10 +15,14 @@ export default class PokeNPCCutscene extends CutScene {
 
   private endTextBox: TextBox;
 
+  private nextScene: null;
+
   /**
-   * @param canvas
-   * @param userData
-   * @param pokeNPC
+   * Initialize PokeNPCCutscene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param pokeNPC pokeNPC
    */
   public constructor(
     canvas: HTMLCanvasElement,
@@ -53,13 +57,24 @@ export default class PokeNPCCutscene extends CutScene {
       'Succes!',
     ];
 
-    if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished === false) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, notReadySentences, `${GameInfo.IMG_PATH}chatbox.png`);
-    else if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences, `${GameInfo.IMG_PATH}chatbox.png`);
-    else if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).talkedTo === true) {
+    if (
+      this.userData.getNPCStoryProgress(
+        TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME,
+      ).finished === false) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, notReadySentences, `${GameInfo.IMG_PATH}chatbox.png`);
+    else if (
+      this.userData.getNPCStoryProgress(
+        PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME,
+      ).finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences, `${GameInfo.IMG_PATH}chatbox.png`);
+    else if (
+      this.userData.getNPCStoryProgress(
+        PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME,
+      ).talkedTo === true) {
       this.pokeNPC.finishInteraction();
       this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
     } else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, `${GameInfo.IMG_PATH}chatbox.png`);
     this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
+
+    this.nextScene = null;
   }
 
   /**
@@ -82,17 +97,34 @@ export default class PokeNPCCutscene extends CutScene {
   }
 
   /**
-   * @param elapsed
+   * update the cutscene
+   *
+   * @param elapsed the time elapsed since last frame
+   * @returns boolean
    */
   public update(elapsed: number): boolean {
     this.textBox.advanceSentence(elapsed);
     if (this.textBox.isDone()) {
       this.pokeNPC.finishInteraction();
-      const originalData = this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME);
-      if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished) {
-        this.userData.changeNPCStoryProgress({ name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: originalData.finished });
+      const originalData = this.userData.getNPCStoryProgress(
+        PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME,
+      );
+      if (
+        this.userData.getNPCStoryProgress(
+          TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME,
+        ).finished) {
+        this.userData.changeNPCStoryProgress(
+          {
+            name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME,
+            talkedTo: true,
+            finished: originalData.finished,
+          },
+        );
       }
-      if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished) {
+      if (
+        this.userData.getNPCStoryProgress(
+          TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME,
+        ).finished) {
         this.textBox = this.endTextBox;
       }
       this.textBox.reset();
@@ -102,9 +134,11 @@ export default class PokeNPCCutscene extends CutScene {
   }
 
   /**
+   * Getter for optional scene
    *
+   * @returns nextscene
    */
   public getOptionalScene(): Scene | null {
-    return null;
+    return this.nextScene;
   }
 }

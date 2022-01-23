@@ -11,12 +11,14 @@ export default class TempleRunNPC extends HubNPC {
   private userData: UserData;
 
   /**
-   * @param xpos
-   * @param ypos
-   * @param width
-   * @param height
-   * @param canvas
-   * @param userData
+   * Initialize TempleRunNPC
+   *
+   * @param xpos xpos
+   * @param ypos ypos
+   * @param width width
+   * @param height height
+   * @param canvas the game canvas
+   * @param userData the user data
    */
   public constructor(
     xpos: number,
@@ -33,7 +35,9 @@ export default class TempleRunNPC extends HubNPC {
   }
 
   /**
+   * interact function
    *
+   * @returns cutscene
    */
   public interact(): CutScene | null {
     if (this.talkingDelay < 0) return this.cutScene;
@@ -41,10 +45,13 @@ export default class TempleRunNPC extends HubNPC {
   }
 
   /**
-   *
+   * the function after the interaction
    */
   public finishInteraction(): void {
-    if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished === true) this.teleporter.activate();
+    if (
+      this.userData.getNPCStoryProgress(
+        DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME,
+      ).finished === true) this.teleporter.activate();
     this.talkingDelay = 1000;
   }
 }

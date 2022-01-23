@@ -11,14 +11,16 @@ export default abstract class HubNPC extends NPC {
   protected name: string;
 
   /**
-   * @param xPos
-   * @param yPos
-   * @param imageSrc
-   * @param width
-   * @param height
-   * @param teleporter
-   * @param direction
-   * @param name
+   * Initialize HubNPC
+   *
+   * @param xPos xpos
+   * @param yPos ypos
+   * @param imageSrc image source
+   * @param width width
+   * @param height height
+   * @param teleporter teleporter
+   * @param direction left or right
+   * @param name name
    */
   public constructor(
     xPos: number,
@@ -35,14 +37,22 @@ export default abstract class HubNPC extends NPC {
     let teleporterxPos;
     if (direction === 'right') teleporterxPos = xPos + (width * 1.5);
     else if (direction === 'left') teleporterxPos = xPos - (width * 2) - (width * 0.5);
-    this.teleporter = new Teleporter(teleporterxPos, yPos - height, width * 2, height * 2, teleporter);
+    this.teleporter = new Teleporter(
+      teleporterxPos,
+      yPos - height,
+      width * 2,
+      height * 2,
+      teleporter,
+    );
     this.name = name;
   }
 
   /**
-   * @param ctx
-   * @param offsetX
-   * @param offsetY
+   * draw the hubnpc to the canvas
+   *
+   * @param ctx the canvas rendering context
+   * @param offsetX offsetx
+   * @param offsetY offsety
    */
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
     super.draw(ctx, offsetX, offsetY);
@@ -53,7 +63,9 @@ export default abstract class HubNPC extends NPC {
   public abstract interact(): CutScene;
 
   /**
+   * Getter for teleporter
    *
+   * @returns teleporter
    */
   public getTeleporter(): Teleporter {
     return this.teleporter;

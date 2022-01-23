@@ -14,10 +14,14 @@ export default class DoodleNPCCutscene extends CutScene {
 
   private endTextBox: TextBox;
 
+  private nextScene: Scene | null;
+
   /**
-   * @param canvas
-   * @param userData
-   * @param doodleNPC
+   * Initialize DoodleNPCCutscene
+   *
+   * @param canvas the game canvas
+   * @param userData the user data
+   * @param doodleNPC doodleNPC
    */
   public constructor(
     canvas: HTMLCanvasElement,
@@ -60,16 +64,24 @@ export default class DoodleNPCCutscene extends CutScene {
       'Succes!',
     ];
 
-    if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences, `${GameInfo.IMG_PATH}chatbox.png`);
-    else if (this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME).talkedTo === true) {
+    if (
+      this.userData.getNPCStoryProgress(
+        DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME,
+      ).finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences, `${GameInfo.IMG_PATH}chatbox.png`);
+    else if (
+      this.userData.getNPCStoryProgress(
+        DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME,
+      ).talkedTo === true) {
       this.doodleNPC.finishInteraction();
       this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
     } else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, `${GameInfo.IMG_PATH}chatbox.png`);
     this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
+
+    this.nextScene = null;
   }
 
   /**
-   *
+   * draw the cutscene to the screen
    */
   public draw(): void {
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
@@ -79,7 +91,7 @@ export default class DoodleNPCCutscene extends CutScene {
   }
 
   /**
-   *
+   * process the input of the cutscene
    */
   public processInput(): void {
     if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_E)) {
@@ -88,13 +100,24 @@ export default class DoodleNPCCutscene extends CutScene {
   }
 
   /**
-   * @param elapsed
+   * update the cutscene
+   *
+   * @param elapsed the time elapsed since last frame
+   * @returns boolean
    */
   public update(elapsed: number): boolean {
     this.textBox.advanceSentence(elapsed);
     if (this.textBox.isDone()) {
-      const originalData = this.userData.getNPCStoryProgress(DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME);
-      this.userData.changeNPCStoryProgress({ name: DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: originalData.finished });
+      const originalData = this.userData.getNPCStoryProgress(
+        DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME,
+      );
+      this.userData.changeNPCStoryProgress(
+        {
+          name: DoodleInfo.DOODLE_PROGRESS_OBJECT_NAME,
+          talkedTo: true,
+          finished: originalData.finished,
+        },
+      );
       this.doodleNPC.finishInteraction();
       this.textBox = this.endTextBox;
       this.textBox.reset();
@@ -104,9 +127,11 @@ export default class DoodleNPCCutscene extends CutScene {
   }
 
   /**
+   * Getter for optional scene
    *
+   * @returns optional scene
    */
   public getOptionalScene(): Scene | null {
-    return null;
+    return this.nextScene;
   }
 }

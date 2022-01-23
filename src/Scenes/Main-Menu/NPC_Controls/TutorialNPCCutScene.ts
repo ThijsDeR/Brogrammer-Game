@@ -13,10 +13,14 @@ export default class TutorialNPCCutscene extends CutScene {
 
   private endTextBox: TextBox;
 
+  private nextScene: Scene | null;
+
   /**
-   * @param canvas
-   * @param userData
-   * @param tutorialNPC
+   * Initialize TutorialNPCCutscene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param tutorialNPC tutorialNPC
    */
   public constructor(
     canvas: HTMLCanvasElement,
@@ -41,6 +45,8 @@ export default class TutorialNPCCutscene extends CutScene {
 
     this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, `${GameInfo.IMG_PATH}chatbox.png`);
     this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
+
+    this.nextScene = null;
   }
 
   /**
@@ -49,7 +55,13 @@ export default class TutorialNPCCutscene extends CutScene {
   public draw(): void {
     this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-    this.ctx.drawImage(this.tutorialNPC.getImage(), 0, 0, this.canvas.width / 4, this.canvas.height);
+    this.ctx.drawImage(
+      this.tutorialNPC.getImage(),
+      0,
+      0,
+      this.canvas.width / 4,
+      this.canvas.height,
+    );
     this.textBox.draw(this.ctx);
   }
 
@@ -63,7 +75,10 @@ export default class TutorialNPCCutscene extends CutScene {
   }
 
   /**
-   * @param elapsed
+   * update the cutscene
+   *
+   * @param elapsed the time elapsed since last frame
+   * @returns boolean
    */
   public update(elapsed: number): boolean {
     this.textBox.advanceSentence(elapsed);
@@ -77,9 +92,11 @@ export default class TutorialNPCCutscene extends CutScene {
   }
 
   /**
+   * Getter for optional scene
    *
+   * @returns optional scene
    */
   public getOptionalScene(): Scene | null {
-    return null;
+    return this.nextScene;
   }
 }
