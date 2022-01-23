@@ -1,4 +1,3 @@
-import CutScene from '../../CutScene.js';
 import GameInfo from '../../GameInfo.js';
 import Button from '../../Props/Button.js';
 import Prop from '../../Props/Prop.js';
@@ -18,12 +17,19 @@ export default class SettingsScene extends Scene {
   private backgroundMusic: HTMLAudioElement;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param backgroundMusic
-   * @param isPlaying
+   * Initialize SettingsScene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param backgroundMusic background music
+   * @param isPlaying if the music is playing
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement, isPlaying: boolean = false) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    backgroundMusic?: HTMLAudioElement,
+    isPlaying: boolean = false,
+  ) {
     super(canvas, userData);
 
     this.backgroundMusic = backgroundMusic;
@@ -42,16 +48,31 @@ export default class SettingsScene extends Scene {
     ];
     this.completed = false;
 
+    const hoverFunction = (event: MouseEvent) => {
+      this.props.forEach((prop) => {
+        if (prop instanceof Button) {
+          prop.doHover({ x: event.x, y: event.y });
+        }
+      });
+    };
+
     const clickFunction = (event: MouseEvent) => {
       this.props.forEach((prop) => {
         if (prop instanceof Button) {
           if (prop.isHovered({ x: event.x, y: event.y })) {
             if (prop.getId() === 'backBtn') {
-              this.nextScene = new MenuScene(this.canvas, this.userData, isPlaying, this.backgroundMusic);
+              this.nextScene = new MenuScene(
+                this.canvas,
+                this.userData,
+                isPlaying,
+                this.backgroundMusic,
+              );
               this.completed = true;
             }
             const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+              * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+              * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
             buttonSound.play();
           }
         }
@@ -59,18 +80,19 @@ export default class SettingsScene extends Scene {
           if (prop.isHovered({ x: event.x, y: event.y })) {
             prop.changePosition({ x: event.x, y: event.y });
 
-            if (prop.getId() === 'masterSound') this.userData.changeSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME, prop.getProcentAmount());
-            else if (prop.getId() === 'musicSound') this.userData.changeSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME, prop.getProcentAmount());
-            else if (prop.getId() === 'uiSound') this.userData.changeSoundProcent(UserData.UI_SOUND_OBJECT_NAME, prop.getProcentAmount());
+            if (prop.getId() === 'masterSound') this.userData.changeSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME, prop.getPosition());
+            else if (prop.getId() === 'musicSound') this.userData.changeSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME, prop.getPosition());
+            else if (prop.getId() === 'uiSound') this.userData.changeSoundProcent(UserData.UI_SOUND_OBJECT_NAME, prop.getPosition());
 
             this.backgroundMusic.pause();
-            console.log(MenuInfo.MENU_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100));
-            console.log(this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100);
-            console.log(this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
-            this.backgroundMusic.volume = MenuInfo.MENU_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+            this.backgroundMusic.volume = MenuInfo.MENU_MUSIC_VOLUME
+              * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+              * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
             this.backgroundMusic.play();
             const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+              * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+              * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
             buttonSound.play();
           }
         }
@@ -80,14 +102,6 @@ export default class SettingsScene extends Scene {
         this.canvas.removeEventListener('click', clickFunction);
         this.canvas.removeEventListener('mousemove', hoverFunction);
       }
-    };
-
-    const hoverFunction = (event: MouseEvent) => {
-      this.props.forEach((prop) => {
-        if (prop instanceof Button) {
-          prop.doHover({ x: event.x, y: event.y });
-        }
-      });
     };
 
     this.canvas.addEventListener('click', clickFunction);
@@ -118,9 +132,11 @@ export default class SettingsScene extends Scene {
   /**
    *
    */
+  // eslint-disable-next-line class-methods-use-this
   public processInput(): void {
 
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public update = (elapsed: number): Scene => this.nextScene;
 }

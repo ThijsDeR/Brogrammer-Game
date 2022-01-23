@@ -18,18 +18,24 @@ export default class ControlsScene extends Scene {
 
   private player: HubPlayer;
 
-  private NPCs: TutorialNPC[];
+  private nPCs: TutorialNPC[];
 
   private cutScene: null | CutScene;
 
   private backgroundMusic: HTMLAudioElement;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param backgroundMusic
+   * Initialize ControlsScene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param backgroundMusic background music
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    backgroundMusic?: HTMLAudioElement,
+  ) {
     super(canvas, userData);
 
     this.props = [
@@ -42,12 +48,40 @@ export default class ControlsScene extends Scene {
 
     this.nextScene = this;
 
-    this.NPCs = [
-      new TutorialNPC(this.canvas.width / 42, ((canvas.height / 4) * 3.6) - (this.canvas.height / 11), canvas.width / 10, (this.canvas.height / 5), this.canvas, this.userData),
+    this.nPCs = [
+      new TutorialNPC(
+        this.canvas.width / 42,
+        ((canvas.height / 4) * 3.6) - (this.canvas.height / 11),
+        canvas.width / 10,
+        (this.canvas.height / 5),
+        this.canvas,
+        this.userData,
+      ),
     ];
-    this.props.push(new Platform((this.canvas.width / 2) - (this.canvas.width / 10), ((this.canvas.height / 3) * 2), this.canvas.width / 5, this.canvas.height / 20));
+    this.props.push(
+      new Platform(
+        (this.canvas.width / 2) - (this.canvas.width / 10),
+        ((this.canvas.height / 3) * 2),
+        this.canvas.width / 5,
+        this.canvas.height / 20,
+      ),
+    );
 
-    this.player = new HubPlayer(this.canvas.width / 2, this.canvas.height / 2, this.canvas.width / 25, this.canvas.height / 8, this.userData);
+    this.player = new HubPlayer(
+      this.canvas.width / 2,
+      this.canvas.height / 2,
+      this.canvas.width / 25,
+      this.canvas.height / 8,
+      this.userData,
+    );
+
+    const hoverFunction = (event: MouseEvent) => {
+      this.props.forEach((prop) => {
+        if (prop instanceof Button) {
+          prop.doHover({ x: event.x, y: event.y });
+        }
+      });
+    };
 
     const clickFunction = (event: MouseEvent) => {
       const originalNextScene = this.nextScene;
@@ -56,7 +90,12 @@ export default class ControlsScene extends Scene {
           if (prop.isHovered({ x: event.x, y: event.y })) {
             if (prop.getId() === 'backBtn') {
               // backgroundMusic.pause()
-              this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
+              this.nextScene = new MenuScene(
+                this.canvas,
+                this.userData,
+                true,
+                this.backgroundMusic,
+              );
             }
           }
         }
@@ -64,19 +103,13 @@ export default class ControlsScene extends Scene {
 
       if (originalNextScene !== this.nextScene) {
         const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+          * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+          * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
         buttonSound.play();
         this.canvas.removeEventListener('click', clickFunction);
         this.canvas.removeEventListener('mousemove', hoverFunction);
       }
-    };
-
-    const hoverFunction = (event: MouseEvent) => {
-      this.props.forEach((prop) => {
-        if (prop instanceof Button) {
-          prop.doHover({ x: event.x, y: event.y });
-        }
-      });
     };
 
     this.canvas.addEventListener('click', clickFunction);
@@ -93,8 +126,8 @@ export default class ControlsScene extends Scene {
       prop.draw(this.ctx);
     });
 
-    this.NPCs.forEach((NPC) => {
-      NPC.draw(this.ctx);
+    this.nPCs.forEach((nPC) => {
+      nPC.draw(this.ctx);
     });
     this.player.draw(this.ctx);
 
@@ -153,11 +186,10 @@ export default class ControlsScene extends Scene {
   /**
    * update the scene
    *
-   * @param elapsed
+   * @param elapsed the time elapsed since last frame
    * @returns Next Scene
    */
   public update = (elapsed: number): Scene => {
-    const nextScene: Scene = this;
     if (this.cutScene === null) {
       const contacts: number[] = [];
 
@@ -173,11 +205,11 @@ export default class ControlsScene extends Scene {
         }
       });
 
-      this.NPCs.forEach((NPC) => {
-        NPC.removeDelay(elapsed);
-        if (CollideHandler.collides(this.player, NPC)) {
+      this.nPCs.forEach((nPC) => {
+        nPC.removeDelay(elapsed);
+        if (CollideHandler.collides(this.player, nPC)) {
           if (this.player.isInteracting()) {
-            this.cutScene = NPC.interact();
+            this.cutScene = nPC.interact();
           }
         }
       });

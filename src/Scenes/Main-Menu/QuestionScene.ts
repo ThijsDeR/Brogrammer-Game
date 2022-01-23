@@ -2,26 +2,39 @@ import GameInfo from '../../GameInfo.js';
 import Button from '../../Props/Button.js';
 import Scene from '../../Scene.js';
 import UserData from '../../UserData.js';
-import MenuCutScene from '../MenuCutScene.js';
 import MenuInfo from './Info/MenuInfo.js';
 import MistakeScene from './QuestionsScene.js';
 
 export default class QuestionScene extends Scene {
-  private question: { question: string, answers: { answer: string, correct: boolean }[], questionInfo: string };
+  private question: {
+    question: string,
+    answers: { answer: string, correct: boolean }[],
+    questionInfo: string,
+  };
 
   private backButton: Button;
 
   private nextScene: Scene;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param question
-   * @param question.question
-   * @param question.answers
-   * @param question.questionInfo
+   * Initialize QuestionScene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param question the question
+   * @param question.question the question question
+   * @param question.answers the question answers
+   * @param question.questionInfo the question info
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, question: { question: string, answers: { answer: string, correct: boolean }[], questionInfo: string }) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    question: {
+      question: string,
+      answers: { answer: string, correct: boolean }[],
+      questionInfo: string,
+    },
+  ) {
     super(canvas, userData);
 
     this.question = question;
@@ -30,12 +43,18 @@ export default class QuestionScene extends Scene {
 
     this.nextScene = this;
 
+    const hoverFunction = (event: MouseEvent) => {
+      this.backButton.doHover({ x: event.x, y: event.y });
+    };
+
     const clickFunction = (event: MouseEvent) => {
       const originalNextScene = this.nextScene;
 
       if (this.backButton.isHovered({ x: event.x, y: event.y })) {
         const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+          * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+          * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
         buttonSound.play();
         this.nextScene = new MistakeScene(this.canvas, this.userData);
       }
@@ -44,10 +63,6 @@ export default class QuestionScene extends Scene {
         this.canvas.removeEventListener('click', clickFunction);
         this.canvas.removeEventListener('mousemove', hoverFunction);
       }
-    };
-
-    const hoverFunction = (event: MouseEvent) => {
-      this.backButton.doHover({ x: event.x, y: event.y });
     };
 
     this.canvas.addEventListener('click', clickFunction);
@@ -110,13 +125,18 @@ export default class QuestionScene extends Scene {
   /**
    *
    */
+  // eslint-disable-next-line class-methods-use-this
   public processInput(): void {
 
   }
 
   /**
-   * @param elapsed
+   * update the scene
+   *
+   * @param elapsed the elapsed time since last frame
+   * @returns scene
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public update(elapsed: number): Scene {
     return this.nextScene;
   }

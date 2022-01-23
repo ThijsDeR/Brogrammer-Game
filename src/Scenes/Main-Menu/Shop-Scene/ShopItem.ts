@@ -13,14 +13,16 @@ export default class ShopItem {
   private id: number;
 
   /**
-   * @param xPos
-   * @param yPos
-   * @param width
-   * @param height
-   * @param name
-   * @param imageSrc
-   * @param cost
-   * @param id
+   * Initialze ShopItem
+   *
+   * @param xPos xpos
+   * @param yPos ypos
+   * @param width width
+   * @param height height
+   * @param name name
+   * @param imageSrc image source
+   * @param cost cost
+   * @param id id
    */
   public constructor(
     xPos: number,
@@ -41,7 +43,9 @@ export default class ShopItem {
   }
 
   /**
-   * @param ctx
+   * draw the shopitem to the canvas
+   *
+   * @param ctx the canvas rendering context
    */
   public draw(ctx: CanvasRenderingContext2D): void {
     this.img.draw(ctx);
@@ -49,37 +53,48 @@ export default class ShopItem {
   }
 
   /**
+   * Getter for name
    *
+   * @returns name
    */
   public getName(): string {
     return this.name;
   }
 
   /**
+   * Getter for cost
    *
+   * @returns cost
    */
   public getCost(): number {
     return this.cost;
   }
 
   /**
+   * Getter for id
    *
+   * @returns id
    */
   public getId(): number {
     return this.id;
   }
 
   /**
+   * Getter for image
    *
+   * @returns image
    */
   public getImage(): ImageProp {
     return this.img;
   }
 
   /**
-   * @param mouseCoords
-   * @param mouseCoords.x
-   * @param mouseCoords.y
+   * Check if shopitem is hovered
+   *
+   * @param mouseCoords the coords of the mouse
+   * @param mouseCoords.x the x coord of the mouse
+   * @param mouseCoords.y the y coord of the mouse
+   * @returns boolean
    */
   public isHovered(mouseCoords: { x: number, y: number }): boolean {
     if (
@@ -92,13 +107,20 @@ export default class ShopItem {
   }
 
   /**
-   * @param mouseCoords
-   * @param mouseCoords.x
-   * @param mouseCoords.y
+   * Check if shopitem is hovered
+   *
+   * @param mouseCoords the coords of the mouse
+   * @param mouseCoords.x the x coord of the mouse
+   * @param mouseCoords.y the y coord of the mouse
    */
   public doHover(mouseCoords: { x: number, y: number }): void {
     if (this.isHovered(mouseCoords)) {
-      this.button.doHover({ x: this.button.getMinXPos() + (this.button.getWidth() / 2), y: this.button.getMinYPos() + (this.button.getHeight() / 2) });
+      this.button.doHover(
+        {
+          x: this.button.getMinXPos() + (this.button.getWidth() / 2),
+          y: this.button.getMinYPos() + (this.button.getHeight() / 2),
+        },
+      );
     } else {
       this.button.doHover(mouseCoords);
     }

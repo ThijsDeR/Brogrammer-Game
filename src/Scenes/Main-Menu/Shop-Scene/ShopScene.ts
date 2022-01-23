@@ -5,7 +5,6 @@ import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
 import MenuInfo from '../Info/MenuInfo.js';
 import MenuScene from '../MenuScene.js';
-import MistakeScene from '../QuestionsScene.js';
 import ItemShopScene from './ItemShopScene.js';
 import ShopItem from './ShopItem.js';
 
@@ -27,11 +26,17 @@ export default class ShopScene extends Scene {
   private currentPage: number;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param backgroundMusic
+   * Initialize ShopScene
+   *
+   * @param canvas the canvas
+   * @param userData user data
+   * @param backgroundMusic background music
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    backgroundMusic?: HTMLAudioElement,
+  ) {
     super(canvas, userData);
 
     this.buttons = [
@@ -112,9 +117,22 @@ export default class ShopScene extends Scene {
 
     this.currentPage = 0;
     this.pages = Math.floor(this.items.length / ShopScene.ITEMS_PER_PAGE);
-    if (this.items.length % ShopScene.ITEMS_PER_PAGE !== 0 || this.items.length === 0) this.pages += 1;
+    if (
+      this.items.length % ShopScene.ITEMS_PER_PAGE !== 0
+      || this.items.length === 0
+    ) this.pages += 1;
 
     this.generateShop(canvas);
+
+    const hoverFunction = (event: MouseEvent) => {
+      this.buttons.forEach((button) => {
+        button.doHover({ x: event.x, y: event.y });
+      });
+
+      this.shopItems.forEach((shopItem) => {
+        shopItem.doHover({ x: event.x, y: event.y });
+      });
+    };
 
     const clickFunction = (event: MouseEvent) => {
       const originalNextScene = this.nextScene;
@@ -122,16 +140,25 @@ export default class ShopScene extends Scene {
       this.shopItems.forEach((shopItem) => {
         if (shopItem.isHovered({ x: event.x, y: event.y })) {
           const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-          buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+          buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+            * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+            * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
           buttonSound.play();
-          this.nextScene = new ItemShopScene(this.canvas, this.userData, shopItem, this.backgroundMusic);
+          this.nextScene = new ItemShopScene(
+            this.canvas,
+            this.userData,
+            shopItem,
+            this.backgroundMusic,
+          );
         }
       });
 
       this.buttons.forEach((button) => {
         if (button.isHovered({ x: event.x, y: event.y })) {
           const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-          buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+          buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+            * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+            * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
           buttonSound.play();
           if (button.getId() === 'backBtn') {
             this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
@@ -155,23 +182,15 @@ export default class ShopScene extends Scene {
       }
     };
 
-    const hoverFunction = (event: MouseEvent) => {
-      this.buttons.forEach((button) => {
-        button.doHover({ x: event.x, y: event.y });
-      });
-
-      this.shopItems.forEach((shopItem) => {
-        shopItem.doHover({ x: event.x, y: event.y });
-      });
-    };
-
     this.canvas.addEventListener('click', clickFunction);
 
     this.canvas.addEventListener('mousemove', hoverFunction);
   }
 
   /**
-   * @param canvas
+   * generate shop
+   *
+   * @param canvas the game canvas
    */
   public generateShop(canvas: HTMLCanvasElement): void {
     this.shopItems = [];
@@ -179,7 +198,10 @@ export default class ShopScene extends Scene {
     const shopItemWidth = canvas.width / 12;
     const shopItemHeight = canvas.height / 4;
 
-    const tempArray = [...this.items].splice(ShopScene.ITEMS_PER_PAGE * this.currentPage, ShopScene.ITEMS_PER_PAGE);
+    const tempArray = [...this.items].splice(
+      ShopScene.ITEMS_PER_PAGE * this.currentPage,
+      ShopScene.ITEMS_PER_PAGE,
+    );
 
     const positions = GridGenerator.generateGrid(
       this.canvas.width / 2,
@@ -192,7 +214,18 @@ export default class ShopScene extends Scene {
       canvas.height / 50,
     );
     tempArray.forEach((item, itemIndex) => {
-      this.shopItems.push(new ShopItem(positions[itemIndex].x - (shopItemWidth / 2), positions[itemIndex].y, shopItemWidth, shopItemHeight, item.name, item.src, item.cost, item.id));
+      this.shopItems.push(
+        new ShopItem(
+          positions[itemIndex].x - (shopItemWidth / 2),
+          positions[itemIndex].y,
+          shopItemWidth,
+          shopItemHeight,
+          item.name,
+          item.src,
+          item.cost,
+          item.id,
+        ),
+      );
     });
   }
 
@@ -258,13 +291,18 @@ export default class ShopScene extends Scene {
   /**
    *
    */
+  // eslint-disable-next-line class-methods-use-this
   public processInput(): void {
 
   }
 
   /**
-   * @param elapsed
+   * update the scene
+   *
+   * @param elapsed the time elapsed since last frame
+   * @returns nextscene
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public update(elapsed: number): Scene {
     return this.nextScene;
   }

@@ -13,16 +13,27 @@ export default class QuestionsScene extends Scene {
 
   private nextScene: Scene;
 
-  private questions: { question: string, answers: { answer: string, correct: boolean }[], questionInfo: string, id: number }[];
+  private questions: {
+    question: string,
+    answers: { answer: string, correct: boolean }[],
+    questionInfo: string,
+    id: number,
+  }[];
 
   private backgroundMusic: HTMLAudioElement;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param backgroundMusic
+   * Initialize QuestionScene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param backgroundMusic background music
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    backgroundMusic?: HTMLAudioElement,
+  ) {
     super(canvas, userData);
 
     this.props = [new Button(this.canvas.width / 150, this.canvas.height / 75, this.canvas.width / 15, this.canvas.height / 15, 'white', 'white', 'red', 'Terug', this.canvas.width / 75, 'backBtn')];
@@ -36,21 +47,34 @@ export default class QuestionsScene extends Scene {
     const betweenQuestionArea = this.canvas.width / 100;
 
     const xPositions: number[] = [];
+    // eslint-disable-next-line max-len
     const amount = Math.floor((questionButtonHeight * this.questions.length) / (this.canvas.height - ((this.canvas.height / 10) * 4) - ((this.canvas.height / 10) * 2))) + 1;
     if (amount % 2 === 0) {
       for (let i = amount / 2; i > 0; i--) {
-        xPositions.push((this.canvas.width / 2) - (questionButtonWidth * i) - (betweenQuestionArea * i) + (questionButtonWidth / 2));
+        xPositions.push(
+          (this.canvas.width / 2) - (questionButtonWidth * i)
+          - (betweenQuestionArea * i) + (questionButtonWidth / 2),
+        );
       }
       for (let i = 0; i < (amount / 2); i++) {
-        xPositions.push((this.canvas.width / 2) + (questionButtonWidth * (i + 1)) + (betweenQuestionArea * (i + 1)) - (questionButtonWidth / 2));
+        xPositions.push(
+          (this.canvas.width / 2) + (questionButtonWidth * (i + 1))
+          + (betweenQuestionArea * (i + 1)) - (questionButtonWidth / 2),
+        );
       }
     } else {
       for (let i = (amount - 1) / 2; i > 0; i--) {
-        xPositions.push((this.canvas.width / 2) - (questionButtonWidth * i) - (betweenQuestionArea * i));
+        xPositions.push(
+          (this.canvas.width / 2) - (questionButtonWidth * i)
+          - (betweenQuestionArea * i),
+        );
       }
       xPositions.push((this.canvas.width / 2));
       for (let i = 0; i < (amount - 1) / 2; i++) {
-        xPositions.push((this.canvas.width / 2) + (questionButtonWidth * (i + 1)) + (betweenQuestionArea * (i + 1)));
+        xPositions.push(
+          (this.canvas.width / 2) + (questionButtonWidth * (i + 1))
+          + (betweenQuestionArea * (i + 1)),
+        );
       }
     }
 
@@ -65,33 +89,11 @@ export default class QuestionsScene extends Scene {
       0,
     );
 
-    const currentRow = 0;
     this.questions.forEach((question, questionIndex) => {
       this.props.push(new Button(positions[questionIndex].x - (questionButtonWidth / 2), positions[questionIndex].y, questionButtonWidth, questionButtonHeight, 'white', 'white', 'red', `Vraag ${question.id}`, this.canvas.height / 40, `${questionIndex}`));
     });
 
     this.nextScene = this;
-
-    const clickFunction = (event: MouseEvent) => {
-      const originalNextScene = this.nextScene;
-      this.props.forEach((prop) => {
-        if (prop instanceof Button) {
-          if (prop.isHovered({ x: event.x, y: event.y })) {
-            if (prop.getId() === 'backBtn') {
-              this.nextScene = new MenuScene(this.canvas, this.userData, true, this.backgroundMusic);
-            } else this.nextScene = new QuestionScene(this.canvas, this.userData, this.questions[Number(prop.getId())]);
-          }
-        }
-      });
-
-      if (originalNextScene !== this.nextScene) {
-        const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
-        buttonSound.play();
-        this.canvas.removeEventListener('click', clickFunction);
-        this.canvas.removeEventListener('mousemove', hoverFunction);
-      }
-    };
 
     const hoverFunction = (event: MouseEvent) => {
       this.props.forEach((prop) => {
@@ -99,6 +101,40 @@ export default class QuestionsScene extends Scene {
           prop.doHover({ x: event.x, y: event.y });
         }
       });
+    };
+
+    const clickFunction = (event: MouseEvent) => {
+      const originalNextScene = this.nextScene;
+      this.props.forEach((prop) => {
+        if (prop instanceof Button) {
+          if (prop.isHovered({ x: event.x, y: event.y })) {
+            if (prop.getId() === 'backBtn') {
+              this.nextScene = new MenuScene(
+                this.canvas,
+                this.userData,
+                true,
+                this.backgroundMusic,
+              );
+            } else {
+              this.nextScene = new QuestionScene(
+                this.canvas,
+                this.userData,
+                this.questions[Number(prop.getId())],
+              );
+            }
+          }
+        }
+      });
+
+      if (originalNextScene !== this.nextScene) {
+        const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
+        buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+          * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+          * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+        buttonSound.play();
+        this.canvas.removeEventListener('click', clickFunction);
+        this.canvas.removeEventListener('mousemove', hoverFunction);
+      }
     };
 
     this.canvas.addEventListener('click', clickFunction);
@@ -138,9 +174,11 @@ export default class QuestionsScene extends Scene {
   /**
    *
    */
+  // eslint-disable-next-line class-methods-use-this
   public processInput(): void {
 
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public update = (elapsed: number): Scene => this.nextScene;
 }

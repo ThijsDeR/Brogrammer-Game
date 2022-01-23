@@ -27,12 +27,19 @@ export default class MenuScene extends Scene {
   private cutScene: CutScene | null;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param isPlaying
-   * @param backgroundMusic
+   * Initialize MenuScene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param isPlaying if music is playing
+   * @param backgroundMusic background music
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, isPlaying?: boolean, backgroundMusic?: HTMLAudioElement | null) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    isPlaying?: boolean,
+    backgroundMusic?: HTMLAudioElement | null,
+  ) {
     super(canvas, userData);
 
     const buttonWidth = (this.canvas.width / 4);
@@ -68,6 +75,24 @@ export default class MenuScene extends Scene {
     this.nextScene = this;
     this.cutScene = null;
 
+    const hoverFunction = (event: MouseEvent) => {
+      this.props.forEach((prop) => {
+        if (prop instanceof Button) {
+          prop.doHover({ x: event.x, y: event.y });
+        }
+      });
+
+      if (this.isPlaying === false) {
+        this.backgroundMusic = new Audio(`${GameInfo.SOUND_PATH}menu-music.wav`);
+        this.backgroundMusic.loop = true;
+        this.backgroundMusic.volume = MenuInfo.MENU_MUSIC_VOLUME
+          * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+          * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+        this.backgroundMusic.play();
+        this.isPlaying = true;
+      } else if (backgroundMusic !== undefined) this.backgroundMusic = backgroundMusic;
+    };
+
     const clickFunction = (event: MouseEvent) => {
       const originalNextScene = this.nextScene;
       this.props.forEach((prop) => {
@@ -92,10 +117,17 @@ export default class MenuScene extends Scene {
               this.userData.increaseCurrentSkin();
               this.robotImage = new ImageProp((this.canvas.width / 5) * 4, this.canvas.height / 4, `${this.userData.getCurrentSkin().src}`, this.canvas.width / 6, this.canvas.height / 2);
             } else if (prop.getId() === 'settings') {
-              this.nextScene = new SettingsScene(this.canvas, this.userData, this.backgroundMusic, this.isPlaying);
+              this.nextScene = new SettingsScene(
+                this.canvas,
+                this.userData,
+                this.backgroundMusic,
+                this.isPlaying,
+              );
             }
             const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+              * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+              * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
             buttonSound.play();
           }
         }
@@ -105,22 +137,6 @@ export default class MenuScene extends Scene {
         this.canvas.removeEventListener('click', clickFunction);
         this.canvas.removeEventListener('mousemove', hoverFunction);
       }
-    };
-
-    const hoverFunction = (event: MouseEvent) => {
-      this.props.forEach((prop) => {
-        if (prop instanceof Button) {
-          prop.doHover({ x: event.x, y: event.y });
-        }
-      });
-
-      if (this.isPlaying === false) {
-        this.backgroundMusic = new Audio(`${GameInfo.SOUND_PATH}menu-music.wav`);
-        this.backgroundMusic.loop = true;
-        this.backgroundMusic.volume = MenuInfo.MENU_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
-        this.backgroundMusic.play();
-        this.isPlaying = true;
-      } else if (backgroundMusic !== undefined) this.backgroundMusic = backgroundMusic;
     };
 
     this.canvas.addEventListener('click', clickFunction);
@@ -163,9 +179,11 @@ export default class MenuScene extends Scene {
   /**
    *
    */
+  // eslint-disable-next-line class-methods-use-this
   public processInput(): void {
 
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public update = (elapsed: number): Scene => this.nextScene;
 }

@@ -1,5 +1,4 @@
 import GameInfo from '../../../GameInfo.js';
-import GridGenerator from '../../../GridGenerator.js';
 import Button from '../../../Props/Button.js';
 import Scene from '../../../Scene.js';
 import UserData from '../../../UserData.js';
@@ -17,12 +16,19 @@ export default class ItemShopScene extends Scene {
   private backgroundMusic: HTMLAudioElement;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param item
-   * @param backgroundMusic
+   * Initialize ItemShopScene
+   *
+   * @param canvas the game canvas
+   * @param userData user data
+   * @param item the shop item
+   * @param backgroundMusic background music
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, item: ShopItem, backgroundMusic?: HTMLAudioElement) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    item: ShopItem,
+    backgroundMusic?: HTMLAudioElement,
+  ) {
     super(canvas, userData);
 
     this.shopItem = item;
@@ -39,6 +45,12 @@ export default class ItemShopScene extends Scene {
 
     this.nextScene = this;
 
+    const hoverFunction = (event: MouseEvent) => {
+      this.buttons.forEach((button) => {
+        button.doHover({ x: event.x, y: event.y });
+      });
+    };
+
     const clickFunction = (event: MouseEvent) => {
       const originalNextScene = this.nextScene;
       this.buttons.forEach((button) => {
@@ -46,21 +58,33 @@ export default class ItemShopScene extends Scene {
           if (button.getId() === 'backBtn') {
             this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
             const buttonSound = new Audio(`${GameInfo.SOUND_PATH}UI_click.wav`);
-            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+            buttonSound.volume = MenuInfo.UI_CLICK_VOLUME
+              * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+              * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
             buttonSound.play();
           }
 
           if (button.getId() === 'buy') {
             if (this.userData.getCoins() > this.shopItem.getCost()) {
               const startSound = new Audio(`${GameInfo.SOUND_PATH}buy-sound.wav`);
-              startSound.volume = MenuInfo.SHOP_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+              startSound.volume = MenuInfo.SHOP_CLICK_VOLUME
+                * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
               startSound.play();
-              this.userData.addSkin({ src: this.shopItem.getImage().getImageSrc(), id: this.shopItem.getId(), name: this.shopItem.getName() });
+              this.userData.addSkin(
+                {
+                  src: this.shopItem.getImage().getImageSrc(),
+                  id: this.shopItem.getId(),
+                  name: this.shopItem.getName(),
+                },
+              );
               this.userData.decreaseCoins(this.shopItem.getCost());
               this.nextScene = new ShopScene(this.canvas, this.userData, this.backgroundMusic);
             } else {
               const wrongSound = new Audio(`${GameInfo.SOUND_PATH}Wrong.mp3`);
-              wrongSound.volume = MenuInfo.SHOP_CLICK_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
+              wrongSound.volume = MenuInfo.SHOP_CLICK_VOLUME
+                * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+                * (this.userData.getSoundProcent(UserData.UI_SOUND_OBJECT_NAME) / 100);
               wrongSound.play();
             }
           }
@@ -71,12 +95,6 @@ export default class ItemShopScene extends Scene {
         this.canvas.removeEventListener('click', clickFunction);
         this.canvas.removeEventListener('mousemove', hoverFunction);
       }
-    };
-
-    const hoverFunction = (event: MouseEvent) => {
-      this.buttons.forEach((button) => {
-        button.doHover({ x: event.x, y: event.y });
-      });
     };
 
     this.canvas.addEventListener('click', clickFunction);
@@ -147,13 +165,18 @@ export default class ItemShopScene extends Scene {
   /**
    *
    */
+  // eslint-disable-next-line class-methods-use-this
   public processInput(): void {
 
   }
 
   /**
-   * @param elapsed
+   * update the scene
+   *
+   * @param elapsed the time elapsed since last frame
+   * @returns nextscene
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   public update(elapsed: number): Scene {
     return this.nextScene;
   }
