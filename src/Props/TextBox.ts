@@ -21,6 +21,14 @@ export default class TextBox {
 
   private height: number;
 
+  /**
+   * @param xPos xpos of the textbox
+   * @param yPos ypos of the textbox
+   * @param width width of the textbox
+   * @param height height of the textbox
+   * @param sentences the sentence in the textbox
+   * @param textBoxImage the image of the textbox
+   */
   public constructor(
     xPos: number,
     yPos: number,
@@ -38,13 +46,18 @@ export default class TextBox {
     this.currentSentence = 0;
     this.sentenceLength = 0;
 
-    this.textBoxImage = new ImageProp(this.xPos, this.yPos, textBoxImage, this.width, this.height)
+    this.textBoxImage = new ImageProp(this.xPos, this.yPos, textBoxImage, this.width, this.height);
 
     this.nextSentenceDelay = 200;
   }
 
+  /**
+   * draw method for the textbox
+   *
+   * @param ctx the canvas rendering context
+   */
   public draw(ctx: CanvasRenderingContext2D): void {
-    this.textBoxImage.draw(ctx)
+    this.textBoxImage.draw(ctx);
     if (!this.isDone()) {
       Scene.writeTextToCanvas(
         ctx,
@@ -55,34 +68,45 @@ export default class TextBox {
         'black',
         'center',
         'middle',
-      )
+      );
     }
   }
 
+  /**
+   * @param elapsed
+   */
   public advanceSentence(elapsed: number): void {
     this.sentenceLength += 0.01;
-    this.nextSentenceDelay -= elapsed
+    this.nextSentenceDelay -= elapsed;
   }
 
+  /**
+   *
+   */
   public nextSentence(): void {
     if (this.nextSentenceDelay < 0) {
       if (this.sentenceLength < this.sentences[this.currentSentence].length) {
-        this.sentenceLength = this.sentences[this.currentSentence].length
+        this.sentenceLength = this.sentences[this.currentSentence].length;
       } else {
         this.currentSentence += 1;
         this.sentenceLength = 0;
       }
-      this.nextSentenceDelay = 200
+      this.nextSentenceDelay = 200;
     }
   }
 
+  /**
+   *
+   */
   public reset(): void {
-    this.currentSentence = 0
-    this.sentenceLength = 0
-
+    this.currentSentence = 0;
+    this.sentenceLength = 0;
   }
 
+  /**
+   *
+   */
   public isDone(): boolean {
-    return this.currentSentence > this.sentences.length - 1
+    return this.currentSentence > this.sentences.length - 1;
   }
 }

@@ -1,4 +1,4 @@
-import GameInfo from "./GameInfo.js";
+import GameInfo from './GameInfo.js';
 export default class UserData {
     static COIN_OBJECT_NAME = 'coins';
     static QUESTIONS_OBJECT_NAME = 'questions';
@@ -35,7 +35,7 @@ export default class UserData {
         }
         else {
             this.skins = [
-                { src: GameInfo.IMG_PATH + 'Sam_Suong/robot-preview.png', id: 0, name: 'Normale Robot' }
+                { src: `${GameInfo.IMG_PATH}Sam_Suong/robot-preview.png`, id: 0, name: 'Normale Robot' },
             ];
             localStorage.setItem(UserData.SKINS_OBJECT_NAME, JSON.stringify(this.skins));
         }
@@ -120,10 +120,8 @@ export default class UserData {
         const NPCData = this.storyProgress.NPCs.filter((NPC) => NPC.name === name)[0];
         if (NPCData)
             return NPCData;
-        else {
-            this.changeNPCStoryProgress({ name: name, talkedTo: false, finished: false });
-            return { name: name, talkedTo: false, finished: false };
-        }
+        this.changeNPCStoryProgress({ name, talkedTo: false, finished: false });
+        return { name, talkedTo: false, finished: false };
     }
     changeNPCStoryProgress(NPCStoryProgress) {
         const newNPCArray = this.storyProgress.NPCs.filter((NPC) => NPC.name !== NPCStoryProgress.name);
@@ -135,14 +133,12 @@ export default class UserData {
         const soundData = this.sounds.filter((sound) => sound.name === name)[0];
         if (soundData)
             return soundData.procent;
-        else {
-            this.changeSoundProcent(name, 100);
-            return 100;
-        }
+        this.changeSoundProcent(name, 100);
+        return 100;
     }
     changeSoundProcent(name, procent) {
         const newSoundArray = this.sounds.filter((sound) => sound.name !== name);
-        newSoundArray.push({ name: name, procent: procent });
+        newSoundArray.push({ name, procent });
         this.sounds = newSoundArray;
         localStorage.setItem(UserData.SOUND_OBJECT_NAME, JSON.stringify(this.sounds));
     }
