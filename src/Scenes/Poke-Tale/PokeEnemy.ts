@@ -2,10 +2,12 @@ import ImageProp from '../../Props/ImageProp.js';
 
 export default class PokeEnemy extends ImageProp {
   /**
-   * @param xPos
-   * @param yPos
-   * @param width
-   * @param height
+   * Constructor of PokeEnemy
+   *
+   * @param xPos X position of PokeEnemy
+   * @param yPos Y position of PokeEnemy
+   * @param width Widht of PokeEnemy
+   * @param height Height of PokeEnemy
    */
   public constructor(
     xPos: number,

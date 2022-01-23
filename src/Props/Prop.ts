@@ -1,5 +1,3 @@
-import Game from '../Game.js';
-
 export default abstract class Prop {
   protected xPos: number;
 
