@@ -36,7 +36,7 @@ export default class BossNPC extends HubNPC {
 
   /**
    * interact function
-   * 
+   *
    * @returns cutscene
    */
   public interact(): CutScene | null {
@@ -48,7 +48,10 @@ export default class BossNPC extends HubNPC {
    *
    */
   public finishInteraction(): void {
-    if (this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME).finished === true) this.teleporter.activate();
+    if (
+      this.userData.getNPCStoryProgress(
+        PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME,
+      ).finished === true) this.teleporter.activate();
     this.talkingDelay = 1000;
   }
 }
