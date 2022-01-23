@@ -1,4 +1,4 @@
-import GameInfo from '../../GameInfo';
+import GameInfo from '../../GameInfo.js';
 import ImageProp from '../../Props/ImageProp.js';
 
 export default abstract class Projectile extends ImageProp {

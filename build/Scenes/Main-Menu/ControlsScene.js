@@ -74,8 +74,8 @@ export default class ControlsScene extends Scene {
         }
         Scene.writeTextToCanvas(this.ctx, 'Besturing', this.canvas.width / 2, this.canvas.height / 10, this.canvas.height / 20, 'white');
         Scene.writeTextToCanvas(this.ctx, 'Klik op A en D of linker en rechter pijltje om naar links en rechts te bewegen', this.canvas.width / 2, this.canvas.height / 4, this.canvas.height / 25, 'white');
-        Scene.writeTextToCanvas(this.ctx, 'Klik op spatie of pijltje omhoog om te springen en op S of pijltje omlaag om door platforms te vallen.', this.canvas.width / 2, (this.canvas.height / 20) * 6, this.canvas.height / 25, 'white', 'center', 'middle', this.canvas.width / 2);
-        Scene.writeTextToCanvas(this.ctx, 'Loop naar een persoon en klik op E om met hem te praten.', this.canvas.width / 2, (this.canvas.height / 20) * 7, this.canvas.height / 25, 'white');
+        Scene.writeTextToCanvas(this.ctx, 'Klik op spatie of pijltje omhoog om te springen en op S of pijltje omlaag om door platforms te vallen.', this.canvas.width / 2, (this.canvas.height / 20) * 7, this.canvas.height / 25, 'white', 'center', 'middle', this.canvas.width / 2);
+        Scene.writeTextToCanvas(this.ctx, 'Loop naar een persoon en klik op E om met hem te praten.', this.canvas.width / 2, (this.canvas.height / 20) * 8, this.canvas.height / 25, 'white');
     }
     processInput() {
         if (this.cutScene === null) {
