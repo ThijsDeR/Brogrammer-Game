@@ -16,10 +16,14 @@ export default class BossNPCCutscene extends CutScene {
 
   private endTextBox: TextBox;
 
+  private nextScene: Scene | null;
+
   /**
-   * @param canvas
-   * @param userData
-   * @param bossNPC
+   * Initialize BossNPCCutscene
+   *
+   * @param canvas the game canvas
+   * @param userData the user data
+   * @param bossNPC the boss npc
    */
   public constructor(
     canvas: HTMLCanvasElement,
@@ -52,11 +56,16 @@ export default class BossNPCCutscene extends CutScene {
     ];
 
     if (this.userData.getNPCStoryProgress(BossInfo.BOSS_PROGRESS_OBJECT_NAME).finished) this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, doneSentences, `${GameInfo.IMG_PATH}chatbox.png`);
-    else if (this.userData.getNPCStoryProgress(BossInfo.BOSS_PROGRESS_OBJECT_NAME).talkedTo === true) {
+    else if (
+      this.userData.getNPCStoryProgress(
+        BossInfo.BOSS_PROGRESS_OBJECT_NAME,
+      ).talkedTo === true) {
       this.bossNPC.finishInteraction();
       this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
     } else this.textBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, sentences, `${GameInfo.IMG_PATH}chatbox.png`);
     this.endTextBox = new TextBox(0, (this.canvas.height / 3) * 2, this.canvas.width, this.canvas.height / 3, endSentences, `${GameInfo.IMG_PATH}chatbox.png`);
+
+    this.nextScene = null;
   }
 
   /**
@@ -79,17 +88,34 @@ export default class BossNPCCutscene extends CutScene {
   }
 
   /**
-   * @param elapsed
+   * update the cutscene
+   *
+   * @param elapsed the time elapsed since last frame
+   * @returns boolean
    */
   public update(elapsed: number): boolean {
     this.textBox.advanceSentence(elapsed);
     if (this.textBox.isDone()) {
       this.bossNPC.finishInteraction();
-      const originalData = this.userData.getNPCStoryProgress(PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME);
-      if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished) {
-        this.userData.changeNPCStoryProgress({ name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: originalData.finished });
+      const originalData = this.userData.getNPCStoryProgress(
+        PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME,
+      );
+      if (
+        this.userData.getNPCStoryProgress(
+          TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME,
+        ).finished) {
+        this.userData.changeNPCStoryProgress(
+          {
+            name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME,
+            talkedTo: true,
+            finished: originalData.finished,
+          },
+        );
       }
-      if (this.userData.getNPCStoryProgress(TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME).finished) {
+      if (
+        this.userData.getNPCStoryProgress(
+          TempleRunInfo.TEMPLE_RUN_PROGRESS_OBJECT_NAME,
+        ).finished) {
         this.textBox = this.endTextBox;
       }
       this.textBox.reset();
@@ -99,9 +125,11 @@ export default class BossNPCCutscene extends CutScene {
   }
 
   /**
+   * Getter for optional Scene
    *
+   * @returns optional Scene
    */
   public getOptionalScene(): Scene | null {
-    return null;
+    return this.nextScene;
   }
 }
