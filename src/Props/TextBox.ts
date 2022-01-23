@@ -21,14 +21,12 @@ export default class TextBox {
   private height: number;
 
   /**
-   * Initialize TextBox
-   *
-   * @param xPos xpos
-   * @param yPos ypos
-   * @param width width
-   * @param height height
-   * @param sentences sentences
-   * @param textBoxImage textbox image
+   * @param xPos xpos of the textbox
+   * @param yPos ypos of the textbox
+   * @param width width of the textbox
+   * @param height height of the textbox
+   * @param sentences the sentence in the textbox
+   * @param textBoxImage the image of the textbox
    */
   public constructor(
     xPos: number,
@@ -53,7 +51,7 @@ export default class TextBox {
   }
 
   /**
-   * draw teh textbox to the canvas
+   * draw method for the textbox
    *
    * @param ctx the canvas rendering context
    */

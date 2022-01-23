@@ -1,5 +1,5 @@
-import Scene from "../Scene.js";
-import RectProp from "./RectProp.js";
+import Scene from '../Scene.js';
+import RectProp from './RectProp.js';
 export default class Slider extends RectProp {
     id;
     text;

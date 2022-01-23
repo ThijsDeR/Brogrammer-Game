@@ -21,13 +21,18 @@ export default class UserData {
 
   private coins: number;
 
-  private questions: { question: string, answers: { answer: string, correct: boolean }[], questionInfo: string, id: number }[];
+  private questions: {
+    question: string,
+    answers: { answer: string,
+      correct: boolean }[],
+    questionInfo: string,
+    id: number }[];
 
   private skins: { src: string, id: number, name: string }[];
 
   private currentSkin: number;
 
-  private storyProgress: { NPCs: { name: string, talkedTo: boolean, finished: boolean }[] };
+  private storyProgress: { nPCs: { name: string, talkedTo: boolean, finished: boolean }[] };
 
   private sounds: { name: string, procent: number }[];
 
@@ -68,7 +73,7 @@ export default class UserData {
     if (localStorage.getItem(UserData.STORY_PROGRESS_OBJECT_NAME)) {
       this.storyProgress = JSON.parse(localStorage.getItem(UserData.STORY_PROGRESS_OBJECT_NAME));
     } else {
-      this.storyProgress = { NPCs: [] };
+      this.storyProgress = { nPCs: [] };
       localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
     }
 
@@ -92,7 +97,7 @@ export default class UserData {
   /**
    * Method that adds coins to the player.$
    *
-   * @param amount
+   * @param amount amount of coins
    */
   public increaseCoins(amount: number): void {
     this.coins += amount;
@@ -102,7 +107,7 @@ export default class UserData {
   /**
    * Method that removes coins from the player
    *
-   * @param amount
+   * @param amount amount of coins
    */
   public decreaseCoins(amount: number): void {
     this.coins -= amount;
@@ -110,14 +115,18 @@ export default class UserData {
   }
 
   /**
-   * @param question
-   * @param question.question
-   * @param question.answers
-   * @param question.questionInfo
-   * @param question.id
+   * @param question question array
+   * @param question.question the question
+   * @param question.answers anwsers to the question
+   * @param question.questionInfo the extra info on the question
+   * @param question.id which number the question is
    */
   public addQuestion(
-    question: { question: string, answers: { answer: string, correct: boolean }[], questionInfo: string, id: number },
+    question: { question: string,
+      answers: { answer: string,
+        correct: boolean }[],
+      questionInfo: string,
+      id: number },
   ): void {
     let shouldAdd = true;
 
@@ -137,15 +146,20 @@ export default class UserData {
    *
    * @returns questions
    */
-  public getQuestions(): { question: string, answers: { answer: string, correct: boolean }[], questionInfo: string, id: number }[] {
+  public getQuestions(): {
+    question: string,
+    answers: { answer: string,
+      correct: boolean }[],
+    questionInfo: string,
+    id: number }[] {
     return this.questions;
   }
 
   /**
-   * @param skin
-   * @param skin.src
-   * @param skin.id
-   * @param skin.name
+   * @param skin skin array
+   * @param skin.src the source of the skin
+   * @param skin.id the number of the skin
+   * @param skin.name the name of the skin
    */
   public addSkin(skin: { src: string, id: number, name: string }): void {
     this.skins.push(skin);
@@ -175,32 +189,41 @@ export default class UserData {
   }
 
   /**
+   * getter for the skin
    *
+   * @returns the skin
    */
   public getSkins(): { src: string, id: number }[] {
     return this.skins;
   }
 
   /**
+   * getter for the skin the player is currently using
    *
+   * @returns the current skin of the player
    */
   public getCurrentSkin(): { src: string, id: number, name: string } {
     return this.skins[this.currentSkin];
   }
 
   /**
+   * the getter for the players story progress
    *
+   * @returns the storyprogress
    */
-  public getStoryProgress(): { NPCs: { name: string, talkedTo: boolean, finished: boolean }[] } {
+  public getStoryProgress(): { nPCs: { name: string, talkedTo: boolean, finished: boolean }[] } {
     return this.storyProgress;
   }
 
   /**
+   * getter for the storyprogress of a npc
+   *
    * @param name
+   * @returns the storyprogress after you talked to a npc
    */
   public getNPCStoryProgress(name: string): { name: string, talkedTo: boolean, finished: boolean } {
-    const NPCData = this.storyProgress.NPCs.filter((NPC) => NPC.name === name)[0];
-    if (NPCData) return NPCData;
+    const nPCData = this.storyProgress.nPCs.filter((nPC) => nPC.name === name)[0];
+    if (nPCData) return nPCData;
 
     this.changeNPCStoryProgress({ name, talkedTo: false, finished: false });
 
@@ -208,20 +231,26 @@ export default class UserData {
   }
 
   /**
-   * @param NPCStoryProgress
-   * @param NPCStoryProgress.name
-   * @param NPCStoryProgress.talkedTo
-   * @param NPCStoryProgress.finished
+   * @param nPCStoryProgress storyprogress array for the npc
+   * @param nPCStoryProgress.name the name of the npc
+   * @param nPCStoryProgress.talkedTo if you talked to the npc or not
+   * @param nPCStoryProgress.finished if you have finished the game or not
    */
-  public changeNPCStoryProgress(NPCStoryProgress: { name: string, talkedTo: boolean, finished: boolean }) {
-    const newNPCArray = this.storyProgress.NPCs.filter((NPC) => NPC.name !== NPCStoryProgress.name);
-    newNPCArray.push(NPCStoryProgress);
-    this.storyProgress.NPCs = newNPCArray;
+  public changeNPCStoryProgress(nPCStoryProgress: { name: string,
+    talkedTo: boolean,
+    finished: boolean,
+  }): void {
+    const newNPCArray = this.storyProgress.nPCs.filter((nPC) => nPC.name !== nPCStoryProgress.name);
+    newNPCArray.push(nPCStoryProgress);
+    this.storyProgress.nPCs = newNPCArray;
     localStorage.setItem(UserData.STORY_PROGRESS_OBJECT_NAME, JSON.stringify(this.storyProgress));
   }
 
   /**
-   * @param name
+   * getter for the soundprocent
+   *
+   * @param name name of the sound file
+   * @returns 100
    */
   public getSoundProcent(name: string): number {
     const soundData = this.sounds.filter((sound) => sound.name === name)[0];
@@ -232,8 +261,8 @@ export default class UserData {
   }
 
   /**
-   * @param name
-   * @param procent
+   * @param name name of the sound file
+   * @param procent the persentage of the volume
    */
   public changeSoundProcent(name: string, procent: number): void {
     const newSoundArray = this.sounds.filter((sound) => sound.name !== name);
