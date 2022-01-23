@@ -218,7 +218,7 @@ export default class UserData {
   /**
    * getter for the storyprogress of a npc
    *
-   * @param name
+   * @param name npc name
    * @returns the storyprogress after you talked to a npc
    */
   public getNPCStoryProgress(name: string): { name: string, talkedTo: boolean, finished: boolean } {
