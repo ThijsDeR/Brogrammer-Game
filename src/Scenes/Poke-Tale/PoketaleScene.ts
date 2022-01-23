@@ -27,8 +27,10 @@ export default class PoketaleScene extends GameLevel {
   private cutScene: CutScene | null;
 
   /**
-   * @param canvas
-   * @param userData
+   * Constructor of PoketaleScene
+   *
+   * @param canvas The game field
+   * @param userData The data of the user
    */
   public constructor(
     canvas: HTMLCanvasElement,
@@ -36,33 +38,42 @@ export default class PoketaleScene extends GameLevel {
   ) {
     super(canvas, userData);
 
-    this.player = new PokePlayer(this.canvas.width / 10, this.canvas.height / 1, this.canvas.width / 25, this.canvas.height / 8, this.userData);
+    this.player = new PokePlayer(this.canvas.width / 10, this.canvas.height / 1,
+      this.canvas.width / 25, this.canvas.height / 8, this.userData);
 
     this.props = [
       new PokeEnemy(
-        Game.randomNumber(0 + (this.canvas.width / 20), this.canvas.width - (this.canvas.width / 20)),
-        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10), this.canvas.height - (this.canvas.height / 10)),
+        Game.randomNumber(0 + (this.canvas.width / 20),
+          this.canvas.width - (this.canvas.width / 20)),
+        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10),
+          this.canvas.height - (this.canvas.height / 10)),
         this.canvas.width / 20,
         this.canvas.height / 10,
       ),
 
       new PokeEnemy(
-        Game.randomNumber(0 + (this.canvas.width / 20), this.canvas.width - (this.canvas.width / 20)),
-        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10), this.canvas.height - (this.canvas.height / 10)),
+        Game.randomNumber(0 + (this.canvas.width / 20),
+          this.canvas.width - (this.canvas.width / 20)),
+        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10),
+          this.canvas.height - (this.canvas.height / 10)),
         this.canvas.width / 20,
         this.canvas.height / 10,
       ),
 
       new PokeEnemy(
-        Game.randomNumber(0 + (this.canvas.width / 20), this.canvas.width - (this.canvas.width / 20)),
-        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10), this.canvas.height - (this.canvas.height / 10)),
+        Game.randomNumber(0 + (this.canvas.width / 20),
+          this.canvas.width - (this.canvas.width / 20)),
+        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10),
+          this.canvas.height - (this.canvas.height / 10)),
         this.canvas.width / 20,
         this.canvas.height / 10,
       ),
 
       new PokeEnemy(
-        Game.randomNumber(0 + (this.canvas.width / 20), this.canvas.width - (this.canvas.width / 20)),
-        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10), this.canvas.height - (this.canvas.height / 10)),
+        Game.randomNumber(0 + (this.canvas.width / 20),
+          this.canvas.width - (this.canvas.width / 20)),
+        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10),
+          this.canvas.height - (this.canvas.height / 10)),
         this.canvas.width / 20,
         this.canvas.height / 10,
       ),
@@ -76,12 +87,14 @@ export default class PoketaleScene extends GameLevel {
 
     this.backgroundMusic = new Audio(`${GameInfo.SOUND_PATH}PokeTale_bg.wav`);
     this.backgroundMusic.loop = true;
-    this.backgroundMusic.volume = PokeTaleInfo.BACKGROUND_MUSIC_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+    this.backgroundMusic.volume = PokeTaleInfo.BACKGROUND_MUSIC_VOLUME
+    * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+    * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
     this.backgroundMusic.play();
   }
 
   /**
-   *
+   * Method that draws
    */
   public draw(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -106,7 +119,7 @@ export default class PoketaleScene extends GameLevel {
   }
 
   /**
-   *
+   * Method that processes the input of the player
    */
   public processInput(): void {
     if (this.cutScene === null) {
@@ -117,15 +130,16 @@ export default class PoketaleScene extends GameLevel {
   }
 
   /**
-   * @param elapsed
+   * Method that updates the scene of poketale
+   *
+   * @param elapsed time elapsed
+   * @returns next scene
    */
   public update(elapsed: number): Scene {
     if (this.cutScene === null) {
       const contacts: number[] = [];
       this.props.forEach((prop, propIndex) => {
         if (CollideHandler.collides(this.player, prop)) {
-          const contact = CollideHandler.getContactData(this.player, prop);
-
           // //Checks if the instance of prop === PokeEnemy.
           // //Then check if the player makes contact with a PokeEnemy prop.
           // //If the player makes contact, the player dies.
@@ -143,9 +157,15 @@ export default class PoketaleScene extends GameLevel {
         this.nextScene = new HubScene(this.canvas, this.userData);
       } else if (this.score >= PokeTaleInfo.WIN_SCORE) {
         const winSound = new Audio(`${GameInfo.SOUND_PATH}Win.mp3`);
-        winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100) * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
+        winSound.volume = PokeTaleInfo.WIN_SOUND_VOLUME
+        * (this.userData.getSoundProcent(UserData.MASTER_SOUND_OBJECT_NAME) / 100)
+        * (this.userData.getSoundProcent(UserData.MUSIC_SOUND_OBJECT_NAME) / 100);
         winSound.play();
-        this.userData.changeNPCStoryProgress({ name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME, talkedTo: true, finished: true });
+        this.userData.changeNPCStoryProgress({
+          name: PokeTaleInfo.POKE_TALE_PROGRESS_OBJECT_NAME,
+          talkedTo: true,
+          finished: true,
+        });
         this.userData.increaseCoins(PokeTaleInfo.COMPLETE_SCORE_AWARD);
         this.nextScene = new HubScene(this.canvas, this.userData);
       }

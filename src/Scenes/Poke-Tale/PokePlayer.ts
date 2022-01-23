@@ -9,11 +9,13 @@ export default class PokePlayer extends Player {
   private dead: boolean;
 
   /**
-   * @param xPos
-   * @param yPos
-   * @param width
-   * @param height
-   * @param userData
+   * Constructor of PokePlayer
+   *
+   * @param xPos X position of PokePlayer
+   * @param yPos Y position of PokePlayer
+   * @param width Width of PokePlayer
+   * @param height Height of PokePlayer
+   * @param userData UserData of the player
    */
   public constructor(
     xPos: number,
@@ -27,11 +29,11 @@ export default class PokePlayer extends Player {
   }
 
   /**
-   * @param ctx
-   * @param offsetX
-   * @param offsetY
+   * Method that draws
+   *
+   * @param ctx The CanvasRenderingContext2D
    */
-  public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
+  public draw(ctx: CanvasRenderingContext2D): void {
     if (this.direction === 'left') {
       ctx.save();
       ctx.translate(this.xPos + this.width, 0);
@@ -49,22 +51,38 @@ export default class PokePlayer extends Player {
   public processInput(): void {
     this.yVel = 0;
 
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 200);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 200);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)
+    || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
+      this.yVel = -(PokeTaleInfo.PLAYER_Y_SPEED) * (this.height / 200);
+    }
+
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)
+    || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
+      this.yVel = PokeTaleInfo.PLAYER_Y_SPEED * (this.height / 200);
+    }
 
     this.xVel = 0;
 
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 100);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 100);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_A)
+    || this.keyboardListener.isKeyDown(KeyboardListener.KEY_LEFT)) {
+      this.xVel = -(PokeTaleInfo.PLAYER_X_SPEED) * (this.width / 100);
+    }
+
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_D)
+    || this.keyboardListener.isKeyDown(KeyboardListener.KEY_RIGHT)) {
+      this.xVel = PokeTaleInfo.PLAYER_X_SPEED * (this.width / 100);
+    }
 
     if (this.xVel < 0) this.direction = 'left';
     else if (this.xVel > 0) this.direction = 'right';
   }
 
   /**
-   * @param canvas
-   * @param contacts
-   * @param elapsed
+   * Method that moves the player
+   *
+   * @param canvas The game field
+   * @param contacts Collision of the player
+   * @param elapsed Time elapsed
    */
   public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number): void {
     this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
@@ -80,27 +98,29 @@ export default class PokePlayer extends Player {
       if (this.yPos + this.yVel < 0) this.yPos = 0;
     }
 
-    if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
+    if (contacts.includes(CollideHandler.TOP_CONTACT)
+    || this.yPos + this.yVel + this.img.height > canvas.height) {
       this.yVel = 0;
-      if (this.yPos + this.yVel + this.img.height > canvas.height) this.yPos = canvas.height - this.img.height;
+      if (this.yPos + this.yVel + this.img.height > canvas.height) {
+        this.yPos = canvas.height - this.img.height;
+      }
     }
-
-    CollideHandler.LEFT_CONTACT;
-
-    CollideHandler.RIGHT_CONTACT;
 
     this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
   }
 
   /**
-   *
+   * Method that kills the player
    */
   public die(): void {
     this.dead = true;
   }
 
   /**
+   * Method that checks if the player is dead
    *
+   * @returns 'True' if the player is dead
+   *          'False' if the player is alive
    */
   public isDead(): boolean {
     return this.dead;

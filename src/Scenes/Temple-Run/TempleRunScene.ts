@@ -58,12 +58,15 @@ export default class TempleRunScene extends GameLevel {
     this.backgroundMusic.play();
   }
 
+  /**
+   * Method that get a new question
+   */
   private newQuestion(): void {
     this.question = new TRQuestion(this.canvas, this.player);
   }
 
   /**
-   *
+   * Method that draws
    */
   public draw(): void {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -80,7 +83,7 @@ export default class TempleRunScene extends GameLevel {
   }
 
   /**
-   *
+   * Method that processed the input of the player
    */
   public processInput(): void {
     if (this.cutScene === null) {
@@ -128,7 +131,7 @@ export default class TempleRunScene extends GameLevel {
           }
         }
       });
-      this.player.speed_up();
+      this.player.speedUp();
       this.player.move(this.canvas, contacts, elapsed);
       if (this.player.isDead()) this.nextScene = new HubScene(this.canvas, this.userData);
       else if (this.score >= TempleRunInfo.WIN_SCORE) {

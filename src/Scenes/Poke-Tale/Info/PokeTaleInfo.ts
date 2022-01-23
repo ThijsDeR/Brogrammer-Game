@@ -30,7 +30,14 @@ export default abstract class PokeTaleInfo {
 
   public static readonly POKE_TALE_PROGRESS_OBJECT_NAME: string = 'poke';
 
-  public static readonly PROMPTS: { prompt: string, moves: { move: string, correct: boolean }[], promptInfo: string, id: number }[] = [
+  public static readonly PROMPTS: {
+    prompt: string,
+    moves: {
+      move: string,
+      correct: boolean,
+    }[],
+    promptInfo: string,
+    id: number }[] = [
     {
       prompt: 'Ghostleh probeert je uit te lokken.',
       moves: [
