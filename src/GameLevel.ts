@@ -1,4 +1,3 @@
-import Player from './Player.js';
 import Scene from './Scene.js';
 
 export default abstract class GameLevel extends Scene {

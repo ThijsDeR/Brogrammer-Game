@@ -12,8 +12,10 @@ export default abstract class CutScene {
   protected userData: UserData;
 
   /**
-   * @param canvas
-   * @param userData
+   * Constructor of CutScene
+   *
+   * @param canvas The game canvas
+   * @param userData The data of the user
    */
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     this.canvas = canvas;
@@ -41,5 +43,8 @@ export default abstract class CutScene {
    */
   public abstract update(elapsed: number): boolean;
 
+  /**
+   * Getter for optional scenes
+   */
   public abstract getOptionalScene(): Scene | null;
 }

@@ -9,9 +9,9 @@ export default class Game {
   private userData: UserData;
 
   /**
-   * l
+   * The constructor of Game
    *
-   * @param canvas l
+   * @param canvas the playing field
    */
   public constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -36,7 +36,7 @@ export default class Game {
   }
 
   /**
-   * l
+   * Method that returns the canvas
    *
    * @returns The canvas
    */
@@ -45,12 +45,12 @@ export default class Game {
   }
 
   /**
-   * l
+   * Method that loads a new image
    *
-   * @param src l
-   * @param width
-   * @param height
-   * @returns l
+   * @param src Source of the image
+   * @param width Width of the image
+   * @param height Height of the image
+   * @returns The new image
    */
   public static loadNewImage(
     src: string,

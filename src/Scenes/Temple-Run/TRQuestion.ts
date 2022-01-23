@@ -14,16 +14,20 @@ export default class TRQuestion {
   private props: Prop[];
 
   /**
-   * @param canvas
-   * @param player
+   * Consturctor of TempleRunPlayer
+   *
+   * @param canvas The game field
+   * @param player the player of templeRun
    */
   public constructor(canvas: HTMLCanvasElement, player: TempleRunPlayer) {
     const platformTopYPos = (canvas.height / 3) - (canvas.height / 20);
     const platformBottomYPos = ((canvas.height / 3) * 2) - (canvas.height / 20);
     this.props = [
-      new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2), platformTopYPos, canvas.width, canvas.height / 10),
+      new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2),
+        platformTopYPos, canvas.width, canvas.height / 10),
 
-      new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2), platformBottomYPos, canvas.width, canvas.height / 10),
+      new Platform(player.getMinXPos() + canvas.width + (canvas.width / 2),
+        platformBottomYPos, canvas.width, canvas.height / 10),
     ];
 
     const characters = [
@@ -91,29 +95,36 @@ export default class TRQuestion {
     while (answers.length > 0) {
       const randomAnswer = Game.randomNumber(0, answers.length - 1);
       const answer = answers[randomAnswer];
-      this.props.push(new ImageProp(player.getMinXPos() + canvas.width + (canvas.width / 2), positions[i], answer.answerImage, canvas.width / 20, canvas.height / 10));
+      this.props.push(new ImageProp(player.getMinXPos() + canvas.width + (canvas.width / 2),
+        positions[i], answer.answerImage, canvas.width / 20, canvas.height / 10));
       if (answer.correct) {
-        this.props.push(new CorrectProp(player.getMinXPos() + canvas.width + ((canvas.width / 4) * 5), deathPositions[i], canvas.width / 10, platformTopYPos));
+        this.props.push(new CorrectProp(player.getMinXPos() + canvas.width
+        + ((canvas.width / 4) * 5), deathPositions[i], canvas.width / 10, platformTopYPos));
       } else {
-        this.props.push(new DeadProp(player.getMinXPos() + canvas.width + ((canvas.width / 4) * 5), deathPositions[i], canvas.width / 10, platformTopYPos));
+        this.props.push(new DeadProp(player.getMinXPos() + canvas.width + ((canvas.width / 4) * 5),
+          deathPositions[i], canvas.width / 10, platformTopYPos));
       }
       answers.splice(randomAnswer, 1);
-      i++;
+      i += 1;
     }
   }
 
   /**
-   * @param ctx
-   * @param offsetX
+   * Method that draws
+   *
+   * @param ctx The game field
+   * @param offsetX The X offset
    */
-  public draw(ctx: CanvasRenderingContext2D, offsetX: number) {
+  public draw(ctx: CanvasRenderingContext2D, offsetX: number): void {
     this.props.forEach((prop) => {
       prop.draw(ctx, offsetX);
     });
   }
 
   /**
+   * Method that gets the props
    *
+   * @returns returns props
    */
   public getProps(): Prop[] {
     return this.props;

@@ -9,11 +9,16 @@ import BossScene from './Scenes/Boss-Fight/BossScene.js';
 
 export default class SceneSelector {
   /**
-   * @param classString
-   * @param canvas
-   * @param userData
+   * @param classString variable containing which scene should be returned
+   * @param canvas canvas element
+   * @param userData The data of the user
+   * @returns the destination scene
    */
-  public static getClassFromString(classString: string, canvas: HTMLCanvasElement, userData: UserData): Scene | null {
+  public static getClassFromString(
+    classString: string,
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+  ): Scene | null {
     switch (classString) {
       case 'hub': {
         return new HubScene(canvas, userData);

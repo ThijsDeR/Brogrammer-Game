@@ -1,7 +1,5 @@
-import DoodleScene from './Scenes/Doodle/DoodleScene.js';
 import Game from './Game.js';
 import GameEngine from './GameEngine.js';
-import HubScene from './Scenes/Hub/HubScene.js';
 import MenuScene from './Scenes/Main-Menu/MenuScene.js';
 import Scene from './Scene.js';
 

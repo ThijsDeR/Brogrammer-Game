@@ -9,11 +9,13 @@ export default class TempleRunPlayer extends Player {
   private dead: boolean;
 
   /**
-   * @param xPos
-   * @param yPos
-   * @param width
-   * @param height
-   * @param userData
+   * Constructor of TempleRunPlayer
+   *
+   * @param xPos The x position of the player
+   * @param yPos The y position of the player
+   * @param width The width of the player
+   * @param height The height of the player
+   * @param userData The userdata of the player
    */
   public constructor(
     xPos: number,
@@ -29,9 +31,11 @@ export default class TempleRunPlayer extends Player {
   }
 
   /**
-   * @param ctx
-   * @param offsetX
-   * @param offsetY
+   * Method that draws stuff
+   *
+   * @param ctx The rendering context of the canvas
+   * @param offsetX The x offset of the image
+   * @param offsetY The y offset of the image
    */
   public draw(ctx: CanvasRenderingContext2D, offsetX?: number, offsetY?: number): void {
     if (this.direction === 'left') {
@@ -51,14 +55,22 @@ export default class TempleRunPlayer extends Player {
   public processInput(): void {
     this.yVel = 0;
 
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) this.yVel = -(TempleRunInfo.PLAYER_Y_SPEED) * (this.height / 200);
-    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) this.yVel = TempleRunInfo.PLAYER_Y_SPEED * (this.height / 200);
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)
+      || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP)) {
+      this.yVel = -(TempleRunInfo.PLAYER_Y_SPEED) * (this.height / 200);
+    }
+    if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_S)
+      || this.keyboardListener.isKeyDown(KeyboardListener.KEY_DOWN)) {
+      this.yVel = TempleRunInfo.PLAYER_Y_SPEED * (this.height / 200);
+    }
   }
 
   /**
-   * @param canvas
-   * @param contacts
-   * @param elapsed
+   * Method that moves the player
+   *
+   * @param canvas The game field
+   * @param contacts Collision of the player
+   * @param elapsed Time elapsed
    */
   public move(canvas: HTMLCanvasElement, contacts: number[], elapsed: number): void {
     this.xPos += this.xVel * (elapsed * GameInfo.ELAPSED_PENALTY);
@@ -68,30 +80,36 @@ export default class TempleRunPlayer extends Player {
       if (this.yPos + this.yVel < 0) this.yPos = 0;
     }
 
-    if (contacts.includes(CollideHandler.TOP_CONTACT) || this.yPos + this.yVel + this.img.height > canvas.height) {
+    if (contacts.includes(CollideHandler.TOP_CONTACT)
+    || this.yPos + this.yVel + this.img.height > canvas.height) {
       this.yVel = 0;
-      if (this.yPos + this.yVel + this.img.height > canvas.height) this.yPos = canvas.height - this.img.height;
+      if (this.yPos + this.yVel + this.img.height > canvas.height) {
+        this.yPos = canvas.height - this.img.height;
+      }
     }
 
     this.yPos += this.yVel * 2 * (elapsed * GameInfo.ELAPSED_PENALTY);
   }
 
   /**
-   *
+   * Method that speeds the player up
    */
-  public speed_up(): void {
+  public speedUp(): void {
     this.xVel += TempleRunInfo.PLAYER_SPEED_UP * (this.width / 100);
   }
 
   /**
-   *
+   * Method that kills the player
    */
   public die(): void {
     this.dead = true;
   }
 
   /**
+   * Method that checks if the player is dead.
    *
+   * @returns 'True' if the player is dead
+   *          'False' if the player is alive
    */
   public isDead(): boolean {
     return this.dead;

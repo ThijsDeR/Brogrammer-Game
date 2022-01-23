@@ -1,4 +1,3 @@
-import Game from './Game.js';
 import Prop from './Props/Prop.js';
 
 export default class CollideHandler {
@@ -33,8 +32,11 @@ export default class CollideHandler {
   }
 
   /**
-   * @param object1
-   * @param object2
+   * Method that gets the contact data
+   *
+   * @param object1 Object 1
+   * @param object2 Object 2
+   * @returns contact
    */
   public static getContactData(object1: Prop, object2: Prop): number {
     let contact: number = CollideHandler.NO_CONTACT;
@@ -55,17 +57,22 @@ export default class CollideHandler {
 
     if (Math.abs(dx) <= width && Math.abs(dy) <= height) {
       if (crossWidth > crossHeight) {
-        contact = (crossWidth > (-crossHeight)) ? CollideHandler.BOTTOM_CONTACT : CollideHandler.LEFT_CONTACT;
+        contact = (crossWidth > (-crossHeight))
+          ? CollideHandler.BOTTOM_CONTACT : CollideHandler.LEFT_CONTACT;
       } else {
-        contact = (crossWidth > (-crossHeight)) ? CollideHandler.RIGHT_CONTACT : CollideHandler.TOP_CONTACT;
+        contact = (crossWidth > (-crossHeight))
+          ? CollideHandler.RIGHT_CONTACT : CollideHandler.TOP_CONTACT;
       }
     }
     return contact;
   }
 
   /**
-   * @param object1
-   * @param object2
+   * Method that gets the vertical contact data
+   *
+   * @param object1 Object 1
+   * @param object2 Object 2
+   * @returns if contact is made on the top
    */
   public static getVerticalContactData(object1: Prop, object2: Prop): number {
     const object1MidY = object1.getMinYPos() + (object1.getHeight() / 2);

@@ -8,10 +8,10 @@ export default abstract class Scene {
   protected userData: UserData;
 
   /**
-   * l
+   * The constuctor of scene
    *
-   * @param canvas l
-   * @param userData
+   * @param canvas canvas element
+   * @param userData Data about the user
    */
   public constructor(canvas: HTMLCanvasElement, userData: UserData) {
     this.canvas = canvas;
@@ -39,15 +39,15 @@ export default abstract class Scene {
   public abstract update(elapsed: number): Scene;
 
   /**
-   * @param ctx
-   * @param text
-   * @param xPos
-   * @param yPos
-   * @param fontSize
-   * @param color
-   * @param textAlign
-   * @param textBaseline
-   * @param maxWidth
+   * @param ctx CanvasRenderingContext
+   * @param text Text to be written on screen
+   * @param xPos X position of the text
+   * @param yPos Y position of the text
+   * @param fontSize Size of the text
+   * @param color Color of the text
+   * @param textAlign Alignment of the text
+   * @param textBaseline Baseline of the text
+   * @param maxWidth The max with the text can have
    */
   public static writeTextToCanvas(
     ctx: CanvasRenderingContext2D,
@@ -59,7 +59,7 @@ export default abstract class Scene {
     textAlign: CanvasTextAlign = 'center',
     textBaseline: CanvasTextBaseline = 'middle',
     maxWidth: number = 10000,
-  ) {
+  ): void {
     ctx.font = `${fontSize}px Arial`;
     ctx.fillStyle = color;
     ctx.textAlign = textAlign;
@@ -100,6 +100,7 @@ export default abstract class Scene {
         yPositions.push(yPos + (fontSize * (i + 1)));
       }
     }
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     lines.forEach((line, lineIndex) => {
       ctx.fillText(line, xPos, yPositions[lineIndex]);
     });

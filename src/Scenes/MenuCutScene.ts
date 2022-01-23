@@ -16,12 +16,20 @@ export default class MenuCutScene extends CutScene {
   private backgroundMusic: HTMLAudioElement;
 
   /**
-   * @param canvas
-   * @param userData
-   * @param backgroundMusic
-   * @param isPlaying
+   * Constructor of MenuCutScene
+   *
+   * @param canvas The game field
+   * @param userData The data of the user
+   * @param backgroundMusic The background music
+   * @param isPlaying 'True' if the background music is playing
+   *                  'False' if the background music is not playing
    */
-  public constructor(canvas: HTMLCanvasElement, userData: UserData, backgroundMusic?: HTMLAudioElement, isPlaying: boolean = false) {
+  public constructor(
+    canvas: HTMLCanvasElement,
+    userData: UserData,
+    backgroundMusic?: HTMLAudioElement,
+    isPlaying: boolean = false,
+  ) {
     super(canvas, userData);
 
     this.backgroundMusic = backgroundMusic;
@@ -37,6 +45,14 @@ export default class MenuCutScene extends CutScene {
     ];
     this.completed = false;
     this.nextScene = null;
+
+    const hoverFunction = (event: MouseEvent) => {
+      this.props.forEach((prop) => {
+        if (prop instanceof Button) {
+          prop.doHover({ x: event.x, y: event.y });
+        }
+      });
+    };
 
     const clickFunction = (event: MouseEvent) => {
       this.props.forEach((prop) => {
@@ -56,14 +72,6 @@ export default class MenuCutScene extends CutScene {
         this.canvas.removeEventListener('click', clickFunction);
         this.canvas.removeEventListener('mousemove', hoverFunction);
       }
-    };
-
-    const hoverFunction = (event: MouseEvent) => {
-      this.props.forEach((prop) => {
-        if (prop instanceof Button) {
-          prop.doHover({ x: event.x, y: event.y });
-        }
-      });
     };
 
     this.canvas.addEventListener('click', clickFunction);
@@ -92,16 +100,22 @@ export default class MenuCutScene extends CutScene {
   }
 
   /**
-   *
+   * Method that processes the input of the user
    */
   public processInput(): void {
 
   }
 
+  /**
+   * Method that updates the canvas
+   *
+   * @param elapsed time elapsed
+   * @returns
+   */
   public update = (elapsed: number): boolean => this.completed;
 
   /**
-   *
+   * Method that get an optional scene
    */
   public getOptionalScene(): Scene | null {
     return this.nextScene;
