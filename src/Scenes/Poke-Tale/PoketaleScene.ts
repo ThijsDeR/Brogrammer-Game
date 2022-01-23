@@ -36,32 +36,33 @@ export default class PoketaleScene extends GameLevel {
 
     this.props =[
       new PokeEnemy(
-        Game.randomNumber(400, 1800),
-        Game.randomNumber(450, 900),
-        100,
-        100,
+        Game.randomNumber(0 + (this.canvas.width / 20), this.canvas.width - (this.canvas.width / 20)),
+        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10), this.canvas.height - (this.canvas.height / 10)),
+        this.canvas.width / 20,
+        this.canvas.height / 10,
       ),
 
       new PokeEnemy(
-        Game.randomNumber(400, 1800),
-        Game.randomNumber(450, 900),
-        100,
-        100,
+        Game.randomNumber(0 + (this.canvas.width / 20), this.canvas.width - (this.canvas.width / 20)),
+        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10), this.canvas.height - (this.canvas.height / 10)),
+        this.canvas.width / 20,
+        this.canvas.height / 10,
+      ),
+      
+      new PokeEnemy(
+        Game.randomNumber(0 + (this.canvas.width / 20), this.canvas.width - (this.canvas.width / 20)),
+        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10), this.canvas.height - (this.canvas.height / 10)),
+        this.canvas.width / 20,
+        this.canvas.height / 10,
       ),
 
       new PokeEnemy(
-        Game.randomNumber(400, 1800),
-        Game.randomNumber(450, 900),
-        100,
-        100,
+        Game.randomNumber(0 + (this.canvas.width / 20), this.canvas.width - (this.canvas.width / 20)),
+        Game.randomNumber(this.canvas.height / 2 + (this.canvas.height / 10), this.canvas.height - (this.canvas.height / 10)),
+        this.canvas.width / 20,
+        this.canvas.height / 10,
       ),
 
-      new PokeEnemy(
-        Game.randomNumber(400, 1800),
-        Game.randomNumber(450, 900),
-        100,
-        100,
-      ),
     ]
 
 

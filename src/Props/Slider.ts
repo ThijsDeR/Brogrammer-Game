@@ -1,16 +1,16 @@
-import Scene from "../Scene.js";
-import RectProp from "./RectProp.js";
+import Scene from '../Scene.js';
+import RectProp from './RectProp.js';
 
 export default class Slider extends RectProp {
   private id: string;
 
   private text: string;
 
-  private textColor: string
+  private textColor: string;
 
   private originalColor: string;
 
-  private sliderColor: string
+  private sliderColor: string;
 
   private hoverColor: string;
 
@@ -18,6 +18,20 @@ export default class Slider extends RectProp {
 
   private positionRectProp: RectProp;
 
+  /**
+   * Initialize Slider
+   * @param xPos xpos
+   * @param yPos ypos
+   * @param width width
+   * @param height height
+   * @param color color
+   * @param sliderColor slider color
+   * @param hoverColor color of slider when hovered
+   * @param position position of slider (0 - 100%)
+   * @param text text
+   * @param textColor text color
+   * @param id slider id
+   */
   public constructor(
     xPos: number,
     yPos: number,
@@ -32,34 +46,45 @@ export default class Slider extends RectProp {
     id: string,
 
   ) {
-    super(xPos, yPos, width, height, color, 'stroke')
+    super(xPos, yPos, width, height, color, 'stroke');
 
-    this.originalColor = color
-    this.id = id
-    this.hoverColor = hoverColor
-    this.sliderColor = sliderColor
-    this.position = position
-    this.positionRectProp = new RectProp(this.xPos - this.width / 20, this.yPos - this.height / 2, this.width / 10, this.height * 2, this.sliderColor, 'fill')
+    this.originalColor = color;
+    this.id = id;
+    this.hoverColor = hoverColor;
+    this.sliderColor = sliderColor;
+    this.position = position;
+    this.positionRectProp = new RectProp(this.xPos - this.width / 20, this.yPos - this.height / 2, this.width / 10, this.height * 2, this.sliderColor, 'fill');
 
-    this.text = text
-    this.textColor = textColor
-
+    this.text = text;
+    this.textColor = textColor;
   }
 
+  /**
+   * draw the slider to the screen
+   *
+   * @param ctx the canvas rendering context
+   */
   public draw(ctx: CanvasRenderingContext2D): void {
-    super.draw(ctx)
+    super.draw(ctx);
 
-    this.positionRectProp.draw(ctx, -((this.position / 100) * this.width))
+    this.positionRectProp.draw(ctx, -((this.position / 100) * this.width));
     Scene.writeTextToCanvas(
       ctx,
       this.text,
       this.xPos + (this.width * 1.5),
       this.yPos,
       this.height * 2,
-      this.textColor
-    )
+      this.textColor,
+    );
   }
 
+  /**
+   * Getter for if the slider is hovered
+   * @param mouseCoords 
+   * @param mouseCoords.x
+   * @param mouseCoords.y
+   * @returns 
+   */
   public isHovered(mouseCoords: {x: number, y: number}): boolean {
     if (
       mouseCoords.x > this.getMinXPos()

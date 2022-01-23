@@ -14,11 +14,12 @@ export default abstract class Prop {
    *
    * @param xPos the x position of the prop
    * @param yPos the y position of the prop
-   * @param imgSrc the source string of the prop image
+   * @param width width
+   * @param height height
    */
   public constructor(
-    xPos: number, 
-    yPos: number, 
+    xPos: number,
+    yPos: number,
     width: number,
     height: number,
   ) {
@@ -49,7 +50,7 @@ export default abstract class Prop {
    *
    * @returns xPos
    */
-   public getMaxXPos(): number {
+  public getMaxXPos(): number {
     return this.xPos + this.width;
   }
 
@@ -71,11 +72,21 @@ export default abstract class Prop {
     return this.yPos;
   }
 
+  /**
+   * Getter for width
+   *
+   * @returns width
+   */
   public getWidth(): number {
     return this.width;
   }
 
-  public getHeight(): number { 
+  /**
+   * Getter for height
+   *
+   * @returns height
+   */
+  public getHeight(): number {
     return this.height;
   }
 
@@ -84,7 +95,7 @@ export default abstract class Prop {
    *
    * @param xPos xPos
    */
-   public setXPos(xPos: number): void {
+  public setXPos(xPos: number): void {
     this.xPos = xPos;
   }
 
@@ -97,10 +108,20 @@ export default abstract class Prop {
     this.yPos = yPos;
   }
 
+  /**
+   * Setter for width
+   *
+   * @param width width
+   */
   public setWidth(width: number): void {
     this.width = width;
   }
-  
+
+  /**
+   * Setter for height
+   *
+   * @param height height
+   */
   public setHeight(height: number): void {
     this.height = height;
   }

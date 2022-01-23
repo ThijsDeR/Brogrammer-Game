@@ -102,7 +102,7 @@ export default class BattleScene extends CutScene {
         this.props.push(...[
             new ImageProp(0, (this.canvas.height / 3) * 2, GameInfo.IMG_PATH + 'PokeBox.png', this.canvas.width, this.canvas.height / 3),
             new ImageProp(0, 0, GameInfo.IMG_PATH + 'PokeBox.png', this.canvas.width, this.canvas.height / 10),
-            new Text(canvas.width / 2, 50, canvas.width / 2, this.canvas.height, question.prompt, 'black', this.canvas.height / 25),
+            new Text(canvas.width / 2, this.canvas.height / 20, canvas.width / 2, this.canvas.height, question.prompt, 'black', this.canvas.height / 25),
             new Button(canvas.width / 5 * 0.6 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'red', 'black', 'black', question.moves[0].move, this.canvas.height / 30, '0'),
             new Button((canvas.width / 5) * 3.1 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 5)) / 2) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'purple', 'black', 'black', question.moves[1].move, this.canvas.height / 30, '1'),
             new Button((canvas.width / 5) * 0.6 - this.canvas.width / 14, ((chatBoxHeight - (this.canvas.height / 7))) + (chatBoxHeight * 2), this.canvas.width / 2.5, this.canvas.height / 12, 'blue', 'black', 'black', question.moves[2].move, this.canvas.height / 30, '2'),

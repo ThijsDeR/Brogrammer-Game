@@ -10,6 +10,7 @@ export default class RectProp extends Prop {
     draw(ctx, offsetX = 0, offsetY = 0) {
         ctx.beginPath();
         ctx.strokeStyle = this.color;
+        ctx.lineWidth = this.width / 200 + this.height / 200;
         ctx.fillStyle = this.color;
         ctx.rect(this.xPos - offsetX, this.yPos - offsetY, this.width, this.height);
         if (this.style === 'fill')
