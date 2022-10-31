@@ -32,7 +32,8 @@ export default class Player extends ImageProp {
         this.xVel = 0;
         if (!this.airborne) {
             if (this.keyboardListener.isKeyDown(KeyboardListener.KEY_SPACE)
-                || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) || this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) {
+                || this.keyboardListener.isKeyDown(KeyboardListener.KEY_UP) 
+                || this.keyboardListener.isKeyDown(KeyboardListener.KEY_W)) {
                 this.yVel = -(GameInfo.PLAYER_Y_SPEED) * (this.height / 100);
             }
         }
